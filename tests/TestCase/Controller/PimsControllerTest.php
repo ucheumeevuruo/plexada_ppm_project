@@ -21,16 +21,6 @@ class PimsControllerTest extends TestCase
      */
     public $fixtures = [
         'app.Pims',
-        'app.PimApprovals',
-        'app.PimCategories',
-        'app.PimMdas',
-        'app.PimOversightStructures',
-        'app.PimProgressReports',
-        'app.PimProjectActionPlans',
-        'app.PimProjectComponents',
-        'app.PimTasks',
-        'app.PimTotalExpenditures',
-        'app.PimWorkPlans',
     ];
 
     /**

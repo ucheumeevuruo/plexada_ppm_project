@@ -24,16 +24,6 @@ class PimsTableTest extends TestCase
      */
     public $fixtures = [
         'app.Pims',
-        'app.PimApprovals',
-        'app.PimCategories',
-        'app.PimMdas',
-        'app.PimOversightStructures',
-        'app.PimProgressReports',
-        'app.PimProjectActionPlans',
-        'app.PimProjectComponents',
-        'app.PimTasks',
-        'app.PimTotalExpenditures',
-        'app.PimWorkPlans',
     ];
 
     /**
@@ -76,16 +66,6 @@ class PimsTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
