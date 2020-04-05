@@ -48,9 +48,9 @@ class PadsTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->integer('date')
+            ->date('date')
             ->requirePresence('date', 'create')
-            ->notEmptyString('date');
+            ->notEmptyDate('date');
 
         $validator
             ->scalar('brief')
@@ -294,6 +294,8 @@ class PadsTable extends Table
             ->notEmptyString('critical_massumptions');
 
         $validator
+            ->scalar('file_upload')
+            ->maxLength('file_upload', 225)
             ->requirePresence('file_upload', 'create')
             ->notEmptyFile('file_upload');
 

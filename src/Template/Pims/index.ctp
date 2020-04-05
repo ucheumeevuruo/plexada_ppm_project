@@ -30,6 +30,10 @@
                 <th scope="col"><?= $this->Paginator->sort('approvers_agency') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('approvers_rep_information') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('approvers_date') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('signed_mou') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('adopted_minutes') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('financial_management') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('financial_template') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('parties') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('responsibilities') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('start_date') ?></th>
@@ -75,6 +79,10 @@
                 <td><?= h($pim->approvers_agency) ?></td>
                 <td><?= h($pim->approvers_rep_information) ?></td>
                 <td><?= h($pim->approvers_date) ?></td>
+                <td><?= h($pim->signed_mou) ?></td>
+                <td><?= h($pim->adopted_minutes) ?></td>
+                <td><?= h($pim->financial_management) ?></td>
+                <td><?= h($pim->financial_template) ?></td>
                 <td><?= h($pim->parties) ?></td>
                 <td><?= h($pim->responsibilities) ?></td>
                 <td><?= h($pim->start_date) ?></td>

@@ -61,6 +61,22 @@
             <td><?= h($pim->approvers_rep_information) ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Signed Mou') ?></th>
+            <td><?= h($pim->signed_mou) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Adopted Minutes') ?></th>
+            <td><?= h($pim->adopted_minutes) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Financial Management') ?></th>
+            <td><?= h($pim->financial_management) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Financial Template') ?></th>
+            <td><?= h($pim->financial_template) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Parties') ?></th>
             <td><?= h($pim->parties) ?></td>
         </tr>
