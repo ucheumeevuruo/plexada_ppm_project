@@ -3,16 +3,27 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Pim[]|\Cake\Collection\CollectionInterface $pims
  */
+$this->start('sidebar');
+echo $this->element('sidebar/default');
+$this->end();
+$this->start('navbar');
+echo $this->element('navbar/default');
+$this->end();
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Pim'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="pims index large-9 medium-8 columns content">
-    <h3><?= __('Pims') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+<div class="container-fluid">
+<!-- <div class="pims index large-9 medium-8 columns content"> -->
+    <h3><?= __('Project Implementation Manual List') ?></h3>
+
+    <div class="card shadow mb-4">
+    <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary"><?= __('Add New PIM') ?>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <?= $this->Html->link(__('<i class="fa fa-plus fa-lg"></i>'), ['action' => 'add'], ['class' => 'btn btn-light overlay', 'title' => 'Add', 'escape' => false]) ?>
+            </div></h6>
+    </div>
+    <div class="card-body">
+    <div class="table-responsive">
+    <table cellpadding="0" cellspacing="0" class="table table-bordered dataTable" role="grid" aria-describedby="dataTable_info">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
@@ -108,6 +119,9 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+    </div>
+    </div>
+    </div>
     <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->first('<< ' . __('first')) ?>
@@ -118,4 +132,8 @@
         </ul>
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
+<!-- </div> -->
+<script>
+ $('.dataTable').DataTable();
+ </script>
 </div>
