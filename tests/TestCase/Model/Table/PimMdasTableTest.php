@@ -1,21 +1,21 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\PadsTable;
+use App\Model\Table\PimMdasTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\PadsTable Test Case
+ * App\Model\Table\PimMdasTable Test Case
  */
-class PadsTableTest extends TestCase
+class PimMdasTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\PadsTable
+     * @var \App\Model\Table\PimMdasTable
      */
-    public $Pads;
+    public $PimMdas;
 
     /**
      * Fixtures
@@ -23,7 +23,8 @@ class PadsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.Pads',
+        'app.PimMdas',
+        'app.Pims',
     ];
 
     /**
@@ -34,8 +35,8 @@ class PadsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Pads') ? [] : ['className' => PadsTable::class];
-        $this->Pads = TableRegistry::getTableLocator()->get('Pads', $config);
+        $config = TableRegistry::getTableLocator()->exists('PimMdas') ? [] : ['className' => PimMdasTable::class];
+        $this->PimMdas = TableRegistry::getTableLocator()->get('PimMdas', $config);
     }
 
     /**
@@ -45,7 +46,7 @@ class PadsTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Pads);
+        unset($this->PimMdas);
 
         parent::tearDown();
     }

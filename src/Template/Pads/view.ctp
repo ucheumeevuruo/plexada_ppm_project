@@ -11,16 +11,6 @@
         <li><?= $this->Form->postLink(__('Delete Pad'), ['action' => 'delete', $pad->id], ['confirm' => __('Are you sure you want to delete # {0}?', $pad->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Pads'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Pad'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Pad Achievements'), ['controller' => 'PadAchievements', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Pad Achievement'), ['controller' => 'PadAchievements', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Pad Activities Means'), ['controller' => 'PadActivitiesMeans', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Pad Activities Mean'), ['controller' => 'PadActivitiesMeans', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Pad Costings'), ['controller' => 'PadCostings', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Pad Costing'), ['controller' => 'PadCostings', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Pad Credit Facility Agreements'), ['controller' => 'PadCreditFacilityAgreements', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Pad Credit Facility Agreement'), ['controller' => 'PadCreditFacilityAgreements', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Pad Objectives'), ['controller' => 'PadObjectives', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Pad Objective'), ['controller' => 'PadObjectives', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="pads view large-9 medium-8 columns content">
@@ -43,8 +33,136 @@
             <td><?= h($pad->project_target) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Details') ?></th>
-            <td><?= h($pad->details) ?></td>
+            <th scope="row"><?= __('Project Details') ?></th>
+            <td><?= h($pad->project_details) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Currency') ?></th>
+            <td><?= h($pad->currency) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Expected Outcome') ?></th>
+            <td><?= h($pad->expected_outcome) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Conditions') ?></th>
+            <td><?= h($pad->conditions) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Heirarchy Of Objectiv') ?></th>
+            <td><?= h($pad->heirarchy_of_objectiv) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Objective Sub Category') ?></th>
+            <td><?= h($pad->objective_sub_category) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Specific Oobjective') ?></th>
+            <td><?= h($pad->specific_oobjective) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('First Oindicator') ?></th>
+            <td><?= h($pad->first_oindicator) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Second Oindicator') ?></th>
+            <td><?= h($pad->second_oindicator) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Third Oindicator') ?></th>
+            <td><?= h($pad->third_oindicator) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Forth Oindicator') ?></th>
+            <td><?= h($pad->forth_oindicator) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Fifth Oindicator') ?></th>
+            <td><?= h($pad->fifth_oindicator) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Sixth Oindicator') ?></th>
+            <td><?= h($pad->sixth_oindicator) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('M E Omethod') ?></th>
+            <td><?= h($pad->m_e_omethod) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Critical Oassumptions') ?></th>
+            <td><?= h($pad->critical_oassumptions) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Specific Aobjective') ?></th>
+            <td><?= h($pad->specific_aobjective) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('First Aindicator') ?></th>
+            <td><?= h($pad->first_aindicator) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Second Aindicator') ?></th>
+            <td><?= h($pad->second_aindicator) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Third Aindicator') ?></th>
+            <td><?= h($pad->third_aindicator) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Forth Aindicator') ?></th>
+            <td><?= h($pad->forth_aindicator) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Fifth Aindicator') ?></th>
+            <td><?= h($pad->fifth_aindicator) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Sixth Aindicator') ?></th>
+            <td><?= h($pad->sixth_aindicator) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('M E Amethod') ?></th>
+            <td><?= h($pad->m_e_amethod) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Critical Aassumptions') ?></th>
+            <td><?= h($pad->critical_aassumptions) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Specific Mobjectives') ?></th>
+            <td><?= h($pad->specific_mobjectives) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('First Mindicator') ?></th>
+            <td><?= h($pad->first_mindicator) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Second Mindicator') ?></th>
+            <td><?= h($pad->second_mindicator) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Third Mindicator') ?></th>
+            <td><?= h($pad->third_mindicator) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Forth Mindicator') ?></th>
+            <td><?= h($pad->forth_mindicator) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Fifth Mindicator') ?></th>
+            <td><?= h($pad->fifth_mindicator) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Sixth Mindicator') ?></th>
+            <td><?= h($pad->sixth_mindicator) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('M E Mmethod') ?></th>
+            <td><?= h($pad->m_e_mmethod) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Critical Massumptions') ?></th>
+            <td><?= h($pad->critical_massumptions) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Id') ?></th>
@@ -52,192 +170,23 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Date') ?></th>
-            <td><?= h($pad->date) ?></td>
+            <td><?= $this->Number->format($pad->date) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Project Amount') ?></th>
+            <td><?= $this->Number->format($pad->project_amount) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Funding Agency') ?></th>
+            <td><?= $this->Number->format($pad->funding_agency) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Due Date') ?></th>
+            <td><?= h($pad->due_date) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Deadline') ?></th>
+            <td><?= h($pad->deadline) ?></td>
         </tr>
     </table>
-    <div class="related">
-        <h4><?= __('Related Pad Achievements') ?></h4>
-        <?php if (!empty($pad->pad_achievements)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Pad Id') ?></th>
-                <th scope="col"><?= __('Specific Objective') ?></th>
-                <th scope="col"><?= __('First Indicator') ?></th>
-                <th scope="col"><?= __('Second Indicator') ?></th>
-                <th scope="col"><?= __('Third Indicator') ?></th>
-                <th scope="col"><?= __('Forth Indicator') ?></th>
-                <th scope="col"><?= __('Fifth Indicator') ?></th>
-                <th scope="col"><?= __('Sixth Indicator') ?></th>
-                <th scope="col"><?= __('M E Method') ?></th>
-                <th scope="col"><?= __('Critical Assumptions') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($pad->pad_achievements as $padAchievements): ?>
-            <tr>
-                <td><?= h($padAchievements->id) ?></td>
-                <td><?= h($padAchievements->pad_id) ?></td>
-                <td><?= h($padAchievements->specific_objective) ?></td>
-                <td><?= h($padAchievements->first_indicator) ?></td>
-                <td><?= h($padAchievements->second_indicator) ?></td>
-                <td><?= h($padAchievements->third_indicator) ?></td>
-                <td><?= h($padAchievements->forth_indicator) ?></td>
-                <td><?= h($padAchievements->fifth_indicator) ?></td>
-                <td><?= h($padAchievements->sixth_indicator) ?></td>
-                <td><?= h($padAchievements->m_e_method) ?></td>
-                <td><?= h($padAchievements->critical assumptions) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'PadAchievements', 'action' => 'view', $padAchievements->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'PadAchievements', 'action' => 'edit', $padAchievements->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'PadAchievements', 'action' => 'delete', $padAchievements->id], ['confirm' => __('Are you sure you want to delete # {0}?', $padAchievements->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Pad Activities Means') ?></h4>
-        <?php if (!empty($pad->pad_activities_means)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Pad Id') ?></th>
-                <th scope="col"><?= __('Specific Objective') ?></th>
-                <th scope="col"><?= __('First Indicator') ?></th>
-                <th scope="col"><?= __('Second Indicator') ?></th>
-                <th scope="col"><?= __('Third Indicator') ?></th>
-                <th scope="col"><?= __('Forth Indicator') ?></th>
-                <th scope="col"><?= __('Fifth Indicator') ?></th>
-                <th scope="col"><?= __('Sixth Indicator') ?></th>
-                <th scope="col"><?= __('M E Method') ?></th>
-                <th scope="col"><?= __('Critical Assumptions') ?></th>
-                <th scope="col"><?= __('Pad File') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($pad->pad_activities_means as $padActivitiesMeans): ?>
-            <tr>
-                <td><?= h($padActivitiesMeans->id) ?></td>
-                <td><?= h($padActivitiesMeans->pad_id) ?></td>
-                <td><?= h($padActivitiesMeans->specific_objective) ?></td>
-                <td><?= h($padActivitiesMeans->first_indicator) ?></td>
-                <td><?= h($padActivitiesMeans->second_indicator) ?></td>
-                <td><?= h($padActivitiesMeans->third_indicator) ?></td>
-                <td><?= h($padActivitiesMeans->forth_indicator) ?></td>
-                <td><?= h($padActivitiesMeans->fifth_indicator) ?></td>
-                <td><?= h($padActivitiesMeans->sixth_indicator) ?></td>
-                <td><?= h($padActivitiesMeans->m_e_method) ?></td>
-                <td><?= h($padActivitiesMeans->critical_assumptions) ?></td>
-                <td><?= h($padActivitiesMeans->pad_file) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'PadActivitiesMeans', 'action' => 'view', $padActivitiesMeans->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'PadActivitiesMeans', 'action' => 'edit', $padActivitiesMeans->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'PadActivitiesMeans', 'action' => 'delete', $padActivitiesMeans->id], ['confirm' => __('Are you sure you want to delete # {0}?', $padActivitiesMeans->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Pad Costings') ?></h4>
-        <?php if (!empty($pad->pad_costings)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Pad Id') ?></th>
-                <th scope="col"><?= __('Project Amount') ?></th>
-                <th scope="col"><?= __('Currency') ?></th>
-                <th scope="col"><?= __('Due Date') ?></th>
-                <th scope="col"><?= __('Expected Outcome') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($pad->pad_costings as $padCostings): ?>
-            <tr>
-                <td><?= h($padCostings->id) ?></td>
-                <td><?= h($padCostings->pad_id) ?></td>
-                <td><?= h($padCostings->project_amount) ?></td>
-                <td><?= h($padCostings->currency) ?></td>
-                <td><?= h($padCostings->due_date) ?></td>
-                <td><?= h($padCostings->expected_outcome) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'PadCostings', 'action' => 'view', $padCostings->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'PadCostings', 'action' => 'edit', $padCostings->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'PadCostings', 'action' => 'delete', $padCostings->id], ['confirm' => __('Are you sure you want to delete # {0}?', $padCostings->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Pad Credit Facility Agreements') ?></h4>
-        <?php if (!empty($pad->pad_credit_facility_agreements)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Pad Id') ?></th>
-                <th scope="col"><?= __('Funding Agency') ?></th>
-                <th scope="col"><?= __('Conditions') ?></th>
-                <th scope="col"><?= __('Deadline') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($pad->pad_credit_facility_agreements as $padCreditFacilityAgreements): ?>
-            <tr>
-                <td><?= h($padCreditFacilityAgreements->id) ?></td>
-                <td><?= h($padCreditFacilityAgreements->pad_id) ?></td>
-                <td><?= h($padCreditFacilityAgreements->funding_agency) ?></td>
-                <td><?= h($padCreditFacilityAgreements->conditions) ?></td>
-                <td><?= h($padCreditFacilityAgreements->deadline) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'PadCreditFacilityAgreements', 'action' => 'view', $padCreditFacilityAgreements->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'PadCreditFacilityAgreements', 'action' => 'edit', $padCreditFacilityAgreements->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'PadCreditFacilityAgreements', 'action' => 'delete', $padCreditFacilityAgreements->id], ['confirm' => __('Are you sure you want to delete # {0}?', $padCreditFacilityAgreements->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Pad Objectives') ?></h4>
-        <?php if (!empty($pad->pad_objectives)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Pad Id') ?></th>
-                <th scope="col"><?= __('Specific Objective') ?></th>
-                <th scope="col"><?= __('First Indicator') ?></th>
-                <th scope="col"><?= __('Second Indicator') ?></th>
-                <th scope="col"><?= __('Third Indicator') ?></th>
-                <th scope="col"><?= __('Forth Indicator') ?></th>
-                <th scope="col"><?= __('Fifth Indicator') ?></th>
-                <th scope="col"><?= __('Sixth Indicator') ?></th>
-                <th scope="col"><?= __('M E Method') ?></th>
-                <th scope="col"><?= __('Critical Assumptions') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($pad->pad_objectives as $padObjectives): ?>
-            <tr>
-                <td><?= h($padObjectives->id) ?></td>
-                <td><?= h($padObjectives->pad_id) ?></td>
-                <td><?= h($padObjectives->specific_objective) ?></td>
-                <td><?= h($padObjectives->first_indicator) ?></td>
-                <td><?= h($padObjectives->second_indicator) ?></td>
-                <td><?= h($padObjectives->third_indicator) ?></td>
-                <td><?= h($padObjectives->forth_indicator) ?></td>
-                <td><?= h($padObjectives->fifth_indicator) ?></td>
-                <td><?= h($padObjectives->sixth_indicator) ?></td>
-                <td><?= h($padObjectives->m_e_method) ?></td>
-                <td><?= h($padObjectives->critical_assumptions) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'PadObjectives', 'action' => 'view', $padObjectives->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'PadObjectives', 'action' => 'edit', $padObjectives->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'PadObjectives', 'action' => 'delete', $padObjectives->id], ['confirm' => __('Are you sure you want to delete # {0}?', $padObjectives->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
 </div>

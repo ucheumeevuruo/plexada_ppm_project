@@ -1,21 +1,21 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\PadsTable;
+use App\Model\Table\PimTotalExpendituresTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\PadsTable Test Case
+ * App\Model\Table\PimTotalExpendituresTable Test Case
  */
-class PadsTableTest extends TestCase
+class PimTotalExpendituresTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\PadsTable
+     * @var \App\Model\Table\PimTotalExpendituresTable
      */
-    public $Pads;
+    public $PimTotalExpenditures;
 
     /**
      * Fixtures
@@ -23,7 +23,8 @@ class PadsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.Pads',
+        'app.PimTotalExpenditures',
+        'app.Pims',
     ];
 
     /**
@@ -34,8 +35,8 @@ class PadsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('Pads') ? [] : ['className' => PadsTable::class];
-        $this->Pads = TableRegistry::getTableLocator()->get('Pads', $config);
+        $config = TableRegistry::getTableLocator()->exists('PimTotalExpenditures') ? [] : ['className' => PimTotalExpendituresTable::class];
+        $this->PimTotalExpenditures = TableRegistry::getTableLocator()->get('PimTotalExpenditures', $config);
     }
 
     /**
@@ -45,7 +46,7 @@ class PadsTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Pads);
+        unset($this->PimTotalExpenditures);
 
         parent::tearDown();
     }
@@ -66,6 +67,16 @@ class PadsTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test buildRules method
+     *
+     * @return void
+     */
+    public function testBuildRules()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
