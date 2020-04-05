@@ -1,16 +1,16 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\PadsController;
+use App\Controller\PimsController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\PadsController Test Case
+ * App\Controller\PimsController Test Case
  *
- * @uses \App\Controller\PadsController
+ * @uses \App\Controller\PimsController
  */
-class PadsControllerTest extends TestCase
+class PimsControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
@@ -20,7 +20,17 @@ class PadsControllerTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.Pads',
+        'app.Pims',
+        'app.PimApprovals',
+        'app.PimCategories',
+        'app.PimMdas',
+        'app.PimOversightStructures',
+        'app.PimProgressReports',
+        'app.PimProjectActionPlans',
+        'app.PimProjectComponents',
+        'app.PimTasks',
+        'app.PimTotalExpenditures',
+        'app.PimWorkPlans',
     ];
 
     /**

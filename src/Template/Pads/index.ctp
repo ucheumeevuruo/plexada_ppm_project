@@ -8,16 +8,6 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Pad'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Pad Achievements'), ['controller' => 'PadAchievements', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Pad Achievement'), ['controller' => 'PadAchievements', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Pad Activities Means'), ['controller' => 'PadActivitiesMeans', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Pad Activities Mean'), ['controller' => 'PadActivitiesMeans', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Pad Costings'), ['controller' => 'PadCostings', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Pad Costing'), ['controller' => 'PadCostings', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Pad Credit Facility Agreements'), ['controller' => 'PadCreditFacilityAgreements', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Pad Credit Facility Agreement'), ['controller' => 'PadCreditFacilityAgreements', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Pad Objectives'), ['controller' => 'PadObjectives', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Pad Objective'), ['controller' => 'PadObjectives', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="pads index large-9 medium-8 columns content">
@@ -31,7 +21,43 @@
                 <th scope="col"><?= $this->Paginator->sort('key_players') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('project_type') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('project_target') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('details') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('project_details') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('project_amount') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('currency') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('due_date') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('expected_outcome') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('funding_agency') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('conditions') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('deadline') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('heirarchy_of_objectiv') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('objective_sub_category') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('specific_oobjective') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('first_oindicator') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('second_oindicator') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('third_oindicator') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('forth_oindicator') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('fifth_oindicator') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('sixth_oindicator') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('m_e_omethod') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('critical_oassumptions') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('specific_aobjective') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('first_aindicator') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('second_aindicator') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('third_aindicator') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('forth_aindicator') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('fifth_aindicator') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('sixth_aindicator') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('m_e_amethod') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('critical_aassumptions') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('specific_mobjectives') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('first_mindicator') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('second_mindicator') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('third_mindicator') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('forth_mindicator') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('fifth_mindicator') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('sixth_mindicator') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('m_e_mmethod') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('critical_massumptions') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -39,12 +65,48 @@
             <?php foreach ($pads as $pad): ?>
             <tr>
                 <td><?= $this->Number->format($pad->id) ?></td>
-                <td><?= h($pad->date) ?></td>
+                <td><?= $this->Number->format($pad->date) ?></td>
                 <td><?= h($pad->brief) ?></td>
                 <td><?= h($pad->key_players) ?></td>
                 <td><?= h($pad->project_type) ?></td>
                 <td><?= h($pad->project_target) ?></td>
-                <td><?= h($pad->details) ?></td>
+                <td><?= h($pad->project_details) ?></td>
+                <td><?= $this->Number->format($pad->project_amount) ?></td>
+                <td><?= h($pad->currency) ?></td>
+                <td><?= h($pad->due_date) ?></td>
+                <td><?= h($pad->expected_outcome) ?></td>
+                <td><?= $this->Number->format($pad->funding_agency) ?></td>
+                <td><?= h($pad->conditions) ?></td>
+                <td><?= h($pad->deadline) ?></td>
+                <td><?= h($pad->heirarchy_of_objectiv) ?></td>
+                <td><?= h($pad->objective_sub_category) ?></td>
+                <td><?= h($pad->specific_oobjective) ?></td>
+                <td><?= h($pad->first_oindicator) ?></td>
+                <td><?= h($pad->second_oindicator) ?></td>
+                <td><?= h($pad->third_oindicator) ?></td>
+                <td><?= h($pad->forth_oindicator) ?></td>
+                <td><?= h($pad->fifth_oindicator) ?></td>
+                <td><?= h($pad->sixth_oindicator) ?></td>
+                <td><?= h($pad->m_e_omethod) ?></td>
+                <td><?= h($pad->critical_oassumptions) ?></td>
+                <td><?= h($pad->specific_aobjective) ?></td>
+                <td><?= h($pad->first_aindicator) ?></td>
+                <td><?= h($pad->second_aindicator) ?></td>
+                <td><?= h($pad->third_aindicator) ?></td>
+                <td><?= h($pad->forth_aindicator) ?></td>
+                <td><?= h($pad->fifth_aindicator) ?></td>
+                <td><?= h($pad->sixth_aindicator) ?></td>
+                <td><?= h($pad->m_e_amethod) ?></td>
+                <td><?= h($pad->critical_aassumptions) ?></td>
+                <td><?= h($pad->specific_mobjectives) ?></td>
+                <td><?= h($pad->first_mindicator) ?></td>
+                <td><?= h($pad->second_mindicator) ?></td>
+                <td><?= h($pad->third_mindicator) ?></td>
+                <td><?= h($pad->forth_mindicator) ?></td>
+                <td><?= h($pad->fifth_mindicator) ?></td>
+                <td><?= h($pad->sixth_mindicator) ?></td>
+                <td><?= h($pad->m_e_mmethod) ?></td>
+                <td><?= h($pad->critical_massumptions) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $pad->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $pad->id]) ?>

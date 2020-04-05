@@ -34,7 +34,7 @@ class PadsController extends AppController
     public function view($id = null)
     {
         $pad = $this->Pads->get($id, [
-            'contain' => ['PadAchievements', 'PadActivitiesMeans', 'PadCostings', 'PadCreditFacilityAgreements', 'PadObjectives'],
+            'contain' => [],
         ]);
 
         $this->set('pad', $pad);
