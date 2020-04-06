@@ -57,6 +57,7 @@
             echo $this->Form->control('sixth_mindicator');
             echo $this->Form->control('m_e_mmethod');
             echo $this->Form->control('critical_massumptions');
+            echo $this->Form->control('file_upload');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

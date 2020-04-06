@@ -128,18 +128,26 @@ class PimsTable extends Table
             ->notEmptyDate('approvers_date');
 
         $validator
+            ->scalar('signed_mou')
+            ->maxLength('signed_mou', 255)
             ->requirePresence('signed_mou', 'create')
             ->notEmptyString('signed_mou');
 
         $validator
+            ->scalar('adopted_minutes')
+            ->maxLength('adopted_minutes', 255)
             ->requirePresence('adopted_minutes', 'create')
             ->notEmptyString('adopted_minutes');
 
         $validator
+            ->scalar('financial_management')
+            ->maxLength('financial_management', 255)
             ->requirePresence('financial_management', 'create')
             ->notEmptyString('financial_management');
 
         $validator
+            ->scalar('financial_template')
+            ->maxLength('financial_template', 255)
             ->requirePresence('financial_template', 'create')
             ->notEmptyString('financial_template');
 

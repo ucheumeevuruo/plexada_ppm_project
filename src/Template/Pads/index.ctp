@@ -58,6 +58,7 @@
                 <th scope="col"><?= $this->Paginator->sort('sixth_mindicator') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('m_e_mmethod') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('critical_massumptions') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('file_upload') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -65,7 +66,7 @@
             <?php foreach ($pads as $pad): ?>
             <tr>
                 <td><?= $this->Number->format($pad->id) ?></td>
-                <td><?= $this->Number->format($pad->date) ?></td>
+                <td><?= h($pad->date) ?></td>
                 <td><?= h($pad->brief) ?></td>
                 <td><?= h($pad->key_players) ?></td>
                 <td><?= h($pad->project_type) ?></td>
@@ -107,6 +108,7 @@
                 <td><?= h($pad->sixth_mindicator) ?></td>
                 <td><?= h($pad->m_e_mmethod) ?></td>
                 <td><?= h($pad->critical_massumptions) ?></td>
+                <td><?= h($pad->file_upload) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $pad->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $pad->id]) ?>
