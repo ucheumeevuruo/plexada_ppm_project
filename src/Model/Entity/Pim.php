@@ -21,10 +21,10 @@ use Cake\ORM\Entity;
  * @property string $approvers_agency
  * @property string $approvers_rep_information
  * @property \Cake\I18n\FrozenDate $approvers_date
- * @property string|resource $signed_mou
- * @property string|resource $adopted_minutes
- * @property string|resource $financial_management
- * @property string|resource $financial_template
+ * @property string $signed_mou
+ * @property string $adopted_minutes
+ * @property string $financial_management
+ * @property string $financial_template
  * @property string $parties
  * @property string $responsibilities
  * @property \Cake\I18n\FrozenDate $start_date

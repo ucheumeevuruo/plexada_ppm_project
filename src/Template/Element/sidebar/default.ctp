@@ -29,6 +29,10 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
+        <?= $this->Html->link(__('<i class="fa fa-archive fa-lg"></i> &nbsp;Implementation'),
+            ['controller' => 'Pims', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
+    </li>    
+    <li class="nav-item">
 <!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">-->
 <!--            <i class="fas fa-fw fa-cog"></i>-->
 <!--            <span>Components</span>-->

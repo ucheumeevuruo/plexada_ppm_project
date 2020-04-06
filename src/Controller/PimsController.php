@@ -49,13 +49,16 @@ class PimsController extends AppController
     {
         $pim = $this->Pims->newEntity();
         if ($this->request->is('post')) {
-            $pim = $this->Pims->patchEntity($pim, $this->request->getData());
+            $pim = $this->Pims->patchEntity($pim, $this->Pims->identify($this->request->getData()));
+            // $projectDetail = $this->ProjectDetails->patchEntity($projectDetail, $this->ProjectDetails->identify($this->request->getData()));
             if ($this->Pims->save($pim)) {
                 $this->Flash->success(__('The pim has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The pim could not be saved. Please, try again.'));
+            // debug($pim);
+            // die();
         }
         $this->set(compact('pim'));
     }

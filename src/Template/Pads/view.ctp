@@ -165,12 +165,12 @@
             <td><?= h($pad->critical_massumptions) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($pad->id) ?></td>
+            <th scope="row"><?= __('File Upload') ?></th>
+            <td><?= h($pad->file_upload) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Date') ?></th>
-            <td><?= $this->Number->format($pad->date) ?></td>
+            <th scope="row"><?= __('Id') ?></th>
+            <td><?= $this->Number->format($pad->id) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Project Amount') ?></th>
@@ -179,6 +179,10 @@
         <tr>
             <th scope="row"><?= __('Funding Agency') ?></th>
             <td><?= $this->Number->format($pad->funding_agency) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Date') ?></th>
+            <td><?= h($pad->date) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Due Date') ?></th>

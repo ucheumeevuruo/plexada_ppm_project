@@ -3,16 +3,27 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Pim[]|\Cake\Collection\CollectionInterface $pims
  */
+$this->start('sidebar');
+echo $this->element('sidebar/default');
+$this->end();
+$this->start('navbar');
+echo $this->element('navbar/default');
+$this->end();
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Pim'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="pims index large-9 medium-8 columns content">
-    <h3><?= __('Pims') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+<div class="container-fluid">
+<!-- <div class="pims index large-9 medium-8 columns content"> -->
+    <h3><?= __('Project Implementation Manual List') ?></h3>
+
+    <div class="card shadow mb-4">
+    <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary"><?= __('Add New PIM') ?>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <?= $this->Html->link(__('<i class="fa fa-plus fa-lg"></i>'), ['action' => 'add'], ['class' => 'btn btn-light overlay', 'title' => 'Add', 'escape' => false]) ?>
+            </div></h6>
+    </div>
+    <div class="card-body">
+    <div class="table-responsive">
+    <table cellpadding="0" cellspacing="0" class="table table-bordered dataTable" role="grid" aria-describedby="dataTable_info">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
@@ -30,6 +41,10 @@
                 <th scope="col"><?= $this->Paginator->sort('approvers_agency') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('approvers_rep_information') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('approvers_date') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('signed_mou') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('adopted_minutes') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('financial_management') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('financial_template') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('parties') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('responsibilities') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('start_date') ?></th>
@@ -75,6 +90,10 @@
                 <td><?= h($pim->approvers_agency) ?></td>
                 <td><?= h($pim->approvers_rep_information) ?></td>
                 <td><?= h($pim->approvers_date) ?></td>
+                <td><?= h($pim->signed_mou) ?></td>
+                <td><?= h($pim->adopted_minutes) ?></td>
+                <td><?= h($pim->financial_management) ?></td>
+                <td><?= h($pim->financial_template) ?></td>
                 <td><?= h($pim->parties) ?></td>
                 <td><?= h($pim->responsibilities) ?></td>
                 <td><?= h($pim->start_date) ?></td>
@@ -108,6 +127,9 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+    </div>
+    </div>
+    </div>
     <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->first('<< ' . __('first')) ?>
@@ -118,4 +140,8 @@
         </ul>
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
+<!-- </div> -->
+<script>
+ $('.dataTable').DataTable();
+ </script>
 </div>

@@ -7,7 +7,7 @@ use Cake\ORM\Entity;
  * Pad Entity
  *
  * @property int $id
- * @property int $date
+ * @property \Cake\I18n\FrozenDate $date
  * @property string $brief
  * @property string $key_players
  * @property string $project_type
@@ -49,7 +49,7 @@ use Cake\ORM\Entity;
  * @property string $sixth_mindicator
  * @property string $m_e_mmethod
  * @property string $critical_massumptions
- * @property string|resource $file_upload
+ * @property string $file_upload
  */
 class Pad extends Entity
 {
