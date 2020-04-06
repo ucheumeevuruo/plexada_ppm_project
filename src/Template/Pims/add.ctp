@@ -3,21 +3,23 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Pim $pim
  */
+$this->start('sidebar');
+echo $this->element('sidebar/default');
+$this->end();
+$this->start('navbar');
+echo $this->element('navbar/default');
+$this->end();
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Pims'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="pims form large-9 medium-8 columns content">
+<div class="container-fluid">
     <?= $this->Form->create($pim) ?>
     <fieldset>
         <legend><?= __('Add Pim') ?></legend>
         <?php
+        
             echo $this->Form->control('date');
             echo $this->Form->control('brief');
             echo $this->Form->control('funding_agency');
+
             echo $this->Form->control('activities_achievement');
             echo $this->Form->control('risks_mitigation');
             echo $this->Form->control('activity_next_semester');
