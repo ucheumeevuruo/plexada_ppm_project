@@ -9,17 +9,20 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string|null $record_number
  * @property int $project_id
- * @property float $amount
+ * @property int $amount
  * @property string|null $payment
  * @property int $status_id
  * @property string|null $description
  * @property string|null $achievement
- * @property \Cake\I18n\FrozenTime|null $expected_completion_date
+ * @property int|null $trigger_id
+ * @property \Cake\I18n\FrozenDate|null $completed_date
+ * @property \Cake\I18n\FrozenDate|null $expected_completion_date
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
  * @property \App\Model\Entity\ProjectDetail $project_detail
  * @property \App\Model\Entity\Lov $lov
+ * @property \App\Model\Entity\Lov $trigger
  */
 class Milestone extends Entity
 {
@@ -40,11 +43,13 @@ class Milestone extends Entity
         'status_id' => true,
         'description' => true,
         'achievement' => true,
+        'trigger_id' => true,
         'completed_date' => true,
         'expected_completion_date' => true,
         'created' => true,
         'modified' => true,
         'project_detail' => true,
         'lov' => true,
+        'trigger' => true,
     ];
 }

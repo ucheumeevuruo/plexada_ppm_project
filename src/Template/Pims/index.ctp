@@ -3,79 +3,83 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Pim[]|\Cake\Collection\CollectionInterface $pims
  */
-$this->start('sidebar');
-echo $this->element('sidebar/default');
-$this->end();
+// echo $
 $this->start('navbar');
 echo $this->element('navbar/default');
 $this->end();
+$this->start('sidebar');
+echo $this->element('sidebar/default');
+$this->end();
+
+
 ?>
 <div class="container-fluid">
 <!-- <div class="pims index large-9 medium-8 columns content"> -->
-    <h3><?= __('Project Implementation Manual List') ?></h3>
+    <h2 class="text-center text-primary font-weight-bold"><?= __('PIM List') ?></h2>
 
-    <div class="card shadow mb-4">
-    <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><?= __('Add New PIM') ?>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <?= $this->Html->link(__('<i class="fa fa-plus fa-lg"></i>'), ['action' => 'add'], ['class' => 'btn btn-light overlay', 'title' => 'Add', 'escape' => false]) ?>
-            </div></h6>
-    </div>
+    <div class="shadow mb-4 br-m">
+        <div class="py-3 pl-3 bg-primary br-t">
+            <h3 class="m-0 text-white"><?= __('Add New PIM') ?>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <?= $this->Html->link(__('<i class="fa fa-plus fa-lg"></i>'), ['action' => 'add'], ['class' => 'btn btn-light overlay ml-2', 'title' => 'Add', 'escape' => false]) ?>
+                </div>
+            </h3>
+        </div>
     <div class="card-body">
     <div class="table-responsive">
-    <table cellpadding="0" cellspacing="0" class="table table-bordered dataTable" role="grid" aria-describedby="dataTable_info">
-        <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('brief') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('funding_agency') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('activities_achievement') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('risks_mitigation') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('activity_next_semester') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('total_expenditure') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('oversight_level') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('oversight_agency_mda') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('mda') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('rev_commitee_rep_information') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('approvers_agency') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('approvers_rep_information') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('approvers_date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('signed_mou') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('adopted_minutes') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('financial_management') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('financial_template') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('parties') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('responsibilities') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('start_date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('end_date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('financial_cost') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('targets') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('activities') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('action') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('responsible_party') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('plan_start_date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('plan_end_date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('dependency') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('category') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('owner') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('currency') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('disbursed_amount') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('exp_output_date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('task') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('progress_category') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('progress_currency') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('amount_credit_allocation') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('disbursed_current_semester') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('date_disbursement') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('cumulated_disbursment') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+    <table cellpadding="0" cellspacing="" class="table table-bordered dataTable table-hover table-primary br-m" role="grid" aria-describedby="dataTable_info">
+        <thead class="">
+            <tr class="bg-primary">
+                <!-- <th scope="col" class="text-white"><?= __('id') ?></th> -->
+                <th scope="col" class="text-light"><?= __('Date') ?></th>
+                <th scope="col" class="text-light"><?= __('Drief') ?></th>
+                <th scope="col" class="text-light"><?= __('Funding Agency') ?></th>
+                <th scope="col" class="text-light"><?= __('Activities Achievement') ?></th>
+                <th scope="col" class="text-light"><?= __('Risks Mitigation') ?></th>
+                <th scope="col" class="text-light"><?= __('Activity Next Semester') ?></th>
+                <th scope="col" class="text-light"><?= __('Total Expenditure') ?></th>
+                <th scope="col" class="text-light"><?= __('Oversight Level') ?></th>
+                <th scope="col" class="text-light"><?= __('Oversight_Agency_MDA') ?></th>
+                <th scope="col" class="text-light"><?= __('MDA') ?></th>
+                <th scope="col" class="text-light"><?= __('Rev. Commitee Rep. Information') ?></th>
+                <th scope="col" class="text-light"><?= __('Approvers Agency') ?></th>
+                <th scope="col" class="text-light"><?= __('approvers_rep_information') ?></th>
+                <th scope="col" class="text-light"><?= __('approvers_date') ?></th>
+                <th scope="col" class="text-light"><?= __('signed_mou') ?></th>
+                <th scope="col" class="text-light"><?= __('adopted_minutes') ?></th>
+                <th scope="col" class="text-light"><?= __('financial_management') ?></th>
+                <th scope="col" class="text-light"><?= __('financial_template') ?></th>
+                <th scope="col" class="text-light"><?= __('parties') ?></th>
+                <th scope="col" class="text-light"><?= __('responsibilities') ?></th>
+                <th scope="col" class="text-light"><?= __('start_date') ?></th>
+                <th scope="col" class="text-light"><?= __('end_date') ?></th>
+                <th scope="col" class="text-light"><?= __('financial_cost') ?></th>
+                <th scope="col" class="text-light"><?= __('targets') ?></th>
+                <th scope="col" class="text-light"><?= __('activities') ?></th>
+                <th scope="col" class="text-light"><?= __('action') ?></th>
+                <th scope="col" class="text-light"><?= __('responsible_party') ?></th>
+                <th scope="col" class="text-light"><?= __('plan_start_date') ?></th>
+                <th scope="col" class="text-light"><?= __('plan_end_date') ?></th>
+                <th scope="col" class="text-light"><?= __('dependency') ?></th>
+                <th scope="col" class="text-light"><?= __('category') ?></th>
+                <th scope="col" class="text-light"><?= __('owner') ?></th>
+                <th scope="col" class="text-light"><?= __('currency') ?></th>
+                <th scope="col" class="text-light"><?= __('disbursed_amount') ?></th>
+                <th scope="col" class="text-light"><?= __('exp_output_date') ?></th>
+                <th scope="col" class="text-light"><?= __('task') ?></th>
+                <th scope="col" class="text-light"><?= __('progress_category') ?></th>
+                <th scope="col" class="text-light"><?= __('progress_currency') ?></th>
+                <th scope="col" class="text-light"><?= __('amount_credit_allocation') ?></th>
+                <th scope="col" class="text-light"><?= __('disbursed_current_semester') ?></th>
+                <th scope="col" class="text-light"><?= __('date_disbursement') ?></th>
+                <th scope="col" class="text-light"><?= __('cumulated_disbursment') ?></th>
+                <th scope="col" class="text-light" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($pims as $pim): ?>
             <tr>
-                <td><?= $this->Number->format($pim->id) ?></td>
+                <!-- <td><?= $this->Number->format($pim->id) ?></td> -->
                 <td><?= h($pim->date) ?></td>
                 <td><?= h($pim->brief) ?></td>
                 <td><?= h($pim->funding_agency) ?></td>
@@ -140,7 +144,7 @@ $this->end();
         </ul>
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
-<!-- </div> -->
+</div>
 <script>
  $('.dataTable').DataTable();
  </script>
