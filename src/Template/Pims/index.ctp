@@ -30,48 +30,48 @@ $this->end();
         <thead class="text-light">
             <tr class="bg-primary">
                 <!-- <th scope="col"><?= $this->Paginator->sort('id') ?></th> -->
-                <th scope="col" class="text-white" width="15%"><?= $this->Paginator->sort('brief') ?></th>
-                <th scope="col" class="text-white" width="15%"><?= $this->Paginator->sort('date') ?></th>
-                <th scope="col" class="text-white" ><?= $this->Paginator->sort('funding_agency') ?></th>
-                <!-- <th scope="col"><?= $this->Paginator->sort('activities_achievement') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('risks_mitigation') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('activity_next_semester') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('total_expenditure') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('oversight_level') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('oversight_agency_mda') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('mda') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('rev_commitee_rep_information') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('approvers_agency') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('approvers_rep_information') ?></th> 
-                <th scope="col"><?= $this->Paginator->sort('approvers_date') ?></th> -->
-                <th scope="col" class="text-white"><?= $this->Paginator->sort('signed_mou') ?></th>
-                <th scope="col" class="text-white"><?= $this->Paginator->sort('adopted_minutes') ?></th>
-                <!-- <th scope="col"><?= $this->Paginator->sort('financial_management') ?></th> -->
-                <th scope="col" class="text-white"><?= $this->Paginator->sort('financial_template') ?></th>
-               <!--  <th scope="col"><?= $this->Paginator->sort('parties') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('responsibilities') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('start_date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('end_date') ?></th>  -->
-                <th scope="col" class="text-white"><?= $this->Paginator->sort('financial_cost') ?></th>
-                <!-- <th scope="col"><?= $this->Paginator->sort('targets') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('activities') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('action') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('responsible_party') ?></th> 
-                <th scope="col"><?= $this->Paginator->sort('plan_start_date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('plan_end_date') ?></th> -->
-                <!-- <th scope="col"><?= $this->Paginator->sort('dependency') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('category') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('owner') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('currency') ?></th> 
-                <th scope="col"><?= $this->Paginator->sort('disbursed_amount') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('exp_output_date') ?></th> -->
-                <!-- <th scope="col"><?= $this->Paginator->sort('task') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('progress_category') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('progress_currency') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('amount_credit_allocation') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('disbursed_current_semester') ?></th> 
-                <th scope="col"><?= $this->Paginator->sort('date_disbursement') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('cumulated_disbursment') ?></th> -->
+                <th scope="col" class="text-white" width="15%"><?= __('Brief') ?></th>
+                <th scope="col" class="text-white" width="15%"><?= __('Date') ?></th>
+                <th scope="col" class="text-white" ><?= __('Funding Agency') ?></th>
+                <!-- <th scope="col" class="text-white"><?= $this->Paginator->sort('activities_achievement') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('risks_mitigation') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('activity_next_semester') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('total_expenditure') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('oversight_level') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('oversight_agency_mda') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('mda') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('rev_commitee_rep_information') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('approvers_agency') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('approvers_rep_information') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('approvers_date') ?></th> -->
+                <th scope="col" class="text-white"><?= __('Signed MOU') ?></th>
+                <th scope="col" class="text-white"><?= __('Adopted Minutes') ?></th>
+                <!-- <th scope="col" class="text-white"><?= $this->Paginator->sort('financial_management') ?></th> -->
+                <th scope="col" class="text-white" class="text-white"><?= __('Financial Template') ?></th>
+               <!--  <th scope="col" class="text-white"><?= $this->Paginator->sort('parties') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('responsibilities') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('start_date') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('end_date') ?></th>  -->
+                <th scope="col" class="text-white"><?= __('Financial Cost') ?></th>
+                <!-- <th scope="col" class="text-white"><?= __('targets') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('Activities') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('action') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('responsible_party') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('plan_start_date') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('plan_end_date') ?></th> -->
+                <!-- <th scope="col" class="text-white"><?= $this->Paginator->sort('dependency') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('category') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('owner') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('currency') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('disbursed_amount') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('exp_output_date') ?></th> -->
+                <!-- <th scope="col" class="text-white"><?= $this->Paginator->sort('task') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('progress_category') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('progress_currency') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('amount_credit_allocation') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('disbursed_current_semester') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('date_disbursement') ?></th>
+                <th scope="col" class="text-white"><?= $this->Paginator->sort('cumulated_disbursment') ?></th> -->
                 <th scope="col" class="actions text-white"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -91,14 +91,14 @@ $this->end();
                 <td><?= h($pim->mda) ?></td>
                 <td><?= h($pim->rev_commitee_rep_information) ?></td>
                 <td><?= h($pim->approvers_agency) ?></td>
-                <td><?= h($pim->approvers_rep_information) ?></td> 
+                <td><?= h($pim->approvers_rep_information) ?></td>
                 <td><?= h($pim->approvers_date->format('d-M-Y')) ?></td> -->
                 <td><?= h($pim->signed_mou) ?></td>
                 <td><?= h($pim->adopted_minutes) ?></td>
                 <!-- <td><?= h($pim->financial_management) ?></td> -->
                 <td><?= h($pim->financial_template) ?></td>
                 <!--<td><?= h($pim->parties) ?></td>
-                <td><?= h($pim->responsibilities) ?></td> 
+                <td><?= h($pim->responsibilities) ?></td>
                 <td><?= h($pim->start_date->format('d-M-Y')) ?></td>
                 <td><?= h($pim->end_date->format('d-M-Y')) ?></td> -->
                 <td><?= $this->Number->format($pim->financial_cost) ?></td>
@@ -111,14 +111,14 @@ $this->end();
                 <!-- <td><?= h($pim->dependency) ?></td>
                 <td><?= h($pim->category) ?></td>
                 <td><?= h($pim->owner) ?></td>
-                <td><?= h($pim->currency) ?></td></td> 
+                <td><?= h($pim->currency) ?></td></td>
                 <td><?= $this->Number->format($pim->disbursed_amount) ?>
                 <td><?= h($pim->exp_output_date->format('d-M-Y')) ?></td> -->
                 <!-- <td><?= h($pim->task) ?></td>
                 <td><?= h($pim->progress_category) ?></td>
                 <td><?= h($pim->progress_currency) ?></td>
                 <td><?= $this->Number->format($pim->amount_credit_allocation) ?></td>
-                <td><?= h($pim->disbursed_current_semester) ?></td> 
+                <td><?= h($pim->disbursed_current_semester) ?></td>
                 <td><?= h($pim->date_disbursement->format('d-M-Y')) ?></td>
                 <td><?= h($pim->cumulated_disbursment) ?></td> -->
                 <td class="actions">
