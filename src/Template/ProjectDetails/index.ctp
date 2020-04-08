@@ -11,30 +11,34 @@ echo $this->element('navbar/default');
 $this->end();
 ?>
 <div class="container-fluid">
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><?= __('Project List') ?>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <?= $this->Html->link(__('<i class="fa fa-plus fa-lg"></i>'), ['action' => 'add'], ['class' => 'btn btn-light overlay', 'title' => 'Add', 'escape' => false]) ?>
-                <?= $this->Html->link(__('<i class="fa fa-upload fa-lg"></i>'), ['action' => 'import'], ['class' => 'btn btn-light overlay', 'title' => 'Import File', 'escape' => false]) ?>
 
-            </div></h6>
+<h2 class="text-center text-primary font-weight-bold pb-2"><?= __('Project List') ?></h2>
+
+    <div class=" shadow mb-4 br-m">
+        <div class="py-3 pl-3 bg-primary br-t">
+            <h3 class="m-0 text-white"><?= __('Add project') ?>
+                <div class="btn-group ml-3" role="group" aria-label="Basic example">
+                    <?= $this->Html->link(__('<i class="fa fa-plus fa-lg"></i>'), ['action' => 'add'], ['class' => 'btn btn-light overlay border-right', 'title' => 'Add', 'escape' => false]) ?>
+                    <?= $this->Html->link(__('<i class="fa fa-upload fa-lg"></i>'), ['action' => 'import'], ['class' => 'btn btn-light overlay', 'title' => 'Import File', 'escape' => false]) ?>
+
+                </div>
+            </h3>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table cellpadding="0" cellspacing="0" class="table table-bordered dataTable" role="grid" aria-describedby="dataTable_info">
-                    <thead>
+                <table cellpadding="0" cellspacing="0" class="table table-bordered dataTable table-primary table-hover br-m" role="grid" aria-describedby="dataTable_info">
+                    <thead class="bg-primary">
                     <tr>
-                        <th scope="col" width="15%"><?= __('Name') ?></th>
-                        <th scope="col" width="15%"><?= __('Description') ?></th>
-                        <th scope="col" width="15%"><?= __('Project Manager') ?></th>
-                        <th scope="col"><?= __('Status') ?></th>
-                        <th scope="col"><?= __('Sub Status') ?></th>
-                        <th scope="col"><?= __('Priority') ?></th>
-                        <th scope="col"><?= __('Budget') ?></th>
-                        <th scope="col"><?= __('Start Date') ?></th>
-                        <th scope="col"><?= __('End Date') ?></th>
-                        <th scope="col"><?= __('Action') ?></th>
+                        <th scope="col" class="text-white" ><?= __('Name') ?></th>
+                        <th scope="col" class="text-white" ><?= __('Description') ?></th>
+                        <th scope="col" class="text-white" ><?= __('Project Manager') ?></th>
+                        <th scope="col" class="text-white"><?= __('Status') ?></th>
+                        <th scope="col" class="text-white"><?= __('Sub Status') ?></th>
+                        <th scope="col" class="text-white"><?= __('Priority') ?></th>
+                        <th scope="col" class="text-white"><?= __('Budget') ?></th>
+                        <th scope="col" class="text-white"><?= __('Start Date') ?></th>
+                        <th scope="col" class="text-white"><?= __('End Date') ?></th>
+                        <th scope="col" class="text-white"><?= __('Action') ?></th>
                     </tr>
                     </thead>
                     <tbody>

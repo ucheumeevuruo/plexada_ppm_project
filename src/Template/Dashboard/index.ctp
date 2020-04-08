@@ -16,10 +16,10 @@ $this->end();
 
 
     <div class="md-4 mb-5">
-        <div class="card h-100 py-2">
-            <div class="card-header box-header">
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h5 class="text-xs font-weight-bold text-primary text-uppercase mb-1">OVERALL PORTFOLIO</h5>
+        <div class="card h-100 br-m">
+            <div class="card-header box-header bg-primary py-2">
+                <div class="d-sm-flex align-items-center justify-content-between">
+                    <h4 class="text-white text-uppercase">OVERALL PORTFOLIO</h4>
                     <?= $this->Html->link("<i class=\"fa fa-download fa-sm text-white-50\"></i> Generate Report</a>", ['action' => 'downloadPdf', 'report.pdf'], ['escape' => false, 'class' => 'd-none d-sm-inline-block btn btn-sm btn-primary shadow-sm']) ?>
 <!--                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa fa-download fa-sm text-white-50"></i> Generate Report</a>-->
                 </div>
@@ -123,10 +123,10 @@ $this->end();
 
     <div class="row">
         <div class="col">
-            <div class="card shadow mb-4">
+            <div class="card shadow mb-5">
                 <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Status Overview</h6>
+                <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
+                    <h4 class="m-0 text-white">Status Overview</h4>
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
