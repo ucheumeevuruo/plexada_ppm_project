@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -295,7 +296,7 @@ class PadsTable extends Table
 
         $validator
             ->scalar('file_upload')
-            ->maxLength('file_upload', 225)
+            ->maxLength('file_upload', 255)
             ->requirePresence('file_upload', 'create')
             ->notEmptyFile('file_upload');
 
