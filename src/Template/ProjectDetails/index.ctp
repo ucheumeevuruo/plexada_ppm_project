@@ -16,8 +16,8 @@ $this->end();
     <div class="row h-75">
         <div class="col-xs-9 col-md-8">
             <div class="card-header box-header">
-                <div class="d-sm-flex align-items-center justify-content-between mb-2">
-                    <h5 class="font-weight-bold text-primary text-uppercase mb-1">PROJECT DETAIL OVERVIEW</h5>
+                <div class="d-sm-flex align-items-center justify-content-between mb-2 bg-primary">
+                    <h5 class="text-white text-uppercase mb-1 p-3">PROJECT DETAIL OVERVIEW</h5>
                     <?= $this->Html->link(
                         "<i class=\"fa fa-download fa-sm text-white-50\"></i> Generate Report</a>",
                         ['action' => 'downloadPdf', 'report.pdf'],
@@ -27,15 +27,15 @@ $this->end();
 
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table cellpadding="0" cellspacing="0" class="table table-bordered dataTable" role="grid"
+                        <table cellpadding="0" cellspacing="0" class="table table-bordered table-primary table-hover br-m" role="grid"
                             aria-describedby="dataTable_info">
-                            <thead>
+                            <thead class="bg-primary">
                                 <tr>
-                                    <th scope="col"><?= __('Project ') ?></th>
-                                    <th scope="col"><?= __('Project Details') ?></th>
-                                    <th scope="col"><?= __('Project Duration') ?></th>
-                                    <th scope="col"><?= __('Project Status') ?></th>
-                                    <th scope="col"><?= __('Project Actions') ?></th>
+                                    <th scope="col" class="text-white"><?= __('Project ') ?></th>
+                                    <th scope="col" class="text-white"><?= __('Project Details') ?></th>
+                                    <th scope="col" class="text-white"><?= __('Project Duration') ?></th>
+                                    <th scope="col" class="text-white"><?= __('Project Status') ?></th>
+                                    <th scope="col" class="text-white"><?= __('Project Actions') ?></th>
                                 </tr>
                             </thead>
                             <!-- <tbody>
@@ -133,16 +133,16 @@ $this->end();
             <div class="table-responsive">
                 <table cellpadding="0" cellspacing="0" class="table table-bordered dataTable" role="grid"
                     aria-describedby="dataTable_info">
-                    <thead>
+                    <thead class="bg-primary">
                         <tr>
-                            <th scope="col"><?= __('Activity Name') ?></th>
-                            <th scope="col"><?= __('Assigned To') ?></th>
-                            <th scope="col"><?= __('Duration') ?></th>
-                            <th scope="col"><?= __('Start Date') ?></th>
-                            <th scope="col"><?= __('Finish Date') ?></th>
-                            <th scope="col"><?= __('Status') ?></th>
-                            <th scope="col"><?= __('% complete') ?></th>
-                            <th scope="col"><?= __('Milestone') ?></th>
+                            <th scope="col" class="text-white"><?= __('Activity Name') ?></th>
+                            <th scope="col" class="text-white"><?= __('Assigned To') ?></th>
+                            <th scope="col" class="text-white"><?= __('Duration') ?></th>
+                            <th scope="col" class="text-white"><?= __('Start Date') ?></th>
+                            <th scope="col" class="text-white"><?= __('Finish Date') ?></th>
+                            <th scope="col" class="text-white"><?= __('Status') ?></th>
+                            <th scope="col" class="text-white"><?= __('% complete') ?></th>
+                            <th scope="col" class="text-white"><?= __('Milestone') ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -189,13 +189,13 @@ $this->end();
             <div class="table-responsive">
                 <table cellpadding="0" cellspacing="0" class="table table-bordered dataTable" role="grid"
                     aria-describedby="dataTable_info">
-                    <thead>
+                    <thead class="bg-primary">
                         <tr>
-                            <th scope="col"><?= __('Task Name') ?></th>
-                            <th scope="col"><?= __('Task Date') ?></th>
-                            <th scope="col"><?= __('Description') ?></th>
-                            <th scope="col"><?= __('Predecessor') ?></th>
-                            <th scope="col"><?= __('Successor') ?></th>
+                            <th scope="col" class="text-white"><?= __('Task Name') ?></th>
+                            <th scope="col" class="text-white"><?= __('Task Date') ?></th>
+                            <th scope="col" class="text-white"><?= __('Description') ?></th>
+                            <th scope="col" class="text-white"><?= __('Predecessor') ?></th>
+                            <th scope="col" class="text-white"><?= __('Successor') ?></th>
                         </tr>
                     </thead>
                     <tbody>
