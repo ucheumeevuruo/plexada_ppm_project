@@ -39,7 +39,6 @@ $this->end();
                         <div class="p-4">
                             <?php
                                     echo $this->Form->control('sender_id',['type'=>'text','value'=>$message->user->username,'class'=>'col-md-6','label'=>'From']);
-                                    // echo $this->Form->control('recipient_id', ['type'=>'text','value' => $message->recipient_id, 'label'=>'To','class'=>'col-md-6']);
                                     echo $this->Form->control('subject',['value'=>$message->subject]);
                                     echo $this->Form->control('body',['type'=>'textarea','label'=>'Message','value'=>$message->body]);
                             ?>
