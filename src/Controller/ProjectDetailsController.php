@@ -55,7 +55,7 @@ class ProjectDetailsController extends AppController
     public function milestones($id = null)
     {
         $projectDetail = $this->ProjectDetails->get($id, [
-            'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'Milestones', 'Milestones.Lov', 'Milestones.Triggers'],
+            'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'Milestones', 'Milestones.Lov', 'Milestones.Triggers', 'Priorities', 'Prices', 'Prices.Currencies'],
         ]);
 
         $this->set('projectDetail', $projectDetail);
@@ -64,7 +64,7 @@ class ProjectDetailsController extends AppController
     public function riskIssues($id = null)
     {
         $projectDetail = $this->ProjectDetails->get($id, [
-            'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'RiskIssues', 'RiskIssues.Lov', 'RiskIssues.Impact', 'RiskIssues.Staff'],
+            'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'RiskIssues', 'RiskIssues.Lov', 'RiskIssues.Impact', 'RiskIssues.Staff', 'Priorities', 'Prices', 'Prices.Currencies'],
         ]);
 
         $this->set('projectDetail', $projectDetail);
