@@ -10,19 +10,36 @@
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">0</span>
+                                <span class="badge badge-danger badge-counter"><?= $projectCount ?></span>
                             </a>
+                            <ul class="dropdown-menu" aria-labelledby="dLabel">
+                                <?php foreach ($qryproject as $message): ?>
+                                    <li>
+                                        <?= $message->name ?>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
                         </li>
 
                         <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <!-- <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="/messages" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">0</span>
+                                Counter - Messages
+                                <span class="badge badge-danger badge-counter">1</span>
                             </a>
+                        </li> -->
+                        
+                        <li class="nav-item dropdown no-arrow mx-1">
+                        <!-- <?php foreach ($qryproject as $message): ?>
+                            <?= $message->name ?>
+                        <?php endforeach; ?> -->
+                        
+                        
+                            <?= $this->Html->link(__('<i class="fa fa-envelope fa-fw"></i><span class="badge badge-danger badge-counter">'.$this->request->session()->read('akpython').'</span>'),
+                                ['controller' => 'Messages', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
                         </li>
-
+                        <!-- Nav Item - Messages -->
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
