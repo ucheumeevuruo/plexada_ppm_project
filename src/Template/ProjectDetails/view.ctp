@@ -36,6 +36,14 @@ $this->end();
                             <th scope="row"><?= __('Sponsor') ?></th>
                             <td><?= $projectDetail->has('sponsor') ? $this->Html->link($projectDetail->sponsor->full_name, ['controller' => 'Sponsors', 'action' => 'view', $projectDetail->sponsor->id]) : '' ?></td>
                         </tr>
+                        <tr>
+                            <th scope="row"><?= __('Currency') ?></th>
+                            <td><?= $projectDetail->has('price') ? h($projectDetail->price->currency->code) : '' ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><?= __('Budget') ?></th>
+                            <td><?= $projectDetail->has('price') ? h($this->NumberFormat->format($projectDetail->price->budget)) : '0.00' ?></td>
+                        </tr>
                     </table>
                 </div>
             </div>

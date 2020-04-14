@@ -31,6 +31,7 @@ $this->end();
                         <th scope="col"><?= __('Status') ?></th>
                         <th scope="col"><?= __('Sub Status') ?></th>
                         <th scope="col"><?= __('Priority') ?></th>
+						<th scope="col"><?= __('Currency') ?></th>
                         <th scope="col"><?= __('Budget') ?></th>
                         <th scope="col"><?= __('Start Date') ?></th>
                         <th scope="col"><?= __('End Date') ?></th>
@@ -46,7 +47,8 @@ $this->end();
                             <td><?= h($projectDetail->lov->lov_value) ?></td>
                             <td><?= $projectDetail->has('sub_status') ? h($projectDetail->sub_status->lov_value) : '' ?></td>
                             <td><?= h($projectDetail->priority->lov_value) ?></td>
-                            <td><?= $projectDetail->has('price') ? h($this->NumberFormat->format($projectDetail->price->budget, ['before' => '₦'])) : '&#8358;0' ?></td>
+							<td><?= $projectDetail->has('price.currency') ? h($projectDetail->price->currency->code) : '' ?></td>
+                            <td><?= $projectDetail->has('price') ? h($this->NumberFormat->format($projectDetail->price->budget)) : '0.00' ?></td>
                             <td><?= h($projectDetail->start_dt) ?></td>
                             <td><?= h($projectDetail->end_dt) ?></td>
                             <td class="actions">

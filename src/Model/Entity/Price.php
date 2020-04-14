@@ -19,6 +19,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Project $project
  * @property \App\Model\Entity\SystemUser $system_user
+ * @property \App\Model\Entity\Currency $currency
  */
 class Price extends Entity
 {
@@ -33,6 +34,7 @@ class Price extends Entity
      */
     protected $_accessible = [
         'project_id' => true,
+		'currency_id' => true,
         'budget' => true,
         'total_cost' => true,
         'amount_paid' => true,
@@ -40,8 +42,9 @@ class Price extends Entity
         'payment_type' => true,
         'created' => true,
         'last_updated' => true,
-        'system_user_id' => true,
+        'system_user_id' => true,	
         'project' => true,
         'system_user' => true,
+		'currency' => true
     ];
 }
