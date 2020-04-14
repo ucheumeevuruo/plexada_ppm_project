@@ -10,7 +10,7 @@ $this->end();
 <div class="projectDetails container-fluid">
     <?= $this->Form->create($projectDetail) ?>
     <fieldset>
-        <legend><?= __('Add Project Detail') ?></legend>
+        <legend class="text-primary"><?= __('Add Project Detail') ?></legend>
         <div class="col-md-6 float-left">
             <?= $this->Form->control('Name') ?>
             <?= $this->Form->control('Description', ['type' => 'textarea']) ?>
@@ -28,7 +28,7 @@ $this->end();
         </div>
     </fieldset>
     <div class="col-md-12 float-md-none">
-        <?= $this->Form->button(__('Submit')) ?>
+        <?= $this->Form->button(__('Submit'), ['class' => "btn-primary"]) ?>
         <?= $this->Form->end() ?>
     </div>
 
