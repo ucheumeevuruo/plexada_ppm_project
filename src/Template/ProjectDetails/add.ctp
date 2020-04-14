@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\ProjectDetail $projectDetail
@@ -25,6 +26,7 @@ $this->end();
             <?= $this->Form->control('manager_id', ['options' => $staff, 'empty' => true, 'label' => 'Project Manager']) ?>
             <?= $this->Form->control('system_user_id', ['type' => 'hidden', 'options' => [$authUser['id']], 'default' => $authUser['id']]) ?>
             <?= $this->Form->control('vendor_id', ['options' => $vendors, 'empty' => true, 'label' => 'Donor']) ?>
+            <?= $this->Form->control('tasks name', ['options' => $tasks, 'empty' => true, 'label' => 'Task']) ?>
         </div>
     </fieldset>
     <div class="col-md-12 float-md-none">
@@ -34,13 +36,13 @@ $this->end();
 
 </div>
 <script>
-    $(function () {
-        $('#datepicker, #datepicker1').datepicker({
-            inline: true,
-            "format": "dd/mm/yyyy",
-            startDate: "0d",
-            // "endDate": "09-15-2017",
-            "keyboardNavigation": false
-        });
+$(function() {
+    $('#datepicker, #datepicker1').datepicker({
+        inline: true,
+        "format": "dd/mm/yyyy",
+        startDate: "0d",
+        // "endDate": "09-15-2017",
+        "keyboardNavigation": false
     });
+});
 </script>
