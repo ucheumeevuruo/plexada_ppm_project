@@ -129,6 +129,7 @@ $this->end();
                     </div>
                 </h3>
             </div>
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table cellpadding="0" cellspacing="0"
@@ -166,6 +167,7 @@ $this->end();
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
     </div>
