@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\ProjectDetail $projectDetail
@@ -10,7 +11,7 @@ $this->end();
 <div class="projectDetails container-fluid">
     <?= $this->Form->create($projectDetail) ?>
     <fieldset>
-        <legend class="text-primary"><?= __('Add Project Detail') ?></legend>
+        <legend><?= __('Add Project Detail') ?></legend>
         <div class="col-md-6 float-left">
             <?= $this->Form->control('Name') ?>
             <?= $this->Form->control('Description', ['type' => 'textarea']) ?>
@@ -28,19 +29,19 @@ $this->end();
         </div>
     </fieldset>
     <div class="col-md-12 float-md-none">
-        <?= $this->Form->button(__('Submit'), ['class' => "btn-primary"]) ?>
+        <?= $this->Form->button(__('Submit')) ?>
         <?= $this->Form->end() ?>
     </div>
 
 </div>
 <script>
-    $(function () {
-        $('#datepicker, #datepicker1').datepicker({
-            inline: true,
-            "format": "dd/mm/yyyy",
-            startDate: "0d",
-            // "endDate": "09-15-2017",
-            "keyboardNavigation": false
-        });
+$(function() {
+    $('#datepicker, #datepicker1').datepicker({
+        inline: true,
+        "format": "dd/mm/yyyy",
+        startDate: "0d",
+        // "endDate": "09-15-2017",
+        "keyboardNavigation": false
     });
+});
 </script>

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -82,6 +83,10 @@ class ProjectDetailsTable extends Table
             'foreignKey' => 'project_id',
             'joinType' => 'LEFT'
         ]);
+        $this->hasOne('tasks', [
+            'foreignKey' => 'Task_name',
+            'joinType' => 'LEFT'
+        ]);
         $this->hasOne('Prices', [
             'foreignKey' => 'project_id',
             'joinType' => 'LEFT'
@@ -133,10 +138,10 @@ class ProjectDetailsTable extends Table
             ->date('waiting_since')
             ->allowEmptyDate('waiting_on');
 
-//        $validator
-//            ->scalar('waiting_on')
-//            ->maxLength('waiting_on', 70)
-//            ->allowEmptyString('waiting_on');
+        //        $validator
+        //            ->scalar('waiting_on')
+        //            ->maxLength('waiting_on', 70)
+        //            ->allowEmptyString('waiting_on');
 
         $validator
             ->date('start_dt')
@@ -167,7 +172,7 @@ class ProjectDetailsTable extends Table
         $rules->add($rules->existsIn(['sponsor_id'], 'Sponsors'));
         $rules->add($rules->existsIn(['waiting_on_id'], 'Staff'));
         $rules->add($rules->existsIn(['status_id'], 'Lov'));
-//        $rules->add($rules->existsIn(['annotation_id'], 'Annotations'));
+        //        $rules->add($rules->existsIn(['annotation_id'], 'Annotations'));
         $rules->add($rules->existsIn(['sub_status_id'], 'SubStatuses'));
         $rules->add($rules->existsIn(['priority_id'], 'Priorities'));
         $rules->add($rules->existsIn(['system_user_id'], 'Users'));
@@ -175,7 +180,8 @@ class ProjectDetailsTable extends Table
         return $rules;
     }
 
-    public function identify($formData) {
+    public function identify($formData)
+    {
         $formData['start_dt'] = !empty($formData['start_dt']) ?
             DateTime::createFromFormat('d/m/Y', $formData['start_dt']) : $formData['start_dt'];
         $formData['end_dt'] = !empty($formData['end_dt']) ?
