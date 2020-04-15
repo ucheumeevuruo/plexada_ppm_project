@@ -33,7 +33,8 @@ $this->end();
 
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table cellpadding="0" cellspacing="0" class="table table-bordered dataTable" role="grid"
+                        <table cellpadding="0" cellspacing="0"
+                            class="table table-bordered table-primary table-hover br-m" role="grid"
                             aria-describedby="dataTable_info">
                             <thead class="bg-primary">
                                 <tr>
@@ -41,7 +42,7 @@ $this->end();
                                     <th scope="col" class="text-white"><?= __('Project Details') ?></th>
                                     <th scope="col" class="text-white"><?= __('Project Duration') ?></th>
                                     <th scope="col" class="text-white"><?= __('Project Status') ?></th>
-                                    <th scope="col" class="text-white"><?= __('Tasks') ?></th>
+                                    <!-- <th scope="col" class="text-white"><?= __('Tasks') ?></th> -->
                                     <th scope="col" class="text-white"><?= __('Project Actions') ?></th>
                                 </tr>
                             </thead>
@@ -58,10 +59,10 @@ $this->end();
                                     </td>
                                     <!-- <td><?= h(($projectDetail->start_dt) - ($projectDetail->end_dt)) ?></td> -->
                                     <td><?= h($projectDetail->end_dt) ?></td>
-                                    <td>
+                                    <!-- <td>
                                         <?= $this->Html->link(__('<i class="fa fa-list-alt fa-lg"></i> &nbsp;'), ['controller' => 'tasks', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
                                         <?= $this->Html->link(__('<i class="fa fa-plus fa-lg"></i> &nbsp;'), ['controller' => 'tasks', 'action' => 'add'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
-                                    </td>
+                                    </td> -->
                                     <td class="actions">
                                         <?php if (!$projectDetail->has('annotation')) : ?>
                                         <?= $this->Html->link(__('<i class="fa fa-list-alt fa-sm"></i>'), ['controller' => 'annotations', 'action' => 'add', $projectDetail->id], ['escape' => false, 'class' => 'btn btn-outline-warning btn-sm overlay']) ?>
@@ -76,7 +77,12 @@ $this->end();
 
                         </table>
                         <h6 class="m-0 font-weight-bold text-primary">
-                            <?= $this->Html->link(__('<button class="btn btn-primary"><i class="fa fa-plus fa-lg"></i>&nbsp; &nbsp;Create Project</button>'), ['action' => 'add'], ['class' => 'btn btn-light overlay', 'title' => 'Add', 'escape' => false]) ?>
+                            <?= $this->Html->link(
+                                __('<button class="btn btn-primary"><i class="fa fa-plus fa-lg">
+                            </i>&nbsp; &nbsp;Create Project</button>'),
+                                ['controller' => 'ProjectDetails', 'action' => 'add',],
+                                ['class' => 'btn btn-light', 'title' => 'Add', 'escape' => false]
+                            ) ?>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <!-- Search form -->
                                 <!-- <form class="form-inline md-form form-sm mt0">
@@ -113,11 +119,13 @@ $this->end();
 
         <h2 class="text-left text-primary pb-2 font-weight-bold"><?= __('Tasks') ?></h2>
         <div class="shadow mb-4 br-m">
-            <div class="py-3 bg-primary br-t">
+            <div class="py-3  br-t">
 
-                <h3 class="m-0 text-white pl-3"><?= __('Add') ?>
+
+                <h3 class="m-0  pl-3"><?= __('Add') ?>
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <?= $this->Html->link(__('<i class="fa fa-plus fa-lg"></i>'), ['controller' => 'tasks', 'action' => 'add'], ['class' => 'btn btn-light overlay ml-2', 'title' => 'Add', 'escape' => false]) ?>
+                        <?= $this->Html->link(__('<i class="fa fa-plus fa-lg"></i>'), ['controller' => 'Tasks', 'action' => 'add'], ['class' => 'btn btn-light  ml-2', 'title' => 'Add', 'escape' => false]) ?>
+
                     </div>
                 </h3>
             </div>
@@ -133,7 +141,6 @@ $this->end();
                                 <th scope="col" class="text-white"><?= __('Description') ?></th>
                                 <th scope="col" class="text-white"><?= __('Predecessor') ?></th>
                                 <th scope="col" class="text-white"><?= __('Successor') ?></th>
-                                <th scope="col" class="text-white"><?= __('Activities') ?></th>
                                 <th scope="col" class="text-white"><?= __('Actions') ?></th>
                             </tr>
                         </thead>
@@ -145,9 +152,9 @@ $this->end();
                                 <td><?= h($task->Description) ?></td>
                                 <td><?= h($task->Predecessor) ?></td>
                                 <td><?= h($task->Successor) ?></td>
-                                <td>
+                                <!-- <td>
                                     <?= $this->Html->link(__('<i class="fa fa-list-alt fa-lg"></i> &nbsp;'), ['controller' => 'activities', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
-                                </td>
+                                </td> -->
                                 <td class="actions">
                                     <?= $this->Html->link(__('<i class="fa fa-pencil fa-lg"></i>'), ['action' => 'edit', $task->Task_name], ['class' => 'btn btn-outline-warning btn-sm overlay', 'title' => 'Edit', 'escape' => false]) ?>
 
@@ -167,11 +174,11 @@ $this->end();
         <div class="container-fluid">
             <h2 class="text-left text-primary pb-2 font-weight-bold"><?= __('Activities') ?></h2>
             <div class="shadow mb-4 br-m">
-                <div class="py-3 bg-primary br-t">
+                <div class="py-3 bg- br-t">
 
-                    <h3 class="m-0 text-white pl-3"><?= __('Add') ?>
+                    <h3 class="m-0  pl-3"><?= __('Add') ?>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <?= $this->Html->link(__('<i class="fa fa-plus fa-lg"></i>'), ['action' => 'add'], ['class' => 'btn btn-light overlay ml-2', 'title' => 'Add', 'escape' => false]) ?>
+                            <?= $this->Html->link(__('<i class="fa fa-plus fa-lg"></i>'), ['controller' => 'Activities', 'action' => 'add'], ['class' => 'btn btn-light  ml-2', 'title' => 'Add', 'escape' => false]) ?>
                         </div>
                     </h3>
                 </div>
@@ -190,19 +197,32 @@ $this->end();
                                     <th scope="col" class="text-white"><?= __('Status') ?></th>
                                     <th scope="col" class="text-white"><?= __('% complete') ?></th>
                                     <th scope="col" class="text-white"><?= __('Milestone') ?></th>
+                                    <th scope="col" class="text-white"><?= __('Actions') ?></th>
+
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td scope="col"><?= __('Clear the land') ?></td>
-                                    <td scope="col"><?= __('AY holding') ?></td>
-                                    <td scope="col"><?= __('2 months') ?></td>
-                                    <td scope="col"><?= __('April 4, 2020') ?></td>
-                                    <td scope="col"><?= __('June 4, 2020') ?></td>
-                                    <td scope="col"><?= __('Pending') ?></td>
-                                    <td scope="col"><?= __('5%') ?></td>
-                                    <td scope="col"><?= __('No milestone') ?></td>
+                                <?php foreach ($activities as $activity) : ?>
+                                <tr>x
+                                    <td><?= h($activity->current_activity) ?></td>
+                                    <td><?= h($activity->system_user_id) ?></td>
+                                    <td><?= h($activity->current_activity) ?></td>
+                                    <td><?= h($activity->created) ?></td>
+                                    <td><?= h($activity->completion_date) ?></td>
+                                    <td><?= h($activity->status_id) ?></td>
+                                    <td><?= h($activity->percentage_completion) ?></td>
+                                    <td><?= h($activity->description) ?></td>
+
+                                    <!-- <td>
+                                    <?= $this->Html->link(__('<i class="fa fa-list-alt fa-lg"></i> &nbsp;'), ['controller' => 'activities', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
+                                </td> -->
+                                    <td class="actions">
+                                        <?= $this->Html->link(__('<i class="fa fa-pencil fa-lg"></i>'), ['action' => 'edit', $task->Task_name], ['class' => 'btn btn-outline-warning btn-sm overlay', 'title' => 'Edit', 'escape' => false]) ?>
+
+                                        <?= $this->Form->postLink(__("<i class='fa fa-trash-o fa-lg'></i>"), ['action' => 'delete', $task->Task_name], ['confirm' => __('Are you sure you want to delete # {0}?', $task->Task_name), 'escape' => false, 'class' => 'btn btn-outline-danger btn-sm']) ?>
+                                    </td>
                                 </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>

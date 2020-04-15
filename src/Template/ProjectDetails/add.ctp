@@ -26,7 +26,6 @@ $this->end();
             <?= $this->Form->control('manager_id', ['options' => $staff, 'empty' => true, 'label' => 'Project Manager']) ?>
             <?= $this->Form->control('system_user_id', ['type' => 'hidden', 'options' => [$authUser['id']], 'default' => $authUser['id']]) ?>
             <?= $this->Form->control('vendor_id', ['options' => $vendors, 'empty' => true, 'label' => 'Donor']) ?>
-            <?= $this->Form->control('tasks name', ['options' => $tasks, 'empty' => true, 'label' => 'Task']) ?>
         </div>
     </fieldset>
     <div class="col-md-12 float-md-none">

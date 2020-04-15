@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -21,19 +22,29 @@ class ProjectDetailsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations'],
+            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations', 'Tasks'],
         ];
-///
-///
-//        $authUser = $this->Auth->User();
 
-//        $projectDetails = $this->ProjectDetails->find('all', [
-//            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities'],
-//            'conditions' => ['ProjectDetails.system_user_id' => $authUser['id']]
-//        ]);
+        ///
+        ///
+        //        $authUser = $this->Auth->User();
+
+        //        $projectDetails = $this->ProjectDetails->find('all', [
+        //            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities'],
+        //            'conditions' => ['ProjectDetails.system_user_id' => $authUser['id']]
+        //        ]);
         $projectDetails = $this->paginate($this->ProjectDetails);
-
         $this->set(compact('projectDetails'));
+
+
+        $this->loadModel('Tasks');
+        $tasks = $this->Tasks->find('all');
+        $this->set('tasks', $tasks);
+
+
+        $this->loadModel('Activities');
+        $activities = $this->Activities->find('all');
+        $this->set('activities', $activities);
     }
 
     /**
@@ -46,10 +57,14 @@ class ProjectDetailsController extends AppController
     public function view($id = null)
     {
         $projectDetail = $this->ProjectDetails->get($id, [
-            'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Activities.Priorities', 'Lov', 'Activities.Statuses', 'Users', 'Activities', 'Activities.Staff', 'SubStatuses', 'Priorities'],
+            'contain' => ['Tasks', 'Vendors', 'Staff', 'Personnel', 'Sponsors', 'Activities.Priorities', 'Lov', 'Activities.Statuses', 'Users', 'Activities', 'Activities.Staff', 'SubStatuses', 'Priorities'],
         ]);
 
         $this->set('projectDetail', $projectDetail);
+        $this->loadModel('Tasks');
+        $tasks = $this->Tasks->find('all');
+
+        $this->set('tasks', $tasks);
     }
 
     public function milestones($id = null)
@@ -92,7 +107,7 @@ class ProjectDetailsController extends AppController
         $vendors = $this->ProjectDetails->Vendors->find('list', ['limit' => 200]);
         $staff = $this->ProjectDetails->Staff->find('list', ['limit' => 200]);
         $sponsors = $this->ProjectDetails->Sponsors->find('list', ['limit' => 200]);
-//        $lov = $this->ProjectDetails->Lov->find('list', ['limit' => 200]);
+        //        $lov = $this->ProjectDetails->Lov->find('list', ['limit' => 200]);
         $lov = $this->ProjectDetails->Lov->find('list', [
             'conditions' => ['Lov.lov_type' => 'project_status', 'Lov.lov_value' => 'Open'],
             'limit' => 200
@@ -127,18 +142,18 @@ class ProjectDetailsController extends AppController
             if ($this->ProjectDetails->save($projectDetail)) {
                 $this->Flash->success(__('The project detail has been saved.'));
 
-//                return $this->redirect(['action' => 'view', $id]);
+                //                return $this->redirect(['action' => 'view', $id]);
                 return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The project detail could not be saved. Please, try again.'));
-//            return $this->redirect(['action' => 'view', $id]);
+            //            return $this->redirect(['action' => 'view', $id]);
             return $this->redirect($this->referer());
         }
         $vendors = $this->ProjectDetails->Vendors->find('list', ['limit' => 200]);
         $staff = $this->ProjectDetails->Staff->find('list', ['limit' => 200]);
         $sponsors = $this->ProjectDetails->Sponsors->find('list', ['limit' => 200]);
         $personnel = $this->ProjectDetails->Personnel->find('list', ['limit' => 200]);
-//        $lov = $this->ProjectDetails->Lov->find('list', ['limit' => 200]);
+        //        $lov = $this->ProjectDetails->Lov->find('list', ['limit' => 200]);
         $subStatus = $this->ProjectDetails->SubStatuses->find('list', [
             'conditions' => ['SubStatuses.lov_type' => 'project_sub_status'],
             'limit' => 200
@@ -185,47 +200,45 @@ class ProjectDetailsController extends AppController
             $fileStream = $files[ProjectUploadHandler::__SLUG]->getStream();
             $location = $fileStream->getMetadata()['uri'];
             $fileError = $files[ProjectUploadHandler::__SLUG]->getError();
-            try
-            {
+            try {
                 $excel = new ProjectUploadHandler($filename, $fileSize, $mediaType, $location, $fileError, $fileStream);
                 $fetchData = $excel->handleImport();
                 $projectDetails = $this->ProjectDetails->patchEntities($projectDetails, $fetchData);
-                foreach ($projectDetails as $key => $projectDetail)
-                {
-                    if(isset($fetchData[$key]['error']))
-                    {
+                foreach ($projectDetails as $key => $projectDetail) {
+                    if (isset($fetchData[$key]['error'])) {
                         $error = $fetchData[$key]['error'];
                         unset($fetchData[$key]['error']);
 
-                        array_push($upload_errors,
-                            array_merge_recursive($fetchData[$key], ['errors' => $error]));
+                        array_push(
+                            $upload_errors,
+                            array_merge_recursive($fetchData[$key], ['errors' => $error])
+                        );
                         continue;
                     }
-                    if(!$this->ProjectDetails->save($projectDetail))
-                    {
-                        array_push($upload_errors,
-                            array_merge_recursive($fetchData[$key], ['errors' => $projectDetail->getErrors()]));
+                    if (!$this->ProjectDetails->save($projectDetail)) {
+                        array_push(
+                            $upload_errors,
+                            array_merge_recursive($fetchData[$key], ['errors' => $projectDetail->getErrors()])
+                        );
                     }
                 }
 
-                if(empty($upload_errors))
-                {
+                if (empty($upload_errors)) {
                     $this->Flash->success(__('The import has been saved.'));
 
                     return $this->redirect($this->referer());
-                }else{
+                } else {
                     $error = $excel->__extract_error($upload_errors);
                     $this->log(__($error['error']), 'error', ['scope' => ['import']]);
                     $this->Flash->error(__(count($upload_errors) .
                         " record(s) could not be saved. Please, try again or check the log for more information."));
                     return $this->redirect($this->referer());
                 }
-            }catch (ExcelDocumentException $e){
+            } catch (ExcelDocumentException $e) {
                 $this->log($e->getMessage(), 'error', ['scope' => ['import']]);
-                $this->Flash->error(__( $e->getMessage()));
+                $this->Flash->error(__($e->getMessage()));
                 return $this->redirect($this->referer());
-            }
-            catch (\Exception $e){
+            } catch (\Exception $e) {
                 $this->log($e->getMessage(), 'error', ['scope' => ['import']]);
                 $this->Flash->error(__('Unexpected error occurred. Please check log.'));
                 return $this->redirect($this->referer());

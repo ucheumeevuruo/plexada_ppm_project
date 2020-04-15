@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Activity[]|\Cake\Collection\CollectionInterface $activities
@@ -26,21 +27,25 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($activities as $activity): ?>
+            <?php foreach ($activities as $activity) : ?>
             <tr>
                 <td><?= $this->Number->format($activity->activity_id) ?></td>
-                <td><?= $activity->has('project_detail') ? $this->Html->link($activity->project_detail->id, ['controller' => 'ProjectDetailsOld', 'action' => 'view', $activity->project_detail->id]) : '' ?></td>
+                <td><?= $activity->has('project_detail') ? $this->Html->link($activity->project_detail->id, ['controller' => 'ProjectDetailsOld', 'action' => 'view', $activity->project_detail->id]) : '' ?>
+                </td>
                 <td><?= h($activity->current_activity) ?></td>
                 <td><?= h($activity->waiting_on) ?></td>
                 <td><?= h($activity->waiting_since) ?></td>
                 <td><?= h($activity->next_activity) ?></td>
-                <td><?= $activity->has('staff') ? $this->Html->link($activity->staff->id, ['controller' => 'Staff', 'action' => 'view', $activity->staff->id]) : '' ?></td>
+                <td><?= $activity->has('staff') ? $this->Html->link($activity->staff->id, ['controller' => 'Staff', 'action' => 'view', $activity->staff->id]) : '' ?>
+                </td>
                 <td><?= $this->Number->format($activity->percentage_completion) ?></td>
                 <td><?= h($activity->description) ?></td>
-                <td><?= $activity->has('lov') ? $this->Html->link($activity->lov->lov_value, ['controller' => 'Lov', 'action' => 'view', $activity->lov->id]) : '' ?></td>
+                <td><?= $activity->has('lov') ? $this->Html->link($activity->lov->lov_value, ['controller' => 'Lov', 'action' => 'view', $activity->lov->id]) : '' ?>
+                </td>
                 <td><?= h($activity->created) ?></td>
                 <td><?= h($activity->last_updated) ?></td>
-                <td><?= $activity->has('user') ? $this->Html->link($activity->user->id, ['controller' => 'Users', 'action' => 'view', $activity->user->id]) : '' ?></td>
+                <td><?= $activity->has('user') ? $this->Html->link($activity->user->id, ['controller' => 'Users', 'action' => 'view', $activity->user->id]) : '' ?>
+                </td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $activity->activity_id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $activity->activity_id]) ?>
@@ -58,6 +63,7 @@
             <?= $this->Paginator->next(__('next') . ' >') ?>
             <?= $this->Paginator->last(__('last') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?>
+        </p>
     </div>
 </div>
