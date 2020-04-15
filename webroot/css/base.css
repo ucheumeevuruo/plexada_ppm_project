@@ -437,6 +437,15 @@ th {
 .w-15 {
     width: 12rem;
 }
+
+.sb {
+    position: sticky !important;
+    height: 100vh;
+    top: 0;
+    margin-top: 0;
+    /* padding-top:0; */
+    /* top: 0; */
+}
 /* =================================================================== */
 /**
  * Foundation for Sites by ZURB

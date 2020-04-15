@@ -1,4 +1,6 @@
-<ul class="navbar navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<aside class="navbar navbar-nav bg-gradient-primary sidebar sidebar-dark sb" id="">
+
+    <ul class="">
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
@@ -6,14 +8,14 @@
     </li>
 
     <!-- Divider -->
-    <hr class="sidebar-divider m-0 w-100">
+    <hr class="sidebar-divider m-0 w-100 mb-3">
 
     <!-- Heading -->
 
-    <h5 class="text-light m-0">
+    <h5 class="text-light m-0 pb-2 text-center">
         User Options
     </h5>
-    <hr class="bg-light my-0 px-5">
+    <hr class="sidebar-divider  mx-auto my-0 w-25 px-5">
 
     <li class="dropdown nav-item">
         <a href="#" class="dropdown-toggle text-light nav-link" data-toggle="dropdown" role="button"
@@ -56,10 +58,10 @@
     <hr class="sidebar-divider mx-0 w-100">
 
     <!-- Heading -->
-    <h5 class="text-light m-0 text-left">
+    <h5 class="text-light m-0 text-center pb-2">
         Administrative Options
     </h5>
-    <hr class="bg-light mx-auto my-0 px-5">
+    <hr class="sidebar-divider mx-auto my-0 w-50 px-5">
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item m-0">
@@ -105,5 +107,7 @@
             ['escape' => false, 'class' => 'nav-link collapsed']
         ) ?>
     </li>
-
+    <hr class="sidebar-divider mx-0">
 </ul>
+
+        </aside>
