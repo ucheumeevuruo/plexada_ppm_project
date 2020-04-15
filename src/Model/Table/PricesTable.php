@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\ProjectsTable&\Cake\ORM\Association\BelongsTo $Projects
  * @property \App\Model\Table\SystemUsersTable&\Cake\ORM\Association\BelongsTo $SystemUsers
+ * @property \App\Model\Table\CurrenciesTable&\Cake\ORM\Association\BelongsTo $Currencies
  *
  * @method \App\Model\Entity\Price get($primaryKey, $options = [])
  * @method \App\Model\Entity\Price newEntity($data = null, array $options = [])
@@ -47,6 +48,9 @@ class PricesTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'system_user_id',
         ]);
+		$this->belongsTo('Currencies', [
+			'foreignKey' => 'currency_id'
+		]);
     }
 
     /**
@@ -100,6 +104,7 @@ class PricesTable extends Table
     {
         $rules->add($rules->existsIn(['project_id'], 'ProjectDetails'));
         $rules->add($rules->existsIn(['system_user_id'], 'Users'));
+		$rules->add($rules->existsIn(['currency_id'], 'Currencies'));
 
         return $rules;
     }
