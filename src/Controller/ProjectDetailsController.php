@@ -22,7 +22,7 @@ class ProjectDetailsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'Prices.Currencies', 'SubStatuses', 'Priorities', 'Annotations', 'Tasks'],
+            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations', 'Tasks'],
 
         ];
 
