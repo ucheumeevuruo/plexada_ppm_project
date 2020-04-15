@@ -63,6 +63,10 @@ $this->end();
                             <th scope="row"><?= __('Sub Status') ?></th>
                             <td><?= h($projectDetail->has('sub_status') ? $projectDetail->sub_status->lov_value : '') ?></td>
                         </tr>
+                        <tr>
+                            <th scope="row"><?= __('Priority') ?></th>
+                            <td><?= h($projectDetail->has('priority') ? $projectDetail->priority->lov_value : '') ?></td>
+                        </tr>
                     </table>
                 </div>
             </div>
@@ -71,8 +75,12 @@ $this->end();
                     <table class="table table-borderless">
 
                         <tr>
-                            <th scope="row"><?= __('Priority') ?></th>
-                            <td><?= h($projectDetail->has('priority') ? $projectDetail->priority->lov_value : '') ?></td>
+                            <th scope="row"><?= __('Currency') ?></th>
+                            <td><?= $projectDetail->has('price') ? h($projectDetail->price->currency->code) : '' ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><?= __('Budget') ?></th>
+                            <td><?= $projectDetail->has('price') ? h($this->NumberFormat->format($projectDetail->price->budget, ['before' => isset($projectDetail->price->currency) ? $projectDetail->price->currency->symbol : ''])) : '0.00' ?></td>
                         </tr>
                         <tr>
                             <th scope="row"><?= __('Start Date') ?></th>

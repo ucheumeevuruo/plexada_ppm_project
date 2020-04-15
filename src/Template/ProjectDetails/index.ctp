@@ -144,6 +144,7 @@ $this->end();
                             <th scope="col" class="text-white"><?= __('% complete') ?></th>
                             <th scope="col" class="text-white"><?= __('Milestone') ?></th>
                         </tr>
+
                     </thead>
                     <tbody>
                         <tr>
@@ -175,6 +176,7 @@ $this->end();
                             <th scope="col"><?= __('Pending') ?></th>
                             <th scope="col"><?= __('5%') ?></th>
                             <th scope="col"><?= __('No milestone') ?></th>
+
                         </tr>
                     </tbody>
                 </table>
