@@ -23,6 +23,7 @@ class MilestonesControllerTest extends TestCase
         'app.Milestones',
         'app.ProjectDetails',
         'app.Lov',
+        'app.Triggers',
     ];
 
     /**

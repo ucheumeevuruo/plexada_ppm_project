@@ -1,17 +1,16 @@
 <?php
 namespace App\Model\Table;
 
-use Cake\I18n\Time;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-use DateTime;
 
 /**
  * Milestones Model
  *
  * @property \App\Model\Table\ProjectDetailsTable&\Cake\ORM\Association\BelongsTo $ProjectDetails
+ * @property \App\Model\Table\LovTable&\Cake\ORM\Association\BelongsTo $Lov
  * @property \App\Model\Table\LovTable&\Cake\ORM\Association\BelongsTo $Lov
  *
  * @method \App\Model\Entity\Milestone get($primaryKey, $options = [])
@@ -50,13 +49,9 @@ class MilestonesTable extends Table
         $this->belongsTo('Lov', [
             'foreignKey' => 'status_id',
             'joinType' => 'INNER',
-            'conditions' => ['lov_type' => 'project_status']
         ]);
-        $this->belongsTo('Triggers', [
-            'className' => 'Lov',
+        $this->belongsTo('Lov', [
             'foreignKey' => 'trigger_id',
-            'joinType' => 'LEFT',
-            'conditions' => ['Triggers.lov_type' => 'trigger']
         ]);
     }
 
@@ -78,11 +73,13 @@ class MilestonesTable extends Table
             ->allowEmptyString('record_number');
 
         $validator
-            ->decimal('amount')
+            ->integer('amount')
+            ->requirePresence('amount', 'create')
             ->notEmptyString('amount');
 
         $validator
             ->scalar('payment')
+            ->maxLength('payment', 100)
             ->allowEmptyString('payment');
 
         $validator
@@ -97,12 +94,10 @@ class MilestonesTable extends Table
 
         $validator
             ->date('completed_date')
-//            ->add('expected_completion_date', 'valid', ['rule' => ['date','ymd']])
             ->allowEmptyDate('completed_date');
 
         $validator
             ->date('expected_completion_date')
-//            ->add('expected_completion_date', 'valid', ['rule' => ['date','ymd']])
             ->allowEmptyDate('expected_completion_date');
 
         return $validator;
@@ -119,41 +114,8 @@ class MilestonesTable extends Table
     {
         $rules->add($rules->existsIn(['project_id'], 'ProjectDetails'));
         $rules->add($rules->existsIn(['status_id'], 'Lov'));
+        $rules->add($rules->existsIn(['trigger_id'], 'Lov'));
 
         return $rules;
-    }
-
-    public function identify($formData) {
-        if(empty($formData['record_number']))
-            $formData['record_number'] = $this->generate_string($this->permitted_chars, 8);
-        if(!empty($formData['expected_completion_date']))
-            $formData['expected_completion_date'] = DateTime::createFromFormat('d/m/Y', $formData['expected_completion_date']);
-
-        if(isset($formData['status_id']))
-        {
-
-            $status = $this->Lov->find()
-                ->where(['id' => $formData['status_id']])
-                ->first();
-            if(strtolower($status->lov_value) == 'closed')
-            {
-                $formData['completed_date'] = Time::now();
-            }
-        }
-
-        return $formData;
-    }
-
-    private $permitted_chars = 'A12345abcde123456';
-
-    private function generate_string($input, $strength = 16) {
-        $input_length = strlen($input);
-        $random_string = '';
-        for($i = 0; $i < $strength; $i++) {
-            $random_character = $input[mt_rand(0, $input_length - 1)];
-            $random_string .= $random_character;
-        }
-
-        return $random_string;
     }
 }

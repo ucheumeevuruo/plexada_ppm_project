@@ -11,26 +11,28 @@ echo $this->element('navbar/default');
 $this->end();
 ?>
 <div class="container-fluid">
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><?= __('List of Values') ?>
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <?= $this->Html->link(__('<i class="fa fa-plus fa-lg"></i>'), ['action' => 'add'], ['class' => 'btn btn-light overlay', 'title' => 'Add', 'escape' => false]) ?>
+    <h2 class="text-center text-primary pb-2 font-weight-bold"><?= __('List of Values') ?></h2>
 
-                </div></h6>
+    <div class="shadow mb-4">
+        <div class="bg-primary py-3 br-t">
+            <h3 class="m-0 text-white pl-3"><?= __('Add') ?>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <?= $this->Html->link(__('<i class="fa fa-plus fa-lg"></i>'), ['action' => 'add'], ['class' => 'btn btn-light overlay ml-2', 'title' => 'Add', 'escape' => false]) ?>
+
+                </div></h3>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table cellpadding="0" cellspacing="0" class="table table-bordered dataTable" role="grid" aria-describedby="dataTable_info">
+                <table cellpadding="0" cellspacing="0" class="table table-bordered dataTable table-hover table-primary br-m" role="grid" aria-describedby="dataTable_info">
 
-                    <thead>
-                    <tr>
-                        <th scope="col"><?= __('Type') ?></th>
-                        <th scope="col"><?= __('Value') ?></th>
-                        <th scope="col"><?= __('Created') ?></th>
-                        <th scope="col"><?= __('Last Updated') ?></th>
-                        <th scope="col" class="actions"><?= __('Actions') ?></th>
-                    </tr>
+                    <thead class="bg-primary">
+                        <tr>
+                            <th scope="col" class="text-white"><?= __('Type') ?></th>
+                            <th scope="col" class="text-white"><?= __('Value') ?></th>
+                            <th scope="col" class="text-white"><?= __('Created') ?></th>
+                            <th scope="col" class="text-white"><?= __('Last Updated') ?></th>
+                            <th scope="col" class="text-white" class="actions"><?= __('Actions') ?></th>
+                        </tr>
                     </thead>
                     <tbody>
                     <?php foreach ($lov as $lov): ?>

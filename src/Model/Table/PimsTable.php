@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use DateTime;
 
 /**
  * Pims Model
@@ -284,5 +285,25 @@ class PimsTable extends Table
             ->notEmptyString('cumulated_disbursment');
 
         return $validator;
+    }
+
+    public function identify($formData) {
+        $formData['date'] = !empty($formData['date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['date']) : $formData['date'];
+        $formData['approvers_date'] = !empty($formData['approvers_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['approvers_date']) : $formData['approvers_date'];
+        $formData['start_date'] = !empty($formData['start_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['start_date']) : $formData['start_date'];
+        $formData['end_date'] = !empty($formData['end_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['end_date']) : $formData['end_date'];
+        $formData['plan_start_date'] = !empty($formData['plan_start_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['plan_start_date']) : $formData['plan_start_date'];
+        $formData['plan_end_date'] = !empty($formData['plan_end_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['plan_end_date']) : $formData['plan_end_date'];
+        $formData['exp_output_date'] = !empty($formData['exp_output_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['exp_output_date']) : $formData['exp_output_date'];
+        $formData['date_disbursement'] = !empty($formData['date_disbursement']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['date_disbursement']) : $formData['date_disbursement'];                      
+        return $formData;
     }
 }

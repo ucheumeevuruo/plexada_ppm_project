@@ -27,6 +27,8 @@
                 <th scope="col"><?= $this->Paginator->sort('status_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('description') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('achievement') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('trigger_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('completed_date') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('expected_completion_date') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
@@ -44,6 +46,8 @@
                 <td><?= $milestone->has('lov') ? $this->Html->link($milestone->lov->lov_value, ['controller' => 'Lov', 'action' => 'view', $milestone->lov->id]) : '' ?></td>
                 <td><?= h($milestone->description) ?></td>
                 <td><?= h($milestone->achievement) ?></td>
+                <td><?= $milestone->has('trigger') ? $this->Html->link($milestone->trigger->lov_value, ['controller' => 'Lov', 'action' => 'view', $milestone->trigger->id]) : '' ?></td>
+                <td><?= h($milestone->completed_date) ?></td>
                 <td><?= h($milestone->expected_completion_date) ?></td>
                 <td><?= h($milestone->created) ?></td>
                 <td><?= h($milestone->modified) ?></td>

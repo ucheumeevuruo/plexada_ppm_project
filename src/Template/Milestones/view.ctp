@@ -15,6 +15,8 @@
         <li><?= $this->Html->link(__('New Project Detail'), ['controller' => 'ProjectDetails', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Lov'), ['controller' => 'Lov', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Lov'), ['controller' => 'Lov', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Triggers'), ['controller' => 'Lov', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Trigger'), ['controller' => 'Lov', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="milestones view large-9 medium-8 columns content">
@@ -45,12 +47,20 @@
             <td><?= h($milestone->achievement) ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Trigger') ?></th>
+            <td><?= $milestone->has('trigger') ? $this->Html->link($milestone->trigger->lov_value, ['controller' => 'Lov', 'action' => 'view', $milestone->trigger->id]) : '' ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Id') ?></th>
             <td><?= $this->Number->format($milestone->id) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Amount') ?></th>
             <td><?= $this->Number->format($milestone->amount) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Completed Date') ?></th>
+            <td><?= h($milestone->completed_date) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Expected Completion Date') ?></th>
