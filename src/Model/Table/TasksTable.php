@@ -32,8 +32,8 @@ class TasksTable extends Table
         parent::initialize($config);
 
         $this->setTable('tasks');
-        $this->belongsTo('ProjectDetails', [
-            'foreignKey' => 'name',
+        $this->belongsTo('Activities', [
+            'foreignKey' => 'activity_id',
         ]);
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
@@ -79,5 +79,19 @@ class TasksTable extends Table
             ->notEmptyString('Successor');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['activity_id'], 'Activities'));
+
+        return $rules;
     }
 }
