@@ -24,7 +24,7 @@ $this->end();
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
 
 <div class="container-fluid">
-    <div class="card shadow mb-4 ">
+    <div class="card shadow mb-4 " style="padding: 20px 20px 0 20px">
         <div class="me-dropdowns input-group mb-4" style="display: flex; justify-content:space-between;">
 
             <div class="dropdown mr-5">
@@ -55,14 +55,19 @@ $this->end();
                     Projects
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Not yet started</a>
-                    <a class="dropdown-item" href="#">In progress</a>
-                    <a class="dropdown-item" href="#">Completed</a>
+                    <!-- <a class="dropdown-item" href="#">In progress</a>
+                    <a class="dropdown-item" href="#">Completed</a> -->
+                    <?= $this->Html->link(
+                        __(' <i class="fa fa-lg"></i> Summary'),
+                        ['controller' => 'ProjectDetails', 'action' => 'summary'],
+                        ['escape' => false, 'class' => 'nav-link collapsed']
+                    ) ?>
                 </div>
             </div>
             <div>
 
-                <div style="display: flex; flex-direction:row; justify-content:space-around;" class="input-group">
+                <div style="display: flex; flex-direction:row; justify-content:space-around; outline: 5px solid #4E73DF; padding-left: 22px"
+                    class="input-group">
                     <div class="dropdown mr-auto">
                         <div>
 
@@ -87,7 +92,8 @@ $this->end();
                                                 <!-- Date input -->
                                                 <label class="control-label" for="date">From</label>
                                                 <input class="form-control" id="date" name="date"
-                                                    placeholder="MM/DD/YYY" type="text" />
+                                                    placeholder="MM/DD/YYY" type="text"
+                                                    style="background-color: #CDD8F6; border-color: #4E73DF; border-width: medium;" />
                                             </div>
 
                                         </form>
@@ -123,7 +129,8 @@ $this->end();
                                                 <!-- Date input -->
                                                 <label class="control-label" for="date">To</label>
                                                 <input class="form-control" id="date" name="date"
-                                                    placeholder="MM/DD/YYY" type="text" />
+                                                    placeholder="MM/DD/YYY" type="text"
+                                                    style="background-color: #CDD8F6; border-color: #4E73DF; border-width: medium;" />
                                             </div>
 
                                         </form>
@@ -223,5 +230,6 @@ $this->end();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
 
 </div>

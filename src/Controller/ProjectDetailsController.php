@@ -98,14 +98,36 @@ class ProjectDetailsController extends AppController
         $this->set('projectDetail', $projectDetail);
     }
 
-    public function evaluation($id = null)
-    {
-        $projectDetail = $this->ProjectDetails->get($id, [
-            // 'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'RiskIssues', 'RiskIssues.Lov', 'RiskIssues.Impact', 'RiskIssues.Staff', 'Priorities', 'Prices', 'Prices.Currencies'],
-            'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'RiskIssues', 'RiskIssues.Lov', 'RiskIssues.Impact', 'RiskIssues.Staff', 'Priorities', 'Prices'],
-        ]);
+    // public function evaluation($id = null)
+    // {
+    //     $projectDetail = $this->ProjectDetails->get($id, [
+    //         // 'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'RiskIssues', 'RiskIssues.Lov', 'RiskIssues.Impact', 'RiskIssues.Staff', 'Priorities', 'Prices', 'Prices.Currencies'],
+    //         'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'RiskIssues', 'RiskIssues.Lov', 'RiskIssues.Impact', 'RiskIssues.Staff', 'Priorities', 'Prices'],
+    //     ]);
 
-        $this->set('projectDetail', $projectDetail);
+    //     $this->set('projectDetail', $projectDetail);
+    // }
+
+    public function evaluation()
+    {
+        $this->paginate = [
+            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations', 'Tasks'],
+
+        ];
+
+        $projectDetails = $this->paginate($this->ProjectDetails);
+        $this->set(compact('projectDetails'));
+    }
+
+    public function summary()
+    {
+        $this->paginate = [
+            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations', 'Tasks'],
+
+        ];
+
+        $projectDetails = $this->paginate($this->ProjectDetails);
+        $this->set(compact('projectDetails'));
     }
 
     /**
