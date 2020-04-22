@@ -3,79 +3,82 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Project $project
  */
+$this->start('sidebar');
+echo $this->element('sidebar/default');
+$this->end();
+$this->start('navbar');
+echo $this->element('navbar/default');
+$this->end();
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Project'), ['action' => 'edit', $project->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Project'), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Projects'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Project'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Pims'), ['controller' => 'Pims', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Pim'), ['controller' => 'Pims', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Project Fundings'), ['controller' => 'ProjectFundings', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Project Funding'), ['controller' => 'ProjectFundings', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Project Details'), ['controller' => 'ProjectDetails', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Project Detail'), ['controller' => 'ProjectDetails', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Activities'), ['controller' => 'Activities', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Activity'), ['controller' => 'Activities', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Annotations'), ['controller' => 'Annotations', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Annotation'), ['controller' => 'Annotations', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Milestones'), ['controller' => 'Milestones', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Milestone'), ['controller' => 'Milestones', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Objectives'), ['controller' => 'Objectives', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Objective'), ['controller' => 'Objectives', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Prices'), ['controller' => 'Prices', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Price'), ['controller' => 'Prices', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Project Milestones'), ['controller' => 'ProjectMilestones', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Project Milestone'), ['controller' => 'ProjectMilestones', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Project Objectives'), ['controller' => 'ProjectObjectives', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Project Objective'), ['controller' => 'ProjectObjectives', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Risk Issues'), ['controller' => 'RiskIssues', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Risk Issue'), ['controller' => 'RiskIssues', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="projects view large-9 medium-8 columns content">
-    <h3><?= h($project->name) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('Name') ?></th>
-            <td><?= h($project->name) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Introduction') ?></th>
-            <td><?= h($project->introduction) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Location') ?></th>
-            <td><?= h($project->location) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Pim') ?></th>
-            <td><?= $project->has('pim') ? $this->Html->link($project->pim->id, ['controller' => 'Pims', 'action' => 'view', $project->pim->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Project Funding') ?></th>
-            <td><?= $project->has('project_funding') ? $this->Html->link($project->project_funding->id, ['controller' => 'ProjectFundings', 'action' => 'view', $project->project_funding->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($project->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Cost') ?></th>
-            <td><?= $this->Number->format($project->cost) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Project Detail Id') ?></th>
-            <td><?= $this->Number->format($project->project_detail_id) ?></td>
-        </tr>
-    </table>
-    <div class="related">
-        <h4><?= __('Related Project Details') ?></h4>
-        <?php if (!empty($project->project_details)): ?>
-        <table cellpadding="0" cellspacing="0">
+
+<div class="container-fluid">
+    <h3 class="bg-primary text-light text-center"><?= h($project->name) ?></h3>
+    <div class="col-md-6 float-left">
+        <table class="vertical-table table-primary mt-3">
+            <?= $this->Html->link(__('Add PAD'), ['controller' => 'projectDetails', 'action' => 'add'], ['class' => 'btn btn-primary btn-sm mr-3']) ?>
+            <?= $this->Html->link(__('Add PIM'), ['controller' => 'pims', 'action' => 'add', $project->pims_id], ['class' => 'btn btn-primary btn-sm mr-3']) ?>
+            <?= $this->Html->link(__('Add PPF'), ['controller' => 'projectFundings','action' => 'add', $project->projectFunding_id], ['class' => 'btn btn-primary btn-sm mr-3']) ?>
+            <?= $this->Html->link(__('<i class="fa fa-pencil fa-sm"></i> Edit'), ['action' => 'edit', $project->id], ['class' => 'btn btn-primary btn-sm mr-3', 'title' => 'Edit', 'escape' => false]) ?>
+            <?= $this->Html->link(__('<i class="fa fa-trash fa-sm"></i> Delete'), ['action' => 'delete', $project->id], ['class' => 'btn btn-primary btn-sm mr-3', 'title' => 'Delete', 'escape' => false]) ?>
+
             <tr>
+                <th scope="row" class="text-primary"><?= __('Name') ?></th>
+                <td><?= h($project->name) ?></td>
+
+            </tr>
+            <tr>
+                <th scope="row" class="text-primary"><?= __('Introduction') ?></th>
+                <td><?= h($project->introduction) ?></td>
+            </tr>
+            <tr>
+                <th scope="row" class="text-primary"><?= __('Location') ?></th>
+                <td><?= h($project->location) ?></td>
+            </tr>
+            <tr>
+                <th scope="row" class="text-primary"><?= __('Id') ?></th>
+                <td><?= $this->Number->format($project->id) ?></td>
+            </tr>
+            <tr>
+                <th scope="row" class="text-primary"><?= __('Cost') ?></th>
+                <td><?= $this->Number->format($project->cost) ?></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-md-6 float-left">
+        <h4 class="text-primary text-center"><?= __('Objectives') ?></h4>
+        <div class="">
+            <div class="table-responsive">
+                <table class="table table-borered table-primary br-m" cellpadding="0" cellspacing="0">
+                    <tr class="bg-primary">
+                        <!-- <th scope="col"><?= __('Id') ?></th> -->
+                        <!-- <th scope="col"><?= __('Project Id') ?></th> -->
+                        <th scope="col"><?= __('Objective') ?></th>
+                        <th scope="col" class="actions"><?= __('Actions') ?></th>
+                    </tr>
+                    <?php foreach ($project->objectives as $objectives): ?>
+                    <tr>
+                        <!-- <td><?= h($objectives->id) ?></td> -->
+                        <!-- <td><?= h($objectives->project_id) ?></td> -->
+                        <td><?= h($objectives->objective) ?></td>
+                        <td class="actions" width="15%">
+                            <!-- <?= $this->Html->link(__('View'), ['controller' => 'Objectives', 'action' => 'view', $objectives->id]) ?> -->
+                            <?= $this->Html->link(__('Edit'), ['controller' => 'Objectives', 'action' => 'edit', $objectives->id]) ?>
+                            <?= $this->Form->postLink(__('Delete'), ['controller' => 'Objectives', 'action' => 'delete', $objectives->id], ['confirm' => __('Are you sure you want to delete # {0}?', $objectives->id)]) ?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <div class="related">
+        <h4 class="text-primary text-center"><?= __('Project Details') ?></h4>
+        <?php if (!empty($project->project_details)): ?>
+        <table class="table table-bordered dataTable table-primary br-m" cellpadding="0" cellspacing="0">
+            <tr class="bg-primary text-light">
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Name') ?></th>
                 <th scope="col"><?= __('Description') ?></th>
@@ -142,11 +145,174 @@
         </table>
         <?php endif; ?>
     </div>
+    <hr>
+
     <div class="related">
-        <h4><?= __('Related Activities') ?></h4>
-        <?php if (!empty($project->activities)): ?>
-        <table cellpadding="0" cellspacing="0">
+        <h4 class="text-primary text-center"><?= __('Project Funding') ?></h4>
+        <?php if (!empty($project->project_details)): ?>
+        <table class="table table-bordered dataTable table-primary br-m" cellpadding="0" cellspacing="0">
+            <tr class="bg-primary text-light">
+                <!-- <th scope="col"><?= __('Id') ?></th> -->
+                <!-- <th scope="col"><?= __('Project') ?></th> -->
+                <th scope="col"><?= __('Milestone') ?></th>
+                <th scope="col"><?= __('Funding') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($project->project_fundings as $projectFunding): ?>
             <tr>
+            <!-- <td><?= $this->Number->format($projectFunding->id) ?></td> -->
+                <td><?= $projectFunding->has('milestone') ? $this->Html->link($projectFunding->milestone->id, ['controller' => 'Milestones', 'action' => 'view', $projectFunding->milestone->id]) : '' ?></td>
+                <td><?= $this->Number->format($projectFunding->project_id) ?></td>
+                <td><?= $this->Number->format($projectFunding->funding) ?></td>
+                <td class="actions">
+                    <!-- <?= $this->Html->link(__('View'), ['action' => 'view', $projectFunding->id]) ?> -->
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $projectFunding->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $projectFunding->id], ['confirm' => __('Are you sure you want to delete # {0}?', $projectFunding->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    <hr>
+
+    <div class="related">
+        <h4 class="text-primary text-center"><?= __('Project Implementation') ?></h4>
+        <?php if (!empty($project->pims)): ?>
+        <table class="table table-bordered dataTable table-primary br-m" cellpadding="0" cellspacing="0">
+            <tr class="bg-primary text-light">
+                <th scope="col"><?= __('Brief') ?></th>
+                <th scope="col"><?= __('Date') ?></th>
+                <th scope="col"><?= __('Funding Agency') ?></th>
+                <th scope="col"><?= __('Total Expenditure') ?></th>
+                <th scope="col"><?= __('Oversight Agency') ?></th>
+                <th scope="col"><?= __('Oversight Level') ?></th>
+                <th scope="col"><?= __('Approval Agency') ?></th>
+                <th scope="col"><?= __('Approval information') ?></th>
+                <th scope="col"><?= __('Approval date') ?></th>
+                <th scope="col"><?= __('Signed MOU') ?></th>
+                <th scope="col"><?= __('Adopted minute') ?></th>
+                <th scope="col"><?= __('Financial management') ?></th>
+                <th scope="col"><?= __('Financial Templates') ?></th>
+                <th scope="col"><?= __('Financial cost') ?></th>
+                <th scope="col"><?= __('Target') ?></th>
+                <th scope="col"><?= __('Responsible party') ?></th>
+                <th scope="col"><?= __('Plan start date') ?></th>
+                <th scope="col"><?= __('Plan end date') ?></th>
+                <th scope="col"><?= __('Dependency') ?></th>
+                <th scope="col"><?= __('Category') ?></th>
+                <th scope="col"><?= __('Owner') ?></th>
+                <th scope="col"><?= __('Currency') ?></th>
+                <th scope="col"><?= __('Disbursed Amount') ?></th>
+                <th scope="col"><?= __('Expected output date') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($project->project_details as $projectDetails): ?>
+            <tr>
+                <td><?= $this->Html->link(__(h($pim->brief)), ['action' => 'view', $pim->id]) ?></td>
+                <td><?= h($pim->date->format('d-M-Y')) ?></td>
+                <td><?= h($pim->funding_agency) ?></td>
+                <td><?= $this->Number->format($pim->total_expenditure) ?></td>
+                <td><?= h($pim->oversight_agency_mda) ?></td>
+                <td><?= h($pim->oversight_level) ?></td>
+                <td><?= h($pim->approvers_agency) ?></td>
+                <td><?= h($pim->approvers_rep_information) ?></td>
+                <td><?= h($pim->approvers_date->format('d-M-Y')) ?></td> -->
+                <td><?= h($pim->signed_mou) ?></td>
+                <td><?= h($pim->adopted_minutes) ?></td>
+                <td><?= h($pim->financial_management) ?></td>
+                <td><?= h($pim->financial_template) ?></td>
+
+
+                <td><?= h($projectDetails->name) ?></td>
+                <td><?= h($projectDetails->description) ?></td>
+                <td><?= h($projectDetails->location) ?></td>
+                <td><?= h($projectDetails->vendor_id) ?></td>
+                <td><?= h($projectDetails->manager_id) ?></td>
+                <td><?= h($projectDetails->sponsor_id) ?></td>
+                <td><?= h($projectDetails->waiting_since) ?></td>
+                <td><?= h($projectDetails->waiting_on_id) ?></td>
+                <td><?= h($projectDetails->status_id) ?></td>
+                <td><?= h($projectDetails->priority_id) ?></td>
+                <td><?= h($projectDetails->start_dt) ?></td>
+                <td><?= h($projectDetails->end_dt) ?></td>
+                <td><?= h($projectDetails->created) ?></td>
+                <td><?= h($projectDetails->last_updated) ?></td>
+                <td><?= h($projectDetails->system_user_id) ?></td>
+                <td><?= h($projectDetails->annotation_id) ?></td>
+                <td><?= h($projectDetails->project_id) ?></td>
+                <td><?= h($projectDetails->environmental_factors) ?></td>
+                <td><?= h($projectDetails->partners) ?></td>
+                <td><?= h($projectDetails->funding) ?></td>
+                <td><?= h($projectDetails->approvals) ?></td>
+                <td><?= h($projectDetails->risks) ?></td>
+                <td><?= h($projectDetails->components) ?></td>
+                <td><?= h($projectDetails->price_id) ?></td>
+                <td><?= h($projectDetails->sub_status_id) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'ProjectDetails', 'action' => 'view', $projectDetails->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'ProjectDetails', 'action' => 'edit', $projectDetails->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'ProjectDetails', 'action' => 'delete', $projectDetails->id], ['confirm' => __('Are you sure you want to delete # {0}?', $projectDetails->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    <hr>
+
+    <div class="related">
+        <h4 class="text-primary text-center"><?= __('Milestones') ?></h4>
+        <?php if (!empty($project->milestones)): ?>
+        <table class="table table-bordered table-primary br-m" cellpadding="0" cellspacing="0">
+            <tr class="bg-primary br-t">
+                <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('Record Number') ?></th>
+                <th scope="col"><?= __('Project Id') ?></th>
+                <th scope="col"><?= __('Amount') ?></th>
+                <th scope="col"><?= __('Payment') ?></th>
+                <th scope="col"><?= __('Status Id') ?></th>
+                <th scope="col"><?= __('Description') ?></th>
+                <th scope="col"><?= __('Achievement') ?></th>
+                <!-- <th scope="col"><?= __('Trigger Id') ?></th> -->
+                <th scope="col"><?= __('Completed Date') ?></th>
+                <th scope="col"><?= __('Expected Completion Date') ?></th>
+                <th scope="col"><?= __('Created') ?></th>
+                <th scope="col"><?= __('Modified') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($project->milestones as $milestones): ?>
+            <tr>
+                <td><?= h($milestones->id) ?></td>
+                <td><?= h($milestones->record_number) ?></td>
+                <td><?= h($milestones->project_id) ?></td>
+                <td><?= h($milestones->amount) ?></td>
+                <td><?= h($milestones->payment) ?></td>
+                <td><?= h($milestones->status_id) ?></td>
+                <td><?= h($milestones->description) ?></td>
+                <td><?= h($milestones->achievement) ?></td>
+                <td><?= h($milestones->trigger_id) ?></td>
+                <td><?= h($milestones->completed_date) ?></td>
+                <td><?= h($milestones->expected_completion_date) ?></td>
+                <td><?= h($milestones->created) ?></td>
+                <td><?= h($milestones->modified) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Milestones', 'action' => 'view', $milestones->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Milestones', 'action' => 'edit', $milestones->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Milestones', 'action' => 'delete', $milestones->id], ['confirm' => __('Are you sure you want to delete # {0}?', $milestones->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    <hr>
+
+    <div class="related">
+        <h4 class="text-primary text-center"><?= __('Activities') ?></h4>
+        <?php if (!empty($project->activities)): ?>
+        <table class="table table-bordered dataTable table-primary br-m" cellpadding="0" cellspacing="0">
+            <tr class="bg-primary text-light">
                 <th scope="col"><?= __('Activity Id') ?></th>
                 <th scope="col"><?= __('Project Id') ?></th>
                 <th scope="col"><?= __('Current Activity') ?></th>
@@ -189,110 +355,13 @@
         </table>
         <?php endif; ?>
     </div>
-    <div class="related">
-        <h4><?= __('Related Annotations') ?></h4>
-        <?php if (!empty($project->annotations)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Project Id') ?></th>
-                <th scope="col"><?= __('Comment') ?></th>
-                <th scope="col"><?= __('Created') ?></th>
-                <th scope="col"><?= __('Modified') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($project->annotations as $annotations): ?>
-            <tr>
-                <td><?= h($annotations->id) ?></td>
-                <td><?= h($annotations->project_id) ?></td>
-                <td><?= h($annotations->comment) ?></td>
-                <td><?= h($annotations->created) ?></td>
-                <td><?= h($annotations->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Annotations', 'action' => 'view', $annotations->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Annotations', 'action' => 'edit', $annotations->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Annotations', 'action' => 'delete', $annotations->id], ['confirm' => __('Are you sure you want to delete # {0}?', $annotations->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Milestones') ?></h4>
-        <?php if (!empty($project->milestones)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Record Number') ?></th>
-                <th scope="col"><?= __('Project Id') ?></th>
-                <th scope="col"><?= __('Amount') ?></th>
-                <th scope="col"><?= __('Payment') ?></th>
-                <th scope="col"><?= __('Status Id') ?></th>
-                <th scope="col"><?= __('Description') ?></th>
-                <th scope="col"><?= __('Achievement') ?></th>
-                <th scope="col"><?= __('Trigger Id') ?></th>
-                <th scope="col"><?= __('Completed Date') ?></th>
-                <th scope="col"><?= __('Expected Completion Date') ?></th>
-                <th scope="col"><?= __('Created') ?></th>
-                <th scope="col"><?= __('Modified') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($project->milestones as $milestones): ?>
-            <tr>
-                <td><?= h($milestones->id) ?></td>
-                <td><?= h($milestones->record_number) ?></td>
-                <td><?= h($milestones->project_id) ?></td>
-                <td><?= h($milestones->amount) ?></td>
-                <td><?= h($milestones->payment) ?></td>
-                <td><?= h($milestones->status_id) ?></td>
-                <td><?= h($milestones->description) ?></td>
-                <td><?= h($milestones->achievement) ?></td>
-                <td><?= h($milestones->trigger_id) ?></td>
-                <td><?= h($milestones->completed_date) ?></td>
-                <td><?= h($milestones->expected_completion_date) ?></td>
-                <td><?= h($milestones->created) ?></td>
-                <td><?= h($milestones->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Milestones', 'action' => 'view', $milestones->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Milestones', 'action' => 'edit', $milestones->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Milestones', 'action' => 'delete', $milestones->id], ['confirm' => __('Are you sure you want to delete # {0}?', $milestones->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Objectives') ?></h4>
-        <?php if (!empty($project->objectives)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Project Id') ?></th>
-                <th scope="col"><?= __('Objective') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($project->objectives as $objectives): ?>
-            <tr>
-                <td><?= h($objectives->id) ?></td>
-                <td><?= h($objectives->project_id) ?></td>
-                <td><?= h($objectives->objective) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Objectives', 'action' => 'view', $objectives->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Objectives', 'action' => 'edit', $objectives->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Objectives', 'action' => 'delete', $objectives->id], ['confirm' => __('Are you sure you want to delete # {0}?', $objectives->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Prices') ?></h4>
+    <hr>
+
+    <!-- <div class="related">
+        <h4 class="text-primary"><?= __('Related Prices') ?></h4>
         <?php if (!empty($project->prices)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
+        <table class="table table-bordered dataTable table-primary br-m" cellpadding="0" cellspacing="0">
+            <tr class="bg-primary">
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Project Id') ?></th>
                 <th scope="col"><?= __('Budget') ?></th>
@@ -327,75 +396,13 @@
         </table>
         <?php endif; ?>
     </div>
+    <hr> -->
+
     <div class="related">
-        <h4><?= __('Related Project Milestones') ?></h4>
-        <?php if (!empty($project->project_milestones)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Project Id') ?></th>
-                <th scope="col"><?= __('Status') ?></th>
-                <th scope="col"><?= __('Description') ?></th>
-                <th scope="col"><?= __('Created At') ?></th>
-                <th scope="col"><?= __('Duration') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($project->project_milestones as $projectMilestones): ?>
-            <tr>
-                <td><?= h($projectMilestones->id) ?></td>
-                <td><?= h($projectMilestones->project_id) ?></td>
-                <td><?= h($projectMilestones->status) ?></td>
-                <td><?= h($projectMilestones->description) ?></td>
-                <td><?= h($projectMilestones->created_at) ?></td>
-                <td><?= h($projectMilestones->duration) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'ProjectMilestones', 'action' => 'view', $projectMilestones->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'ProjectMilestones', 'action' => 'edit', $projectMilestones->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'ProjectMilestones', 'action' => 'delete', $projectMilestones->id], ['confirm' => __('Are you sure you want to delete # {0}?', $projectMilestones->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Project Objectives') ?></h4>
-        <?php if (!empty($project->project_objectives)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Project Id') ?></th>
-                <th scope="col"><?= __('Priority') ?></th>
-                <th scope="col"><?= __('Impact') ?></th>
-                <th scope="col"><?= __('Created') ?></th>
-                <th scope="col"><?= __('Last Updated') ?></th>
-                <th scope="col"><?= __('System User Id') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($project->project_objectives as $projectObjectives): ?>
-            <tr>
-                <td><?= h($projectObjectives->id) ?></td>
-                <td><?= h($projectObjectives->project_id) ?></td>
-                <td><?= h($projectObjectives->priority) ?></td>
-                <td><?= h($projectObjectives->impact) ?></td>
-                <td><?= h($projectObjectives->created) ?></td>
-                <td><?= h($projectObjectives->last_updated) ?></td>
-                <td><?= h($projectObjectives->system_user_id) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'ProjectObjectives', 'action' => 'view', $projectObjectives->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'ProjectObjectives', 'action' => 'edit', $projectObjectives->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'ProjectObjectives', 'action' => 'delete', $projectObjectives->id], ['confirm' => __('Are you sure you want to delete # {0}?', $projectObjectives->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Risk Issues') ?></h4>
+        <h4 class="text-primary text-center"><?= __('Risks') ?></h4>
         <?php if (!empty($project->risk_issues)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
+        <table class="table table-bordered dataTable table-primary br-m" cellpadding="0" cellspacing="0">
+            <tr class="bg-primary">
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Record Number') ?></th>
                 <th scope="col"><?= __('Project Id') ?></th>
@@ -434,4 +441,9 @@
         </table>
         <?php endif; ?>
     </div>
+    <hr>
+
+    <script>
+ $('.dataTable').DataTable();
+ </script>
 </div>

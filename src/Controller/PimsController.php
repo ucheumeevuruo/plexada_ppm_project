@@ -62,7 +62,6 @@ class PimsController extends AppController
         }
         $this->set(compact('pim'));
     }
-
     /**
      * Edit method
      *

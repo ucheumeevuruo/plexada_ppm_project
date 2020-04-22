@@ -9,9 +9,11 @@ use Cake\Validation\Validator;
 /**
  * Milestones Model
  *
- * @property \App\Model\Table\ProjectDetailsTable&\Cake\ORM\Association\BelongsTo $ProjectDetails
+ * @property &\Cake\ORM\Association\BelongsTo $Projects
  * @property \App\Model\Table\LovTable&\Cake\ORM\Association\BelongsTo $Lov
  * @property \App\Model\Table\LovTable&\Cake\ORM\Association\BelongsTo $Lov
+ * @property &\Cake\ORM\Association\HasMany $Activities
+ * @property &\Cake\ORM\Association\HasMany $ProjectFundings
  *
  * @method \App\Model\Entity\Milestone get($primaryKey, $options = [])
  * @method \App\Model\Entity\Milestone newEntity($data = null, array $options = [])
@@ -42,7 +44,7 @@ class MilestonesTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('ProjectDetails', [
+        $this->belongsTo('Projects', [
             'foreignKey' => 'project_id',
             'joinType' => 'INNER',
         ]);
@@ -52,6 +54,12 @@ class MilestonesTable extends Table
         ]);
         $this->belongsTo('Lov', [
             'foreignKey' => 'trigger_id',
+        ]);
+        $this->hasMany('Activities', [
+            'foreignKey' => 'milestone_id',
+        ]);
+        $this->hasMany('ProjectFundings', [
+            'foreignKey' => 'milestone_id',
         ]);
     }
 
@@ -112,7 +120,7 @@ class MilestonesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['project_id'], 'ProjectDetails'));
+        $rules->add($rules->existsIn(['project_id'], 'Projects'));
         $rules->add($rules->existsIn(['status_id'], 'Lov'));
         $rules->add($rules->existsIn(['trigger_id'], 'Lov'));
 

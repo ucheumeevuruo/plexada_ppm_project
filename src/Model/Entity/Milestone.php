@@ -22,7 +22,6 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\ProjectDetail $project_detail
  * @property \App\Model\Entity\Lov $lov
- * @property \App\Model\Entity\Lov $trigger
  */
 class Milestone extends Entity
 {
@@ -50,6 +49,5 @@ class Milestone extends Entity
         'modified' => true,
         'project_detail' => true,
         'lov' => true,
-        'trigger' => true,
     ];
 }

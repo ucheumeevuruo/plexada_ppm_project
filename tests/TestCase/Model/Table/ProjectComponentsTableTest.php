@@ -1,21 +1,21 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\ProjectDetailsTable;
+use App\Model\Table\ProjectComponentsTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\ProjectDetailsTable Test Case
+ * App\Model\Table\ProjectComponentsTable Test Case
  */
-class ProjectDetailsTableTest extends TestCase
+class ProjectComponentsTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\ProjectDetailsTable
+     * @var \App\Model\Table\ProjectComponentsTable
      */
-    public $ProjectDetails;
+    public $ProjectComponents;
 
     /**
      * Fixtures
@@ -23,17 +23,8 @@ class ProjectDetailsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.ProjectDetails',
-        'app.Vendors',
-        'app.Staff',
-        'app.Sponsors',
-        'app.Lov',
-        'app.Priorities',
-        'app.Users',
-        'app.Annotations',
+        'app.ProjectComponents',
         'app.Projects',
-        'app.Prices',
-        'app.SubStatuses',
     ];
 
     /**
@@ -44,8 +35,8 @@ class ProjectDetailsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('ProjectDetails') ? [] : ['className' => ProjectDetailsTable::class];
-        $this->ProjectDetails = TableRegistry::getTableLocator()->get('ProjectDetails', $config);
+        $config = TableRegistry::getTableLocator()->exists('ProjectComponents') ? [] : ['className' => ProjectComponentsTable::class];
+        $this->ProjectComponents = TableRegistry::getTableLocator()->get('ProjectComponents', $config);
     }
 
     /**
@@ -55,7 +46,7 @@ class ProjectDetailsTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->ProjectDetails);
+        unset($this->ProjectComponents);
 
         parent::tearDown();
     }

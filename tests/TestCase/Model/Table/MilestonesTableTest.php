@@ -26,7 +26,6 @@ class MilestonesTableTest extends TestCase
         'app.Milestones',
         'app.ProjectDetails',
         'app.Lov',
-        'app.Triggers',
     ];
 
     /**
@@ -79,16 +78,6 @@ class MilestonesTableTest extends TestCase
      * @return void
      */
     public function testBuildRules()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test identify method
-     *
-     * @return void
-     */
-    public function testIdentify()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

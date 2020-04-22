@@ -8,10 +8,11 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $milestone_id
+ * @property int $project_id
  * @property int $funding
  *
  * @property \App\Model\Entity\Milestone $milestone
- * @property \App\Model\Entity\ProjectDefinition[] $project_definitions
+ * @property \App\Model\Entity\Project[] $projects
  */
 class ProjectFunding extends Entity
 {
@@ -26,8 +27,9 @@ class ProjectFunding extends Entity
      */
     protected $_accessible = [
         'milestone_id' => true,
+        'project_id' => true,
         'funding' => true,
         'milestone' => true,
-        'project_definitions' => true,
+        'projects' => true,
     ];
 }

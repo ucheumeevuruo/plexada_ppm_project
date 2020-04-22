@@ -1,47 +1,162 @@
 <?php
-
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\ProjectDetail $projectDetail
  */
+$this->start('navbar');
+echo $this->element('navbar/default');
+$this->end();
 $this->start('sidebar');
 echo $this->element('sidebar/default');
 $this->end();
 ?>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <div class="projectDetails container-fluid">
     <?= $this->Form->create($projectDetail) ?>
     <fieldset>
-        <legend class="text-primary"><?= __('Add Project Detail') ?></legend>
-        <div class="col-md-6 float-left">
-            <?= $this->Form->control('Name') ?>
-            <?= $this->Form->control('Description', ['type' => 'textarea']) ?>
-            <?= $this->Form->control('price.budget', ['required' => true, 'prepend' => '<i class="addon-left">₦</i>', 'class' => 'addon-left', 'step' => '#,000']) ?>
-            <?= $this->Form->control('priority_id', ['options' => $priority, 'empty' => true]) ?>
-        </div>
-        <div class="col-md-6 float-left">
-            <?= $this->Form->control('start_dt', ['empty' => true, 'class' => 'addon-right', 'label' => 'Start Date', 'id' => 'datepicker', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']) ?>
-            <?= $this->Form->control('end_dt', ['empty' => true, 'class' => 'addon-right', 'label' => 'End Date', 'id' => 'datepicker1', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']) ?>
-            <?= $this->Form->control('sponsor_id', ['options' => $sponsors, 'empty' => true]) ?>
-            <?= $this->Form->control('status_id', ['options' => $lov, 'type' => 'hidden', 'default' => 1]) ?>
-            <?= $this->Form->control('manager_id', ['options' => $staff, 'empty' => true, 'label' => 'Project Manager']) ?>
-            <?= $this->Form->control('system_user_id', ['type' => 'hidden', 'options' => [$authUser['id']], 'default' => $authUser['id']]) ?>
-            <?= $this->Form->control('vendor_id', ['options' => $vendors, 'empty' => true, 'label' => 'Donor']) ?>
-        </div>
+        <legend class="bg-primary text-light mb-3 text-center"><?= __('Add PAD') ?></legend>
+            <div class="col-md-6 float-left">
+                <?= $this->Form->control('project_id');?>
+                <!-- <?= $this->Form->control('Name');?> -->
+                <?= $this->Form->control('Description');?>
+                <?= $this->Form->control('Location');?>
+                <!-- <?= $this->Form->control('vendor_id', ['options' => $vendors, 'empty' => true]);?> -->
+                <?= $this->Form->control('manager_id');?>
+                <!-- <?= $this->Form->control('sponsor_id', ['options' => $sponsors, 'empty' => true]);?> -->
+                <!-- <div class="form-group text"> -->
+                <label class="control-label" for="waiting_since">Waiting since</label>
+                <div class="input-group"><input type="text" name="date" class="form-control addon-right" empty="1" id="waiting_since" autocomplete="off">
+                <span class="input-group-addon"><i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span>
+                </div>
+                <!-- </div> -->
+
+                <!-- <?= $this->Form->control('waiting_since', ['empty' => true]);?> -->
+                <?= $this->Form->control('waiting_on_id', ['options' => $staff, 'empty' => true]);?>
+
+                <?= $this->Form->control('status_id');?>
+
+                <label class="control-label" for="start_dt">Start date</label>
+                <div class="input-group"><input type="text" name="date" class="form-control addon-right" empty="1" id="start_dt" autocomplete="off">
+                <span class="input-group-addon"><i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span>
+                </div>
+
+                <label class="control-label" for="end_dt">End date</label>
+                <div class="input-group"><input type="text" name="date" class="form-control addon-right" empty="1" id="end_dt" autocomplete="off">
+                <span class="input-group-addon"><i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span>
+                </div>
+
+                <!-- <?= $this->Form->control('start_dt', ['empty' => true]);?> -->
+                <!-- <?= $this->Form->control('end_dt', ['empty' => true]);?> -->
+                <!-- <?= $this->Form->control('last_updated');?> -->
+            </div>
+                <div class="col-md-6 float-left">
+
+                <?= $this->Form->control('priority_id', ['options' => $lov]);?>
+                <?= $this->Form->control('system_user_id', ['options' => $users]);?>
+                <?= $this->Form->control('annotation_id', ['options' => $annotations, 'empty' => true]);?>
+
+                <!-- ///////////////////////////// -->
+                <div id="inputEnv">
+                    <div class="input-group mb-3">
+                        <input type="text" name="environmental_factors[]" class="form-control m-input" placeholder="Environmental factor" autocomplete="off">
+                        <div class="input-group-append">
+                            <button id="removeEnv" type="button" class="btn btn-danger">Remove</button>
+                        </div>
+                    </div>
+                </div>
+
+            <div id="newEnv"></div>
+            <button id="addEnv" type="button" class="btn btn-primary mb-5">Add Environmental Factor</button>
+
+            <!-- ////////////////////////////////////////// -->
+
+                <!-- <?= $this->Form->control('environmental_factors');?> -->
+
+                <!-- <?= $this->Form->control('partners');?> -->
+                <!-- <?= $this->Form->control('funding_agencies');?> -->
+
+                <div id="inputFA">
+                    <div class="input-group mb-3">
+                        <input type="text" name="funding_agencies[]" class="form-control m-input" placeholder="Funding Agency" autocomplete="off">
+                        <div class="input-group-append">
+                            <button id="removeFA" type="button" class="btn btn-danger">Remove</button>
+                        </div>
+                    </div>
+                </div>
+
+            <div id="newFA"></div>
+            <button id="addFA" type="button" class="btn btn-primary mb-5">Add Funding Agency</button>
+
+
+
+                <?= $this->Form->control('approval');?>
+                <!-- <?= $this->Form->control('risks');?> -->
+                <!-- <?= $this->Form->control('components');?> -->
+                <?= $this->Form->control('price_id', ['options' => $prices]);?>
+                <?= $this->Form->control('sub_status_id');?>
+            </div>
     </fieldset>
     <div class="col-md-12 float-md-none">
         <?= $this->Form->button(__('Submit'), ['class' => 'btn-primary']) ?>
         <?= $this->Form->end() ?>
     </div>
-
 </div>
-<script>
-$(function() {
-    $('#datepicker, #datepicker1').datepicker({
-        inline: true,
-        "format": "dd/mm/yyyy",
-        startDate: "0d",
-        // "endDate": "09-15-2017",
-        "keyboardNavigation": false
+
+<script type="text/javascript">
+    // add new env. factors
+    $("#addEnv").click(function () {
+        var html = '';
+        html += '<div id="inputEnv">';
+        html += '<div class="input-group mb-3">';
+        html += '<input type="text" name="title[]" class="form-control m-input" placeholder="Environmental factor" autocomplete="off">';
+        html += '<div class="input-group-append">';
+        html += '<button id="removeEnv" type="button" class="btn btn-danger">Remove</button>';
+        html += '</div>';
+        html += '</div>';
+
+        $('#newEnv').append(html);
     });
-});
+
+    // remove row
+    $(document).on('click', '#removeEnv', function () {
+        $(this).closest('#inputEnv').remove();
+    });
+
+
+    // ///////////////////ADD FA///
+
+    $("#addFA").click(function () {
+        var html = '';
+        html += '<div id="inputFA">';
+        html += '<div class="input-group mb-3">';
+        html += '<input type="text" name="title[]" class="form-control m-input" placeholder="Funding Agency" autocomplete="off">';
+        html += '<div class="input-group-append">';
+        html += '<button id="removeFA" type="button" class="btn btn-danger">Remove</button>';
+        html += '</div>';
+        html += '</div>';
+
+        $('#newFA').append(html);
+    });
+
+    // remove row
+    $(document).on('click', '#removeFA', function () {
+        $(this).closest('#inputFA').remove();
+    });
+
+
+// ////Date picker
+    $(function () {
+        $('#waiting_since, #start_dt, #end_dt').datepicker({
+            inline: true,
+            "format": "dd/mm/yyyy",
+            startDate: "0d",
+            // "endDate": "09-15-2017",
+            "keyboardNavigation": false
+        });
+    });
+
 </script>

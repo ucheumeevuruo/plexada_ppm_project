@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -22,21 +21,12 @@ class ProjectDetailsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations', 'Tasks', 'Projects'],
+            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'Annotations'],
 
         ];
-
-        ///
-        ///
-        //        $authUser = $this->Auth->User();
-
-        //        $projectDetails = $this->ProjectDetails->find('all', [
-        //            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities'],
-        //            'conditions' => ['ProjectDetails.system_user_id' => $authUser['id']]
-        //        ]);
         $projectDetails = $this->paginate($this->ProjectDetails);
-        $this->set(compact('projectDetails'));
 
+        $this->set(compact('projectDetails'));
 
         $this->loadModel('Tasks');
         $tasks = $this->Tasks->find('all');
@@ -58,51 +48,7 @@ class ProjectDetailsController extends AppController
     public function view($id = null)
     {
         $projectDetail = $this->ProjectDetails->get($id, [
-            'contain' => ['Tasks', 'Vendors', 'Staff', 'Personnel', 'Sponsors', 'Activities.Priorities', 'Lov', 'Activities.Statuses', 'Users', 'Activities', 'Activities.Staff', 'SubStatuses', 'Priorities'],
-
-        ]);
-
-        $this->set('projectDetail', $projectDetail);
-        $this->loadModel('Tasks');
-        $tasks = $this->Tasks->find('all');
-
-        $this->set('tasks', $tasks);
-    }
-
-    public function activities($id = null)
-    {
-        $projectDetail = $this->ProjectDetails->get($id, [
-            'contain' => ['Activities', 'Activities.Priorities', 'Lov', 'Activities.Statuses']
-        ]);
-
-        $this->set('projectDetail', $projectDetail);
-    }
-
-    public function milestones($id = null)
-    {
-        $projectDetail = $this->ProjectDetails->get($id, [
-            // 'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'Milestones', 'Milestones.Lov', 'Milestones.Triggers', 'Priorities', 'Prices', 'Prices.Currencies'],
-            'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'Milestones', 'Milestones.Lov', 'Milestones.Triggers', 'Priorities', 'Prices'],
-        ]);
-
-        $this->set('projectDetail', $projectDetail);
-    }
-
-    public function riskIssues($id = null)
-    {
-        $projectDetail = $this->ProjectDetails->get($id, [
-            // 'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'RiskIssues', 'RiskIssues.Lov', 'RiskIssues.Impact', 'RiskIssues.Staff', 'Priorities', 'Prices', 'Prices.Currencies'],
-            'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'RiskIssues', 'RiskIssues.Lov', 'RiskIssues.Impact', 'RiskIssues.Staff', 'Priorities', 'Prices'],
-        ]);
-
-        $this->set('projectDetail', $projectDetail);
-    }
-
-    public function evaluation($id = null)
-    {
-        $projectDetail = $this->ProjectDetails->get($id, [
-            // 'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'RiskIssues', 'RiskIssues.Lov', 'RiskIssues.Impact', 'RiskIssues.Staff', 'Priorities', 'Prices', 'Prices.Currencies'],
-            'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'RiskIssues', 'RiskIssues.Lov', 'RiskIssues.Impact', 'RiskIssues.Staff', 'Priorities', 'Prices'],
+            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Annotations', 'Prices', 'Projects','Environmental factors', 'Fundings', 'Approvals', 'Risks'],
         ]);
 
         $this->set('projectDetail', $projectDetail);
@@ -117,8 +63,7 @@ class ProjectDetailsController extends AppController
     {
         $projectDetail = $this->ProjectDetails->newEntity();
         if ($this->request->is('post')) {
-            $projectDetail = $this->ProjectDetails->patchEntity($projectDetail, $this->ProjectDetails->identify($this->request->getData()));
-
+            $projectDetail = $this->ProjectDetails->patchEntity($projectDetail, $this->request->getData());
             if ($this->ProjectDetails->save($projectDetail)) {
                 $this->Flash->success(__('The project detail has been saved.'));
 
@@ -127,10 +72,11 @@ class ProjectDetailsController extends AppController
             $this->Flash->error(__('The project detail could not be saved. Please, try again.'));
             return $this->redirect(['action' => 'index']);
         }
+
         $vendors = $this->ProjectDetails->Vendors->find('list', ['limit' => 200]);
         $staff = $this->ProjectDetails->Staff->find('list', ['limit' => 200]);
         $sponsors = $this->ProjectDetails->Sponsors->find('list', ['limit' => 200]);
-        //        $lov = $this->ProjectDetails->Lov->find('list', ['limit' => 200]);
+        // $lov = $this->ProjectDetails->Lov->find('list', ['limit' => 200]);
         $lov = $this->ProjectDetails->Lov->find('list', [
             'conditions' => ['Lov.lov_type' => 'project_status', 'Lov.lov_value' => 'Open'],
             'limit' => 200
@@ -139,13 +85,16 @@ class ProjectDetailsController extends AppController
             'conditions' => ['Lov.lov_type' => 'priority'],
             'limit' => 200
         ]);
-        $subStatus = $this->ProjectDetails->SubStatuses->find('list', [
-            'conditions' => ['SubStatuses.lov_type' => 'project_sub_status'],
+        $subStatus = $this->ProjectDetails->Lov->find('list', [
+            'conditions' => ['Lov.lov_type' => 'project_sub_status'],
             'limit' => 200
         ]);
         $authUser = $this->Auth->User();
         $users = $this->ProjectDetails->Users->find('list', ['limit' => 200]);
-        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'lov', 'priority', 'users', 'authUser', 'subStatus'));
+        $annotations = $this->ProjectDetails->Annotations->find('list', ['limit' => 200]);
+        $prices = $this->ProjectDetails->Prices->find('list', ['limit' => 200]);
+        // $subStatuses = $this->ProjectDetails->SubStatus->find('list', ['limit' => 200]);
+        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'lov', 'users', 'annotations', 'prices'));
     }
 
     /**
@@ -158,35 +107,27 @@ class ProjectDetailsController extends AppController
     public function edit($id = null)
     {
         $projectDetail = $this->ProjectDetails->get($id, [
-            'contain' => ['Prices'],
+            'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $projectDetail = $this->ProjectDetails->patchEntity($projectDetail, $this->ProjectDetails->identify($this->request->getData()));
+            $projectDetail = $this->ProjectDetails->patchEntity($projectDetail, $this->request->getData());
             if ($this->ProjectDetails->save($projectDetail)) {
                 $this->Flash->success(__('The project detail has been saved.'));
 
-                //                return $this->redirect(['action' => 'view', $id]);
-                return $this->redirect($this->referer());
+                return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The project detail could not be saved. Please, try again.'));
-            //            return $this->redirect(['action' => 'view', $id]);
-            return $this->redirect($this->referer());
         }
         $vendors = $this->ProjectDetails->Vendors->find('list', ['limit' => 200]);
         $staff = $this->ProjectDetails->Staff->find('list', ['limit' => 200]);
         $sponsors = $this->ProjectDetails->Sponsors->find('list', ['limit' => 200]);
-        $personnel = $this->ProjectDetails->Personnel->find('list', ['limit' => 200]);
-        //        $lov = $this->ProjectDetails->Lov->find('list', ['limit' => 200]);
-        $subStatus = $this->ProjectDetails->SubStatuses->find('list', [
-            'conditions' => ['SubStatuses.lov_type' => 'project_sub_status'],
-            'limit' => 200
-        ]);
-        $lov = $this->ProjectDetails->Lov->find('list', [
-            'conditions' => ['Lov.lov_type' => 'project_status'],
-            'limit' => 200
-        ]);
+        $lov = $this->ProjectDetails->Lov->find('list', ['limit' => 200]);
         $users = $this->ProjectDetails->Users->find('list', ['limit' => 200]);
-        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'lov', 'users', 'personnel', 'subStatus'));
+        $annotations = $this->ProjectDetails->Annotations->find('list', ['limit' => 200]);
+        $prices = $this->ProjectDetails->Prices->find('list', ['limit' => 200]);
+        // $priority = $this->ProjectDetails->Prices->find('list', ['limit' => 200]);
+        $subStatuses = $this->ProjectDetails->SubStatuses->find('list', ['limit' => 200]);
+        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'lov', 'users', 'annotations', 'prices', 'subStatuses'));
     }
 
     /**

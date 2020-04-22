@@ -37,7 +37,7 @@ class ProjectFundingsController extends AppController
     public function view($id = null)
     {
         $projectFunding = $this->ProjectFundings->get($id, [
-            'contain' => ['Milestones', 'ProjectDefinitions'],
+            'contain' => ['Milestones', 'Projects'],
         ]);
 
         $this->set('projectFunding', $projectFunding);

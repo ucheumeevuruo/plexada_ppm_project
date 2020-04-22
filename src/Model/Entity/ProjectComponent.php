@@ -4,18 +4,16 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Lov Entity
+ * ProjectComponent Entity
  *
  * @property int $id
- * @property string|null $lov_type
- * @property string|null $lov_value
- * @property \Cake\I18n\FrozenTime|null $created
- * @property \Cake\I18n\FrozenTime|null $last_updated
- * @property string|null $system_user_id
+ * @property int $component
+ * @property int $cost
+ * @property int $project_id
  *
- * @property \App\Model\Entity\SystemUser $system_user
+ * @property \App\Model\Entity\Project $project
  */
-class Lov extends Entity
+class ProjectComponent extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -27,11 +25,9 @@ class Lov extends Entity
      * @var array
      */
     protected $_accessible = [
-        'lov_type' => true,
-        'lov_value' => true,
-        'created' => true,
-        'last_updated' => true,
-        'system_user_id' => true,
-        'system_user' => true,
+        'component' => true,
+        'cost' => true,
+        'project_id' => true,
+        'project' => true,
     ];
 }
