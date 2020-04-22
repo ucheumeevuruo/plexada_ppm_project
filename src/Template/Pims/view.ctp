@@ -20,15 +20,7 @@ $this->end();
 }
 
 </style>
-<!-- <nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Pim'), ['action' => 'edit', $pim->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Pim'), ['action' => 'delete', $pim->id], ['confirm' => __('Are you sure you want to delete # {0}?', $pim->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Pims'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Pim'), ['action' => 'add']) ?> </li>
-    </ul>
-</nav> -->
+
 <div class="container-fluid">
     <div class="card shadow mb-4">
 
@@ -60,25 +52,25 @@ $this->end();
               <ul class="ulmargin">
               <li>
               <?= h($pim->risks_mitigation) ?>
-              </li>              
+              </li>
               </ul>
               <p>Main Activity for Next Semester</p>
               <ul class="ulmargin">
               <li>
               <?= h($pim->risks_mitigation) ?>
-              </li>              
+              </li>
               </ul>
               <p>Total Expenditure</p>
               <ul class="ulmargin">
               <li>
               <?= $this->Number->format($pim->total_expenditure) ?>
-              </li>              
-              </ul>                           
+              </li>
+              </ul>
 
             </div><!--/.col-xs-6.col-lg-4-->
           </section>
           <section id="ProjectOversightStructure">
-          
+
           <div class="col-xs-6 col-lg-12">
           <h2>Project Oversight Structure</h2>
               <p><u> Oversight Level</u></p>
@@ -91,23 +83,23 @@ $this->end();
               <ul class="ulmargin">
               <li>
               <?= h($pim->oversight_agency_mda) ?>
-              </li>              
+              </li>
               </ul>
               <p>Main Activity for Next Semester</p>
               <ul class="ulmargin">
               <li>
               <?= h($pim->risks_mitigation) ?>
-              </li>              
+              </li>
               </ul>
               <p>Total Expenditure</p>
               <ul class="ulmargin">
               <li>
               <?= $this->Number->format($pim->total_expenditure) ?>
-              </li>              
-              </ul>                           
+              </li>
+              </ul>
 
             </div><!--/.col-xs-6.col-lg-4-->
-          </section>          
+          </section>
 
 
           </div><!--/row-->
@@ -141,13 +133,13 @@ $this->end();
 
         <div class="pims view card-body">
         <!-- <h3><?= h($pim->id) ?></h3> -->
-        <?= $this->Html->link(__('<i class="fa fa-pencil fa-sm"></i> Edit'), ['action' => 'edit', $pim->id], ['class' => 'btn btn-outline-dark btn-sm overlay', 'title' => 'Edit', 'escape' => false]) ?>     
+        <?= $this->Html->link(__('<i class="fa fa-pencil fa-sm"></i> Edit'), ['action' => 'edit', $pim->id], ['class' => 'btn btn-outline-dark btn-sm overlay', 'title' => 'Edit', 'escape' => false]) ?>
         <table class="vertical-table">
 
         <table class="vertical-table">
             <thead>
                 Revision Process Committe Members
-            </thead>            
+            </thead>
             <tr>
                 <th scope="row"><?= __('MDA') ?></th>
                 <td><?= h($pim->mda) ?></td>
@@ -161,7 +153,7 @@ $this->end();
         <table class="vertical-table">
             <thead>
                     Approvers
-            </thead>             
+            </thead>
                 <th scope="row"><?= __('Agency') ?></th>
                 <td><?= h($pim->approvers_agency) ?></td>
             </tr>
@@ -176,7 +168,7 @@ $this->end();
             <tr>
                 <th scope="row"><?= __('Date') ?></th>
                 <td><?= h($pim->approvers_date) ?></td>
-            </tr>            
+            </tr>
             <tr>
                 <th scope="row"><?= __('Adopted Minutes of Meeting') ?></th>
                 <td><?= h($pim->adopted_minutes) ?></td>
@@ -193,11 +185,11 @@ $this->end();
         <table class="vertical-table">
             <thead>
                     Work Plans
-            </thead>                
+            </thead>
             <tr>
                 <th scope="row"><?= __('Parties') ?></th>
                 <td><?= h($pim->parties) ?></td>
-            </tr>         
+            </tr>
             <tr>
                 <th scope="row"><?= __('Responsibilities') ?></th>
                 <td><?= h($pim->responsibilities) ?></td>
@@ -212,7 +204,7 @@ $this->end();
             <tr>
                 <th scope="row"><?= __('Financial Cost') ?></th>
                 <td><?= $this->Number->format($pim->financial_cost) ?></td>
-            </tr>                            
+            </tr>
             <tr>
                 <th scope="row"><?= __('Targets') ?></th>
                 <td><?= h($pim->targets) ?></td>
@@ -221,11 +213,11 @@ $this->end();
         <table class="vertical-table">
             <thead>
                     Project Action Plans
-            </thead>   
+            </thead>
             <tr>
                 <th scope="row"><?= __('Activities') ?></th>
                 <td><?= h($pim->activities) ?></td>
-            </tr>                  
+            </tr>
             <tr>
                 <th scope="row"><?= __('Action') ?></th>
                 <td><?= h($pim->action) ?></td>
@@ -241,7 +233,7 @@ $this->end();
             <tr>
                 <th scope="row"><?= __('Plan End Date') ?></th>
                 <td><?= h($pim->plan_end_date) ?></td>
-            </tr>            
+            </tr>
             <tr>
                 <th scope="row"><?= __('Dependency') ?></th>
                 <td><?= h($pim->dependency) ?></td>
@@ -250,7 +242,7 @@ $this->end();
         <table class="vertical-table">
             <thead>
                     Expenditure for Output based Disbursement
-            </thead>             
+            </thead>
             <tr>
                 <th scope="row"><?= __('Category') ?></th>
                 <td><?= h($pim->category) ?></td>
@@ -266,15 +258,15 @@ $this->end();
             <tr>
                 <th scope="row"><?= __('Disbursed Amount') ?></th>
                 <td><?= $this->Number->format($pim->disbursed_amount) ?></td>
-            </tr>            
+            </tr>
                 <th scope="row"><?= __('Exp Output Date') ?></th>
                 <td><?= h($pim->exp_output_date) ?></td>
-            </tr>                        
+            </tr>
         </table>
         <table class="vertical-table">
             <thead>
                     Milestone
-            </thead>                
+            </thead>
             <tr>
                 <th scope="row"><?= __('Task') ?></th>
                 <td><?= h($pim->task) ?></td>
@@ -283,7 +275,7 @@ $this->end();
         <table class="vertical-table">
             <thead>
                     Progress Report
-            </thead>                
+            </thead>
             <tr>
                 <th scope="row"><?= __('Category') ?></th>
                 <td><?= h($pim->progress_category) ?></td>
@@ -295,7 +287,7 @@ $this->end();
             <tr>
                 <th scope="row"><?= __('Amount of Credit Allocation') ?></th>
                 <td><?= $this->Number->format($pim->amount_credit_allocation) ?></td>
-            </tr>            
+            </tr>
             <tr>
                 <th scope="row"><?= __('Disbursed in Current Semester') ?></th>
                 <td><?= h($pim->disbursed_current_semester) ?></td>
@@ -303,7 +295,7 @@ $this->end();
             <tr>
                 <th scope="row"><?= __('Date Disbursement') ?></th>
                 <td><?= h($pim->date_disbursement) ?></td>
-            </tr>            
+            </tr>
             <tr>
                 <th scope="row"><?= __('Cumulated Disbursment') ?></th>
                 <td><?= h($pim->cumulated_disbursment) ?></td>
@@ -321,4 +313,4 @@ $this->end();
     <script src="../../dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-    <script src="offcanvas.js"></script>    
+    <script src="offcanvas.js"></script>

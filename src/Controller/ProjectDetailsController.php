@@ -154,7 +154,7 @@ class ProjectDetailsController extends AppController
     public function export()
     {
         $this->response->download('export.csv');
-        $summary = $this->ProjectDetails->find('all')->toArray();
+        $data = $this->Subscriber->find('all')->toArray();
         $_serialize = 'data';
         $this->set(compact('data', '_serialize'));
         $this->viewBuilder()->className('CsvView.Csv');

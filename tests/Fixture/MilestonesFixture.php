@@ -63,10 +63,10 @@ class MilestonesFixture extends TestFixture
                 'description' => 'Lorem ipsum dolor sit amet',
                 'achievement' => 'Lorem ipsum dolor sit amet',
                 'trigger_id' => 1,
-                'completed_date' => '2020-04-05',
-                'expected_completion_date' => '2020-04-05',
-                'created' => '2020-04-05 23:58:04',
-                'modified' => '2020-04-05 23:58:04',
+                'completed_date' => '2020-04-21',
+                'expected_completion_date' => '2020-04-21',
+                'created' => '2020-04-21 03:59:38',
+                'modified' => '2020-04-21 03:59:38',
             ],
         ];
         parent::init();

@@ -40,9 +40,11 @@ class LovTable extends Table
 
         $this->addBehavior('Timestamp');
 
-//        $this->belongsTo('SystemUsers', [
-//            'foreignKey' => 'system_user_id',
-//        ]);
+        $this->belongsTo('SystemUsers', [
+            'className' =>'lov',
+            'foreignKey' => 'system_user_id',
+            'jointype' => 'INNER',
+        ]);
     }
 
     /**
@@ -83,7 +85,7 @@ class LovTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-//        $rules->add($rules->existsIn(['system_user_id'], 'SystemUsers'));
+        $rules->add($rules->existsIn(['system_user_id'], 'SystemUsers'));
 
         return $rules;
     }
