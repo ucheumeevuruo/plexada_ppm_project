@@ -9,15 +9,13 @@ use Cake\Validation\Validator;
 /**
  * Projects Model
  *
- * @property \App\Model\Table\ProjectDetailsTable&\Cake\ORM\Association\BelongsTo $ProjectDetails
- * @property \App\Model\Table\PimsTable&\Cake\ORM\Association\BelongsTo $Pims
- * @property \App\Model\Table\ProjectFundingsTable&\Cake\ORM\Association\BelongsTo $ProjectFundings
  * @property \App\Model\Table\ActivitiesTable&\Cake\ORM\Association\HasMany $Activities
  * @property \App\Model\Table\AnnotationsTable&\Cake\ORM\Association\HasMany $Annotations
  * @property \App\Model\Table\MilestonesTable&\Cake\ORM\Association\HasMany $Milestones
  * @property \App\Model\Table\ObjectivesTable&\Cake\ORM\Association\HasMany $Objectives
  * @property \App\Model\Table\PricesTable&\Cake\ORM\Association\HasMany $Prices
  * @property \App\Model\Table\ProjectDetailsTable&\Cake\ORM\Association\HasMany $ProjectDetails
+ * @property \App\Model\Table\ProjectFundingsTable&\Cake\ORM\Association\HasMany $ProjectFundings
  * @property \App\Model\Table\ProjectMilestonesTable&\Cake\ORM\Association\HasMany $ProjectMilestones
  * @property \App\Model\Table\ProjectObjectivesTable&\Cake\ORM\Association\HasMany $ProjectObjectives
  * @property \App\Model\Table\RiskIssuesTable&\Cake\ORM\Association\HasMany $RiskIssues
@@ -47,18 +45,6 @@ class ProjectsTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('ProjectDetails', [
-            'foreignKey' => 'project_detail_id',
-            'joinType' => 'INNER',
-        ]);
-        $this->belongsTo('Pims', [
-            'foreignKey' => 'pim_id',
-            'joinType' => 'INNER',
-        ]);
-        $this->belongsTo('ProjectFundings', [
-            'foreignKey' => 'project_funding_id',
-            'joinType' => 'INNER',
-        ]);
         $this->hasMany('Activities', [
             'foreignKey' => 'project_id',
         ]);
@@ -74,7 +60,13 @@ class ProjectsTable extends Table
         $this->hasMany('Prices', [
             'foreignKey' => 'project_id',
         ]);
-        $this->hasMany('ProjectDetails', [
+        $this->hasOne('ProjectDetails', [
+            'foreignKey' => 'project_id',
+        ]);
+        $this->hasOne('ProjectFundings', [
+            'foreignKey' => 'project_id',
+        ]);
+        $this->hasOne('Pims', [
             'foreignKey' => 'project_id',
         ]);
         $this->hasMany('ProjectMilestones', [
@@ -123,21 +115,5 @@ class ProjectsTable extends Table
             ->notEmptyString('cost');
 
         return $validator;
-    }
-
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
-    public function buildRules(RulesChecker $rules)
-    {
-        $rules->add($rules->existsIn(['project_detail_id'], 'ProjectDetails'));
-        $rules->add($rules->existsIn(['pim_id'], 'Pims'));
-        $rules->add($rules->existsIn(['project_funding_id'], 'ProjectFundings'));
-
-        return $rules;
     }
 }

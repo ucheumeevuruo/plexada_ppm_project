@@ -7,21 +7,20 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * ProjectFundings Model
+ * ProjectComponents Model
  *
- * @property \App\Model\Table\MilestonesTable&\Cake\ORM\Association\BelongsTo $Milestones
  * @property \App\Model\Table\ProjectsTable&\Cake\ORM\Association\BelongsTo $Projects
  *
- * @method \App\Model\Entity\ProjectFunding get($primaryKey, $options = [])
- * @method \App\Model\Entity\ProjectFunding newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\ProjectFunding[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\ProjectFunding|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\ProjectFunding saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\ProjectFunding patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\ProjectFunding[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\ProjectFunding findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\ProjectComponent get($primaryKey, $options = [])
+ * @method \App\Model\Entity\ProjectComponent newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\ProjectComponent[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\ProjectComponent|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\ProjectComponent saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\ProjectComponent patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\ProjectComponent[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\ProjectComponent findOrCreate($search, callable $callback = null, $options = [])
  */
-class ProjectFundingsTable extends Table
+class ProjectComponentsTable extends Table
 {
     /**
      * Initialize method
@@ -33,14 +32,10 @@ class ProjectFundingsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('project_fundings');
+        $this->setTable('project_components');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('Milestones', [
-            'foreignKey' => 'milestone_id',
-            'joinType' => 'INNER',
-        ]);
         $this->belongsTo('Projects', [
             'foreignKey' => 'project_id',
             'joinType' => 'INNER',
@@ -60,9 +55,14 @@ class ProjectFundingsTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->integer('funding')
-            ->requirePresence('funding', 'create')
-            ->notEmptyString('funding');
+            ->integer('component')
+            ->requirePresence('component', 'create')
+            ->notEmptyString('component');
+
+        $validator
+            ->integer('cost')
+            ->requirePresence('cost', 'create')
+            ->notEmptyString('cost');
 
         return $validator;
     }
@@ -76,7 +76,6 @@ class ProjectFundingsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['milestone_id'], 'Milestones'));
         $rules->add($rules->existsIn(['project_id'], 'Projects'));
 
         return $rules;

@@ -25,7 +25,7 @@ class ProjectFundingsTableTest extends TestCase
     public $fixtures = [
         'app.ProjectFundings',
         'app.Milestones',
-        'app.ProjectDefinitions',
+        'app.Projects',
     ];
 
     /**

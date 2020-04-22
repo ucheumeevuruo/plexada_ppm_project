@@ -69,4 +69,14 @@ class PimsTableTest extends TestCase
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
+
+    /**
+     * Test identify method
+     *
+     * @return void
+     */
+    public function testIdentify()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
 }
