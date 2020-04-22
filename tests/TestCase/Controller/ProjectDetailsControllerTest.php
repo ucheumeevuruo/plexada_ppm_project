@@ -20,12 +20,16 @@ class ProjectDetailsControllerTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.ProjectDetailsOld',
+        'app.ProjectDetails',
         'app.Vendors',
-        'app.Personel',
+        'app.Staff',
         'app.Sponsors',
         'app.Lov',
         'app.Users',
+        'app.Annotations',
+        'app.Projects',
+        'app.Prices',
+        'app.SubStatuses',
     ];
 
     /**

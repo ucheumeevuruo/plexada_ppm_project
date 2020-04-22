@@ -32,7 +32,7 @@ $this->end();
                                 <div class="col mb-4">
                                 <?= $this->Html->link(__('Compose'), ['action' => 'add'], ['class' => 'btn btn-secondary overlay border-right form-control', 'title' => 'Compose', 'escape' => false]) ?>
                                 </div>
-        
+
                                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                     <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Inbox</a>
                                     <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Outbox</a>
@@ -109,12 +109,12 @@ $this->end();
                                             </tr>
                                             <?php endforeach; ?>
                                         </tbody>
-                                    </table>                                    
+                                    </table>
                                     </div>
                                     <!-- <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">3</div>
                                     <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">4</div> -->
                                     <!-- start changing divs  -->
-                                </div> 
+                                </div>
 
                             </div>
                         </div>

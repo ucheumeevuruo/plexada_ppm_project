@@ -20,7 +20,7 @@ class LovController extends AppController
     public function index()
     {
         $this->paginate = [
-//            'contain' => ['SystemUsers'],
+            'contain' => ['SystemUsers'],
         ];
         $lov = $this->paginate($this->Lov);
 
@@ -37,7 +37,7 @@ class LovController extends AppController
     public function view($id = null)
     {
         $lov = $this->Lov->get($id, [
-//            'contain' => ['SystemUsers'],
+            'contain' => ['SystemUsers'],
         ]);
 
         $this->set('lov', $lov);
@@ -60,8 +60,8 @@ class LovController extends AppController
             }
             $this->Flash->error(__('The lov could not be saved. Please, try again.'));
         }
-//        $systemUsers = $this->Lov->SystemUsers->find('list', ['limit' => 200]);
-        $this->set(compact('lov'));
+        $systemUsers = $this->Lov->SystemUsers->find('list', ['limit' => 200]);
+        $this->set(compact('lov', 'systemUsers'));
     }
 
     /**
@@ -85,8 +85,8 @@ class LovController extends AppController
             }
             $this->Flash->error(__('The lov could not be saved. Please, try again.'));
         }
-//        $systemUsers = $this->Lov->SystemUsers->find('list', ['limit' => 200]);
-        $this->set(compact('lov'));
+        $systemUsers = $this->Lov->SystemUsers->find('list', ['limit' => 200]);
+        $this->set(compact('lov', 'systemUsers'));
     }
 
     /**

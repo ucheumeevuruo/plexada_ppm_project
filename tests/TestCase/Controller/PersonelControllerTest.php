@@ -21,7 +21,6 @@ class PersonelControllerTest extends TestCase
      */
     public $fixtures = [
         'app.Personel',
-        'app.SystemUsers',
     ];
 
     /**
