@@ -70,7 +70,7 @@
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item m-0">
             <?= $this->Html->link(
-                __('<i class="fa fa-user-o fa-lg"></i> &nbsp;M & E'),
+                __('<i class="fa fa-clipboard-list fa-lg"></i> &nbsp;M & E'),
                 ['controller' => 'ProjectDetails', 'action' => 'evaluation'],
                 ['escape' => false, 'class' => 'nav-link collapsed']
             ) ?>

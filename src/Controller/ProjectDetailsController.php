@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use App\Utility\Excel\Handlers\ProjectUploadHandler;
+use Cake\Core\Configure;
+use Cake\Core\Configure\Engine\PhpConfig;
+
 
 /**
  * ProjectDetails Controller
@@ -13,7 +16,11 @@ use App\Utility\Excel\Handlers\ProjectUploadHandler;
  * @method \App\Model\Entity\ProjectDetail[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class ProjectDetailsController extends AppController
+
 {
+
+
+    var $helpers = array('Html', 'Form', 'Csv');
     /**
      * Index method
      *
@@ -115,6 +122,9 @@ class ProjectDetailsController extends AppController
 
         ];
 
+        // $inputValue =  $_POST['from'];
+
+
         $projectDetails = $this->paginate($this->ProjectDetails);
         $this->set(compact('projectDetails'));
     }
@@ -122,12 +132,33 @@ class ProjectDetailsController extends AppController
     public function summary()
     {
         $this->paginate = [
-            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations', 'Tasks'],
+            'contain' => [
+                'Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations',
+                'Tasks'
+            ],
 
         ];
 
         $projectDetails = $this->paginate($this->ProjectDetails);
         $this->set(compact('projectDetails'));
+    }
+
+    function download()
+    {
+        $this->set('orders', $this->Order->find('all'));
+        $this->layout = null;
+        $this->autoLayout = false;
+        Configure::write('debug', '0');
+    }
+
+    public function export()
+    {
+        $this->response->download('export.csv');
+        $summary = $this->ProjectDetails->find('all')->toArray();
+        $_serialize = 'data';
+        $this->set(compact('data', '_serialize'));
+        $this->viewBuilder()->className('CsvView.Csv');
+        return;
     }
 
     /**
@@ -139,7 +170,10 @@ class ProjectDetailsController extends AppController
     {
         $projectDetail = $this->ProjectDetails->newEntity();
         if ($this->request->is('post')) {
-            $projectDetail = $this->ProjectDetails->patchEntity($projectDetail, $this->ProjectDetails->identify($this->request->getData()));
+            $projectDetail = $this->ProjectDetails->patchEntity(
+                $projectDetail,
+                $this->ProjectDetails->identify($this->request->getData())
+            );
 
             if ($this->ProjectDetails->save($projectDetail)) {
                 $this->Flash->success(__('The project detail has been saved.'));
@@ -152,7 +186,7 @@ class ProjectDetailsController extends AppController
         $vendors = $this->ProjectDetails->Vendors->find('list', ['limit' => 200]);
         $staff = $this->ProjectDetails->Staff->find('list', ['limit' => 200]);
         $sponsors = $this->ProjectDetails->Sponsors->find('list', ['limit' => 200]);
-        //        $lov = $this->ProjectDetails->Lov->find('list', ['limit' => 200]);
+        // $lov = $this->ProjectDetails->Lov->find('list', ['limit' => 200]);
         $lov = $this->ProjectDetails->Lov->find('list', [
             'conditions' => ['Lov.lov_type' => 'project_status', 'Lov.lov_value' => 'Open'],
             'limit' => 200
@@ -167,7 +201,17 @@ class ProjectDetailsController extends AppController
         ]);
         $authUser = $this->Auth->User();
         $users = $this->ProjectDetails->Users->find('list', ['limit' => 200]);
-        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'lov', 'priority', 'users', 'authUser', 'subStatus'));
+        $this->set(compact(
+            'projectDetail',
+            'vendors',
+            'staff',
+            'sponsors',
+            'lov',
+            'priority',
+            'users',
+            'authUser',
+            'subStatus'
+        ));
     }
 
     /**
@@ -183,22 +227,25 @@ class ProjectDetailsController extends AppController
             'contain' => ['Prices'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $projectDetail = $this->ProjectDetails->patchEntity($projectDetail, $this->ProjectDetails->identify($this->request->getData()));
+            $projectDetail = $this->ProjectDetails->patchEntity(
+                $projectDetail,
+                $this->ProjectDetails->identify($this->request->getData())
+            );
             if ($this->ProjectDetails->save($projectDetail)) {
                 $this->Flash->success(__('The project detail has been saved.'));
 
-                //                return $this->redirect(['action' => 'view', $id]);
+                // return $this->redirect(['action' => 'view', $id]);
                 return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The project detail could not be saved. Please, try again.'));
-            //            return $this->redirect(['action' => 'view', $id]);
+            // return $this->redirect(['action' => 'view', $id]);
             return $this->redirect($this->referer());
         }
         $vendors = $this->ProjectDetails->Vendors->find('list', ['limit' => 200]);
         $staff = $this->ProjectDetails->Staff->find('list', ['limit' => 200]);
         $sponsors = $this->ProjectDetails->Sponsors->find('list', ['limit' => 200]);
         $personnel = $this->ProjectDetails->Personnel->find('list', ['limit' => 200]);
-        //        $lov = $this->ProjectDetails->Lov->find('list', ['limit' => 200]);
+        // $lov = $this->ProjectDetails->Lov->find('list', ['limit' => 200]);
         $subStatus = $this->ProjectDetails->SubStatuses->find('list', [
             'conditions' => ['SubStatuses.lov_type' => 'project_sub_status'],
             'limit' => 200
