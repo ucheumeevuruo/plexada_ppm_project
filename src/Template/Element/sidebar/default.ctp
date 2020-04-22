@@ -74,7 +74,15 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
 
-
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item m-0">
+            <?= $this->Html->link(
+                __('<i class="fa fa-user-o fa-lg"></i> &nbsp;M & E'),
+                ['controller' => 'ProjectDetails', 'action' => 'evaluation'],
+                ['escape' => false, 'class' => 'nav-link collapsed']
+            ) ?>
+        </li>
+        <hr class="sidebar-divider m-0">
     <!-- Divider -->
 
 
