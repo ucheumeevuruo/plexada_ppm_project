@@ -35,6 +35,7 @@ $cakeDescription = 'Ogun State Project';
     <?= $this->Html->css('custom-style.css') ?>
     <?= $this->Html->script('jquery-1.9.1.js') ?>
     <?= $this->Html->script('jquery-ui.min.js') ?>
+    <?= $this->Html->script('popper.min.js') ?>
     <?= $this->Html->script('bootstrap.min.js') ?>
     <?= $this->Html->script('jquery.dataTables.min.js') ?>
     <?= $this->Html->script('dataTables.bootstrap4.min.js') ?>
@@ -45,6 +46,8 @@ $cakeDescription = 'Ogun State Project';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+    <script src="https://cdn.anychart.com/releases/8.6.0/js/anychart-core.min.js"> </script> 
+    <script src ="https://cdn.anychart.com/releases/8.6.0/js/anychart-gantt.min.js"></script>
 </head>
 <body id="page-top">
     <?= $this->Flash->render() ?>
