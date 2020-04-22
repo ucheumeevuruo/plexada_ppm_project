@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Core\Configure;
 use Cake\Event\Event;
+use Cake\Datasource\ConnectionManager;
 
 //use Ghunti\HighchartsPHP\Highchart;
 //App::import('Vendor', '\HighchartsPHP\Highchart');
@@ -169,6 +170,14 @@ class DashboardController extends AppController
         $this->loadModel('ProjectDetails');
         $this->loadModel('Milestones');
         $this->loadModel('RiskIssues');
+        $project_list = $this->ProjectDetails->find('all');
+        $milestone_list =  $this->Milestones->find('all')->where('status_id=3');
+
+        // $mymy = $this->Milestones->find('all', array(
+        //     'fields' => 'MAX(completed_date)',
+        //     'group' => 'completed_date'
+        //  ));
+
         $priorities = $this->ProjectDetails->find('all')
             ->contain(['Prices', 'Priorities'])
             ->select(['id' => 'ProjectDetails.id', 'name' => 'if((Name) is null, \'total\', name)', 'priority_type' => 'if((Priorities.lov_value) is null, \'total_priority\', Priorities.lov_value)', 'total_consumed' => 'sum(Prices.total_cost)', 'budget' => 'sum(Prices.budget)', 'count' => 'count(*)'])
@@ -238,8 +247,20 @@ class DashboardController extends AppController
                 }
             }
         }
+               
+        foreach($project_list as $prj){
+            
+    };
+        // sending projects as array
+        $allprojects = $project_list
+        ->select(['name']);
+        $allprojects = $allprojects
+        ->extract('name')
+        ->toArray();
+        // sending projects as array
+
         $priority = ($priority);
-        $this->set( compact( 'priority', 'priority_total' ) );
+        $this->set( compact( 'priority', 'priority_total','project_list','milestone_list','allprojects') );
     }
 
     public function beforeRender(Event $event)
@@ -335,4 +356,16 @@ class DashboardController extends AppController
         ]);
         $this->set( compact( 'priority', 'priority_total' ) );
     }
+
+
+    public function milestones($id = null)
+{
+    $projectDetail = $this->ProjectDetails->get($id, [
+        // 'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'Milestones', 'Milestones.Lov', 'Milestones.Triggers', 'Priorities', 'Prices', 'Prices.Currencies'],
+        'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'Milestones', 'Milestones.Lov', 'Milestones.Triggers', 'Priorities', 'Prices'],
+    ]);
+
+    $this->set('projectDetail', $projectDetail);
 }
+}
+
