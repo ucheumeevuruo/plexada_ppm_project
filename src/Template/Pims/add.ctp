@@ -48,7 +48,7 @@ $this->end();
         <legend class="text-center text-primary mb-4"><?= __('Project Implementation Manual')  ?></legend>
         <h2 class="text-center text-success mb-4"><?= __("Project Name : $project_info->name")  ?></h2>
         <input type="hidden"id="project_id" name="project_id" required="required" value="<?= $project_info->id; ?>">
-        <input type="text"id="project_id" name="project_id" required="required" value="<?= $project_info->introduction; ?>">
+        <!-- <input type="text"id="project_id" name="project_id" required="required" value="<?= $project_info->introduction; ?>"> -->
         <!-- my code  -->
     <!-- 0th Row  -->
     <div class="row justify-content-around">

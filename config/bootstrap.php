@@ -205,20 +205,20 @@ Type::build('timestamp')
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
 
-$this->addPlugin('CakePdf', ['bootstrap' => true]);
-$this->addPlugin('CsvView');
+// $this->addPlugin('CakePdf', ['bootstrap' => true]);
+// $this->addPlugin('CsvView');
 
-Configure::write('CakePdf', [
-    'engine' => [
-        'className' => 'CakePdf.WkHtmlToPdf',
-        //'binary' => '/usr/bin/wkhtmltopdf', //LINUX
-        // 'binary' => 'C:\PROGRA~1\wkhtmltopdf\bin\wkhtmltopdf.exe', //WINDOWS
-        'binary' => 'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe', //WINDOWS
-        'options' => [
-            'print-media-type' => false,
-            'outline' => true,
-            'dpi' => 96
-        ]
-    ],
-    'pageSize' => 'Letter',
-]);
+// Configure::write('CakePdf', [
+//     'engine' => [
+//         'className' => 'CakePdf.WkHtmlToPdf',
+//         //'binary' => '/usr/bin/wkhtmltopdf', //LINUX
+//         // 'binary' => 'C:\PROGRA~1\wkhtmltopdf\bin\wkhtmltopdf.exe', //WINDOWS
+//         'binary' => 'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe', //WINDOWS
+//         'options' => [
+//             'print-media-type' => false,
+//             'outline' => true,
+//             'dpi' => 96
+//         ]
+//     ],
+//     'pageSize' => 'Letter',
+// ]);
