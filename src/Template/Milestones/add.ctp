@@ -18,10 +18,24 @@
             echo $this->Form->control('description');
             echo $this->Form->control('achievement');
             echo $this->Form->control('trigger_id', ['options' => $triggers, 'empty' => true]);
-            echo $this->Form->control('completed_date', ['empty' => true]);
-            echo $this->Form->control('expected_completion_date', ['empty' => true]);
+            // echo $this->Form->control('completed_date', ['empty' => true,'id'=>'completed_date']);
+            echo $this->Form->control('completed_date', ['empty' => true, 'class' => 'addon-right', 'label' => 'Completed Date', 'id' => 'completed_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);
+            echo $this->Form->control('expected_completion_date', ['empty' => true, 'class' => 'addon-right', 'label' => 'Expected Completion Date', 'id' => 'expected_completion_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);
+                 // echo $this->Form->control('expected_completion_date', ['empty' => true]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit'), ['class' => 'btn-primary']) ?>
     <?= $this->Form->end() ?>
 </div>
+
+<script>
+$(function() {
+    $('#completed_date, #expected_completion_date').datepicker({
+        inline: true,
+        "format": "dd/mm/yyyy",
+        startDate: "0d",
+        // "endDate": "09-15-2017",
+        "keyboardNavigation": false
+    });
+});
+</script>

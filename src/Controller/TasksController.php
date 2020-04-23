@@ -46,21 +46,35 @@ class TasksController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id=null)
     {
+        $this->loadModel('Projects');
+        $this->loadModel('Activities');
+        $project_info = $this->Projects->get($id);
+        // $activities_info = $this->Activities->find('list', ['limit' => 200, 'conditions'=>['project_id'=>$id]]);
         $task = $this->Tasks->newEntity();
         if ($this->request->is('post')) {
-            $task = $this->Tasks->patchEntity($task, $this->request->getData());
+            // $task = $this->Tasks->patchEntity($task, $this->request->getData());
+            $task = $this->Tasks->patchEntity($task, $this->Tasks->identify($this->request->getData()));
+            // debug($task);
+            // die();
             if ($this->Tasks->save($task)) {
                 $this->Flash->success(__('The task has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                // return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->referer());
+
             }
             $this->Flash->error(__('The task could not be saved. Please, try again.'));
+            // debug($task);
+            // die();
         }
-        $projects = $this->Tasks->Projects->find('list', ['limit' => 200]);
-
-        $this->set(compact('task', 'projects'));
+        $projects = $this->Tasks->Projects->find('list', ['limit' => 200, 'conditions'=>['id'=>$id]]);
+        $activities_info = $this->Activities->find('list', ['limit' => 200, 'conditions'=>['project_id'=>$id]]);
+            // sql($activities_info);
+            // die();
+            // echo $activities_info;
+        $this->set(compact('task','projects','activities_info'));
     }
 
     /**

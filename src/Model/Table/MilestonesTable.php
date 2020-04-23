@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use DateTime;
 
 /**
  * Milestones Model
@@ -109,6 +110,15 @@ class MilestonesTable extends Table
             ->allowEmptyDate('expected_completion_date');
 
         return $validator;
+    }
+
+    public function identify($formData) {
+        $formData['completed_date'] = !empty($formData['completed_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['completed_date']) : $formData['completed_date'];
+        $formData['expected_completion_date'] = !empty($formData['expected_completion_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['expected_completion_date']) : $formData['expected_completion_date'];
+                   
+        return $formData;
     }
 
     /**
