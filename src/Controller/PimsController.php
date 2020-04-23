@@ -45,8 +45,10 @@ class PimsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id=null)
     {
+        $this->loadModel('Projects');
+        $project_info = $this->Projects->get($id);
         $pim = $this->Pims->newEntity();
         if ($this->request->is('post')) {
             $pim = $this->Pims->patchEntity($pim, $this->Pims->identify($this->request->getData()));
@@ -54,13 +56,14 @@ class PimsController extends AppController
             if ($this->Pims->save($pim)) {
                 $this->Flash->success(__('The pim has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                // return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'Projects', 'action' => 'index']);
             }
             $this->Flash->error(__('The pim could not be saved. Please, try again.'));
-            // debug($pim);
-            // die();
+            debug($pim);
+            die();
         }
-        $this->set(compact('pim'));
+        $this->set(compact('pim','project_info'));
     }
     /**
      * Edit method

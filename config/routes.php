@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Routes configuration
  *
@@ -17,6 +18,7 @@
  * @link          https://cakephp.org CakePHP(tm) Project
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
+
 use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
@@ -104,3 +106,10 @@ Router::scope('/', function (RouteBuilder $routes) {
  * });
  * ```
  */
+
+// Router::scope('/pdf_download/:id', function (RouteBuilder $routes) {
+//     $routes->addExtensions(['pdf']);
+//     $routes->connect('/', ['controller' => 'Pages', 'action' => 'cakePdfDownload']);
+// });
+
+// Router::extensions(['csv']);

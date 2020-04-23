@@ -68,8 +68,11 @@ $arropen =[];
                     <div class="col-md-12 mb-0 d-flex justify-content-center table-hover" style="height:300px">
                             
                                 <table class="table-sm table-responsive p-3 font-weight-bold">
+                                <thead class="thead-dark">
                                 <th>Projects</th>
                                 <th>Percent Complete</th>
+                                </thead>
+
                                 <?php foreach($project_list as $project) : ?>
                                 
                                 <?php
@@ -187,7 +190,7 @@ $arropen =[];
                             <div class="col-md-12 mb-0 d-flex justify-content-center table-container">
                                 <div class="col-md-12">
                                 <table class="table p-3 table-hover font-weight-bold">
-                                    <thead>
+                                    <thead class="thead-dark">
                                     <tr>
                                     <th>Projects</th>
                                     <th>Status</th>
@@ -236,33 +239,45 @@ $arropen =[];
                                         $completeddays = 0;
                                     }
                                     $ptocomplete = 1 - round(number_format(($completeddays/$expectdays),2),2);
-
+                                    $achievement = "";
                                     if ($ptocomplete == 0){
                                         $color = "bg-success";
                                         $title = "This Project is on Schedule.";
                                         $achievement = "Total of 37 projects now completed and verified";
                                         $key = "Non";
                                     }
-                                    if ($ptocomplete > 0 && $ptocomplete <= 0.3 ){
+                                    else if ($ptocomplete > 0 && $ptocomplete <= 0.3 ){
                                         $myPercent = ($ptocomplete * 100);
                                         $color = "bg-primary";
                                         $title = "This Project is $myPercent% behind schedule. To get back on track open the project page and increase tasks completion.";
                                         $achievement = "Grant disbursement to 200 FADAMA GUYS and upto 193 have already accessed the funds";
                                         $key = "Subsequent release of funds to contractors for next phase ";
-                                    }                                    
-                                    if ($ptocomplete > 0.3 && $ptocomplete <= 0.5 ){
+                                       
+                                    }   
+                                    
+                                    
+                                    else if($ptocomplete > 0.3 && $ptocomplete <= 0.5 ){
+                                        
                                         $myPercent = ($ptocomplete * 100);
+                                        
                                         $color = "bg-warning";
+                                        
                                         $title = "This Project is $myPercent% behind schedule. To get back on track open the project page and increase tasks completion.";
+                                        
                                         $achievement = "Fulfilment of conditions precedent to Disbursement as confirmed by WB";
-                                        $key = "Integraton of Donor Funds into State's Budget  and Safeguard Consultant yet to be appointed";
+                                        
+                                        $key = "Integraton of Donor Funds into States Budget  and Safeguard Consultant yet to be appointed";
+                                     
+                                        
                                     }
-                                    if ($ptocomplete > 0.8 && $ptocomplete <= 1 ){
+                                    
+                                    else if ($ptocomplete > 0.8 && $ptocomplete <= 1 ){
                                         $myPercent = ($ptocomplete * 100);
                                         $color = "bg-danger";
                                         $title = "This Project is $myPercent% behind schedule. To get back on track open the project page and increase tasks completion.";
                                         $achievement = "Ongoing review of submitted Pre-qualification bids from contractors for LOT1,2&3by PIU";
                                         $key = "Project vehicle is required to aid logistics";
+                                       
                                     }
                                     ?>
                                 
@@ -280,9 +295,10 @@ $arropen =[];
                                             'escape' => false,
                                             'rel'=>'tooltip', 
                                             'data-placement'=>'top', 
-                                            'title'=>$achievement
+                                            'title'=>$achievement 
                                         ));?></td>
-                                    <td><?php echo $this->Form->button('<i class="fa fa-trophy"></i>', array(
+
+                                            <td><?php echo $this->Form->button('<i class="fa fa-trophy"></i>', array(
                                             'type' => 'button',
                                             'class' => 'btn ',
                                             'escape' => false,
@@ -475,6 +491,6 @@ $arropen =[];
         console.log('l');
     $('[data-toggle="tooltip"]').tooltip()
     });
-   
+
     </script>
 </div>
