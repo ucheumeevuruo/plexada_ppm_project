@@ -48,8 +48,10 @@ class ProjectComponentsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id=null)
     {
+        $this->loadModel('Projects');
+        $projects = $this->Projects->get($id);
         $projectComponent = $this->ProjectComponents->newEntity();
         if ($this->request->is('post')) {
             $projectComponent = $this->ProjectComponents->patchEntity($projectComponent, $this->request->getData());
@@ -61,7 +63,7 @@ class ProjectComponentsController extends AppController
             }
             $this->Flash->error(__('The project component could not be saved. Please, try again.'));
         }
-        $projects = $this->ProjectComponents->Projects->find('list', ['limit' => 200]);
+        // $projects = $this->Projects->find('list', ['limit' => 200])->where('project_id'=>$id);
         $this->set(compact('projectComponent', 'projects'));
     }
 

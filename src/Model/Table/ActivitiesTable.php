@@ -40,7 +40,7 @@ class ActivitiesTable extends Table
         parent::initialize($config);
 
         $this->setTable('activities');
-        $this->setDisplayField('last_name');
+        $this->setDisplayField('description');# What field do you want as the default field?description
         $this->setPrimaryKey('activity_id');
 
         $this->addBehavior('Timestamp');

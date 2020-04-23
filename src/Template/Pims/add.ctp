@@ -81,10 +81,10 @@ $this->end();
             <div class="col-md-5 col-sm-12 card tab">
             <legend class="text-primary">Project Components</legend>
                 <div class="mb-3">
-                    <?= $this->Html->link(__('Add Components'), ['controller' => 'projectComponents', 'action' => 'add'], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
-                    <?= $this->Html->link(__('Add Milestones'), ['controller' => 'Milestones', 'action' => 'add'], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
-                    <?= $this->Html->link(__('Add Activities'), ['controller' => 'Activities', 'action' => 'add'], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
-                    <?= $this->Html->link(__('Add Tasks'), ['controller' => 'Tasks', 'action' => 'add'], ['class' => 'btn btn-primary btn-sm overlay']) ?>
+                    <?= $this->Html->link(__('Add Components'), ['controller' => 'projectComponents', 'action' => 'add',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
+                    <?= $this->Html->link(__('Add Milestones'), ['controller' => 'Milestones', 'action' => 'add',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
+                    <?= $this->Html->link(__('Add Activities'), ['controller' => 'Activities', 'action' => 'add',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
+                    <?= $this->Html->link(__('Add Tasks'), ['controller' => 'Tasks', 'action' => 'add',$project_info->id], ['class' => 'btn btn-primary btn-sm overlay']) ?>
                 </div>
                 <!-- <div class="form-group">
                     <label for="activities_achievement">Activities & Achievement</label>
