@@ -65,7 +65,7 @@ class Pim extends Entity
     protected $_accessible = [
         'date' => true,
         'brief' => true,
-        'funding_agency' => true,
+        'funding_agency' => false,
         'activities_achievement' => true,
         'risks_mitigation' => true,
         'activity_next_semester' => true,
