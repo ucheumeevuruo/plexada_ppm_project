@@ -11,6 +11,7 @@ use Cake\ORM\Entity;
  * @property string $Description
  * @property string $Predecessor
  * @property string $Successor
+ * @property integer $activities_id
  */
 class Task extends Entity
 {
@@ -29,5 +30,6 @@ class Task extends Entity
         'Description' => true,
         'Predecessor' => true,
         'Successor' => true,
+        'activities_id' => true,
     ];
 }
