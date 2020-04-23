@@ -139,7 +139,7 @@ $this->end();
                                     ['escape' => false, 'class' => 'nav-link collapsed']
                                 ) ?>
                         </td>
-                        <td><?= h($projectDetail->sponsor['last_name']) ?></td>
+                        <td><?= h($projectDetail->sponsor) ?></td>
                         <td><?= h($projectDetail->completed_percent) ?></td>
                         <td><?= h($projectDetail->start_dt) ?></td>
                         <td><?= h($projectDetail->end_dt) ?></td>
@@ -163,7 +163,7 @@ $this->end();
                                         ['escape' => false, 'class' => 'nav-link collapsed']
                                     ) ?>
                         </td>
-                        <td><?= h($projectDetail->sponsor['last_name']) ?></td>
+                        <td><?= h($projectDetail->sponsor) ?></td>
                         <td><?= h($projectDetail->completed_percent) ?></td>
                         <td><?= h($projectDetail->start_dt) ?></td>
                         <td><?= h($projectDetail->end_dt) ?></td>
@@ -198,7 +198,7 @@ $this->end();
                                         ['escape' => false, 'class' => 'nav-link collapsed']
                                     ) ?>
                         </td>
-                        <td><?= h($projectDetail->sponsor['last_name']) ?></td>
+                        <td><?= h($projectDetail->sponsor) ?></td>
                         <td><?= h($projectDetail->completed_percent) ?></td>
                         <td><?= h($projectDetail->start_dt) ?></td>
                         <td><?= h($projectDetail->end_dt) ?></td>
@@ -224,7 +224,7 @@ $this->end();
                                         ['escape' => false, 'class' => 'nav-link collapsed']
                                     ) ?>
                         </td>
-                        <td><?= h($projectDetail->sponsor['last_name']) ?></td>
+                        <td><?= h($projectDetail->sponsor) ?></td>
                         <td><?= h($projectDetail->completed_percent) ?></td>
                         <td><?= h($projectDetail->start_dt) ?></td>
                         <td><?= h($projectDetail->end_dt) ?></td>
