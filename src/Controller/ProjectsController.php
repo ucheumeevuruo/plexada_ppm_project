@@ -19,9 +19,9 @@ class ProjectsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Pims', 'ProjectFundings'],
-        ];
+        // $this->paginate = [
+        //     'contain' => ['Pims', 'ProjectFundings'],
+        // ];
         $projects = $this->paginate($this->Projects);
 
         $this->set(compact('projects'));
@@ -61,8 +61,9 @@ class ProjectsController extends AppController
             $this->Flash->error(__('The project could not be saved. Please, try again.'));
         }
         $pims = $this->Projects->Pims->find('list', ['limit' => 200]);
+        $projectDetails = $this->Projects->ProjectDetails->find('list', ['limit' => 200]);
         $projectFundings = $this->Projects->ProjectFundings->find('list', ['limit' => 200]);
-        $this->set(compact('project', 'pims', 'projectFundings'));
+        $this->set(compact('project', 'pims', 'projectFundings', 'projectDetails'));
     }
 
     /**

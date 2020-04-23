@@ -8,17 +8,17 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string|null $name
- * @property string|null $description
- * @property string|null $location
+ * @property string $description
+ * @property string $location
  * @property int|null $vendor_id
  * @property int|null $manager_id
  * @property int|null $sponsor_id
- * @property \Cake\I18n\FrozenDate|null $waiting_since
+ * @property \Cake\I18n\FrozenDate $waiting_since
  * @property int|null $waiting_on_id
  * @property int $status_id
  * @property int $priority_id
- * @property \Cake\I18n\FrozenDate|null $start_dt
- * @property \Cake\I18n\FrozenDate|null $end_dt
+ * @property \Cake\I18n\FrozenDate $start_dt
+ * @property \Cake\I18n\FrozenDate $end_dt
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $last_updated
  * @property int $system_user_id
@@ -28,9 +28,9 @@ use Cake\ORM\Entity;
  * @property string $partners
  * @property int $funding
  * @property int $approvals
- * @property string $risks
+ * @property string|null $risks
  * @property string $components
- * @property int $price_id
+ * @property int|null $price_id
  * @property int $sub_status_id
  *
  * @property \App\Model\Entity\Vendor $vendor
@@ -77,8 +77,8 @@ class ProjectDetail extends Entity
         'partners' => true,
         'funding' => true,
         'approvals' => true,
-        'risks' => true,
-        'components' => true,
+        // 'risks' => true,
+        // 'components' => true,
         'price_id' => true,
         'sub_status_id' => true,
         'vendor' => true,

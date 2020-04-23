@@ -24,8 +24,10 @@ class MilestonesTableTest extends TestCase
      */
     public $fixtures = [
         'app.Milestones',
-        'app.ProjectDetails',
+        'app.Projects',
         'app.Lov',
+        'app.Activities',
+        'app.ProjectFundings',
     ];
 
     /**

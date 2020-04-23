@@ -21,7 +21,7 @@ class ProjectDetailsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'Annotations'],
+            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Annotations', 'Prices'],
 
         ];
         $projectDetails = $this->paginate($this->ProjectDetails);
@@ -59,20 +59,26 @@ class ProjectDetailsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id=null)
     {
+        $this->loadModel('Projects');
+        $project_info = $this->Projects->get($id);
         $projectDetail = $this->ProjectDetails->newEntity();
         if ($this->request->is('post')) {
-            $projectDetail = $this->ProjectDetails->patchEntity($projectDetail, $this->request->getData());
+            // $pim = $this->Pims->patchEntity($pim, $this->Pims->identify($this->request->getData()))
+
+            $projectDetail = $this->ProjectDetails->patchEntity($projectDetail, $this->ProjectDetails->identify($this->request->getData()));
             if ($this->ProjectDetails->save($projectDetail)) {
                 $this->Flash->success(__('The project detail has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller'=> 'projects', 'action' => 'index']);
             }
             $this->Flash->error(__('The project detail could not be saved. Please, try again.'));
-            return $this->redirect(['action' => 'index']);
+            // debug($projectDetail);
+            // die();
+            return $this->redirect(['controller' => 'projects', 'action' => 'index']);
         }
-
+        $projects = $this->ProjectDetails->Projects->find('list', ['limit']);
         $vendors = $this->ProjectDetails->Vendors->find('list', ['limit' => 200]);
         $staff = $this->ProjectDetails->Staff->find('list', ['limit' => 200]);
         $sponsors = $this->ProjectDetails->Sponsors->find('list', ['limit' => 200]);
@@ -94,7 +100,7 @@ class ProjectDetailsController extends AppController
         $annotations = $this->ProjectDetails->Annotations->find('list', ['limit' => 200]);
         $prices = $this->ProjectDetails->Prices->find('list', ['limit' => 200]);
         // $subStatuses = $this->ProjectDetails->SubStatus->find('list', ['limit' => 200]);
-        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'lov', 'users', 'annotations', 'prices'));
+        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'lov', 'users', 'annotations', 'prices', 'projects', 'project_info'));
     }
 
     /**

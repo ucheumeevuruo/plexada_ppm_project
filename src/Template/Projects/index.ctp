@@ -46,7 +46,7 @@ $this->end();
                             <td><?= $this->Number->format($project->cost) ?></td>
                             <td class="actions">
                             <button class="btn btn-small btn-primary">
-                                <?= $this->Html->link(__('Add PAD'), ['controller' => 'projectDetails', 'action' => 'add'], ['class' => 'text-light txt-sm']) ?>
+                                <?= $this->Html->link(__('Add PAD'), ['controller' => 'projectDetails', 'action' => 'add', $project->id], ['class' => 'text-light txt-sm']) ?>
                             </button>
                             <button class="btn btn-small btn-primary">
                                 <?= $this->Html->link(__('Add PIM'), ['controller' => 'pims', 'action' => 'add', $project->pims_id], ['class' => 'text-light txt-sm']) ?>

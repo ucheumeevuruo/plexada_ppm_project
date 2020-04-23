@@ -17,15 +17,7 @@
     </h5>
     <hr class="sidebar-divider  mx-auto my-0 w-25 px-5">
 
-    <li class="nav-item">
-        <?= $this->Html->link(
-            __('<i class="fa fa-archive fa-lg text-primary"></i> &nbsp;All projects'),
-            ['controller' => 'Projects', 'action' => 'index'],
-            ['escape' => false, 'class' => 'nav-link collapsed text-light my-0']
-        ) ?>
-    </li>
-    <hr class="sidebar-divider mx-0 w-100">
-    <!-- <li class="dropdown nav-item">
+    <li class="dropdown nav-item">
         <a href="#" class="dropdown-toggle text-light nav-link" data-toggle="dropdown" role="button"
             aria-expanded="false">
             <i class="fa fa-archive fa-lg"></i>
@@ -35,7 +27,7 @@
 
             <li class="nav-item">
                 <?= $this->Html->link(
-                    __('<i class="fa fa-archive fa-lg text-primary"></i> &nbsp;Project Definition'),
+                    __('<i class="fa fa-archive fa-lg text-primary"></i> &nbsp;All Projects'),
                     ['controller' => 'Projects', 'action' => 'index'],
                     ['escape' => false, 'class' => 'nav-link collapsed text-primary my-0']
                 ) ?>
@@ -52,31 +44,35 @@
             <hr class="sidebar-divider m-0 bg-primary">
 
 
-            <a href="#" class="nav-link collapsed text-primary my-0" data-toggle="dropdown" role="button"
-            aria-expanded="false">
-            <i class="fa fa-archive fa-lg text-primary"></i>
-            PPF
-            </a>
-
+            <li class="nav-item">
+                <?= $this->Html->link(
+                    __('<i class="fa fa-archive fa-lg text-primary"></i> &nbsp;PPF'),
+                    ['controller' => 'ProjectFundings', 'action' => 'index'],
+                    ['escape' => false, 'class' => 'nav-link collapsed text-primary my-0']
+                ) ?>
+            </li>
             <hr class="sidebar-divider m-0 bg-primary">
+
+            <!-- <hr class="sidebar-divider m-0 bg-primary"> -->
             <li class="nav-item">
                 <?= $this->Html->link(
                     __('<i class="fa fa-archive fa-lg text-primary"></i> &nbsp;PIM'),
                     ['controller' => 'Pims', 'action' => 'index'],
                     ['escape' => false, 'class' => 'nav-link collapsed text-primary my-0']
                 ) ?>
+                <!-- </p> -->
             </li>
 
             <!-- <hr class="sidebar-divider m-0 bg-primary"> -->
 
         </ul>
-    <!-- </li> -->
+    </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
 
 
     <!-- Divider -->
-
+    <hr class="sidebar-divider mx-0 w-100">
 
     <!-- Heading -->
     <h5 class="text-light m-0 text-center pb-2">
