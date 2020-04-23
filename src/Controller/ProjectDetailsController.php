@@ -29,7 +29,7 @@ class ProjectDetailsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations', 'Tasks'],
+            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations'],
 
         ];
 
@@ -45,14 +45,14 @@ class ProjectDetailsController extends AppController
         $this->set(compact('projectDetails'));
 
 
-        $this->loadModel('Tasks');
-        $tasks = $this->Tasks->find('all');
-        $this->set('tasks', $tasks);
+        // $this->loadModel('Tasks');
+        // $tasks = $this->Tasks->find('all');
+        // $this->set('tasks', $tasks);
 
 
-        $this->loadModel('Activities');
-        $activities = $this->Activities->find('all');
-        $this->set('activities', $activities);
+        // $this->loadModel('Activities');
+        // $activities = $this->Activities->find('all');
+        // $this->set('activities', $activities);
     }
 
     /**
@@ -65,15 +65,15 @@ class ProjectDetailsController extends AppController
     public function view($id = null)
     {
         $projectDetail = $this->ProjectDetails->get($id, [
-            'contain' => ['Tasks', 'Vendors', 'Staff', 'Personnel', 'Sponsors', 'Activities.Priorities', 'Lov', 'Activities.Statuses', 'Users', 'Activities', 'Activities.Staff', 'SubStatuses', 'Priorities'],
+            'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Activities.Priorities', 'Lov', 'Activities.Statuses', 'Users', 'Activities', 'Activities.Staff', 'SubStatuses', 'Priorities'],
 
         ]);
 
-        $this->set('projectDetail', $projectDetail);
-        $this->loadModel('Tasks');
-        $tasks = $this->Tasks->find('all');
+        // $this->set('projectDetail', $projectDetail);
+        // $this->loadModel('Tasks');
+        // $tasks = $this->Tasks->find('all');
 
-        $this->set('tasks', $tasks);
+        // $this->set('tasks', $tasks);
     }
 
     public function activities($id = null)
@@ -117,29 +117,29 @@ class ProjectDetailsController extends AppController
 
     public function evaluation()
     {
-        $this->paginate = [
-            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations', 'Tasks'],
+        // $this->paginate = [
+        //     'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations'],
+        // ];
 
-        ];
+        $projectDetails = $this->ProjectDetails->find('all');
 
         // $inputValue =  $_POST['from'];
-
-
-        $projectDetails = $this->paginate($this->ProjectDetails);
+        // $projectDetails = $this->paginate($this->ProjectDetails);
         $this->set(compact('projectDetails'));
     }
 
+
+
     public function summary()
     {
-        $this->paginate = [
-            'contain' => [
-                'Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations',
-                'Tasks'
-            ],
+        // $this->paginate = [
+        //     'contain' => [
+        //         'Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations',
+        //     ],
+        // ];
+        $projectDetails = $this->ProjectDetails->find('all');
 
-        ];
-
-        $projectDetails = $this->paginate($this->ProjectDetails);
+        // $projectDetails = $this->paginate($this->ProjectDetails);
         $this->set(compact('projectDetails'));
     }
 

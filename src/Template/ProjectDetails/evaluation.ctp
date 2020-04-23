@@ -155,7 +155,13 @@ $this->end();
 
         <div class="">
             <button type="button" class="btn btn-primary mr-4 mb-sm-4">Run Report</button>
-            <button type="button" class="btn btn-primary mr-4 mb-sm-4">Show Details </button>
+            <button type="button" class="btn btn-primary mr-4 mb-sm-4" style="height: 40px;">
+                <?= $this->Html->link(
+                    __('<i style="color: white;">Show Details</i>'),
+                    ['controller' => 'ProjectDetails', 'action' => 'summary'],
+                    ['escape' => false, 'class' => 'nav-link ']
+                ) ?>
+            </button>
             <button type="button" class="btn btn-primary mr-4 mb-sm-4">
                 <!-- <?= $this->Html->link('export', ['controller' => 'projectdetails', 'action' => 'export', '_ext' => 'csv']) ?> -->
                 Save As
@@ -166,12 +172,13 @@ $this->end();
             </button>
             <button type="button" id="print1" class="btn btn-primary mr-4 mb-sm-4">Printable view
 
-                <!-- <?= $this->Html->link("<i class='fa fa-download fa-sm text-white-50'></i>Printable view</a>", ['action' => 'downloadPdf', 'report.pdf'], ['escape' => false, 'class' => 'd-none d-sm-inline-block btn btn-sm btn-primary shadow-sm']) ?> -->
             </button>
 
             <button type="button" class="btn btn-primary mr-4 mb-sm-4">Export Details</button>
         </div>
         <hr>
+        <div>
+        </div>
         <div class="table-responsive">
             <table cellpadding="0" cellspacing="0" class="table table-bordered dataTable table-primary table-hover br-m"
                 role="grid" aria-describedby="dataTable_info">
@@ -188,7 +195,6 @@ $this->end();
                         <th scope="col" class="text-white"><?= __('Project Completion Date') ?></th>
                         <th scope="col" class="text-white"><?= __('Status') ?></th>
                         <th scope="col" class="text-white"><?= __('Key Challenge') ?></th>
-                        <!-- <th scope="col" class="text-white"><?= __('Date of Report') ?></th> -->
                         <th scope="col" class="text-white"><?= __('Next Action Plan ') ?></th>
                         <th scope="col" class="text-white"><?= __('Remarks') ?></th>
                     </tr>
@@ -198,8 +204,8 @@ $this->end();
                     <?php foreach ($projectDetails as $projectDetail) : ?>
                     <?php $num++; ?>
                     <tr>
+                        <!-- <td style="width:5%">1</td> -->
                         <td style="width:5%"><?= h($num) ?></td>
-                        <!-- <td><?= h($projectDetail->name) ?></td> -->
                         <td><?= $this->Html->link($projectDetail->name, ['controller' => 'project-details', 'action' => 'view', $projectDetail->id], ['id' => 'transmit']) ?>
                         </td>
 
@@ -211,8 +217,8 @@ $this->end();
                         </th>
                         <th scope="col" class="text-blue">
                             <?= __('IPA law now passed by the House of Assembly, to be gazetted') ?></th>
-                        <th scope="col" class="text-blue"><?= __('2019') ?></th>
-                        <th scope="col" class="text-blue"><?= __('2024') ?></th>
+                        <th scope="col" class="text-blue"><?= h($projectDetail->start_dt) ?></th>
+                        <th scope="col" class="text-blue"><?= h($projectDetail->end_dt) ?></th>
                         <th scope="col" class="text-blue" style="background-color: green;"><?= __(' ') ?></th>
                         <th scope="col" class="text-blue" style="background-color: red;">
                             <?= __('Essential resources including human and equipment still in process') ?></th>
@@ -255,7 +261,7 @@ $this->end();
     <div>
         <P class="mb-0 font-weight-bold" style="margin-left: 100px;">PROJECT NAME: &nbsp; <strong
                 class="text-capitalize">
-                <?= h($projectDetail->name) ?> </strong></P>
+                Drilling of Borehole </strong></P>
         <P class="mb-0 font-weight-bold" style="margin-left: 100px;">DONOR/LENDER: &nbsp; <strong>World Bank</strong>
         </P>
         <P class="mb-0 font-weight-bold" style="margin-left: 100px;">FUNDING TYPE: &nbsp; <strong>Load and
@@ -413,11 +419,7 @@ $(document).ready(function() {
         $("#main").hide();
 
     });
-});
-</script>
 
-<script>
-$(document).ready(function() {
     //respond to click event on anything with 'overlay' class
     $(".overlay").click(function(event) {
         event.preventDefault();
