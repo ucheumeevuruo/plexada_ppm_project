@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use DateTime;
 
 /**
  * ProjectDetails Model
@@ -77,7 +78,7 @@ class ProjectDetailsTable extends Table
         $this->belongsTo('Annotations', [
             'foreignKey' => 'annotation_id',
         ]);
-        $this->belongsTo('Projects', [
+        $this->hasOne('Projects', [
             'foreignKey' => 'project_id',
             'joinType' => 'INNER',
         ]);
@@ -114,32 +115,33 @@ class ProjectDetailsTable extends Table
             ->nonNegativeInteger('id')
             ->allowEmptyString('id', null, 'create');
 
-        $validator
-            ->scalar('name')
-            ->maxLength('name', 150)
-            ->allowEmptyString('name');
 
         $validator
             ->scalar('description')
             ->maxLength('description', 600)
-            ->allowEmptyString('description');
+            ->requirePresence('description', 'create')
+            ->notEmptyString('description');
 
         $validator
             ->scalar('location')
             ->maxLength('location', 150)
-            ->allowEmptyString('location');
+            ->requirePresence('location', 'create')
+            ->notEmptyString('location');
 
         $validator
             ->date('waiting_since')
-            ->allowEmptyDate('waiting_since');
+            // ->requirePresence('waiting_since', 'create')
+            ->notEmptyDate('waiting_since');
 
         $validator
             ->date('start_dt')
-            ->allowEmptyDate('start_dt');
+            // ->requirePresence('start_dt', 'create')
+            ->notEmptyDate('start_dt');
 
         $validator
             ->date('end_dt')
-            ->allowEmptyDate('end_dt');
+            // ->requirePresence('end_dt', 'create')
+            ->notEmptyDate('end_dt');
 
         $validator
             ->dateTime('last_updated')
@@ -154,33 +156,46 @@ class ProjectDetailsTable extends Table
         $validator
             ->scalar('partners')
             ->maxLength('partners', 4294967295)
-            ->requirePresence('partners', 'create')
-            ->notEmptyString('partners');
+            // ->requirePresence('partners', 'create')
+            ->allowEmptyString('partners');
 
         $validator
             ->integer('funding')
-            ->requirePresence('funding', 'create')
-            ->notEmptyString('funding');
+            // ->requirePresence('funding', 'create')
+            ->allowEmptyString('funding');
 
         $validator
             ->integer('approvals')
-            ->requirePresence('approvals', 'create')
-            ->notEmptyString('approvals');
+            // ->requirePresence('approvals', 'create')
+            ->allowEmptyString('approvals');
 
         $validator
             ->scalar('risks')
             ->maxLength('risks', 500)
-            ->requirePresence('risks', 'create')
-            ->notEmptyString('risks');
+            // ->requirePresence('risks', 'create')
+            ->allowEmptyString('risks');
 
         $validator
             ->scalar('components')
             ->maxLength('components', 255)
-            ->requirePresence('components', 'create')
-            ->notEmptyString('components');
+            // ->requirePresence('components', 'create')
+            ->allowEmptyString('components');
 
         return $validator;
     }
+
+
+    public function identify($formData) {
+        $formData['waiting_since'] = !empty($formData['waiting_since']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['waiting_since']) : $formData['waiting_since'];
+        $formData['start_dt'] = !empty($formData['start_dt']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['start_dt']) : $formData['start_dt'];
+        $formData['end_dt'] = !empty($formData['end_dt']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['end_dt']) : $formData['end_dt'];
+        return $formData;
+    }
+
+
 
     /**
      * Returns a rules checker object that will be used for validating

@@ -106,3 +106,10 @@ Router::scope('/', function (RouteBuilder $routes) {
  * });
  * ```
  */
+
+// Router::scope('/pdf_download/:id', function (RouteBuilder $routes) {
+//     $routes->addExtensions(['pdf']);
+//     $routes->connect('/', ['controller' => 'Pages', 'action' => 'cakePdfDownload']);
+// });
+
+// Router::extensions(['csv']);

@@ -45,7 +45,10 @@ $this->end();
     <?= $this->Form->create($pim) ?>
     <fieldset>
     <!-- <div class="text-center mb-3">a</div> -->
-        <legend class="text-center text-primary mb-4"><?= __('Project Implementation Manual') ?></legend>
+        <legend class="text-center text-primary mb-4"><?= __('Project Implementation Manual')  ?></legend>
+        <h2 class="text-center text-success mb-4"><?= __("Project Name : $project_info->name")  ?></h2>
+        <input type="hidden"id="project_id" name="project_id" required="required" value="<?= $project_info->id; ?>">
+        <!-- <input type="text"id="project_id" name="project_id" required="required" value="<?= $project_info->introduction; ?>"> -->
         <!-- my code  -->
     <!-- 0th Row  -->
     <div class="row justify-content-around">
@@ -59,7 +62,7 @@ $this->end();
                 </div>
                 <div class="form-group">
                     <label for="Brief">Brief</label>
-                    <textarea class="form-control" id="Brief" required="required" name="brief" ></textarea>
+                    <textarea class="form-control" id="Brief" required="required" name="brief" value="<?= $project_info->introduction; ?>"></textarea>
                 </div>
                 <!-- <div class="form-group">
                     <label for="funding_agency">Funding Agency</label>
@@ -78,10 +81,10 @@ $this->end();
             <div class="col-md-5 col-sm-12 card tab">
             <legend class="text-primary">Project Components</legend>
                 <div class="mb-3">
-                    <?= $this->Html->link(__('Add Components'), ['controller' => 'projectComponents', 'action' => 'add'], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
-                    <?= $this->Html->link(__('Add Milestones'), ['controller' => 'milestones', 'action' => 'add'], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
-                    <?= $this->Html->link(__('Add Activities'), ['controller' => 'Activities', 'action' => 'add'], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
-                    <?= $this->Html->link(__('Add Tasks'), ['controller' => 'Tasks', 'action' => 'add'], ['class' => 'btn btn-primary btn-sm overlay']) ?>
+                    <?= $this->Html->link(__('Add Components'), ['controller' => 'projectComponents', 'action' => 'add',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
+                    <?= $this->Html->link(__('Add Milestones'), ['controller' => 'Milestones', 'action' => 'add',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
+                    <?= $this->Html->link(__('Add Activities'), ['controller' => 'Activities', 'action' => 'add',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
+                    <?= $this->Html->link(__('Add Tasks'), ['controller' => 'Tasks', 'action' => 'add',$project_info->id], ['class' => 'btn btn-primary btn-sm overlay']) ?>
                 </div>
                 <!-- <div class="form-group">
                     <label for="activities_achievement">Activities & Achievement</label>
@@ -118,15 +121,15 @@ $this->end();
                <div id="inputApproval">
                     <div class="form-group">
                         <label for="approvers_agency">Agency</label>
-                        <input type="text" class="form-control" id="approvers_agency" name="approvers_agency[]" required="required">
+                        <input type="text" class="form-control" id="approvers_agency" name="approvers_agency" required="required">
                     </div>
                     <div class="form-group">
                         <label for="approvers_rep_information">Representative Information</label>
-                        <textarea class="form-control" id="approvers_rep_information" name="approvers_rep_information[]" required="required"></textarea>
+                        <textarea class="form-control" id="approvers_rep_information" name="approvers_rep_information" required="required"></textarea>
                     </div>
                     <div class="form-group text">
                         <label class="control-label" for="approvers_date">Date</label>
-                        <div class="input-group"><input type="text" name="approvers_date[]" class="form-control addon-right" empty="1" id="approvers_date" autocomplete="off">
+                        <div class="input-group"><input type="text" name="approvers_date" class="form-control addon-right" empty="1" id="approvers_date" autocomplete="off">
                         <span class="input-group-addon"><i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span>
                         </div>
                     </div>
@@ -454,8 +457,8 @@ function showTab(n) {
     document.getElementById("prevBtn").style.display = "inline";
   }
   if (n == (x.length - 1)) {
-    document.getElementById("nextBtn").innerHTML = "Submit";
-    document.getElementById("nextBtn").type = "submit";
+    // document.getElementById("nextBtn").innerHTML = "Submit";
+    // document.getElementById("nextBtn").type = "submit";
     document.getElementById("nextBtn").style.display = "none";
     document.getElementById("ssubmit").style.display = "block";
   } else {
@@ -506,15 +509,15 @@ $("#addApproval").click(function () {
         html += '<div id="inputApproval">';
         html += '<div class="form-group">';
         html += '<label for="approvers_agency">Agency</label>';
-        html += '<input type="text" class="form-control" id="approvers_agency" name="approvers_agency[]" required="required">';
+        html += '<input type="text" class="form-control" id="approvers_agency" name="approvers_agency" required="required">';
         html += '</div>';
         html += '<div class="form-group">';
         html += '<label for="approvers_rep_information">Representative Information</label>';
-        html += '<textarea class="form-control" id="approvers_rep_information" name="approvers_rep_information[]" required="required"></textarea>';
+        html += '<textarea class="form-control" id="approvers_rep_information" name="approvers_rep_information" required="required"></textarea>';
         html += '</div>';
         html += '<div class="form-group text">';
         html += '<label class="control-label" for="approvers_date">Date</label>';
-        html += '<div class="input-group"><input type="text" name="approvers_date[]" class="form-control addon-right" empty="1" id="approvers_date" autocomplete="off">';
+        html += '<div class="input-group"><input type="text" name="approvers_date" class="form-control addon-right" empty="1" id="approvers_date" autocomplete="off">';
         html += '<span class="input-group-addon"><i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span>';
         html += '</div>';
         html += '</div>';

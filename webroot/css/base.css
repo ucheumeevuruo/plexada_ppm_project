@@ -448,7 +448,7 @@ th {
 }
 
 tr > th {
-    color:#fff !important;
+    /* color:#fff !important; */
 }
 
 .txt-sm {

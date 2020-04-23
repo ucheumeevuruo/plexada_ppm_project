@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use DateTime;
 
 /**
  * Tasks Model
@@ -32,11 +33,20 @@ class TasksTable extends Table
         parent::initialize($config);
 
         $this->setTable('tasks');
+        $this->setDisplayField('Description');# What field do you want as the default field?description
+        $this->setPrimaryKey('task_id'); // THIS IS THE PRIMARY KEY THE TABLE IS USING. You should define task_id as the primary key in your table ok thanks 
+
         $this->belongsTo('Activities', [
             'foreignKey' => 'activity_id',
         ]);
-        $this->setDisplayField('name');
-        $this->setPrimaryKey('id');
+        // $this->setDisplayField('description');
+        // $this->setPrimaryKey('id'); I commented this out as this is not the primary key the table is using
+    
+
+        $this->belongsTo('Projects', [
+            'foreignKey' => 'project_id',
+            'joinType' => 'INNER',
+        ]);
 
         $this->addBehavior('Timestamp');
     }
@@ -81,6 +91,11 @@ class TasksTable extends Table
         return $validator;
     }
 
+    public function identify($formData) {
+        $formData['Start_date'] = !empty($formData['Start_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['Start_date']) : $formData['Start_date'];                   
+        return $formData;
+    }
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
