@@ -205,27 +205,31 @@ $this->end();
                     <?php $num++; ?>
                     <tr>
                         <!-- <td style="width:5%">1</td> -->
-                        <td style="width:5%"><?= h($num) ?></td>
+                        <td style="width:5%" style="color: black !important;"><?= h($num) ?></td>
                         <td><?= $this->Html->link($projectDetail->name, ['controller' => 'project-details', 'action' => 'view', $projectDetail->id], ['id' => 'transmit']) ?>
                         </td>
 
-                        <th scope="col" class="text-blue"><?= __('World Bank') ?></th>
-                        <th scope="col" class="text-blue"><?= __('Loan and Grant') ?></th>
-                        <th scope="col" class="text-blue"><?= __('$4,000,000') ?></th>
-                        <th scope="col" class="text-blue">
+                        <th scope="col" class="text-blue" style="color: black !important;"><?= __('World Bank') ?></th>
+                        <th scope="col" class="text-blue" style="color: black !important;"><?= __('Loan and Grant') ?>
+                        </th>
+                        <th scope="col" class="text-blue" style="color: black !important;"><?= __('$4,000,000') ?></th>
+                        <th scope="col" class="text-blue" style="color: black !important;">
                             <?= __('Facilitation of key investors and investment projects to Ogun State') ?>
                         </th>
-                        <th scope="col" class="text-blue">
+                        <th scope="col" class="text-blue" style="color: black !important;">
                             <?= __('IPA law now passed by the House of Assembly, to be gazetted') ?></th>
-                        <th scope="col" class="text-blue"><?= h($projectDetail->start_dt) ?></th>
-                        <th scope="col" class="text-blue"><?= h($projectDetail->end_dt) ?></th>
-                        <th scope="col" class="text-blue" style="background-color: green;"><?= __(' ') ?></th>
-                        <th scope="col" class="text-blue" style="background-color: red;">
+                        <th scope="col" class="text-blue" style="color: black !important;">
+                            <?= h($projectDetail->start_dt) ?></th>
+                        <th scope="col" class="text-blue" style="color: black !important;">
+                            <?= h($projectDetail->end_dt) ?></th>
+                        <th scope="col" class="text-blue" style="background-color: green; color: black !important;">
+                            <?= __(' ') ?></th>
+                        <th scope="col" class="text-blue" style="background-color: red; color: black !important;">
                             <?= __('Essential resources including human and equipment still in process') ?></th>
-                        <th scope="col" class="text-blue" style="background-color: yellow;">
+                        <th scope="col" class="text-blue" style="background-color: yellow; color: black !important;">
                             <?= __('Identifying Moribund companies and validation of existing investor list ongoing') ?>
                         </th>
-                        <th scope="col" class="text-blue">
+                        <th scope="col" class="text-blue" style="color: black !important;">
                             <?= __('PC to ensure we gain much traction on this project and others under economic transformation program') ?>
                         </th>
                     </tr>
@@ -251,7 +255,7 @@ $this->end();
 
 <!-- printable view -->
 
-<div class=”row" style="display:none; outline: 1px solid black; width: 1000px; margin-left: 100px;" id="report">
+<div class=”row" style="display:none;  width: 1000px; margin-left: 100px;" id="report">
     <div class=”col-6 align-self-center”>
         <h4 class="d-flex justify-content-center bold"><strong>OGUN STATE GOVERNMENT</strong></h4>
         <h4 class="d-flex justify-content-center bold"><strong>DEVELOPMENT PARTNERS COORDINATION</strong></h4>
@@ -284,39 +288,40 @@ $this->end();
 
     <div style="width: 900px;">
         <p style="margin-left: 100px" class="font-weight-bold">Project Objectives and Milestones</p>
-        <table style="margin-left: 100px;" cellpadding="0" cellspacing="0" class="table table-sm table-bordered br-m">
-            <thead class="bg-default">
+        <table style="margin-left: 100px; outline: 1px solid black;" cellpadding="0" cellspacing="0"
+            class="table table-sm table-bordered br-m">
+            <thead class="bg-default" style="outline: 1px solid black;">
                 <tr>
-                    <th style="width:5%;">S/N</th>
-                    <th>Project Objectives</th>
-                    <th>Milestone activities</th>
-                    <th>Deadline</th>
+                    <th style="outline: 1px solid black; color: black !important; width:5%;">S/N</th>
+                    <th style="outline: 1px solid black; color: black !important;">Project Objectives</th>
+                    <th style="outline: 1px solid black; color: black !important;">Milestone activities</th>
+                    <th style="outline: 1px solid black; color: black !important;">Deadline</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>1.</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td style="outline: 1px solid black;">1.</td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
                 </tr>
                 <tr>
-                    <td>2.</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td style="outline: 1px solid black;">2.</td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
                 </tr>
                 <tr>
-                    <td>3.</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td style="outline: 1px solid black;">3.</td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
                 </tr>
                 <tr>
-                    <td>4.</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td style="outline: 1px solid black;">4.</td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
                 </tr>
             </tbody>
         </table>
@@ -325,36 +330,36 @@ $this->end();
         <table style="margin-left: 100px;" cellpadding="0" cellspacing="0" class="table table-sm table-bordered br-m">
             <thead class="bg-default">
                 <tr>
-                    <th style="width:5%;">S/N</th>
-                    <th>Milestone activities</th>
-                    <th>Update</th>
-                    <th>Achievement Status</th>
+                    <th style="outline: 1px solid black; color: black !important;  width:5%;">S/N</th>
+                    <th style="outline: 1px solid black; color: black !important; ">Milestone activities</th>
+                    <th style="outline: 1px solid black; color: black !important; ">Update</th>
+                    <th style="outline: 1px solid black; color: black !important; ">Achievement Status</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>1.</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td style="outline: 1px solid black;">1.</td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
                 </tr>
                 <tr>
-                    <td>2.</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td style="outline: 1px solid black;">2.</td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
                 </tr>
                 <tr>
-                    <td>3.</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td style="outline: 1px solid black;">3.</td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
                 </tr>
                 <tr>
-                    <td>4.</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td style="outline: 1px solid black;">4.</td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
                 </tr>
             </tbody>
         </table>
@@ -364,39 +369,40 @@ $this->end();
     </div>
     <div style="width: 900px;">
         <p style="margin-left: 100px" class="font-weight-bold">Next Step/Action Plan: </p>
-        <table style="margin-left: 100px;" cellpadding="0" cellspacing="0" class="table table-sm table-bordered br-m">
+        <table style="margin-left: 100px; padding-right: 100px;" cellpadding="0" cellspacing="0"
+            class="table table-sm table-bordered br-m">
             <thead class="bg-default">
                 <tr>
-                    <th style="width:5%;">S/N</th>
-                    <th>Milestone activities</th>
-                    <th>Next Step/ Action Plan</th>
-                    <th>Timeline</th>
+                    <th style="width:5%; outline: 1px solid black; color: black !important;">S/N</th>
+                    <th style="outline: 1px solid black; color: black !important;">Milestone activities</th>
+                    <th style="outline: 1px solid black; color: black !important;">Next Step/ Action Plan</th>
+                    <th style="outline: 1px solid black; color: black !important;">Timeline</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>1.</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td style="outline: 1px solid black;">1.</td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
                 </tr>
                 <tr>
-                    <td>2.</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td style="outline: 1px solid black;">2.</td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
                 </tr>
                 <tr>
-                    <td>3.</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td style="outline: 1px solid black;">3.</td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
                 </tr>
                 <tr>
-                    <td>4.</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td style="outline: 1px solid black;">4.</td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
+                    <td style="outline: 1px solid black;"></td>
                 </tr>
             </tbody>
         </table>

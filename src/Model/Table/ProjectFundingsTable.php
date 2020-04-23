@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -38,7 +39,7 @@ class ProjectFundingsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Milestones', [
-            'foreignKey' => 'milestone_id',
+            'foreignKey' => 'milestone_id', # This cannot be the foreign key. Please change
             'joinType' => 'INNER',
         ]);
         $this->belongsTo('Projects', [

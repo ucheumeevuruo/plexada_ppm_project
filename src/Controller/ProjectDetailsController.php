@@ -28,10 +28,12 @@ class ProjectDetailsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations'],
+        // $this->paginate = [
+        //     'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations'],
 
-        ];
+        // ];
+        $projectDetails = $this->ProjectDetails->find('all');
+
 
         ///
         ///
@@ -41,7 +43,7 @@ class ProjectDetailsController extends AppController
         //            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities'],
         //            'conditions' => ['ProjectDetails.system_user_id' => $authUser['id']]
         //        ]);
-        $projectDetails = $this->paginate($this->ProjectDetails);
+        // $projectDetails = $this->paginate($this->ProjectDetails);
         $this->set(compact('projectDetails'));
 
 
