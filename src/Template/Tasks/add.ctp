@@ -18,9 +18,9 @@ $this->end();
         echo $this->Form->control('Description');
         echo $this->Form->control('Predecessor');
         echo $this->Form->control('Successor');
-        echo $this->Form->control('project_id', ['options' => $projectDetails, 'label' => 'Project Id']);
+        echo $this->Form->control('project_id', ['options' => $projects, 'label' => 'Project Id']);
 
-        // 
+        //
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

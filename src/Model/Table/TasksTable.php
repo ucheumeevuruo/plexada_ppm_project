@@ -38,6 +38,11 @@ class TasksTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
+        $this->belongsTo('Projects', [
+            'foreignKey' => 'project_id',
+            'joinType' => 'INNER',
+        ]);
+
         $this->addBehavior('Timestamp');
     }
 
