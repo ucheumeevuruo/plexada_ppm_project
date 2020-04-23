@@ -12,30 +12,21 @@
 
         <!-- Heading -->
 
-        <h5 class="text-light m-0 pb-2 text-center">
+        <!-- <h5 class="text-light m-0 pb-2 text-center">
             User Options
         </h5>
-        <hr class="sidebar-divider  mx-auto my-0 w-25 px-5">
+        <hr class="sidebar-divider  mx-auto my-0 w-25 px-5"> -->
 
-        <li class="nav-item">
-            <?= $this->Html->link(
-                __('<i class="fa fa-archive fa-lg text-primary"></i> &nbsp;All projects'),
-                ['controller' => 'Projects', 'action' => 'index'],
-                ['escape' => false, 'class' => 'nav-link collapsed text-light my-0']
-            ) ?>
-        </li>
-        <hr class="sidebar-divider mx-0 w-100">
-        <!-- <li class="dropdown nav-item">
 
-<<<<<<< HEAD
+    <!-- <li class="dropdown nav-item"> -->
+
     <h5 class="text-light m-0 pb-2 text-center">
         User Options
     </h5>
     <hr class="sidebar-divider  mx-auto my-0 w-25 px-5">
 
+
     <li class="dropdown nav-item">
-=======
->>>>>>> b63ea7c7f9a890fdd20822d38ed0a21c8baa979c
         <a href="#" class="dropdown-toggle text-light nav-link" data-toggle="dropdown" role="button"
             aria-expanded="false">
             <i class="fa fa-archive fa-lg"></i>
@@ -58,7 +49,6 @@
                 ) ?>
             </li>
             <hr class="sidebar-divider m-0 bg-primary">
-<<<<<<< HEAD
 
 
             <li class="nav-item">
@@ -68,16 +58,9 @@
                     ['escape' => false, 'class' => 'nav-link collapsed text-primary my-0']
                 ) ?>
             </li>
-=======
-            <a href="#" class="nav-link collapsed text-primary my-0" data-toggle="dropdown" role="button"
-            aria-expanded="false">
-            <i class="fa fa-archive fa-lg text-primary"></i>
-            PPF
-            </a>
->>>>>>> b63ea7c7f9a890fdd20822d38ed0a21c8baa979c
             <hr class="sidebar-divider m-0 bg-primary">
 
-            <!-- <hr class="sidebar-divider m-0 bg-primary"> -->
+             <!-- <hr class="sidebar-divider m-0 bg-primary"> -->
             <li class="nav-item">
                 <?= $this->Html->link(
                     __('<i class="fa fa-archive fa-lg text-primary"></i> &nbsp;PIM'),
@@ -88,13 +71,8 @@
             </li>
             <!-- <hr class="sidebar-divider m-0 bg-primary"> -->
 
-<<<<<<< HEAD
         </ul>
     </li>
-=======
-    </ul>
-    <!-- </li> -->
->>>>>>> b63ea7c7f9a890fdd20822d38ed0a21c8baa979c
 
     <!-- Nav Item - Pages Collapse Menu -->
 

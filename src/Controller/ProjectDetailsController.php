@@ -29,11 +29,7 @@ class ProjectDetailsController extends AppController
     public function index()
     {
         $this->paginate = [
-<<<<<<< HEAD
-            'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Annotations', 'Prices'],
-=======
             'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations'],
->>>>>>> b63ea7c7f9a890fdd20822d38ed0a21c8baa979c
 
         ];
 
