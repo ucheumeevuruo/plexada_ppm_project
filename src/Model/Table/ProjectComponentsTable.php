@@ -55,7 +55,7 @@ class ProjectComponentsTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->integer('component')
+            ->scalar('component')
             ->requirePresence('component', 'create')
             ->notEmptyString('component');
 

@@ -4,15 +4,16 @@
  * @var \App\Model\Entity\ProjectComponent $projectComponent
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<!-- <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('List Project Components'), ['action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('List Projects'), ['controller' => 'Projects', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Project'), ['controller' => 'Projects', 'action' => 'add']) ?></li>
     </ul>
-</nav>
-<div class="projectComponents form large-9 medium-8 columns content">
+</nav> -->
+<div class ="container">
+<div class="projectComponents form columns content">
     <?= $this->Form->create($projectComponent) ?>
     <fieldset>
         <legend><?= __('Add Project Component') ?></legend>
@@ -24,4 +25,6 @@
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
+</div>
+
 </div>
