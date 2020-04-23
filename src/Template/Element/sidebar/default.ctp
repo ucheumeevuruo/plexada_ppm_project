@@ -26,6 +26,7 @@
         </li>
         <hr class="sidebar-divider mx-0 w-100">
         <!-- <li class="dropdown nav-item">
+
         <a href="#" class="dropdown-toggle text-light nav-link" data-toggle="dropdown" role="button"
             aria-expanded="false">
             <i class="fa fa-archive fa-lg"></i>
