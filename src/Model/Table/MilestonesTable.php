@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -40,8 +41,8 @@ class MilestonesTable extends Table
         parent::initialize($config);
 
         $this->setTable('milestones');
-        $this->setDisplayField('id');
-        $this->setPrimaryKey('id');
+        $this->setDisplayField('description');
+        $this->setPrimaryKey('description');
 
         $this->addBehavior('Timestamp');
 
@@ -60,7 +61,7 @@ class MilestonesTable extends Table
             'foreignKey' => 'milestone_id',
         ]);
         $this->hasMany('ProjectFundings', [
-            'foreignKey' => 'milestone_id',
+            'foreignKey' => 'projects',
         ]);
     }
 
