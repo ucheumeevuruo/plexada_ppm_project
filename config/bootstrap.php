@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -43,6 +44,8 @@ use Cake\Mailer\Email;
 use Cake\Mailer\TransportFactory;
 use Cake\Utility\Inflector;
 use Cake\Utility\Security;
+use CakePdf\Pdf\Engine\WkHtmlToPdfEngine;
+
 
 /**
  * Uncomment block of code below if you want to use `.env` file during development.
@@ -201,3 +204,21 @@ Type::build('timestamp')
 //Inflector::rules('irregular', ['red' => 'redlings']);
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
+
+$this->addPlugin('CakePdf', ['bootstrap' => true]);
+$this->addPlugin('CsvView');
+
+Configure::write('CakePdf', [
+    'engine' => [
+        'className' => 'CakePdf.WkHtmlToPdf',
+        //'binary' => '/usr/bin/wkhtmltopdf', //LINUX
+        // 'binary' => 'C:\PROGRA~1\wkhtmltopdf\bin\wkhtmltopdf.exe', //WINDOWS
+        'binary' => 'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe', //WINDOWS
+        'options' => [
+            'print-media-type' => false,
+            'outline' => true,
+            'dpi' => 96
+        ]
+    ],
+    'pageSize' => 'Letter',
+]);
