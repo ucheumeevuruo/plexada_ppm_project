@@ -63,12 +63,14 @@ $this->end();
                 <!-- <?= $this->Form->control('start_dt', ['empty' => true]);?> -->
                 <!-- <?= $this->Form->control('end_dt', ['empty' => true]);?> -->
                 <!-- <?= $this->Form->control('last_updated');?> -->
+                <?= $this->Form->control('priority_id', ['options' => $lov]);?>
             </div>
                 <div class="col-md-6 float-left">
 
-                <?= $this->Form->control('priority_id', ['options' => $lov]);?>
+
+                <?= $this->Html->link(__('Add Milestones'), ['controller' => 'milestones', 'action' => 'add'], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
                 <?= $this->Form->control('system_user_id', ['options' => $users]);?>
-                <?= $this->Html->link(__('Add Milestones'), ['controller' => 'milestones', 'action' => 'add'], ['class' => 'btn btn-primary btn-md mb-2 overlay w-75 mx-5']) ?>
+
                 <?= $this->Form->control('annotation_id', ['options' => $annotations, 'empty' => true]);?>
 
                 <!-- ///////////////////////////// -->
@@ -82,7 +84,7 @@ $this->end();
                 </div>
 
             <div id="newEnv"></div>
-            <button id="addEnv" type="button" class="btn btn-primary mb-5">Add More</button>
+            <button id="addEnv" type="button" class="btn btn-primary mb-5">Add Environmental Factor</button>
 
             <!-- ////////////////////////////////////////// -->
 
@@ -101,7 +103,7 @@ $this->end();
                 </div>
 
             <div id="newFA"></div>
-            <button id="addFA" type="button" class="btn btn-primary mb-5">Add More</button>
+            <button id="addFA" type="button" class="btn btn-primary mb-5">Add Funding Agency</button>
 
 
 
@@ -118,7 +120,6 @@ $this->end();
     </div>
 </div>
 
-<!-- MODAL ELEMENTS -->
 
 <div id="dialogModal" class="bg-primary">
         <!-- the external content is loaded inside this tag -->
@@ -143,7 +144,27 @@ $this->end();
         </div>
     </div>
 
+
 <script type="text/javascript">
+
+$(document).ready(function() {
+            //respond to click event on anything with 'overlay' class
+            $(".overlay").click(function(event){
+                event.preventDefault();
+                //load content from href of link
+                $('#contentWrap .modal-body').load($(this).attr("href"), function(){
+                    $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content').removeClass()
+                    $('#MyModal4').modal('show')
+                });
+            });
+
+            $(".upload").click(function (event) {
+                event.preventDefault();
+                $("#upload").modal('show')
+            })
+            $('.dataTable').DataTable();
+        });
+
     // add new env. factors
     $("#addEnv").click(function () {
         var html = '';
@@ -196,22 +217,4 @@ $this->end();
         });
     });
 
-    $(document).ready(function() {
-            //respond to click event on anything with 'overlay' class
-            $(".overlay").click(function(event){
-                event.preventDefault();
-                //load content from href of link
-                $('#contentWrap .modal-body').load($(this).attr("href"), function(){
-                    $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content').removeClass()
-                    $('#MyModal4').modal('show')
-                });
-            });
-
-            $(".upload").click(function (event) {
-                event.preventDefault();
-                $("#upload").modal('show')
-            })
-            $('.dataTable').DataTable();
-        });
-        
 </script>
