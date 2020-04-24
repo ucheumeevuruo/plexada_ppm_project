@@ -60,8 +60,8 @@ class PimsController extends AppController
                 return $this->redirect(['controller' => 'Projects', 'action' => 'index']);
             }
             $this->Flash->error(__('The pim could not be saved. Please, try again.'));
-            debug($pim);
-            die();
+            // debug($pim);
+            // die();
         }
         $this->set(compact('pim','project_info'));
     }

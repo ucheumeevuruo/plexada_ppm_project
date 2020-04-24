@@ -109,12 +109,12 @@ $this->end();
                                 $results = $stmt->fetchAll('assoc');
                                 if (isset($results[0])) {
                                     $freshdate = $results[0]['completed_date'];
-                                    $lastcloseddatediff = intval(date_diff(new DateTime($sdate), new DateTime($freshdate))->format('%R%a'));
-                                    if ($lastcloseddatediff > 0) {
-                                        echo $lastcloseddatediff;
-                                        $result3 = ($lastcloseddatediff * 100) / $result;
-                                        $completeddays =  round(number_format($result3, 2), 2);
-                                    } else {
+                                    $lastcloseddatediff = intval(date_diff(new DateTime($sdate),new DateTime($freshdate))->format('%R%a'));
+                                    if ($lastcloseddatediff > 0){
+                                        // echo $lastcloseddatediff;
+                                        $result3 = ($lastcloseddatediff * 100)/$result;
+                                        $completeddays =  round(number_format($result3,2),2);
+                                    }else{
                                         $completeddays = 0;
                                     }
                                 } else {
