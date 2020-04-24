@@ -21,7 +21,8 @@ $this->end();
     <fieldset>
         <legend class="bg-primary text-light mb-3 text-center"><?= __('Add PAD') ?></legend>
         <div class="col-md-6 float-left">
-            <?= $this->Form->control('project_id', ['options' => $projects]); ?>
+            <?= $this->Form->control('project_id', ['options' => $projects_info]); ?>
+            <input type="hidden" name="name" value="<?= $project_info->name ?>">
             <!-- <?= $this->Form->control('name'); ?> -->
 
             <label class="control-label" for="description">Description</label>
@@ -77,7 +78,7 @@ $this->end();
         <div class="col-md-6 float-left">
 
 
-            <?= $this->Html->link(__('Add Milestones'), ['controller' => 'milestones', 'action' => 'add'], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
+            <?= $this->Html->link(__('Add Milestones'), ['controller' => 'milestones', 'action' => 'add', $project_info->id], ['class' => 'btn btn-primary btn-sm mr-2']) ?>
             <?= $this->Form->control('system_user_id', ['options' => $users]); ?>
 
             <!-- <?= $this->Form->control('annotation_id', ['options' => $annotations, 'empty' => true]); ?> -->
@@ -135,58 +136,86 @@ $this->end();
 </div>
 
 
+<!-- MODAL ELEMENTS -->
+
+    <div id="dialogModal" class="bg-primary">
+        <!-- the external content is loaded inside this tag -->
+        <div id="contentWrap">
+            <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-md']) ?>
+            <?= $this->Modal->body()// No header ?>
+            <?= $this->Modal->footer()// Footer with close button (default) ?>
+            <?= $this->Modal->end() ?>
+        </div>
+    </div>
+
 <script type="text/javascript">
-// add new env. factors
-$("#addEnv").click(function() {
-    var html = '';
-    html += '<div id="inputEnv">';
-    html += '<div class="input-group mb-3">';
-    html +=
-        '<input type="text" name="title[]" class="form-control m-input" placeholder="Environmental factor" autocomplete="off">';
-    html += '<div class="input-group-append">';
-    html += '<button id="removeEnv" type="button" class="btn btn-danger">Remove</button>';
-    html += '</div>';
-    html += '</div>';
+    // add new env. factors
+    $("#addEnv").click(function() {
+        var html = '';
+        html += '<div id="inputEnv">';
+        html += '<div class="input-group mb-3">';
+        html +=
+            '<input type="text" name="title[]" class="form-control m-input" placeholder="Environmental factor" autocomplete="off">';
+        html += '<div class="input-group-append">';
+        html += '<button id="removeEnv" type="button" class="btn btn-danger">Remove</button>';
+        html += '</div>';
+        html += '</div>';
 
-    $('#newEnv').append(html);
-});
-
-// remove row
-$(document).on('click', '#removeEnv', function() {
-    $(this).closest('#inputEnv').remove();
-});
-
-
-// ///////////////////ADD FA///
-
-$("#addFA").click(function() {
-    var html = '';
-    html += '<div id="inputFA">';
-    html += '<div class="input-group mb-3">';
-    html +=
-        '<input type="text" name="title[]" class="form-control m-input" placeholder="Funding Agency" autocomplete="off">';
-    html += '<div class="input-group-append">';
-    html += '<button id="removeFA" type="button" class="btn btn-danger">Remove</button>';
-    html += '</div>';
-    html += '</div>';
-
-    $('#newFA').append(html);
-});
-
-// remove row
-$(document).on('click', '#removeFA', function() {
-    $(this).closest('#inputFA').remove();
-});
-
-
-// ////Date picker
-$(function() {
-    $('#waiting_since, #start_dt, #end_dt').datepicker({
-        inline: true,
-        "format": "dd/mm/yyyy",
-        startDate: "0d",
-        // "endDate": "09-15-2017",
-        "keyboardNavigation": false
+        $('#newEnv').append(html);
     });
-});
+
+    // remove row
+    $(document).on('click', '#removeEnv', function() {
+        $(this).closest('#inputEnv').remove();
+    });
+
+
+    // ///////////////////ADD FA///
+
+    $("#addFA").click(function() {
+        var html = '';
+        html += '<div id="inputFA">';
+        html += '<div class="input-group mb-3">';
+        html +=
+            '<input type="text" name="title[]" class="form-control m-input" placeholder="Funding Agency" autocomplete="off">';
+        html += '<div class="input-group-append">';
+        html += '<button id="removeFA" type="button" class="btn btn-danger">Remove</button>';
+        html += '</div>';
+        html += '</div>';
+
+        $('#newFA').append(html);
+    });
+
+    // remove row
+    $(document).on('click', '#removeFA', function() {
+        $(this).closest('#inputFA').remove();
+    });
+
+
+    // ////Date picker
+    $(function() {
+        $('#waiting_since, #start_dt, #end_dt').datepicker({
+            inline: true,
+            "format": "dd/mm/yyyy",
+            startDate: "0d",
+            // "endDate": "09-15-2017",
+            "keyboardNavigation": false
+        });
+    });
+
+
+    $(document).ready(function() {
+                //respond to click event on anything with 'overlay' class
+                $(".overlay").click(function(event){
+                    console.log('hi');
+                    event.preventDefault();
+                    //load content from href of link
+                    $('#contentWrap .modal-body').load($(this).attr("href"), function(){
+                        $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content').removeClass()
+                        $('#MyModal4').modal('show')
+                    });
+                });
+            });
+
+
 </script>

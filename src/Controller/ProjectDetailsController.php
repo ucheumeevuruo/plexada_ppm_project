@@ -172,6 +172,7 @@ class ProjectDetailsController extends AppController
     {
         $this->loadModel('Projects');
         $project_info = $this->Projects->get($id);
+
         $projectDetail = $this->ProjectDetails->newEntity();
         if ($this->request->is('post')) {
             // $pim = $this->Pims->patchEntity($pim, $this->Pims->identify($this->request->getData()))
@@ -208,8 +209,9 @@ class ProjectDetailsController extends AppController
         $users = $this->ProjectDetails->Users->find('list', ['limit' => 200]);
         $annotations = $this->ProjectDetails->Annotations->find('list', ['limit' => 200]);
         $prices = $this->ProjectDetails->Prices->find('list', ['limit' => 200]);
+        $projects_info = $this->Projects->find('list', ['limit' => 200, 'conditions'=>['id'=>$id]]);
         // $subStatuses = $this->ProjectDetails->SubStatus->find('list', ['limit' => 200]);
-        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'lov', 'users', 'annotations', 'prices', 'projects', 'subStatus', 'users', 'authUser', 'project_info'));
+        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'lov', 'users', 'annotations', 'prices', 'projects', 'subStatus', 'users', 'authUser', 'project_info','projects_info'));
     }
 
     /**

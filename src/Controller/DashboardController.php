@@ -189,64 +189,64 @@ class DashboardController extends AppController
 //            ->limit(10)
             ->toArray();
 
-        $priority = ['priorities' => ['high' => [], 'medium' => [], 'low' => []]];
-        $priority_total = [];
-        foreach ($priorities as $p)
-        {
-            $priority_type = strtolower($p['priority_type']);
-            if($p['name'] == 'total' && $priority_type == 'total_priority')
-            {
-                $data = [];
-                $data['total_budget'] = $p['budget'];
-                $data['total_consumed'] = $p['total_consumed'];
-                $data['count'] = $p['count'];
-                $priority_total = $data;
-            }else if($p['name'] == 'total' && $priority_type != 'total_priority')
-            {
-                $data = [];
-                $sub_total = @$priority['priorities'][$priority_type]['sub_total'];
-                $data['priorities'] = $p['priority_type'];
-                $data['total_budget'] = $p['budget'];
-                $data['total_consumed'] = $p['total_consumed'];
-                $data['count'] = $p['count'];
-                if(is_array($sub_total))
-                {
-                    foreach($sub_total as $k => $v)
-                    {
-                        if($v == $p['priority_type'])
-                        {
-                            $data['total_budget'] += $sub_total['total_budget'];
-                            $data['total_consumed'] += $sub_total['total_budget'];
-                            $data['count'] += $sub_total['count'];
-                            break;
-                        }
-                    }
-                }
+        // $priority = ['priorities' => ['high' => [], 'medium' => [], 'low' => []]];
+        // $priority_total = [];
+        // foreach ($priorities as $p)
+        // {
+        //     $priority_type = strtolower($p['priority_type']);
+        //     if($p['name'] == 'total' && $priority_type == 'total_priority')
+        //     {
+        //         $data = [];
+        //         $data['total_budget'] = $p['budget'];
+        //         $data['total_consumed'] = $p['total_consumed'];
+        //         $data['count'] = $p['count'];
+        //         $priority_total = $data;
+        //     }else if($p['name'] == 'total' && $priority_type != 'total_priority')
+        //     {
+        //         $data = [];
+        //         $sub_total = @$priority['priorities'][$priority_type]['sub_total'];
+        //         $data['priorities'] = $p['priority_type'];
+        //         $data['total_budget'] = $p['budget'];
+        //         $data['total_consumed'] = $p['total_consumed'];
+        //         $data['count'] = $p['count'];
+        //         if(is_array($sub_total))
+        //         {
+        //             foreach($sub_total as $k => $v)
+        //             {
+        //                 if($v == $p['priority_type'])
+        //                 {
+        //                     $data['total_budget'] += $sub_total['total_budget'];
+        //                     $data['total_consumed'] += $sub_total['total_budget'];
+        //                     $data['count'] += $sub_total['count'];
+        //                     break;
+        //                 }
+        //             }
+        //         }
 
-                $priority['priorities'][$priority_type]['sub_total'] = $data;
-            }else{
-                if(array_key_exists($priority_type, $priority['priorities']))
-                {
-                    $p['milestone'] = $this->Milestones->find('all')
-                        ->contain(['Lov'])
-                        ->select(['count' => 'count(Milestones.id)', 'total' => '(select count(*) from milestones where project_id = \'' . $p->id . '\')'])
-                        ->where(['project_id' => $p->id, 'lower(Lov.lov_value)' => 'closed'])
-                        ->first();
-                    $p['risk_issues'] = $this->RiskIssues->find('all')
-                        ->contain(['Lov', 'ProjectDetails', 'ProjectDetails.Priorities'])
-                        ->select(['status' => 'Lov.lov_value', 'count' => 'count(*)', 'priority' => 'Priorities.lov_value'])
-                        ->where(['project_id' => $p->id, 'Lov.lov_value' => 'Open'])
-                        ->group(['Lov.lov_value', 'Priorities.lov_value'])
-                        ->first();
-                    $p['status'] = $this->ProjectDetails->find('all')
-                        ->contain(['Lov', 'SubStatuses'])
-                        ->select(['status' => 'if((Lov.lov_value) <> \'Closed\', \'Active\', \'Completed\')', 'sub_status' => 'SubStatuses.lov_value'])
-                        ->where(['ProjectDetails.id' => $p->id])
-                        ->first();
-                    $priority['priorities'][$priority_type]['result'][] = $p;
-                }
-            }
-        }
+        //         $priority['priorities'][$priority_type]['sub_total'] = $data;
+        //     }else{
+        //         if(array_key_exists($priority_type, $priority['priorities']))
+        //         {
+        //             $p['milestone'] = $this->Milestones->find('all')
+        //                 ->contain(['Lov'])
+        //                 ->select(['count' => 'count(Milestones.id)', 'total' => '(select count(*) from milestones where project_id = \'' . $p->id . '\')'])
+        //                 ->where(['project_id' => $p->id, 'lower(Lov.lov_value)' => 'closed'])
+        //                 ->first();
+        //             $p['risk_issues'] = $this->RiskIssues->find('all')
+        //                 ->contain(['Lov', 'ProjectDetails', 'ProjectDetails.Priorities'])
+        //                 ->select(['status' => 'Lov.lov_value', 'count' => 'count(*)', 'priority' => 'Priorities.lov_value'])
+        //                 ->where(['project_id' => $p->id, 'Lov.lov_value' => 'Open'])
+        //                 ->group(['Lov.lov_value', 'Priorities.lov_value'])
+        //                 ->first();
+        //             $p['status'] = $this->ProjectDetails->find('all')
+        //                 ->contain(['Lov', 'SubStatuses'])
+        //                 ->select(['status' => 'if((Lov.lov_value) <> \'Closed\', \'Active\', \'Completed\')', 'sub_status' => 'SubStatuses.lov_value'])
+        //                 ->where(['ProjectDetails.id' => $p->id])
+        //                 ->first();
+        //             $priority['priorities'][$priority_type]['result'][] = $p;
+        //         }
+        //     }
+        // }
 
         foreach($project_list as $prj){
 
@@ -259,8 +259,9 @@ class DashboardController extends AppController
         ->toArray();
         // sending projects as array
 
-        $priority = ($priority);
-        $this->set( compact( 'priority', 'priority_total','project_list','milestone_list','allprojects') );
+        // $priority = ($priority);
+        // $this->set( compact( 'priority', 'priority_total','project_list','milestone_list','allprojects') );
+        $this->set( compact('project_list','milestone_list','allprojects') );
     }
 
     public function beforeRender(Event $event)
