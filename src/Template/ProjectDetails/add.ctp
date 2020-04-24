@@ -21,8 +21,14 @@ $this->end();
     <fieldset>
         <legend class="bg-primary text-light mb-3 text-center"><?= __('Add PAD') ?></legend>
         <div class="col-md-6 float-left">
-            <?= $this->Form->control('project_id', ['options' => $projects]); ?>
+            <!-- <?= $this->Form->control('project_id', ['options' => $projects]); ?> -->
             <!-- <?= $this->Form->control('name'); ?> -->
+
+            <label class="control-label" for="project">Project</label>
+            <div class="input-group"><input type="text" name="project" value="<?= $project_info->name ?>"
+                    class="form-control addon-right" empty="1" id="description" autocomplete="off">
+                <!-- <span class="input-group-addon"><i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span> -->
+            </div>
 
             <label class="control-label" for="description">Description</label>
             <div class="input-group"><input type="text" name="description" value="<?= $project_info->introduction ?>"
