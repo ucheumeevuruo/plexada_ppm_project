@@ -57,7 +57,6 @@
             "echo '<?php return [...]; ' > config/app_local.php",
             "chmod +x bin/cake",
             "bin/cake migrations migrate --no-lock",
-            ...
             "bin/cake asset_compress build"
         ],
         "cs-check": "phpcs --colors -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
