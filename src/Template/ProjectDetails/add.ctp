@@ -42,12 +42,12 @@ $this->end();
             <?= $this->Form->control('manager_id', ['options' => $staff, 'empty' => true]); ?>
             <!-- <?= $this->Form->control('sponsor_id', ['options' => $sponsors, 'empty' => true]); ?> -->
             <!-- <div class="form-group text"> -->
-            <!-- <label class="control-label" for="waiting_since">Waiting since</label>
+            <label class="control-label" for="waiting_since">Waiting since</label>
             <div class="input-group"><input type="text" name="waiting_since" class="form-control addon-right" empty="1"
                     id="waiting_since" autocomplete="off">
                 <span class="input-group-addon"><i
                         class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span>
-            </div> -->
+            </div>
             <!-- </div> -->
 
             <!-- <?= $this->Form->control('waiting_since', ['empty' => true]); ?> -->
