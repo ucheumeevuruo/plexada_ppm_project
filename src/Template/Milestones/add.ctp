@@ -11,11 +11,17 @@
         <legend class="text-primary text-center"><?= __('Add Milestone') ?></legend>
         <?php
             echo $this->Form->control('record_number');
-            echo $this->Form->control('project_id', ['options' => $projects]);
-            echo $this->Form->control('amount');
+            echo $this->Form->control('project_id', ['options' => $projects, 'text'=>'hidden']);
+            echo $this->Form->control('amount',['label' => 'Amount (USD)']);
             echo $this->Form->control('payment');
             echo $this->Form->control('status_id', ['options' => $lov]);
-            echo $this->Form->control('description');
+        ?>
+            <div class="form-group text"><label class="control-label" for="description">Description</label>
+            <input type="text" name="description" class="form-control" id="description">
+            </div>
+            
+        <?php
+            // echo $this->Form->control('description');
             echo $this->Form->control('achievement');
             echo $this->Form->control('trigger_id', ['options' => $triggers, 'empty' => true]);
             // echo $this->Form->control('completed_date', ['empty' => true,'id'=>'completed_date']);

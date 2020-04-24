@@ -66,8 +66,10 @@ class TasksController extends AppController
 
             }
             $this->Flash->error(__('The task could not be saved. Please, try again.'));
+            
             // debug($task);
             // die();
+            return $this->redirect($this->referer());
         }
         $projects = $this->Tasks->Projects->find('list', ['limit' => 200, 'conditions'=>['id'=>$id]]);
         $activities_info = $this->Activities->find('list', ['limit' => 200, 'conditions'=>['project_id'=>$id]]);

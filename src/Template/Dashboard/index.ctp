@@ -81,12 +81,17 @@ $arropen =[];
                                 $sdate = $project->start_dt->format("Y-m-d H:i:s");
                                 $edate = $project->end_dt->format("Y-m-d H:i:s");
                                 $today = date('Y-m-d H:i:s');
-                          
+                                $expectdays = 0;
                                 $projectdatediff = date_diff(new DateTime($sdate),new DateTime($edate));
                                 $result = intval($projectdatediff->format('%R%a'));
                                 $expectedprojectdays = intval(date_diff(new DateTime($sdate),new DateTime($today))->format('%R%a'));
-                                $result2 = ($expectedprojectdays * 100)/$result;
-                                $expectdays =  round(number_format($result2,2),2);
+                                if ($expectedprojectdays >0 ){
+                                    $result2 = ($expectedprojectdays * 100)/$result;
+                                    $expectdays =  round(number_format($result2,2),2);
+                                }else{
+                                    $expectdays = 0;
+                                }
+
                                 // echo $expectdays;
                                 // End of epected
                                
@@ -101,11 +106,16 @@ $arropen =[];
                                 $conn = ConnectionManager::get('default');      
                                 $stmt = $conn->execute("SELECT * FROM milestones where project_id ='".$prjid."' and status_id ='3' order by completed_date DESC");
                                 $results = $stmt ->fetchAll('assoc');
-                                if(isset($results[0])){
+                                if(isset($results[0]) ){
                                     $freshdate = $results[0]['completed_date'];
                                     $lastcloseddatediff = intval(date_diff(new DateTime($sdate),new DateTime($freshdate))->format('%R%a'));
-                                    $result3 = ($lastcloseddatediff * 100)/$result;
-                                    $completeddays =  round(number_format($result3,2),2);
+                                    if ($lastcloseddatediff > 0){
+                                        echo $lastcloseddatediff;
+                                        $result3 = ($lastcloseddatediff * 100)/$result;
+                                        $completeddays =  round(number_format($result3,2),2);
+                                    }else{
+                                        $completeddays = 0;
+                                    }
                                 }else{
                                     $completeddays = 0;
                                 }
@@ -233,12 +243,22 @@ $arropen =[];
                                     if(isset($results[0])){
                                         $freshdate = $results[0]['completed_date'];
                                         $lastcloseddatediff = intval(date_diff(new DateTime($sdate),new DateTime($freshdate))->format('%R%a'));
-                                        $result3 = ($lastcloseddatediff * 100)/$result;
-                                        $completeddays =  round(number_format($result3,2),2);
+                                        if ($lastcloseddatediff >0){
+                                            $result3 = ($lastcloseddatediff * 100)/$result;
+                                            $completeddays =  round(number_format($result3,2),2);
+                                        }else{
+                                            $completeddays =0;
+                                        }
+
                                     }else{
                                         $completeddays = 0;
                                     }
-                                    $ptocomplete = 1 - round(number_format(($completeddays/$expectdays),2),2);
+                                    if ($expectdays > 0){
+                                        $ptocomplete = 1 - round(number_format(($completeddays/$expectdays),2),2);
+                                    }else{
+                                        $ptocomplete = 1;
+                                    }
+                                    
                                     $achievement = "";
                                     if ($ptocomplete == 0){
                                         $color = "bg-success";
