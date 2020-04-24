@@ -104,9 +104,9 @@ class AppController extends Controller
         $this->loadModel('Messages');
         $qryinbox = $this->Messages->find('all')->where(['recipient_id =' => $logged_in_user]) ;
         // $noofmessages = $qryinbox->func()->count();
-        $noOfMessage = $qryinbox->count(); 
+        $noOfMessage = $qryinbox->count();
         $this->request->session()->write('akpython', $noOfMessage);
-      
+
 
 
     }
@@ -127,6 +127,6 @@ class AppController extends Controller
         // die();
         $projectCount = $qryproject->count();
         $this->set(compact('qryproject','projectCount'));
-       
+
     }
 }

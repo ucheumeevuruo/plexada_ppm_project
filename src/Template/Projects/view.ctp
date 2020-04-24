@@ -13,14 +13,15 @@ $this->end();
 
 <div class="container-fluid">
     <h3 class="bg-primary text-light text-center"><?= h($project->name) ?></h3>
-    <div class="col-md-6 float-left">
-        <table class="vertical-table table-primary mt-3">
+    <div class="">
+        <table class="vertical-table table-primary mt-3 w-75">
+            <div class="mx-auto">
             <?= $this->Html->link(__('Add PAD'), ['controller' => 'projectDetails', 'action' => 'add'], ['class' => 'btn btn-primary btn-sm mr-3']) ?>
             <?= $this->Html->link(__('Add PIM'), ['controller' => 'pims', 'action' => 'add', $project->pims_id], ['class' => 'btn btn-primary btn-sm mr-3']) ?>
             <?= $this->Html->link(__('Add PPF'), ['controller' => 'projectFundings','action' => 'add', $project->projectFunding_id], ['class' => 'btn btn-primary btn-sm mr-3']) ?>
             <?= $this->Html->link(__('<i class="fa fa-pencil fa-sm"></i> Edit'), ['action' => 'edit', $project->id], ['class' => 'btn btn-primary btn-sm mr-3', 'title' => 'Edit', 'escape' => false]) ?>
             <?= $this->Html->link(__('<i class="fa fa-trash fa-sm"></i> Delete'), ['action' => 'delete', $project->id], ['class' => 'btn btn-primary btn-sm mr-3', 'title' => 'Delete', 'escape' => false]) ?>
-
+            </div>
             <tr>
                 <th scope="row" class="text-primary"><?= __('Name') ?></th>
                 <td><?= h($project->name) ?></td>
@@ -45,33 +46,6 @@ $this->end();
         </table>
     </div>
 
-    <div class="col-md-6 float-left">
-        <h4 class="text-primary text-center"><?= __('Objectives') ?></h4>
-        <div class="">
-            <div class="table-responsive">
-                <table class="table table-borered table-primary br-m" cellpadding="0" cellspacing="0">
-                    <tr class="bg-primary">
-                        <!-- <th scope="col"><?= __('Id') ?></th> -->
-                        <!-- <th scope="col"><?= __('Project Id') ?></th> -->
-                        <th scope="col"><?= __('Objective') ?></th>
-                        <th scope="col" class="actions"><?= __('Actions') ?></th>
-                    </tr>
-                    <?php foreach ($project->objectives as $objectives): ?>
-                    <tr>
-                        <!-- <td><?= h($objectives->id) ?></td> -->
-                        <!-- <td><?= h($objectives->project_id) ?></td> -->
-                        <td><?= h($objectives->objective) ?></td>
-                        <td class="actions" width="15%">
-                            <!-- <?= $this->Html->link(__('View'), ['controller' => 'Objectives', 'action' => 'view', $objectives->id]) ?> -->
-                            <?= $this->Html->link(__('Edit'), ['controller' => 'Objectives', 'action' => 'edit', $objectives->id]) ?>
-                            <?= $this->Form->postLink(__('Delete'), ['controller' => 'Objectives', 'action' => 'delete', $objectives->id], ['confirm' => __('Are you sure you want to delete # {0}?', $objectives->id)]) ?>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </table>
-            </div>
-        </div>
-    </div>
     <hr>
 
     <div class="related">
