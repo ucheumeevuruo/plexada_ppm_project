@@ -76,17 +76,17 @@ class TasksTable extends Table
             ->requirePresence('Description', 'create')
             ->notEmptyString('Description');
 
-        $validator
-            ->scalar('Predecessor')
-            ->maxLength('Predecessor', 255)
-            ->requirePresence('Predecessor', 'create')
-            ->notEmptyString('Predecessor');
+        // $validator
+        //     ->scalar('Predecessor')
+        //     ->maxLength('Predecessor', 255)
+        //     ->requirePresence('Predecessor', 'create')
+        //     ->notEmptyString('Predecessor');
 
-        $validator
-            ->scalar('Successor')
-            ->maxLength('Successor', 255)
-            ->requirePresence('Successor', 'create')
-            ->notEmptyString('Successor');
+        // $validator
+        //     ->scalar('Successor')
+        //     ->maxLength('Successor', 255)
+        //     ->requirePresence('Successor', 'create')
+        //     ->notEmptyString('Successor');
 
         return $validator;
     }
