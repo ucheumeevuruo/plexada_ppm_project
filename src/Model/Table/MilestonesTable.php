@@ -42,7 +42,7 @@ class MilestonesTable extends Table
 
         $this->setTable('milestones');
         $this->setDisplayField('description');
-        $this->setPrimaryKey('description');
+        $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
 

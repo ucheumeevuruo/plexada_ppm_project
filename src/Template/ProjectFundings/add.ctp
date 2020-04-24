@@ -16,9 +16,10 @@ $this->end();
     <?= $this->Form->create($projectFunding) ?>
     <fieldset>
         <legend class="text-light bg-primary"><?= __('Add Project Funding') ?></legend>
+        <input type="hidden" name ="project_id" value="<?= $project_info->id ?>">
         <?php
-        echo $this->Form->control('milestone', ['options' => $milestones]);
-        echo $this->Form->control('funding');
+        echo $this->Form->control('milestone_id', ['options' => $milestones]);
+        echo $this->Form->control('funding', ['label' => 'Funding (USD)']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit'), ['class' => 'bg-primary']) ?>
