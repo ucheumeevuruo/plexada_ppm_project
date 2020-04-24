@@ -62,8 +62,11 @@ class ActivitiesController extends AppController
                 return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The activity could not be saved. Please, try again.'));
+            debug($activity);
+            die();
             //            return $this->redirect(['controller' => 'ProjectDetails', 'action' => 'view', $project_id]);
             return $this->redirect($this->referer());
+
         }
         $projectDetails = $this->Activities->ProjectDetails->find('list', ['limit' => 200]);
         $staff = $this->Activities->Staff->find('list', ['limit' => 200]);

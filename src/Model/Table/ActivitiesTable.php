@@ -133,6 +133,7 @@ class ActivitiesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        // $rules->add($rules->existsIn(['id'], 'Projects'));
         $rules->add($rules->existsIn(['project_id'], 'ProjectDetails'));
         $rules->add($rules->existsIn(['assigned_to_id'], 'Staff'));
         $rules->add($rules->existsIn(['priority_id'], 'Priorities'));

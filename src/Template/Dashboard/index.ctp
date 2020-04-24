@@ -16,34 +16,34 @@ $this->end();
 <div class="container-fluid">
 
     <style>
-    #container {
-        overflow-y: scroll;
-        overflow-x: scroll;
-        /* width: 900px; */
-        height: 300px;
-    }
+        #container {
+            overflow-y: scroll;
+            overflow-x: scroll;
+            /* width: 900px; */
+            height: 300px;
+        }
 
-    .table-container {
-        overflow-y: scroll;
-        overflow-x: scroll;
-        /* width: 900px; */
-        height: 300px;
-    }
+        .table-container {
+            overflow-y: scroll;
+            overflow-x: scroll;
+            /* width: 900px; */
+            height: 300px;
+        }
 
-    #container2 {
-        /* position: absolute; */
-        overflow-y: scroll;
-        overflow-x: scroll;
-        /* width: 900px; */
-        height: 300px;
-    }
+        #container2 {
+            /* position: absolute; */
+            overflow-y: scroll;
+            overflow-x: scroll;
+            /* width: 900px; */
+            height: 300px;
+        }
     </style>
     <?php
     $arrcompleted = [];
     $arropen = [];
     ?>
     <?php foreach ($project_list as $project) : ?>
-    <?php
+        <?php
         $conn = ConnectionManager::get('default');
         $prjid = $project->id;
         $completed = $conn->execute("SELECT count(*) as T FROM milestones where project_id ='" . $prjid . "' and status_id ='3' ");
@@ -76,18 +76,23 @@ $this->end();
 
                             <?php foreach ($project_list as $project) : ?>
 
-                            <?php
+                                <?php
                                 // debug($project) ;
                                 // die();
                                 $sdate = $project->start_dt->format("Y-m-d H:i:s");
                                 $edate = $project->end_dt->format("Y-m-d H:i:s");
                                 $today = date('Y-m-d H:i:s');
-
+                                $expectdays = 0;
                                 $projectdatediff = date_diff(new DateTime($sdate), new DateTime($edate));
                                 $result = intval($projectdatediff->format('%R%a'));
                                 $expectedprojectdays = intval(date_diff(new DateTime($sdate), new DateTime($today))->format('%R%a'));
-                                $result2 = ($expectedprojectdays * 100) / $result;
-                                $expectdays =  round(number_format($result2, 2), 2);
+                                if ($expectedprojectdays > 0) {
+                                    $result2 = ($expectedprojectdays * 100) / $result;
+                                    $expectdays =  round(number_format($result2, 2), 2);
+                                } else {
+                                    $expectdays = 0;
+                                }
+
                                 // echo $expectdays;
                                 // End of epected
 
@@ -105,8 +110,13 @@ $this->end();
                                 if (isset($results[0])) {
                                     $freshdate = $results[0]['completed_date'];
                                     $lastcloseddatediff = intval(date_diff(new DateTime($sdate), new DateTime($freshdate))->format('%R%a'));
-                                    $result3 = ($lastcloseddatediff * 100) / $result;
-                                    $completeddays =  round(number_format($result3, 2), 2);
+                                    if ($lastcloseddatediff > 0) {
+                                        echo $lastcloseddatediff;
+                                        $result3 = ($lastcloseddatediff * 100) / $result;
+                                        $completeddays =  round(number_format($result3, 2), 2);
+                                    } else {
+                                        $completeddays = 0;
+                                    }
                                 } else {
                                     $completeddays = 0;
                                 }
@@ -127,39 +137,29 @@ $this->end();
 
                                 ?>
 
-                            <tr>
-                                <td><a href="#" class="text-decoration-none"><?= $project->name ?></a></td>
-                                <td>
-                                    <table style="width:500px;" class="table table-borderless">
-                                        <tr>
-                                            <td class="d-flex">
-                                                <span style="width:50px;"><?= $completeddays ?>%</span>
-                                                <div class="progress" style="width:600px;">
-                                                    <div class="progress-bar bg-danger progress-bar-striped active"
-                                                        title="overall this Project is currently <?= $completeddays ?>% complete"
-                                                        data-toggle="tooltip" data-placement="bottom" role="progressbar"
-                                                        style="width: <?= $completeddays ?>%;"
-                                                        aria-valuenow="<?= $completeddays ?>" aria-valuemin="0"
-                                                        aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                        <tr>
-                                            <td class="d-flex">
-                                                <span style="width:50px;"><?= $expectdays ?>%</span>
-                                                <div class="progress" style="width:600px;">
-                                                    <div class="progress-bar bg-success progress-bar-striped active"
-                                                        title="This Project was planned to be <?= $expectdays ?>% completed by today"
-                                                        data-toggle="tooltip" data-placement="bottom" role="progressbar"
-                                                        style="width: <?= $expectdays ?>%;"
-                                                        aria-valuenow="<?= $expectdays ?>" aria-valuemin="0"
-                                                        aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                        <tr>
-                                        <tr>
-                                    </table>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td><a href="#" class="text-decoration-none"><?= $project->name ?></a></td>
+                                    <td>
+                                        <table style="width:500px;" class="table table-borderless">
+                                            <tr>
+                                                <td class="d-flex">
+                                                    <span style="width:50px;"><?= $completeddays ?>%</span>
+                                                    <div class="progress" style="width:600px;">
+                                                        <div class="progress-bar bg-danger progress-bar-striped active" title="overall this Project is currently <?= $completeddays ?>% complete" data-toggle="tooltip" data-placement="bottom" role="progressbar" style="width: <?= $completeddays ?>%;" aria-valuenow="<?= $completeddays ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </td>
+                                            <tr>
+                                                <td class="d-flex">
+                                                    <span style="width:50px;"><?= $expectdays ?>%</span>
+                                                    <div class="progress" style="width:600px;">
+                                                        <div class="progress-bar bg-success progress-bar-striped active" title="This Project was planned to be <?= $expectdays ?>% completed by today" data-toggle="tooltip" data-placement="bottom" role="progressbar" style="width: <?= $expectdays ?>%;" aria-valuenow="<?= $expectdays ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </td>
+                                            <tr>
+                                            <tr>
+                                        </table>
+                                    </td>
+                                </tr>
 
                             <?php endforeach; ?>
 
@@ -185,12 +185,10 @@ $this->end();
                 <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
                     <h4 class="m-0 text-white">Health</h4>
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                            aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Dropdown Header:</div>
                             <a class="dropdown-item" href="#">Action</a>
                             <a class="dropdown-item" href="#">Another action</a>
@@ -217,7 +215,7 @@ $this->end();
                                 </thead>
                                 <?php foreach ($project_list as $project) : ?>
 
-                                <?php
+                                    <?php
                                     // debug($project) ;
                                     // die();
                                     $sdate = $project->start_dt->format("Y-m-d H:i:s");
@@ -248,12 +246,21 @@ $this->end();
                                     if (isset($results[0])) {
                                         $freshdate = $results[0]['completed_date'];
                                         $lastcloseddatediff = intval(date_diff(new DateTime($sdate), new DateTime($freshdate))->format('%R%a'));
-                                        $result3 = ($lastcloseddatediff * 100) / $result;
-                                        $completeddays =  round(number_format($result3, 2), 2);
+                                        if ($lastcloseddatediff > 0) {
+                                            $result3 = ($lastcloseddatediff * 100) / $result;
+                                            $completeddays =  round(number_format($result3, 2), 2);
+                                        } else {
+                                            $completeddays = 0;
+                                        }
                                     } else {
                                         $completeddays = 0;
                                     }
-                                    $ptocomplete = 1 - round(number_format(($completeddays / $expectdays), 2), 2);
+                                    if ($expectdays > 0) {
+                                        $ptocomplete = 1 - round(number_format(($completeddays / $expectdays), 2), 2);
+                                    } else {
+                                        $ptocomplete = 1;
+                                    }
+
                                     $achievement = "";
                                     if ($ptocomplete == 0) {
                                         $color = "bg-success";
@@ -286,18 +293,15 @@ $this->end();
                                     }
                                     ?>
 
-                                <tr>
-                                    <td><a href="#" class="text-decoration-none"><?= $project->name ?></a></td>
-                                    <!-- <td><?= $ptocomplete ?></td> -->
-                                    <td>
-                                        <div class="progress " style="width:80px;">
-                                            <div class="progress-bar <?= $color ?> progress-bar-striped active"
-                                                title="<?= $title ?>" data-toggle="tooltip" data-placement="right"
-                                                role="progressbar" style="width: 100%;" aria-valuenow="100"
-                                                aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </td>
-                                    <td><?php echo $this->Form->button('<i class="fa fa-exclamation-triangle"></i>', array(
+                                    <tr>
+                                        <td><a href="#" class="text-decoration-none"><?= $project->name ?></a></td>
+                                        <!-- <td><?= $ptocomplete ?></td> -->
+                                        <td>
+                                            <div class="progress " style="width:80px;">
+                                                <div class="progress-bar <?= $color ?> progress-bar-striped active" title="<?= $title ?>" data-toggle="tooltip" data-placement="right" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td>
+                                        <td><?php echo $this->Form->button('<i class="fa fa-exclamation-triangle"></i>', array(
                                                 'type' => 'button',
                                                 'class' => 'btn btn-warning',
                                                 'escape' => false,
@@ -306,7 +310,7 @@ $this->end();
                                                 'title' => $achievement
                                             )); ?></td>
 
-                                    <td><?php echo $this->Form->button('<i class="fa fa-trophy"></i>', array(
+                                        <td><?php echo $this->Form->button('<i class="fa fa-trophy"></i>', array(
                                                 'type' => 'button',
                                                 'class' => 'btn ',
                                                 'escape' => false,
@@ -314,9 +318,9 @@ $this->end();
                                                 'data-placement' => 'top',
                                                 'title' => $achievement
                                             )); ?></td>
-                                    <td><?= $mlcount ?> </td>
-                                    <td><?= $completeddays ?>%</td>
-                                </tr>
+                                        <td><?= $mlcount ?> </td>
+                                        <td><?= $completeddays ?>%</td>
+                                    </tr>
 
                                 <?php endforeach; ?>
 
@@ -341,12 +345,10 @@ $this->end();
                 <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
                     <h4 class="m-0 text-white">Milestones</h4>
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                            aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Dropdown Header:</div>
                             <a class="dropdown-item" href="#">Action</a>
                             <a class="dropdown-item" href="#">Another action</a>
@@ -362,16 +364,16 @@ $this->end();
                         <!-- <canvas id="myPieChart"></canvas> -->
                         <canvas id="myChart" width="200" height="50" style="height:400px"></canvas>
                         <script>
-                        < ? php $code_array = json_encode($allprojects);
-                        $comp = json_encode($arrcompleted);
-                        $op = json_encode($arropen); ?
-                        >
-                        var array_code = < ? php echo $code_array; ? > ;
-                        var array_complete = < ? php echo $comp; ? > ;
-                        var array_open = < ? php echo $op; ? > ;
-                        console.log(array_complete)
-                        console.log(array_open)
-                        doBarChart(array_code, array_complete, array_open);
+                            <?php $code_array = json_encode($allprojects);
+                            $comp  = json_encode($arrcompleted);
+                            $op  = json_encode($arropen);
+                            ?>
+                            var array_code = <?php echo $code_array; ?>;
+                            var array_complete = <?php echo $comp; ?>;
+                            var array_open = <?php echo $op; ?>;
+                            console.log(array_complete)
+                            console.log(array_open)
+                            doBarChart(array_code, array_complete, array_open);
                         </script>
                     </div>
                     <div class="mt-4 text-center small status"></div>
@@ -387,12 +389,10 @@ $this->end();
                 <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
                     <h4 class="m-0 text-white">Cost : Budget vs Actual</h4>
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                            aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Dropdown Header:</div>
                             <a class="dropdown-item" href="#">Action</a>
                             <a class="dropdown-item" href="#">Another action</a>
@@ -408,9 +408,9 @@ $this->end();
                         <!-- <canvas id="myPieChart"></canvas> -->
                         <canvas id="myChart2" width="200" height="50" style="height:400px"></canvas>
                         <script>
-                        < ? php $code_array = json_encode($allprojects) ? >
-                            var array_code = < ? php echo $code_array; ? > ;
-                        doBarChart2(array_code);
+                            <?php $code_array = json_encode($allprojects) ?>
+                            var array_code = <?php echo $code_array; ?>;
+                            doBarChart2(array_code);
                         </script>
                     </div>
                     <div class="mt-4 text-center small status"></div>
@@ -426,12 +426,10 @@ $this->end();
                 <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
                     <h4 class="m-0 text-white">Doughnut chart</h4>
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                            aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Dropdown Header:</div>
                             <a class="dropdown-item" href="#">Action</a>
                             <a class="dropdown-item" href="#">Another action</a>
@@ -447,9 +445,9 @@ $this->end();
                         <!-- <canvas id="myPieChart"></canvas> -->
                         <canvas id="myChart3" width="200" height="50" style="height:400px"></canvas>
                         <script>
-                        < ? php $code_array = json_encode($allprojects) ? >
-                            var array_code = < ? php echo $code_array; ? > ;
-                        donut(array_code);
+                            <?php $code_array = json_encode($allprojects) ?>
+                            var array_code = <?php echo $code_array; ?>;
+                            donut(array_code);
                         </script>
                     </div>
                     <div class="mt-4 text-center small status"></div>
@@ -465,12 +463,10 @@ $this->end();
                 <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
                     <h4 class="m-0 text-white">Gant Chart</h4>
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                            aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Dropdown Header:</div>
                             <a class="dropdown-item" href="#">Action</a>
                             <a class="dropdown-item" href="#">Another action</a>
@@ -495,9 +491,9 @@ $this->end();
 
 </div>
 <script>
-$(function() {
-    console.log('l');
-    $('[data-toggle="tooltip"]').tooltip()
-});
+    $(function() {
+        console.log('l');
+        $('[data-toggle="tooltip"]').tooltip()
+    });
 </script>
 </div>

@@ -102,7 +102,7 @@ $this->end();
                     <label for="formGroupExampleInput2">Total Expenditure</label>
                     <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">&#8358;</span>
+                        <span class="input-group-text">USD</span>
                     </div>
                     <input type="number" id="total_expenditure" name="total_expenditure" class="form-control" required="required" aria-label="Amount (to the nearest naira)">
                     <div class="input-group-append">
@@ -196,7 +196,7 @@ $this->end();
                     <label for="FinancialCost">Financial Cost</label>
                     <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">&#8358;</span>
+                        <span class="input-group-text">USD</span>
                     </div>
                     <input type="number" id="financial_cost" name = "financial_cost" required = "required" class="form-control" aria-label="Amount (to the nearest naira)">
                     <div class="input-group-append">
@@ -275,7 +275,7 @@ $this->end();
                         <label for="disbursed_amount">Disbursed Amount</label>
                         <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">&#8358;</span>
+                            <span class="input-group-text">USD</span>
                         </div>
                         <input id="disbursed_amount" name="disbursed_amount" type="number" required="required" class="form-control" aria-label="Amount (to the nearest naira)">
                         <div class="input-group-append">

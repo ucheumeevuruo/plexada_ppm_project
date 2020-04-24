@@ -63,8 +63,7 @@ class MilestonesController extends AppController
                 return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The milestone could not be saved. Please, try again.'));
-            debug($milestone);
-            die();
+
         }
         $projects = $this->Milestones->Projects->find('list', ['limit' => 200, 'conditions'=>['id'=>$id]]);
             //         sql($projects);

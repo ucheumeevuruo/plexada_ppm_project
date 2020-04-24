@@ -18,7 +18,7 @@
     <fieldset>
         <legend><?= __('Add Project Component') ?></legend>
         <div class="form-group text required"><label class="control-label" for="component">Component</label><input type="text" name="component" class="form-control" required="required" maxlength="200" id="component"></div>
-        <div class="form-group text required"><label class="control-label" for="component">Cost</label><input type="text" name="cost" class="form-control" required="required" maxlength="200" id="component"></div>
+        <div class="form-group text required"><label class="control-label" for="component">Cost (USD)</label><input type="number" name="cost" class="form-control" required="required" maxlength="200" id="cost"></div>
         <input type="hidden" name="project_id" id ="project_id" value=" <?= $projects->id ?>">
        
        
