@@ -48,20 +48,26 @@ class ProjectFundingsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id=null)
     {
+        $this->loadModel('Projects');
+        $project_info = $this->Projects->get($id);
+
         $projectFunding = $this->ProjectFundings->newEntity();
         if ($this->request->is('post')) {
             $projectFunding = $this->ProjectFundings->patchEntity($projectFunding, $this->request->getData());
+            // debug($projectFunding);
+            // die();
             if ($this->ProjectFundings->save($projectFunding)) {
                 $this->Flash->success(__('The project funding has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                // return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The project funding could not be saved. Please, try again.'));
         }
-        $milestones = $this->ProjectFundings->Milestones->find('list', ['limit' => 200]);
-        $this->set(compact('projectFunding', 'milestones'));
+        $milestones = $this->ProjectFundings->Milestones->find('list', ['limit' => 200,'conditions'=>['project_id'=>$id]]);
+        $this->set(compact('projectFunding', 'milestones','project_info'));
     }
 
     /**
