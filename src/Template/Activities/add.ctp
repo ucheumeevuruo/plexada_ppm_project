@@ -21,7 +21,7 @@ $this->end();
                     echo $this->Form->control('next_activity', ['label' => 'Step']);
                     echo $this->Form->control('assigned_to_id', ['options' => $staff, 'empty' => true]);
                     echo $this->Form->control('percentage_completion', ['type' => 'number', 'min' => 0, 'max' => 100, 'class' => 'addon-right', 'append' => '<i class="addon-right">%</i>']);
-                    echo $this->Form->control('priority_id', ['options' => $priority, 'empty' => true]);
+                    // echo $this->Form->control('priority_id', ['options' => $priority, 'empty' => true]);
                     echo $this->Form->hidden('status_id', ['options' => $status, 'default' => 1]);
                 ?>
             </div>

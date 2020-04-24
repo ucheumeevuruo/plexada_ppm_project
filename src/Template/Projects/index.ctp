@@ -3,13 +3,15 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Project[]|\Cake\Collection\CollectionInterface $projects
  */
+use Cake\ORM\Query;
+use Cake\Datasource\ConnectionManager;
+
 $this->start('sidebar');
 echo $this->element('sidebar/default');
 $this->end();
 $this->start('navbar');
 echo $this->element('navbar/default');
 $this->end();
-
 ?>
 
 <div class="container-fluid">
@@ -32,7 +34,7 @@ $this->end();
                             <th scope="col" width="13%"><?= __('Name') ?></th>
                             <th scope="col"><?= __('Introduction') ?></th>
                             <th scope="col"width="15%"><?= __('Location') ?></th>
-                            <th scope="col" width="15%"><?= __('Cost') ?></th>
+                            <th scope="col" width="15%"><?= __('Cost (USD)') ?></th>
                             <th scope="col" class="actions" width="22%"><?= __('Actions') ?></th>
                         </tr>
                     </thead>
@@ -45,14 +47,48 @@ $this->end();
                             <td><?= h($project->location) ?></td>
                             <td><?= $this->Number->format($project->cost) ?></td>
                             <td class="actions">
-                            <button class="btn btn-small btn-primary">
-                                <?= $this->Html->link(__('Add PAD'), ['controller' => 'projectDetails', 'action' => 'add', $project->id], ['class' => 'text-light txt-sm']) ?>
+                            <button class="btn btn-small btn-dark">
+                                <?php
+                            $prjid=$project->id;
+                            // echo $prjid;
+                            $conn = ConnectionManager::get('default');      
+                                    $qrycount = $conn->execute("SELECT * FROM project_details where project_id ='".$prjid."' ");
+                                    $results = $qrycount ->fetchAll('assoc');                 
+                                if(isset($results[0]) ){
+                                    echo '<a  class="text-success txt-sm">Add PAD</a>';
+                                }else{
+                                   echo $this->Html->link(__('Add PAD'), ['controller' => 'projectDetails', 'action' => 'add', $project->id], ['class' => 'text-light txt-sm']) ;
+                                }
+                                ?>
                             </button>
-                            <button class="btn btn-small btn-primary">
-                                <?= $this->Html->link(__('Add PIM'), ['controller' => 'pims', 'action' => 'add', $project->id], ['class' => 'text-light txt-sm']) ?>
+                            <button class="btn btn-small btn-dark">
+                                <?php
+                            $prjid=$project->id;
+                            // echo $prjid;
+                            $conn = ConnectionManager::get('default');      
+                                    $qrycount = $conn->execute("SELECT * FROM pims where project_id ='".$prjid."' ");
+                                    $resultspim = $qrycount ->fetchAll('assoc');                 
+                                if(isset($resultspim[0]) ){
+                                    echo '<a  class="text-success txt-sm">Add PIM</a>';
+                                }else{
+                                    echo $this->Html->link(__('Add PIM'), ['controller' => 'pims', 'action' => 'add', $project->id], ['class' => 'text-light txt-sm']) ;
+                                }
+                                ?>
                             </button>
-                            <button class="btn btn-small btn-primary">
-                                <?= $this->Html->link(__('Add PPF'), ['controller' => 'projectFundings','action' => 'add', $project->projectFunding_id], ['class' => 'text-light txt-sm']) ?>
+                            <button class="btn btn-small btn-dark">
+                                <?php
+                            $prjid=$project->id;
+                            // echo $prjid;
+                            $conn = ConnectionManager::get('default');      
+                                    $qrycount = $conn->execute("SELECT * FROM project_fundings where project_id ='".$prjid."' ");
+                                    $resultsppf = $qrycount ->fetchAll('assoc');                 
+                                if(isset($resultsppf[0]) ){
+                                    // echo '<a  class="text-success txt-sm">Add PPF</a>';
+                                    echo $this->Html->link(__('Add PPF'), ['controller' => 'projectFundings','action' => 'add', $project->id], ['class' => 'text-light txt-sm']) ;
+                                }else{
+                                    echo $this->Html->link(__('Add PPF'), ['controller' => 'projectFundings','action' => 'add', $project->id], ['class' => 'text-light txt-sm']) ;
+                                }
+                                ?>
                             </button>
                             </td>
                         </tr>
