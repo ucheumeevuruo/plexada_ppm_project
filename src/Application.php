@@ -35,7 +35,7 @@ class Application extends BaseApplication
     public function bootstrap()
     {
 
-        $this->addPlugin('DebugKit');
+        //$this->addPlugin('DebugKit');
 
         $this->addPlugin('CakePdf', ['bootstrap' => true]);
 
