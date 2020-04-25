@@ -172,7 +172,7 @@ class DashboardController extends AppController
         $this->loadModel('RiskIssues');
         $project_list = $this->ProjectDetails->find('all');
         $milestone_list =  $this->Milestones->find('all')->where('status_id=3');
-		debug($project_list);
+
         // $mymy = $this->Milestones->find('all', array(
         //     'fields' => 'MAX(completed_date)',
         //     'group' => 'completed_date'
@@ -248,7 +248,9 @@ class DashboardController extends AppController
         //     }
         // }
 
-        
+        foreach($project_list as $prj){
+
+		}
         // sending projects as array
         $allprojects = $project_list
         ->select(['name']);
@@ -256,7 +258,7 @@ class DashboardController extends AppController
         ->extract('name')
         ->toArray();
         // sending projects as array
-		debug('Set view variables');
+
         // $priority = ($priority);
         // $this->set( compact( 'priority', 'priority_total','project_list','milestone_list','allprojects') );
         $this->set( compact('project_list','milestone_list','allprojects') );
