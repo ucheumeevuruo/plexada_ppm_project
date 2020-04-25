@@ -73,12 +73,12 @@ class Pims extends AbstractMigration
                 'signed' => false,
             ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
@@ -136,12 +136,12 @@ class Pims extends AbstractMigration
                 'null' => false,
             ])
             ->addColumn('created', 'datetime', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('modified', 'datetime', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
@@ -192,12 +192,12 @@ class Pims extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
@@ -228,12 +228,12 @@ class Pims extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
@@ -307,7 +307,7 @@ class Pims extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'datetime', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => false,
             ])
@@ -592,7 +592,7 @@ class Pims extends AbstractMigration
             ])
             ->addPrimaryKey(['id'])
             ->addColumn('date', 'date', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
@@ -642,7 +642,7 @@ class Pims extends AbstractMigration
                 'null' => false,
             ])
             ->addColumn('approvers_date', 'date', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
@@ -977,7 +977,7 @@ class Pims extends AbstractMigration
                 'null' => false,
             ])
             ->addColumn('date', 'date', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => false,
             ])
@@ -1033,12 +1033,12 @@ class Pims extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
@@ -1131,12 +1131,12 @@ class Pims extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
@@ -1219,12 +1219,12 @@ class Pims extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
@@ -1293,7 +1293,7 @@ class Pims extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'datetime', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => false,
             ])
@@ -1338,7 +1338,7 @@ class Pims extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'datetime', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => false,
             ])
@@ -1399,12 +1399,12 @@ class Pims extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
@@ -1470,12 +1470,12 @@ class Pims extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
@@ -1548,12 +1548,12 @@ class Pims extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
@@ -1611,7 +1611,7 @@ class Pims extends AbstractMigration
                 'null' => false,
             ])
             ->addColumn('created', 'datetime', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => false,
             ])
@@ -1683,12 +1683,12 @@ class Pims extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'current_timestamp',
                 'limit' => null,
                 'null' => true,
             ])
