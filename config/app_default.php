@@ -15,6 +15,19 @@ return
 		'cacheMetadata' => true,
 		'quoteIdentifiers' => false,
 		//'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
-	]
+	],
+	'Log' => [
+        'debug' => [
+            'className' => 'DatabaseLog.Database',
+            'scope' => false,
+        ],
+        'error' => [
+            'className' => 'DatabaseLog.Database',
+            'scope' => false,
+        ],
+    ],
+    'DatabaseLog' => [
+        'datasource' => 'default',
+    ]
 ]
 ?>
