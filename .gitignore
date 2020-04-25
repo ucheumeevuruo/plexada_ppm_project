@@ -5,7 +5,6 @@
 /logs/*
 /tmp/*
 /vendor/*
-/config/app_default.php
 
 # OS generated files #
 ######################
