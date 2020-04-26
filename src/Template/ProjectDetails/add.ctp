@@ -47,43 +47,47 @@ $this->end();
             <!-- <?= $this->Form->control('vendor_id', ['options' => $vendors, 'empty' => true]); ?> -->
             <?= $this->Form->control('manager_id', ['options' => $staff, 'empty' => true]); ?>
             <!-- <?= $this->Form->control('sponsor_id', ['options' => $sponsors, 'empty' => true]); ?> -->
-            <!-- <div class="form-group text"> -->
-            <label class="control-label" for="waiting_since">Waiting since</label>
-            <div class="input-group"><input type="text" name="waiting_since" class="form-control addon-right" empty="1"
-                    id="waiting_since" autocomplete="off">
-                <span class="input-group-addon"><i
-                        class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span>
+
+            <div class="form-group text">
+                <label class="control-label" for="waiting_since">Waiting since</label>
+                <div class="input-group"><input type="text" name="waiting_since" class="form-control" empty="1"
+                        id="waiting_since" autocomplete="off">
+                    <span class="input-group-addon"><i
+                            class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span>
+                </div>
             </div>
-            <!-- </div> -->
 
             <!-- <?= $this->Form->control('waiting_since', ['empty' => true]); ?> -->
             <?= $this->Form->control('waiting_on_id', ['options' => $staff, 'empty' => true]); ?>
 
-            <?= $this->Form->control('status_id', ['options' => $lov]); ?>
 
-            <label class="control-label" for="start_dt">Start date</label>
-            <div class="input-group"><input type="text" name="start_dt" class="form-control addon-right" empty="1"
-                    id="start_dt" autocomplete="off">
-                <span class="input-group-addon"><i
-                        class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span>
+            <div class="form-group text">
+                <label class="control-label" for="start_dt">Start date</label>
+                <div class="input-group"><input type="text" name="start_dt" class="form-control addon-right" empty="1"
+                        id="start_dt" autocomplete="off">
+                    <span class="input-group-addon"><i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0 ml-5"></i></span>
+                </div>
             </div>
 
-            <label class="control-label" for="end_dt">End date</label>
-            <div class="input-group"><input type="text" name="end_dt" class="form-control addon-right" empty="1"
-                    id="end_dt" autocomplete="off">
-                <span class="input-group-addon"><i
-                        class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span>
+            <div class="form-group text">
+                <label class="control-label" for="end_dt">End date</label>
+                <div class="input-group"><input type="text" name="end_dt" class="form-control addon-right" empty="1"
+                        id="end_dt" autocomplete="off">
+                    <span class="input-group-addon"><i
+                            class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span>
+                </div>
             </div>
 
             <!-- <?= $this->Form->control('start_dt', ['empty' => true]); ?> -->
             <!-- <?= $this->Form->control('end_dt', ['empty' => true]); ?> -->
             <!-- <?= $this->Form->control('last_updated'); ?> -->
-            <?= $this->Form->control('priority_id', ['options' => $lov]); ?>
         </div>
         <div class="col-md-6 float-left">
+            <?= $this->Html->link(__('Add Milestones'), ['controller' => 'milestones', 'action' => 'add', $project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 my-3']) ?>
 
-
-            <?= $this->Html->link(__('Add Milestones'), ['controller' => 'milestones', 'action' => 'add', $project_info->id], ['class' => 'btn btn-primary btn-sm mr-2']) ?>
+            <?= $this->Form->control('priority_id', ['options' => $lov]); ?>
+            <?= $this->Form->control('status_id', ['options' => $lov]); ?>
+            <?= $this->Form->control('sub_status_id', ['options' => $lov]); ?>
             <?= $this->Form->control('system_user_id', ['options' => $users]); ?>
 
             <!-- <?= $this->Form->control('annotation_id', ['options' => $annotations, 'empty' => true]); ?> -->
@@ -131,7 +135,6 @@ $this->end();
             <!-- <label class="control-label" for="price">Cost(USD)</label>
             <div class="input-group"><input type="text" name="price" value="" class="form-control addon-right" empty="1"
                     id="price"> -->
-            <?= $this->Form->control('sub_status_id', ['options' => $lov]); ?>
         </div>
     </fieldset>
     <div class="col-md-12 float-md-none">
@@ -223,5 +226,6 @@ $(document).ready(function() {
             $('#MyModal4').modal('show')
         });
     });
+
 });
 </script>

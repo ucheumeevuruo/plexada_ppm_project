@@ -31,19 +31,19 @@ $this->end();
                 <th scope="col"><?= __('Manager') ?></th>
                 <!-- <th scope="col"><?= __('Sponsor') ?></th> -->
                 <!-- <th scope="col"><?= __('Waiting since') ?></th> -->
-                <th scope="col"><?= __('Waiting on') ?></th>
-                <th scope="col"><?= __('Status') ?></th>
+                <!-- <th scope="col"><?= __('Waiting on') ?></th> -->
+                <!-- <th scope="col"><?= __('Status') ?></th> -->
                 <th scope="col"><?= __('Priority') ?></th>
                 <th scope="col"><?= __('Start date') ?></th>
                 <th scope="col"><?= __('End date') ?></th>
                 <th scope="col"><?= __('Created') ?></th>
                 <!-- <th scope="col"><?= __('Last updated') ?></th> -->
                 <!-- <th scope="col"><?= __('system_user_id') ?></th> -->
-                <th scope="col"><?= __('Annotation') ?></th>
+                <!-- <th scope="col"><?= __('Annotation') ?></th> -->
                 <th scope="col"><?= __('Project') ?></th>
-                <th scope="col"><?= __('Environmental factors') ?></th>
+                <!-- <th scope="col"><?= __('Environmental factors') ?></th> -->
                 <th scope="col"><?= __('Funding') ?></th>
-                <th scope="col"><?= __('Approval') ?></th>
+                <!-- <th scope="col"><?= __('Approval') ?></th> -->
                 <!-- <th scope="col"><?= __('Risks') ?></th> -->
                 <!-- <th scope="col"><?= __('Components') ?></th> -->
                 <!-- <th scope="col"><?= __('Price') ?></th> -->
@@ -65,27 +65,26 @@ $this->end();
 
                 <!-- <td><?= $projectDetail->has('sponsor') ? $this->Html->link($projectDetail->sponsor->full_name, ['controller' => 'Sponsors', 'action' => 'view', $projectDetail->sponsor->id]) : '' ?></td> -->
                 <!-- <td><?= h($projectDetail->waiting_since) ?></td> -->
-                <td><?= $projectDetail->has('staff') ? $this->Html->link($projectDetail->staff->full_name, ['controller' => 'Staff', 'action' => 'view', $projectDetail->staff->id]) : '' ?></td>
-                <td><?= $this->Number->format($projectDetail->status_id) ?></td>
+                <!-- <td><?= $projectDetail->has('staff') ? $this->Html->link($projectDetail->staff->full_name, ['controller' => 'Staff', 'action' => 'view', $projectDetail->staff->id]) : '' ?></td> -->
+                <!-- <td><?= $this->Number->format($projectDetail->status_id) ?></td> -->
                 <td><?= $projectDetail->has('lov') ? $this->Html->link($projectDetail->lov->lov_value, ['controller' => 'Lov', 'action' => 'view', $projectDetail->lov->id]) : '' ?></td>
                 <td><?= h($projectDetail->start_dt) ?></td>
                 <td><?= h($projectDetail->end_dt) ?></td>
                 <td><?= h($projectDetail->created) ?></td>
                 <!-- <td><?= h($projectDetail->last_updated) ?></td> -->
                 <!-- <td><?= $projectDetail->has('user') ? $this->Html->link($projectDetail->user->username, ['controller' => 'Users', 'action' => 'view', $projectDetail->user->id]) : '' ?></td> -->
-                <td><?= $projectDetail->has('annotation') ? $this->Html->link($projectDetail->annotation->id, ['controller' => 'Annotations', 'action' => 'view', $projectDetail->annotation->id]) : '' ?></td>
+                <!-- <td><?= $projectDetail->has('annotation') ? $this->Html->link($projectDetail->annotation->id, ['controller' => 'Annotations', 'action' => 'view', $projectDetail->annotation->id]) : '' ?></td> -->
                 <td><?= $this->Number->format($projectDetail->project_id) ?></td>
-                <td><?= h($projectDetail->environmental_factors) ?></td>
+                <!-- <td><?= h($projectDetail->environmental_factors) ?></td> -->
                 <td><?= $this->Number->format($projectDetail->funding) ?></td>
-                <td><?= $this->Number->format($projectDetail->approvals) ?></td>
+                <!-- <td><?= $this->Number->format($projectDetail->approvals) ?></td> -->
                 <!-- <td><?= h($projectDetail->risks) ?></td> -->
                 <!-- <td><?= h($projectDetail->components) ?></td> -->
                 <!-- <td><?= $projectDetail->has('price') ? $this->Html->link($projectDetail->price->id, ['controller' => 'Prices', 'action' => 'view', $projectDetail->price->id]) : '' ?></td> -->
                 <!-- <td><?= $this->Number->format($projectDetail->sub_status_id) ?></td> -->
-                <td class="actions">
-                    <!-- <?= $this->Html->link(__('View'), ['action' => 'view', $projectDetail->id]) ?> -->
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $projectDetail->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $projectDetail->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay'], ['confirm' => __('Are you sure you want to delete # {0}?', $projectDetail->id)]) ?>
+                <td class="actions ">
+                    <?= $this->Html->link(__('<i class="fa fa-pencil fa-lg"></i>'), ['action' => 'edit', $projectDetail->id], ['class' => 'btn btn-outline-primary btn-sm overlay float-left', 'title' => 'Edit', 'escape' => false]) ?>
+                    <?= $this->Form->postLink(__("<i class='fa fa-trash-o fa-lg'></i>"), ['action' => 'delete', $projectDetail->id], ['confirm' => __('Are you sure you want to delete # {0}?', $projectDetail->id), 'escape' => false, 'class' => 'btn btn-outline-danger btn-sm float-left']) ?>
                 </td>
                 <td>
                     <?= $this->Html->link(__('Add Milestones'), ['controller' => 'milestones', 'action' => 'add'], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
@@ -97,10 +96,6 @@ $this->end();
             </div>
         </div>
     </div>
-
-
-
-
 
     <!-- <div class="paginator">
         <ul class="pagination">
