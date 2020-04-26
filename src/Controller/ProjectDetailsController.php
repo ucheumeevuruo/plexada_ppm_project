@@ -122,12 +122,34 @@ class ProjectDetailsController extends AppController
         // $this->paginate = [
         //     'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations'],
         // ];
+        if ($this->request->is('post')) {
+            $reportdate = $this->request->getData('reportdate');
+            $from = $this->request->getData('from');
+            $to = $this->request->getData('to');
+            $fromnumber = strtotime($from);
+            $tonumber = strtotime($to);
+
+            $this->set(compact('fromnumber', 'tonumber'));
+        }
+
 
         $projectDetails = $this->ProjectDetails->find('all');
 
+        $staff = $this->ProjectDetails->Staff->find('all');
+        $this->loadModel('Milestones');
+        $milestone_list =  $this->Milestones->find('all');
+        $this->loadModel('Activities');
+        $activities =  $this->Activities->find('all');
+        $this->loadModel('ProjectFundings');
+        $projectfundings =  $this->ProjectFundings->find('all');
+
+        // $fromnumber = " ";
+        // $tonumber = " ";
+
         // $inputValue =  $_POST['from'];
         // $projectDetails = $this->paginate($this->ProjectDetails);
-        $this->set(compact('projectDetails'));
+        $this->set(compact('projectDetails', 'staff', 'milestone_list', 'activities', 'projectfundings'));
+        // $this->set(compact('projectDetails', 'staff', 'milestone_list', 'activities', 'projectfundings', 'fromnumber', 'tonumber'));
     }
 
 
@@ -168,7 +190,7 @@ class ProjectDetailsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add($id=null)
+    public function add($id = null)
     {
         $this->loadModel('Projects');
         $project_info = $this->Projects->get($id);
@@ -181,7 +203,7 @@ class ProjectDetailsController extends AppController
             if ($this->ProjectDetails->save($projectDetail)) {
                 $this->Flash->success(__('The project detail has been saved.'));
 
-                return $this->redirect(['controller'=> 'projects', 'action' => 'index']);
+                return $this->redirect(['controller' => 'projects', 'action' => 'index']);
             }
             $this->Flash->error(__('The project detail could not be saved. Please, try again.'));
             // debug($projectDetail);
@@ -209,9 +231,9 @@ class ProjectDetailsController extends AppController
         $users = $this->ProjectDetails->Users->find('list', ['limit' => 200]);
         $annotations = $this->ProjectDetails->Annotations->find('list', ['limit' => 200]);
         $prices = $this->ProjectDetails->Prices->find('list', ['limit' => 200]);
-        $projects_info = $this->Projects->find('list', ['limit' => 200, 'conditions'=>['id'=>$id]]);
+        $projects_info = $this->Projects->find('list', ['limit' => 200, 'conditions' => ['id' => $id]]);
         // $subStatuses = $this->ProjectDetails->SubStatus->find('list', ['limit' => 200]);
-        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'lov', 'users', 'annotations', 'prices', 'projects', 'subStatus', 'users', 'authUser', 'project_info','projects_info'));
+        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'lov', 'users', 'annotations', 'prices', 'projects', 'subStatus', 'users', 'authUser', 'project_info', 'projects_info'));
     }
 
     /**
