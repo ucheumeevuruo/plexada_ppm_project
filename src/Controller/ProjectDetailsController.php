@@ -163,8 +163,9 @@ class ProjectDetailsController extends AppController
         if ($this->request->is('post')) {
             $sdate = $this->request->getData('from');
             $edate = $this->request->getData('dateto');
-            $projectReports = $this->Projects->find('all')->contain(['projectDetails'])->where(['ProjectDetails.start_dt >=' => $sdate, 'ProjectDetails.end_dt <=' => $edate]);
-            $todays = date("Y");
+
+            $projectReports = $this->Projects->find('all')->contain(['projectDetails'])->where(['ProjectDetails.start_dt >=' => $sdate,'ProjectDetails.end_dt <=' => $edate]);
+            $todays = date("Y");  
             $sObj = new DateTime($sdate);
             $shsdate = $sObj->format("j F Y");
             $shsdate1 = $sObj->format("F Y");
@@ -172,13 +173,15 @@ class ProjectDetailsController extends AppController
             $shedate = $eObj->format("j F Y");
             $fromshdate1 = "$shsdate to $shedate";
             $fromshdate2 = "$shsdate1-December, $todays";
-            $from = $sObj->format("d M Y");;
+
+            $from =$sObj->format("d M Y");;
             // $this->request->setData(['from'=> $from]);
             $this->request->data('from', $from);
             // debug($fromshdate1);
             // die();
 
-            $this->set(compact('projectReports', 'from', 'edate', 'fromshdate1', 'fromshdate2'));
+
+            $this->set(compact('projectReports','from','edate','fromshdate1','fromshdate2'));
         }
 
         $this->set(compact('projectDetails'));

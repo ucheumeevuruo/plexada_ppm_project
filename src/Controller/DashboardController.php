@@ -257,7 +257,8 @@ class DashboardController extends AppController
 
         // sending projects as array
         $allprojects = $project_list2
-            ->select(['name']);
+
+        ->select(['name']);
         $allprojects = $allprojects
             ->extract('name')
             ->toArray();
