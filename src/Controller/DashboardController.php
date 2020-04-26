@@ -248,15 +248,11 @@ class DashboardController extends AppController
         //     }
         // }
 
-    //     foreach($project_list as $prj){
 
-    // };
         $project_list2 = $this->ProjectDetails->find('all');
         
         $project_list = $this->ProjectDetails->find('all');
-        // ->toList();
-        // sql($project_list);
-        // die();
+
         // sending projects as array
         $allprojects = $project_list2
         ->select(['name']);
