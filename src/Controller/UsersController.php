@@ -19,11 +19,16 @@ class UsersController extends AppController
      */
     public function index()
     {
+        $this->loadModel('Roles');
         $this->paginate = [
-            'contain' => ['Lov'],
+            'contain' => ['Lov','Roles'],
         ];
         $users = $this->paginate($this->Users);
 
+        // $users1 = $this->Users;
+
+        // sql($users1);
+        // die();
         $this->set(compact('users'));
     }
 
@@ -35,11 +40,13 @@ class UsersController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
-    {
+    {   
+        
         $user = $this->Users->get($id, [
             'contain' => ['Lov'],
         ]);
-
+        // sql(user);
+        // die();
         $this->set('user', $user);
     }
 
@@ -50,6 +57,7 @@ class UsersController extends AppController
      */
     public function add()
     {
+        $this->loadModel('Roles');
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -59,9 +67,11 @@ class UsersController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
+
         }
         $lov = $this->Users->Lov->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'lov'));
+        $roles = $this->Roles->find('list', ['limit' => 200]);
+        $this->set(compact('user', 'lov','roles'));
     }
 
     /**

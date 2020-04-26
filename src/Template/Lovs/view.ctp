@@ -3,8 +3,11 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Lov $lov
  */
+$this->start('sidebar');
+echo $this->element('sidebar/default');
+$this->end();
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<!-- <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Lov'), ['action' => 'edit', $lov->id]) ?> </li>
@@ -12,7 +15,7 @@
         <li><?= $this->Html->link(__('List Lovs'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Lov'), ['action' => 'add']) ?> </li>
     </ul>
-</nav>
+</nav> -->
 <div class="lovs view large-9 medium-8 columns content">
     <h3><?= h($lov->id) ?></h3>
     <table class="vertical-table">

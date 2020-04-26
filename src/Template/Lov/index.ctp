@@ -3,17 +3,24 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Lov[]|\Cake\Collection\CollectionInterface $lov
  */
+$this->start('sidebar');
+echo $this->element('sidebar/default');
+$this->end();
+$this->start('navbar');
+echo $this->element('navbar/default');
+$this->end();
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Lov'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="lov index large-9 medium-8 columns content">
-    <h3><?= __('Lov') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
+<div class="lov container">
+    <h3><?= __('List of Values') ?></h3>
+    <div class="py-3 pl-3 bg-primary br-t">
+            <h3 class="m-0 text-white"><?= __('Add List of values') ?>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <?= $this->Html->link(__('<i class="fa fa-plus fa-lg"></i>'), ['action' => 'add'], ['class' => 'btn btn-light overlay ml-2', 'title' => 'Add', 'escape' => false]) ?>
+                </div>
+            </h3>
+        </div>
+    <table cellpadding="0" cellspacing="0" class="table table-bordered dataTable table-hover table-primary br-m">
+        <thead class="bg-primary">
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('lov_type') ?></th>
