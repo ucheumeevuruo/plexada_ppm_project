@@ -22,6 +22,20 @@ $this->end();
 
         //
         ?>
+        <div class="form-group select">
+        <label class="control-label" for="activities-id">Status</label>
+        <select name="status" class="form-control" id="status">
+        <option value="0"></option>
+        <option value="1">Completed</option>
+        <option value="1">In-progress</option>
+        <option value="1">Started</option>
+        <option value="1">Delayed</option>
+        </select>
+        </div>
+        <div class="form-group select">
+        <label class="control-label" for="activities-id">Percentage Complete</label>
+        <input text="number" id="percentage_completion" name="percentage_completion" class="form-control">
+        </div>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>

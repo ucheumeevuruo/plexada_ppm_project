@@ -44,6 +44,11 @@ class UsersTable extends Table
             'foreignKey' => 'status_id',
             'joinType' => 'INNER',
         ]);
+
+        $this->belongsTo('Roles', [
+            'foreignKey' => 'role_id',
+            'joinType' => 'INNER',
+        ]);
     }
 
     /**

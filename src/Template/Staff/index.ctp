@@ -53,9 +53,9 @@ $this->end();
                             <td><?= h($staff->email) ?></td>
                             <td><?= h($staff->phone_no) ?></td>
                             <td class="actions">
-                                <?= $this->Html->link(__('<i class="fa fa-pencil fa-lg"></i>'), ['action' => 'edit', $staff->id], ['class' => 'btn btn-outline-warning btn-sm overlay', 'title' => 'Edit', 'escape' => false]) ?>
+                                <?= $this->Html->link(__('<i class="fa fa-pencil fa-lg text-primary"></i>'), ['action' => 'edit', $staff->id], ['class' => 'btn btn-outline-warning btn-sm overlay text-primary', 'title' => 'Edit', 'escape' => false]) ?>
 
-                                <?= $this->Form->postLink(__("<i class='fa fa-trash-o fa-lg'></i>"), ['action' => 'delete', $staff->id], ['confirm' => __('Are you sure you want to delete # {0}?', $staff->id), 'escape' => false, 'class' => 'btn btn-outline-danger btn-sm']) ?>
+                                <?= $this->Form->postLink(__("<i class='fa fa-trash-o fa-lg'></i>"), ['action' => 'delete', $staff->id], ['confirm' => __('Are you sure you want to delete # {0}?', $staff->id), 'escape' => false, 'class' => 'btn btn-outline-danger btn-sm text-primary']) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

@@ -3,13 +3,15 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Lov[]|\Cake\Collection\CollectionInterface $lovs
  */
+$this->start('sidebar');
+echo $this->element('sidebar/default');
+$this->end();
+$this->start('navbar');
+echo $this->element('navbar/default');
+$this->end();
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Lov'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
+
+
 <div class="lovs index large-9 medium-8 columns content">
     <h3><?= __('Lovs') ?></h3>
     <table cellpadding="0" cellspacing="0">

@@ -19,7 +19,7 @@ $this->end();
             echo $this->Form->control('name');
             echo $this->Form->control('introduction');
             echo $this->Form->control('location');
-            echo $this->Form->control('cost (USD)');
+            echo $this->Form->control('cost',['label'=>'Cost(USD)']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit'), ["class" => "btn-primary"]) ?>
