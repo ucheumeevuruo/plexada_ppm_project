@@ -170,7 +170,7 @@ class DashboardController extends AppController
         $this->loadModel('ProjectDetails');
         $this->loadModel('Milestones');
         $this->loadModel('RiskIssues');
-        $project_list = $this->ProjectDetails->find('all');
+        
         $milestone_list =  $this->Milestones->find('all')->where('status_id=3');
 
         // $mymy = $this->Milestones->find('all', array(
@@ -248,11 +248,17 @@ class DashboardController extends AppController
         //     }
         // }
 
-        foreach($project_list as $prj){
+    //     foreach($project_list as $prj){
 
-    };
+    // };
+        $project_list2 = $this->ProjectDetails->find('all');
+        
+        $project_list = $this->ProjectDetails->find('all');
+        // ->toList();
+        // sql($project_list);
+        // die();
         // sending projects as array
-        $allprojects = $project_list
+        $allprojects = $project_list2
         ->select(['name']);
         $allprojects = $allprojects
         ->extract('name')

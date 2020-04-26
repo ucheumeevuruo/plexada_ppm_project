@@ -59,6 +59,8 @@ class ProjectsController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The project could not be saved. Please, try again.'));
+            debug($project);
+            die();
         }
         $pims = $this->Projects->Pims->find('list', ['limit' => 200]);
         $projectDetails = $this->Projects->ProjectDetails->find('list', ['limit' => 200]);

@@ -31,5 +31,7 @@ class Task extends Entity
         'Predecessor' => true,
         'Successor' => true,
         'activities_id' => true,
+        'status' => true,
+        'percentage_completion' => true,
     ];
 }
