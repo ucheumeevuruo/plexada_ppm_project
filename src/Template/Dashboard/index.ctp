@@ -79,8 +79,8 @@ $this->end();
                                 <?php
                                 // debug($project) ;
                                 // die();
-                                $sdate = $project->start_dt->format("Y-m-d H:i:s");
-                                $edate = $project->end_dt->format("Y-m-d H:i:s");
+                                $sdate = $project->has('start_dt') ? $project->start_dt->format("Y-m-d H:i:s") : '';
+                                $edate = $project->has('end_dt') ? $project->end_dt->format("Y-m-d H:i:s") : '';
                                 $today = date('Y-m-d H:i:s');
                                 $expectdays = 0;
                                 $projectdatediff = date_diff(new DateTime($sdate), new DateTime($edate));
@@ -218,8 +218,8 @@ $this->end();
                                     <?php
                                     // debug($project) ;
                                     // die();
-                                    $sdate = $project->start_dt->format("Y-m-d H:i:s");
-                                    $edate = $project->end_dt->format("Y-m-d H:i:s");
+                                    $sdate = $project->has('start_dt') ? $project->start_dt->format("Y-m-d H:i:s") : '';
+                                    $edate = $project->has('end_dt') ? $project->end_dt->format("Y-m-d H:i:s") : '';
                                     $today = date('Y-m-d H:i:s');
 
                                     $projectdatediff = date_diff(new DateTime($sdate), new DateTime($edate));

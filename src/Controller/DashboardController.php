@@ -248,7 +248,7 @@ class DashboardController extends AppController
         //     }
         // }
 
-        
+		//debug($project_list);
         // sending projects as array
         $allprojects = $project_list
         ->select(['name']);
