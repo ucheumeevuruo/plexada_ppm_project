@@ -7,6 +7,8 @@ use App\Utility\Excel\Handlers\ProjectUploadHandler;
 use Cake\Core\Configure;
 use Cake\Core\Configure\Engine\PhpConfig;
 
+use App\Form\ContactForm;
+use DateTime;
 
 /**
  * ProjectDetails Controller
@@ -133,7 +135,6 @@ class ProjectDetailsController extends AppController
             $this->set(compact('fromnumber', 'tonumber'));
         }
 
-
         $projectDetails = $this->ProjectDetails->find('all');
 
         $staff = $this->ProjectDetails->Staff->find('all');
@@ -153,6 +154,35 @@ class ProjectDetailsController extends AppController
         // $this->set(compact('projectDetails', 'staff', 'milestone_list', 'activities', 'projectfundings', 'fromnumber', 'tonumber'));
     }
 
+
+    public function consolidated()
+    {
+
+        $this->loadModel('Projects');
+        // $contact = new ContactForm();
+        if ($this->request->is('post')) {
+            $sdate = $this->request->getData('from');
+            $edate = $this->request->getData('dateto');
+            $projectReports = $this->Projects->find('all')->contain(['projectDetails'])->where(['ProjectDetails.start_dt >=' => $sdate, 'ProjectDetails.end_dt <=' => $edate]);
+            $todays = date("Y");
+            $sObj = new DateTime($sdate);
+            $shsdate = $sObj->format("j F Y");
+            $shsdate1 = $sObj->format("F Y");
+            $eObj = new DateTime($edate);
+            $shedate = $eObj->format("j F Y");
+            $fromshdate1 = "$shsdate to $shedate";
+            $fromshdate2 = "$shsdate1-December, $todays";
+            $from = $sObj->format("d M Y");;
+            // $this->request->setData(['from'=> $from]);
+            $this->request->data('from', $from);
+            // debug($fromshdate1);
+            // die();
+
+            $this->set(compact('projectReports', 'from', 'edate', 'fromshdate1', 'fromshdate2'));
+        }
+
+        $this->set(compact('projectDetails'));
+    }
 
 
     public function summary()

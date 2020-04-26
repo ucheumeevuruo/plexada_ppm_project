@@ -537,7 +537,7 @@ $(function () {
         $('#date, #approvers_date, #start_date, #end_date, #plan_start_date, #plan_end_date, #start_date, #exp_output_date, #date_disbursement').datepicker({
             inline: true,
             "format": "dd/mm/yyyy",
-            startDate: "0d",
+            // startDate: "0d",
             // "endDate": "09-15-2017",
             "keyboardNavigation": false
         });

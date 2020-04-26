@@ -77,7 +77,7 @@ $this->end();
                             <?php foreach ($project_list as $project) : ?>
 
                                 <?php
-                                // debug($project) ;
+                                // debug($project->id) ;
                                 // die();
                                 $sdate = $project->start_dt->format("Y-m-d H:i:s");
                                 $edate = $project->end_dt->format("Y-m-d H:i:s");

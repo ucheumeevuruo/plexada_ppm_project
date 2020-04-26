@@ -172,7 +172,6 @@ $this->end();
     <?= $this->Form->end() ?>
 
     <div class="">
-        <button type="button" class="btn btn-primary mr-4 mb-sm-4">Run Report</button>
         <button type="button" class="btn btn-primary mr-4 mb-sm-4" style="height: 40px;">
             <?= $this->Html->link(
                 __('<i style="color: white;">Show Details</i>'),
@@ -184,22 +183,22 @@ $this->end();
             <!-- <?= $this->Html->link('export', ['controller' => 'projectdetails', 'action' => 'export', '_ext' => 'csv']) ?> -->
             Save As
         </button>
-        <button type="button" class="btn btn-primary mr-4 mb-sm-4">
-            <!-- <?php echo $this->Html->link('Download', array('controller' => 'projectdetails', 'action' => 'download'), array('target' => '_blank')); ?> -->
-            Download Report
-        </button>
+
         <button type="button" id="print1" class="btn btn-primary mr-4 mb-sm-4">Printable view
 
         </button>
 
-        <button type="button" class="btn btn-primary mr-4 mb-sm-4">Export Details</button>
+        <button type="button" class="btn btn-primary ml-4 mb-sm-4" id="exp"
+            onclick="exportTableToExcel('table2excel',filename ='consolidated rpt');">Export to Excel</button>
+
     </div>
     <hr>
     <div>
     </div>
     <div class="table-responsive">
-        <table cellpadding="0" cellspacing="0" class="table table-bordered dataTable table-primary table-hover br-m"
-            role="grid" aria-describedby="dataTable_info">
+        <table cellpadding="0" cellspacing="0" id="table2excel"
+            class="table table-bordered dataTable table-primary table-hover br-m" role="grid"
+            aria-describedby="dataTable_info">
             <thead class="bg-primary">
                 <tr>
                     <th scope="col" class="text-white"><?= __('S/N  ') ?></th>
@@ -521,4 +520,35 @@ $(document).ready(function() {
     };
     date_input.datepicker(options);
 });
+
+function exportTableToExcel(tableID, filename = '') {
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';
+    var tableSelect = document.getElementById(tableID);
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+
+    // Specify file name
+    filename = filename ? filename + '.xls' : 'excel_data.xls';
+
+    // Create download link element
+    downloadLink = document.createElement("a");
+
+    document.body.appendChild(downloadLink);
+
+    if (navigator.msSaveOrOpenBlob) {
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob(blob, filename);
+    } else {
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+
+        // Setting the file name
+        downloadLink.download = filename;
+
+        //triggering the function
+        downloadLink.click();
+    }
+}
 </script>
