@@ -45,8 +45,8 @@ $this->end();
                             <td><?= $this->Number->format($projectFunding->funding) ?></td>
                             <td class="actions">
                                 <!-- <?= $this->Html->link(__('View'), ['action' => 'view', $projectFunding->id]) ?> -->
-                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $projectFunding->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $projectFunding->id], ['confirm' => __('Are you sure you want to delete # {0}?', $projectFunding->id)]) ?>
+                                <?= $this->Html->link(__('<i class="fa fa-pencil fa-lg"></i>'), ['action' => 'edit', $projectFunding->id], ['class' => 'btn btn-outline-primary btn-sm overlay float-left', 'title' => 'Edit', 'escape' => false]) ?>
+                                <?= $this->Form->postLink(__("<i class='fa fa-trash-o fa-lg'></i>"), ['action' => 'delete', $projectFunding->id], ['confirm' => __('Are you sure you want to delete # {0}?', $projectFunding->id), 'escape' => false, 'class' => 'btn btn-outline-danger btn-sm float-left']) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
