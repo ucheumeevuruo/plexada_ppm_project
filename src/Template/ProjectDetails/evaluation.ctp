@@ -94,7 +94,7 @@ $this->end();
                     <div class="dropdown mr-auto">
                         <div>
 
-                            <h6 class="font-weight-bold">Date Field</h6>
+                            <h6 class="font-weight-bold">Project start Date </h6>
                             <!-- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                                 First Day of Month
                             </button> -->
@@ -132,7 +132,7 @@ $this->end();
                     <div class="dropdown mr-auto" style="width: 200px;">
                         <div>
 
-                            <h6 class="font-weight-bold">Range</h6>
+                            <h6 class="font-weight-bold">Project End date</h6>
                             <!-- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                                 Previous Month
 
@@ -231,7 +231,9 @@ $this->end();
                 <tr>
                     <td style="width:5%" style="color: black !important;"><?= h($num) ?></td>
                     <td id="print2">
-                        <?= h($projectDetail->name) ?>
+                        <!-- <?= h($projectDetail->name) ?> -->
+                        <?= $this->Html->link($projectDetail->name, ['controller' => 'projectDetails', 'action' => 'printable', $projectDetail->id]) ?>
+
                     </td>
                     <th scope="col" class="text-blue" style="color: black !important;"><?= __('World Bank') ?>
                     </th>
@@ -466,14 +468,14 @@ $this->end();
         <br>
         <p style="margin-left: 100px; margin-bottom: 100px;" class="font-weight-bold"> State Programme Coordinator
         </p>
-        <?php endforeach; ?>
-        <?php endforeach; ?>
-        <?php endforeach; ?>
-        <?php endforeach; ?>
-
     </div>
-
 </div>
+<?php endforeach; ?>
+<?php endforeach; ?>
+<?php endforeach; ?>
+<?php endforeach; ?>
+
+
 <script>
 $(document).ready(function() {
     $("#print").click(function() {
