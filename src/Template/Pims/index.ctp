@@ -11,24 +11,8 @@ $this->end();
 $this->start('navbar');
 echo $this->element('navbar/default');
 $this->end();
-?>
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Pim[]|\Cake\Collection\CollectionInterface $pims
- */
-// echo $
-$this->start('navbar');
-echo $this->element('navbar/default');
-$this->end();
-$this->start('sidebar');
-echo $this->element('sidebar/default');
-$this->end();
-
-
-?>
+// ?>
 <div class="container-fluid">
-    <!-- <p>Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii</p> -->
 
     <!-- <div class="pims index large-9 medium-8 columns content"> -->
     <h2 class="text-center text-primary font-weight-bold"><?= __('Project') ?></h2>
@@ -71,18 +55,21 @@ $this->end();
                         <td><?= h($pim->signed_mou) ?></td>
                         <td><?= h($pim->adopted_minutes) ?></td>
 
-                        <td><?= h($pim->financial_template) ?></td>
-                        <td><?= $this->Number->format($pim->financial_cost) ?></td>
-                        <td class="actions">
-                            <!-- <?= $this->Html->link(__('View'), ['action' => 'view', $pim->id]) ?> -->
-                            <?= $this->Html->link(__('<i class="fa fa-pencil fa-sm"></i>'), ['action' => 'edit', $pim->id], ['escape' => false, 'class' => 'btn btn-outline-primary btn-sm overlay']) ?>
-                            <?= $this->Form->postLink(__('<i class="fa fa-trash-o fa-lg"></i>'), ['action' => 'delete', $pim->id], ['confirm' => __('Are you sure you want to delete # {0}?', $pim->id), 'escape' => false, 'class' => 'btn btn-outline-danger btn-sm']) ?>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-            <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+                <td><?= h($pim->financial_template) ?></td>
+                <td><?= $this->Number->format($pim->financial_cost) ?></td>
+                <td class="actions">
+                    <!-- <?= $this->Html->link(__('View'), ['action' => 'view', $pim->id]) ?> -->
+                    <?= $this->Html->link(__('<i class="fa fa-pencil fa-sm"></i>'), ['action' => 'edit', $pim->id], ['escape' => false, 'class' => 'btn btn-outline-primary btn-sm overlay']) ?>
+                    <?= $this->Form->postLink(__('<i class="fa fa-trash-o fa-lg"></i>'), ['action' => 'delete', $pim->id], ['confirm' => __('Are you sure you want to delete # {0}?', $pim->id),'escape' => false, 'class' => 'btn btn-outline-danger btn-sm']) ?>
+                </td>
+                <td class="">
+                    <?= $this->Html->link(__('Add Milestones'), ['controller' => 'Milestones', 'action' => 'add'], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
 
         </div>
@@ -98,8 +85,55 @@ $this->end();
         </ul>
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div> -->
-    <!-- </div> -->
-    <script>
-    $('.dataTable').DataTable();
-    </script>
+<!-- </div> -->
+
+
+<div id="dialogModal" class="bg-primary">
+    <!-- the external content is loaded inside this tag -->
+    <div id="contentWrap">
+        <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-lg']) ?>
+        <?= $this->Modal->body()// No header ?>
+        <?= $this->Modal->footer()// Footer with close button (default) ?>
+        <?= $this->Modal->end() ?>
+    </div>
+    <div id="uploadContent">
+        <?= $this->Modal->create(['id' => 'upload', 'size' => 'modal-sm']) ?>
+        <?= $this->Modal->body('
+            <form>
+                <div class="form-group">
+                <label for="exampleFormControlFile1">Import file</label>
+                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+            </form>
+        ')// No header ?>
+        <?= $this->Modal->footer()// Footer with close button (default) ?>
+        <?= $this->Modal->end() ?>
+    </div>
 </div>
+
+
+<script>
+ $(document).ready(function() {
+            //respond to click event on anything with 'overlay' class
+            $(".overlay").click(function(event){
+                event.preventDefault();
+                //load content from href of link
+                $('#contentWrap .modal-body').load($(this).attr("href"), function(){
+                    $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content').removeClass()
+                    $('#MyModal4').modal('show')
+                });
+            });
+
+            $(".upload").click(function (event) {
+                event.preventDefault();
+                $("#upload").modal('show')
+            })
+            $('.dataTable').DataTable();
+        });
+
+
+ $('.dataTable').DataTable();
+ </script>
+</div>
+
+

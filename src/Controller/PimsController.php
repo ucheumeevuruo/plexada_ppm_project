@@ -19,6 +19,8 @@ class PimsController extends AppController
      */
     public function index()
     {
+        // $this->loadModel('Projects');
+        // $project_info = $this->Projects->get($id);
         $pims = $this->paginate($this->Pims);
 
         $this->set(compact('pims'));
