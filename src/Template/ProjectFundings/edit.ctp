@@ -17,8 +17,9 @@ $this->end();
     <fieldset>
         <legend class="bg-primary text-light"><?= __('Edit PPF Details') ?></legend>
         <?php
-        echo $this->Form->control('milestone_id', ['options' => $milestones]);
-        echo $this->Form->control('funding');
+            echo $this->Form->control('milestone_id', ['options' => $milestones]);
+            echo $this->Form->control('project_id',['type'=>'hidden']);
+            echo $this->Form->control('funding');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit'), ['class' => 'bg-primary']) ?>

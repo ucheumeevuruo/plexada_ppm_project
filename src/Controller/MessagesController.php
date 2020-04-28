@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Mailer\Email;
 
 /**
  * Messages Controller
@@ -59,10 +60,19 @@ class MessagesController extends AppController
         $message = $this->Messages->newEntity();
 
         if ($this->request->is('post')) {
+            $myMessage = $this->request->getData('body');
+            $subject = $this->request->getData('subject');
+            $recipent_id = $this->request->getData('recipient_id');
+            $this->loadModel('Users');
+            $recipent_email = $this->Users->find('all')
+            ->select(['email'=>'Users.email'])
+            ->where(['id'=>$recipent_id])
+            ->toArray();
+            $email = $recipent_email[0]['email'];
             $message = $this->Messages->patchEntity($message, $this->request->getData());
             if ($this->Messages->save($message)) {
                 $this->Flash->success(__('The message has been saved.'));
-
+                $this->sendMail($email,$myMessage,$subject);
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The message could not be saved. Please, try again.'));
@@ -74,6 +84,28 @@ class MessagesController extends AppController
         $this->set(compact('message', 'users','logged_in_user'));
     }
 
+    public function sendMail($to,$msg,$subject)
+    {
+        $email = new Email('default');
+        $email
+             ->transport('gmail')
+             ->from(['iamaqim@gmail.com' => 'iamaqim@gmail.com'])
+             ->to($to)
+             ->subject($subject)
+              ->emailFormat('html')
+             ->viewVars(array('msg' => $msg))
+             ->send($msg);
+        
+
+
+        
+        // $email = new Email('default');
+        // $email->from(['me@example.com' => 'My Site'])
+        //     ->to($to)
+        //     ->subject($subject)
+        //     ->send($message);
+
+    }
     /**
      * Edit method
      *

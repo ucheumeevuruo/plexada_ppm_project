@@ -83,7 +83,9 @@ class MilestonesController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit($id = null)
-    {
+    {       
+        // $milestone = $this->Milestones->find('all',['conditions'=>['project_id'=>$id]]);
+
         $milestone = $this->Milestones->get($id, [
             'contain' => [],
         ]);
@@ -92,11 +94,14 @@ class MilestonesController extends AppController
             if ($this->Milestones->save($milestone)) {
                 $this->Flash->success(__('The milestone has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                // return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The milestone could not be saved. Please, try again.'));
         }
+
         $projects = $this->Milestones->Projects->find('list', ['limit' => 200]);
+
         $lov = $this->Milestones->Lov->find('list', ['limit' => 200]);
         $triggers = $this->Milestones->Triggers->find('list', ['limit' => 200]);
         $this->set(compact('milestone', 'projects', 'lov', 'triggers'));

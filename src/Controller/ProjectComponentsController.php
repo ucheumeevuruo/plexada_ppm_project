@@ -84,11 +84,14 @@ class ProjectComponentsController extends AppController
             if ($this->ProjectComponents->save($projectComponent)) {
                 $this->Flash->success(__('The project component has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                // return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The project component could not be saved. Please, try again.'));
         }
-        $projects = $this->ProjectComponents->Projects->find('list', ['limit' => 200]);
+        $projects = $this->ProjectComponents->Projects->find('list', ['limit' => 200,'conditions'=>['id'=>$id]]);
+        // sql($projects);
+        // die();
         $this->set(compact('projectComponent', 'projects'));
     }
 

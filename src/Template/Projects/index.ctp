@@ -37,20 +37,57 @@ $this->end();
                             <!-- <th scope="col" width="15%"><?= __('Id')  ?></th> -->
                             <th scope="col" width="13%"><?= __('Name') ?></th>
                             <th scope="col"><?= __('Introduction') ?></th>
-                            <th scope="col" width="15%"><?= __('Location') ?></th>
+                            <th scope="col"width="15%"><?= __('Status') ?></th>
+                            <th scope="col"width="15%"><?= __('Waiting On') ?></th>
                             <th scope="col" width="15%"><?= __('Cost') ?></th>
                             <th scope="col" class="actions" width="22%"><?= __('Actions') ?></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($projects as $project) : ?>
+                        <?php foreach ($projects as $project):
+                        $color="";
+                        $status=0;
+                        $status = $project->percent;
+
+                        if ($status == 0){
+                            $color = "bg-light";
+                            $title ="Project is about to kick off";
+                        }else if ($status > 0 && $status < 50){
+                            $color = "bg-warning";
+                            $title ="Project is active but with limited concerns, needs close monitoring !!!";
+                        }else if ($status == 50){
+                            $color = "bg-primary";
+                            $title ="Project is on hold !";
+                        }else if ($status > 50 && $status < 70){
+                            $color = "bg-danger";
+                            $title ="Project is active but with major concerns, needs corrective action !!!";
+                        }else if ($status > 70 && $status < 100){
+                            $color = "bg-success";
+                            $title ="Project is active and On-Track";
+                        }else if ($status == 100){
+                            $color = "bg-dark";
+                            $title ="Project Completed";
+                        }else{
+                            $color = "bg-info";
+                            $title ="";
+                        }
+                        // echo $status;
+                        ?>
+                            
                         <tr>
                             <!-- <td><?= $this->Number->format($project->id) ?></td> -->
                             <td><?= $this->Html->link($project->name, ['controller' => 'projects', 'action' => 'view', $project->id], ['id' => 'transmit']) ?>
                             </td>
                             <td><?= h($project->introduction) ?></td>
-                            <td><?= h($project->location) ?></td>
-                            <td><?= $this->Number->format($project->cost) ?></td>
+                            <!-- <td><?= h($project->percent) ?></td> -->
+                            <td>
+                                <div class="progress " style="width:110px; height: 40px">
+                                    <div class="progress-bar <?= $color ?> progress-bar-striped active" title="<?= $title ?>" data-toggle="tooltip" data-placement="right" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
+                            <!-- <td><?= h($project->waiting_on) ?></td> -->
+                            <td>Umeevuruo Uche</td>
+                            <td><?= $this->Number->currency($project->cost) ?></td>
                             <td class="actions">
                                 <button class="btn btn-small btn-dark">
                                     <?php
@@ -115,7 +152,14 @@ $this->end();
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div> -->
 
-    <script>
-    $('.dataTable').DataTable();
-    </script>
+<script>
+ $('.dataTable').DataTable();
+
+    $(function() {
+        console.log('l');
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+
+
+ </script>
 </div>

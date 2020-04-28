@@ -266,7 +266,7 @@ anychart.onDocumentReady(function () {
 			},
 			{
 				id: "1_3",
-				name: "M & E works",
+				name: "Obtain Plan Diagram",
 				actualStart: Date.UTC(2020, 02, 23),
 				actualEnd: Date.UTC(2020, 02, 23),
 				connectTo: "1_4",
@@ -275,7 +275,7 @@ anychart.onDocumentReady(function () {
 			},
 			{
 				id: "1_4",
-				name: "Mounting of Poles",
+				name: "Completion of site survey",
 				actualStart: Date.UTC(2020, 02, 26),
 				actualEnd: Date.UTC(2020, 04, 26),
 				connectTo: "1_5",
@@ -284,7 +284,7 @@ anychart.onDocumentReady(function () {
 			},
 			{
 				id: "1_5",
-				name: "Fixing the Bulbs",
+				name: "Release of funds to contractors for next phase ",
 				actualStart: Date.UTC(2020, 04, 29),
 				actualEnd: Date.UTC(2020, 05, 15),
 				connectTo: "1_6",
@@ -293,7 +293,7 @@ anychart.onDocumentReady(function () {
 			},
 			{
 				id: "1_6",
-				name: "Testing",
+				name: "Follow up on beneficiaries for the regional training participation",
 				actualStart: Date.UTC(2020, 05, 20),
 				actualEnd: Date.UTC(2020, 05, 27),
 				connectTo: "1_7",
