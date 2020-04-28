@@ -12,33 +12,33 @@ $this->end();
 ?>
 
 <style>
-    .bat {
-  display: none;
-}
+        .bat {
+    display: none;
+    }
 
-.tab {
-  display: none;
-}
+    .tab {
+    display: none;
+    }
 
-#ssubmit {
-  display: none;
-}
+    #ssubmit {
+    display: none;
+    }
 
-.step {
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbbbbb;
-  border: none;
-  border-radius: 50%;
-  display: inline-block;
-  opacity: 0.5;
-}
+    .step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+    }
 
-/* Mark the active step: */
-.step.active {
-  opacity: 1;
-}
+    /* Mark the active step: */
+    .step.active {
+    opacity: 1;
+    }
 </style>
 
 <div class="container-fluid">
@@ -102,7 +102,7 @@ $this->end();
                     <label for="formGroupExampleInput2">Total Expenditure</label>
                     <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">USD</span>
+                        <span class="input-group-text"></span>
                     </div>
                     <input type="number" id="total_expenditure" name="total_expenditure" class="form-control" required="required" aria-label="Amount (to the nearest naira)">
                     <div class="input-group-append">
@@ -118,7 +118,7 @@ $this->end();
             <div class="col-md-5 col-sm-12 card tab">
 
             <legend class="text-primary">Aprrovals</legend>
-               <div id="inputApproval">
+                <div id="inputApproval">
                     <div class="form-group">
                         <label for="approvers_agency">Agency</label>
                         <input type="text" class="form-control" id="approvers_agency" name="approvers_agency" required="required">
@@ -133,9 +133,9 @@ $this->end();
                         <span class="input-group-addon"><i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span>
                         </div>
                     </div>
-               </div>
-               <div id="newApproval"></div>
-            <button id="addApproval" type="button" class="btn btn-primary mb-5">Add New Approval</button>
+                </div>
+                <div id="newApproval"></div>
+                <button id="addApproval" type="button" class="btn btn-primary mb-5">Add New Approval</button>
 <!-- <div class="form-group">
     <label for="signed_mou">FINANCIAL TEMPLATE DOCUMENT</label>
     <input type="file" class="form-control" id="financial_template" name="financial_template" required="required">
@@ -167,6 +167,7 @@ $this->end();
                         <label for="rev_commitee_rep_information">Representative Information</label>
                         <input type="text" class="form-control" id="rev_commitee_rep_information" name="rev_commitee_rep_information" required="required">
                     </div>
+
                 <legend class="text-primary">Work Plans</legend>
                 <div class="form-group">
                     <label for="parties">Parties</label>
@@ -196,7 +197,7 @@ $this->end();
                     <label for="FinancialCost">Financial Cost</label>
                     <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">USD</span>
+                        <span class="input-group-text"></span>
                     </div>
                     <input type="number" id="financial_cost" name = "financial_cost" required = "required" class="form-control" aria-label="Amount (to the nearest naira)">
                     <div class="input-group-append">
@@ -275,7 +276,7 @@ $this->end();
                         <label for="disbursed_amount">Disbursed Amount</label>
                         <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">USD</span>
+                            <span class="input-group-text"></span>
                         </div>
                         <input id="disbursed_amount" name="disbursed_amount" type="number" required="required" class="form-control" aria-label="Amount (to the nearest naira)">
                         <div class="input-group-append">
@@ -415,125 +416,125 @@ $this->end();
 <!-- MODAL ELEMENTS -->
 
 <div id="dialogModal" class="bg-primary">
-        <!-- the external content is loaded inside this tag -->
-        <div id="contentWrap">
-            <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-md']) ?>
-            <?= $this->Modal->body()// No header ?>
-            <?= $this->Modal->footer()// Footer with close button (default) ?>
-            <?= $this->Modal->end() ?>
-        </div>
-        <div id="uploadContent">
-            <?= $this->Modal->create(['id' => 'upload', 'size' => 'modal-sm']) ?>
-            <?= $this->Modal->body('
-                <form>
-                  <div class="form-group">
-                    <label for="exampleFormControlFile1">Import file</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                  </div>
-                </form>
-            ')// No header ?>
-            <?= $this->Modal->footer()// Footer with close button (default) ?>
-            <?= $this->Modal->end() ?>
-        </div>
+    <!-- the external content is loaded inside this tag -->
+    <div id="contentWrap">
+        <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-md']) ?>
+        <?= $this->Modal->body()// No header ?>
+        <?= $this->Modal->footer()// Footer with close button (default) ?>
+        <?= $this->Modal->end() ?>
     </div>
+    <div id="uploadContent">
+        <?= $this->Modal->create(['id' => 'upload', 'size' => 'modal-sm']) ?>
+        <?= $this->Modal->body('
+            <form>
+                <div class="form-group">
+                <label for="exampleFormControlFile1">Import file</label>
+                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+            </form>
+        ')// No header ?>
+        <?= $this->Modal->footer()// Footer with close button (default) ?>
+        <?= $this->Modal->end() ?>
+    </div>
+</div>
 
 
 
 
 <script>
-var currentTab = 0; // Current tab is set to be the first tab (0)
-showTab(currentTab); // Display the current tab
+    var currentTab = 0; // Current tab is set to be the first tab (0)
+    showTab(currentTab); // Display the current tab
 
-function showTab(n) {
-  // This function will display the specified tab of the form ...
-  var x = document.getElementsByClassName("bat");
-  var y = document.getElementsByClassName("tab");
-  x[n].style.display = "block";
-  y[n].style.display = "block";
-  // ... and fix the Previous/Next buttons:
-  if (n == 0) {
-    document.getElementById("prevBtn").style.display = "none";
-  } else {
-    document.getElementById("prevBtn").style.display = "inline";
-  }
-  if (n == (x.length - 1)) {
-    // document.getElementById("nextBtn").innerHTML = "Submit";
-    // document.getElementById("nextBtn").type = "submit";
-    document.getElementById("nextBtn").style.display = "none";
-    document.getElementById("ssubmit").style.display = "block";
-  } else {
-    document.getElementById("nextBtn").innerHTML = "Next";
-    document.getElementById("nextBtn").style.display = "block";
-  }
-  // ... and run a function that displays the correct step indicator:
-  fixStepIndicator(n)
-}
+    function showTab(n) {
+    // This function will display the specified tab of the form ...
+    var x = document.getElementsByClassName("bat");
+    var y = document.getElementsByClassName("tab");
+    x[n].style.display = "block";
+    y[n].style.display = "block";
+    // ... and fix the Previous/Next buttons:
+    if (n == 0) {
+        document.getElementById("prevBtn").style.display = "none";
+    } else {
+        document.getElementById("prevBtn").style.display = "inline";
+    }
+    if (n == (x.length - 1)) {
+        // document.getElementById("nextBtn").innerHTML = "Submit";
+        // document.getElementById("nextBtn").type = "submit";
+        document.getElementById("nextBtn").style.display = "none";
+        document.getElementById("ssubmit").style.display = "block";
+    } else {
+        document.getElementById("nextBtn").innerHTML = "Next";
+        document.getElementById("nextBtn").style.display = "block";
+    }
+    // ... and run a function that displays the correct step indicator:
+    fixStepIndicator(n)
+    }
 
-function nextPrev(n) {
-  // This function will figure out which tab to display
-  var x = document.getElementsByClassName("bat");
-  var y = document.getElementsByClassName("tab");
-  console.log(n)
-  // Exit the function if any field in the current tab is invalid:
-//   if (n == 1 && !validateForm()) return false;
-  if (n == 1);
-  console.log(n)
-  // Hide the current tab:
-  x[currentTab].style.display = "none";
-  y[currentTab].style.display = "none";
-  // Increase or decrease the current tab by 1:
-  currentTab = currentTab + n;
-  // if you have reached the end of the form... :
-  if (currentTab >= x.length) {
-    //...the form gets submitted:
-    // document.getElementById("regForm").submit();
-    // return false;
-  }
-  // Otherwise, display the correct tab:
-  showTab(currentTab);
-}
+    function nextPrev(n) {
+    // This function will figure out which tab to display
+    var x = document.getElementsByClassName("bat");
+    var y = document.getElementsByClassName("tab");
+    console.log(n)
+    // Exit the function if any field in the current tab is invalid:
+    //   if (n == 1 && !validateForm()) return false;
+    if (n == 1);
+    console.log(n)
+    // Hide the current tab:
+    x[currentTab].style.display = "none";
+    y[currentTab].style.display = "none";
+    // Increase or decrease the current tab by 1:
+    currentTab = currentTab + n;
+    // if you have reached the end of the form... :
+    if (currentTab >= x.length) {
+        //...the form gets submitted:
+        // document.getElementById("regForm").submit();
+        // return false;
+    }
+    // Otherwise, display the correct tab:
+    showTab(currentTab);
+    }
 
 
-function fixStepIndicator(n) {
-  // This function removes the "active" class of all steps...
-  var i, x = document.getElementsByClassName("step");
-  for (i = 0; i < x.length; i++) {
-    x[i].className = x[i].className.replace(" active", "");
-  }
-  //... and adds the "active" class to the current step:
-  x[n].className += " active";
-}
+    function fixStepIndicator(n) {
+    // This function removes the "active" class of all steps...
+    var i, x = document.getElementsByClassName("step");
+    for (i = 0; i < x.length; i++) {
+        x[i].className = x[i].className.replace(" active", "");
+    }
+    //... and adds the "active" class to the current step:
+    x[n].className += " active";
+    }
 
-$("#addApproval").click(function () {
-        var html = '';
-        html += '<div id="inputApproval">';
-        html += '<div class="form-group">';
-        html += '<label for="approvers_agency">Agency</label>';
-        html += '<input type="text" class="form-control" id="approvers_agency" name="approvers_agency" required="required">';
-        html += '</div>';
-        html += '<div class="form-group">';
-        html += '<label for="approvers_rep_information">Representative Information</label>';
-        html += '<textarea class="form-control" id="approvers_rep_information" name="approvers_rep_information" required="required"></textarea>';
-        html += '</div>';
-        html += '<div class="form-group text">';
-        html += '<label class="control-label" for="approvers_date">Date</label>';
-        html += '<div class="input-group"><input type="text" name="approvers_date" class="form-control addon-right" empty="1" id="approvers_date" autocomplete="off">';
-        html += '<span class="input-group-addon"><i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span>';
-        html += '</div>';
-        html += '</div>';
-        html += '<button id="removeApproval" type="button" class="btn btn-danger">Remove</button>';
-        html += '</div>';
-        html += '</div>';
+    $("#addApproval").click(function () {
+            var html = '';
+            html += '<div id="inputApproval">';
+            html += '<div class="form-group">';
+            html += '<label for="approvers_agency">Agency</label>';
+            html += '<input type="text" class="form-control" id="approvers_agency" name="approvers_agency" required="required">';
+            html += '</div>';
+            html += '<div class="form-group">';
+            html += '<label for="approvers_rep_information">Representative Information</label>';
+            html += '<textarea class="form-control" id="approvers_rep_information" name="approvers_rep_information" required="required"></textarea>';
+            html += '</div>';
+            html += '<div class="form-group text">';
+            html += '<label class="control-label" for="approvers_date">Date</label>';
+            html += '<div class="input-group"><input type="text" name="approvers_date" class="form-control addon-right" empty="1" id="approvers_date" autocomplete="off">';
+            html += '<span class="input-group-addon"><i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span>';
+            html += '</div>';
+            html += '</div>';
+            html += '<button id="removeApproval" type="button" class="btn btn-danger">Remove</button>';
+            html += '</div>';
+            html += '</div>';
 
-        $('#newApproval').append(html);
-    });
+            $('#newApproval').append(html);
+        });
 
-    // remove row
-    $(document).on('click', '#removeApproval', function () {
-        $(this).closest('#inputApproval').remove();
-    });
+        // remove row
+        $(document).on('click', '#removeApproval', function () {
+            $(this).closest('#inputApproval').remove();
+        });
 
-$(function () {
+    $(function () {
         $('#date, #approvers_date, #start_date, #end_date, #plan_start_date, #plan_end_date, #start_date, #exp_output_date, #date_disbursement').datepicker({
             inline: true,
             "format": "dd/mm/yyyy",
