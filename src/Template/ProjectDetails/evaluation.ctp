@@ -89,31 +89,22 @@ $this->end();
             <div>
                 <div>
                 </div>
-                <div style=" display: flex; flex-direction:row; justify-content:space-around; outline: 5px solid #4E73DF; padding-left: 22px"
+                <div style="display: flex; flex-direction:row; justify-content:space-around; outline: 2px solid #4E73DF; padding-left: 22px; "
                     class="input-group">
-                    <div class="dropdown mr-auto">
+                    <div class="dropdown">
                         <div>
-
                             <h6 class="font-weight-bold">Project start Date </h6>
-                            <!-- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                First Day of Month
-                            </button> -->
                             <div class="dropdown-menu">
-                                <!-- <a class="dropdown-item" href="#">Not yet started</a>
-                                <a class="dropdown-item" href="#">In progress</a>
-                                <a class="dropdown-item" href="#">Completed</a> -->
                             </div>
                         </div>
                         <div class="bootstrap-iso">
                             <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-md-8 col-sm-6 col-xs-12">
+                                    <div class="">
 
 
                                         <div class="form-group" style="display: flex; flex-direction: column;">
                                             <!-- Date input -->
-                                            <label class="control-label" for="date"
-                                                style="align-self: center;">From</label>
                                             <div class="input-group date" data-provide="datepicker"
                                                 style="background-color: #CDD8F6; border-color: #4E73DF; border-width: medium;">
                                                 <input type="text" class="form-control" placeholder="MM/DD/YYY"
@@ -129,26 +120,20 @@ $this->end();
                             </div>
                         </div>
                     </div>
-                    <div class="dropdown mr-auto" style="width: 200px;">
+                    <div class="dropdown">
                         <div>
 
                             <h6 class="font-weight-bold">Project End date</h6>
-                            <!-- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                Previous Month
-
-                            </button> -->
                             <div class="dropdown-menu">
                             </div>
                         </div>
                         <div class="bootstrap-iso">
                             <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="">
                                         <div class="form-group"
                                             style="display: flex; flex-direction: column; margin-left: -20px;">
 
-                                            <label class="control-label" for="date"
-                                                style="align-self: center;">To</label>
                                             <div class="input-group date" data-provide="datepicker"
                                                 style="background-color: #CDD8F6; border-color: #4E73DF; border-width: medium;">
                                                 <input type="text" class="form-control" placeholder="MM/DD/YYY"
@@ -184,12 +169,12 @@ $this->end();
             Save As
         </button>
 
-        <button type="button" id="print1" class="btn btn-primary mr-4 mb-sm-4">Printable view
+        <button type="button" class="btn btn-primary mr-4 mb-sm-4">Printable view
 
         </button>
 
         <button type="button" class="btn btn-primary ml-4 mb-sm-4" id="exp"
-            onclick="exportTableToExcel('table2excel',filename ='consolidated rpt');">Export to Excel</button>
+            onclick="exportTableToExcel('table2excel',filename ='summary report');">Export to Excel</button>
 
     </div>
     <hr>
@@ -275,215 +260,11 @@ $this->end();
 
 </div>
 
-<!-- printable view -->
-<?php foreach ($projectDetails as $projectDetail) : ?>
-<?php foreach ($milestone_list as $milestone) : ?>
-<?php foreach ($activities as $activity) : ?>
-<?php foreach ($projectfundings as $projectfunding) : ?>
-
-
-
-<div class=”row" style="display:none;  width: 1000px; margin-left: 100px;" id="report">
-    <div class=”col-6 align-self-center”>
-        <h4 class="d-flex justify-content-center bold"><strong>OGUN STATE GOVERNMENT</strong></h4>
-        <h4 class="d-flex justify-content-center bold"><strong>DEVELOPMENT PARTNERS COORDINATION</strong></h4>
-        <h4 class="d-flex justify-content-center bold"><strong>PROJECT REPORT </strong></h4>
-        <hr style="height: 10px;">
-    </div>
-    <div>
-        <P class="mb-0 font-weight-bold" style="margin-left: 100px;">PROJECT NAME: &nbsp; <strong
-                class="text-capitalize">
-                <?= h($projectDetail->name) ?>
-            </strong></P>
-        <P class="mb-0 font-weight-bold" style="margin-left: 100px;">DESCRIPTION OF PROJECT: &nbsp; <strong>
-                <?= h($projectDetail->description) ?>
-            </strong>
-        </P>
-        <P class="mb-0 font-weight-bold" style="margin-left: 100px;">DONOR/LENDER: &nbsp; <strong>
-                <?= h('') ?>
-            </strong>
-        </P>
-        <P class="mb-0 font-weight-bold" style="margin-left: 100px;">FUNDING TYPE: &nbsp; <strong>Load and
-                Grant</strong></P>
-        <!-- <P class="mb-0 font-weight-bold" style="margin-left: 100px;">IMPLEMENTING AGENCY: &nbsp; <strong>Adewale
-                Holdings</strong>
-        </P> -->
-        <P class="mb-0 font-weight-bold" style="margin-left: 100px;">FUNDING AMOUNT: &nbsp;
-            <strong><?= h('$' . $projectfunding->funding) ?></strong></P>
-        <P class="mb-0 font-weight-bold" style="margin-left: 100px;">DISBURSEMENT TO DATE: &nbsp; <strong>$1, 000,
-                000</strong>
-        </P>
-        <P class="mb-0 font-weight-bold" style="margin-left: 100px;">COUNTERPART FUND REQUIRED: &nbsp;
-            <strong>$3, 000, 000</strong></P>
-        <P class="mb-0 font-weight-bold" style="margin-left: 100px;">PARTICIPATING LGAs: &nbsp; <strong>Otta
-            </strong>
-        </P>
-        <P class="mb-2 font-weight-bold" style="margin-left: 100px;">DATE OF REPORT: &nbsp;
-            <strong><?= h(date('l jS\, F Y')) ?></strong></P>
-    </div>
-
-    <div style="width: 900px;">
-        <p style="margin-left: 100px" class="font-weight-bold">Project Objectives and Milestones</p>
-        <table style="margin-left: 100px; outline: 1px solid black;" cellpadding="0" cellspacing="0"
-            class="table table-sm table-bordered br-m">
-            <thead class="bg-default" style="outline: 1px solid black;">
-                <tr>
-                    <th style="outline: 1px solid black; color: black !important; width:5%;">S/N</th>
-                    <th style="outline: 1px solid black; color: black !important;">Project Objectives</th>
-                    <th style="outline: 1px solid black; color: black !important;">Milestone activities</th>
-                    <th style="outline: 1px solid black; color: black !important;">Deadline</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                <tr>
-                    <td style="outline: 1px solid black;">1.</td>
-                    <td style="outline: 1px solid black;"> <?= h($projectDetail->description) ?></td>
-                    <td style="outline: 1px solid black;"> <?= h($milestone->description) ?></td>
-                    <td style="outline: 1px solid black;"> <?= h($milestone->expected_completion_date) ?></td>
-                </tr>
-
-
-                <tr>
-                    <td style="outline: 1px solid black;">2.</td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"></td>
-                </tr>
-
-                <tr>
-                    <td style="outline: 1px solid black;">3.</td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"></td>
-                </tr>
-
-            </tbody>
-        </table>
-
-        <p style="margin-left: 100px" class="font-weight-bold">Activity Report</p>
-        <table style="margin-left: 100px;" cellpadding="0" cellspacing="0" class="table table-sm table-bordered br-m">
-            <thead class="bg-default">
-                <tr>
-                    <th style="outline: 1px solid black; color: black !important;  width:5%;">S/N</th>
-                    <th style="outline: 1px solid black; color: black !important; ">Milestone activities</th>
-                    <th style="outline: 1px solid black; color: black !important; ">Update</th>
-                    <th style="outline: 1px solid black; color: black !important; ">Achievement Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="outline: 1px solid black;">1.</td>
-                    <td style="outline: 1px solid black;"><?= h($milestone->description) ?></td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"><?= h($milestone->achievement) ?></td>
-                </tr>
-                <tr>
-                    <td style="outline: 1px solid black;">2.</td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"></td>
-                </tr>
-                <tr>
-                    <td style="outline: 1px solid black;">3.</td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"></td>
-                </tr>
-
-            </tbody>
-        </table>
-
-        <p style="margin-left: 100px" class="font-weight-bold">Milestones Funding</p>
-        <table style="margin-left: 100px;" cellpadding="0" cellspacing="0" class="table table-sm table-bordered br-m">
-            <thead class="bg-default">
-                <tr>
-                    <th style="outline: 1px solid black; color: black !important;  width:5%;">S/N</th>
-                    <th style="outline: 1px solid black; color: black !important; ">Milestone activities</th>
-                    <th style="outline: 1px solid black; color: black !important; ">Funding Agencies</th>
-                    <th style="outline: 1px solid black; color: black !important; ">Funding Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="outline: 1px solid black;">1.</td>
-                    <td style="outline: 1px solid black;"><?= h($milestone->description) ?></td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"></td>
-                </tr>
-                <tr>
-                    <td style="outline: 1px solid black;">2.</td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"></td>
-                </tr>
-                <tr>
-                    <td style="outline: 1px solid black;">3.</td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"></td>
-                </tr>
-
-            </tbody>
-        </table>
-    </div>
-    <div>
-        <h6 style="font-weight:bolder; margin-left: 100px;" class="font-weight-bold">CHALLENGES/ISSUES:</h6>
-    </div>
-    <div style="width: 900px;">
-        <p style="margin-left: 100px" class="font-weight-bold">Next Step/Action Plan: </p>
-        <table style="margin-left: 100px; padding-right: 100px;" cellpadding="0" cellspacing="0"
-            class="table table-sm table-bordered br-m">
-            <thead class="bg-default">
-                <tr>
-                    <th style="width:5%; outline: 1px solid black; color: black !important;">S/N</th>
-                    <th style="outline: 1px solid black; color: black !important;">Milestone activities</th>
-                    <th style="outline: 1px solid black; color: black !important;">Next Step/ Action Plan</th>
-                    <th style="outline: 1px solid black; color: black !important;">Timeline</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="outline: 1px solid black;">1.</td>
-                    <td style="outline: 1px solid black;"><?= h($milestone->description) ?></td>
-                    <td style="outline: 1px solid black;"><?= h($activity->next_activity) ?></td>
-                    <td style="outline: 1px solid black;"></td>
-                </tr>
-                <tr>
-                    <td style="outline: 1px solid black;">2.</td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"></td>
-                </tr>
-                <tr>
-                    <td style="outline: 1px solid black;">3.</td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"></td>
-                </tr>
-
-            </tbody>
-        </table>
-        <p style="margin-left: 100px" class="font-weight-bold">Prepared by: </p>
-        <br>
-        <p style="margin-left: 100px; margin-bottom: 100px;" class="font-weight-bold"> State Programme Coordinator
-        </p>
-    </div>
-</div>
-<?php endforeach; ?>
-<?php endforeach; ?>
-<?php endforeach; ?>
-<?php endforeach; ?>
 
 
 <script>
 $(document).ready(function() {
     $("#print").click(function() {
-        $("#report").show();
-        $("#main").hide();
-
-    });
-    $("#print1").click(function() {
         $("#report").show();
         $("#main").hide();
 

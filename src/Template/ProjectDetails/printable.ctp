@@ -24,7 +24,8 @@
         </P>
         <P class="mb-0 font-weight-bold" style="margin-left: 100px;">COUNTERPART FUND REQUIRED: &nbsp;
             <strong></strong></P>
-        <P class="mb-0 font-weight-bold" style="margin-left: 100px;">PARTICIPATING LGAs: &nbsp; <strong>
+        <P class="mb-0 font-weight-bold" style="margin-left: 100px;">PARTICIPATING LGAs: &nbsp; <strong> 20 LGAs in Ogun
+                State
             </strong>
         </P>
         <P class="mb-2 font-weight-bold" style="margin-left: 100px;">DATE OF REPORT: &nbsp;
