@@ -3,6 +3,12 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Milestone $milestone
  */
+$this->start('sidebar');
+echo $this->element('sidebar/default');
+$this->end();
+$this->start('navbar');
+echo $this->element('navbar/default');
+$this->end();
 ?>
 
 <div class="milestones container">

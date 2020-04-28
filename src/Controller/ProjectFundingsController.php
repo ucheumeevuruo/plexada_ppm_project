@@ -20,10 +20,13 @@ class ProjectFundingsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Milestones'],
+            'contain' => ['Milestones','Projects'],
         ];
         $projectFundings = $this->paginate($this->ProjectFundings);
 
+        // $project = $this->ProjectFundings->Projects->find('list', ['limit' => 200]);
+        // debug($project);
+        // die();
         $this->set(compact('projectFundings'));
     }
 
@@ -87,11 +90,12 @@ class ProjectFundingsController extends AppController
             if ($this->ProjectFundings->save($projectFunding)) {
                 $this->Flash->success(__('The project funding has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The project funding could not be saved. Please, try again.'));
         }
-        $milestones = $this->ProjectFundings->Milestones->find('list', ['limit' => 200]);
+        $mile_id =$projectFunding->milestone_id;
+        $milestones = $this->ProjectFundings->Milestones->find('list', ['limit' => 200,'conditions'=>['id'=>$mile_id]]);
         $this->set(compact('projectFunding', 'milestones'));
     }
 

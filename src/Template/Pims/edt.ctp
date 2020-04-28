@@ -80,13 +80,12 @@ $this->end();
             </div>
             <div class="col-md-5 col-sm-12 card tab">
             <legend class="text-primary">Project Components</legend>
-                <!-- <div class="mb-3">
-                    <?= $this->Html->link(__('Edit Components'), ['controller' => 'projectComponents', 'action' => 'edit',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
-                    <?= $this->Html->link(__('Edit Milestones'), ['controller' => 'Milestones', 'action' => 'edit',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
-                    <?= $this->Html->link(__('Edit Activities'), ['controller' => 'Activities', 'action' => 'edit',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
-                    <?= $this->Html->link(__('Edit Tasks'), ['controller' => 'Tasks', 'action' => 'edit',$project_info->id], ['class' => 'btn btn-primary btn-sm overlay']) ?>
-                </div> -->
-                
+                <div class="mb-3">
+                    <?= $this->Html->link(__('Add Components'), ['controller' => 'projectComponents', 'action' => 'edit',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
+                    <?= $this->Html->link(__('Add Milestones'), ['controller' => 'Milestones', 'action' => 'edit',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
+                    <?= $this->Html->link(__('Add Activities'), ['controller' => 'Activities', 'action' => 'edit',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
+                    <?= $this->Html->link(__('Add Tasks'), ['controller' => 'Tasks', 'action' => 'edit',$project_info->id], ['class' => 'btn btn-primary btn-sm overlay']) ?>
+                </div>
                 <!-- <div class="form-group">
                     <label for="activities_achievement">Activities & Achievement</label>
                     <input type="text" class="form-control" id="activities_achievement" name="activities_achievement" required="required" >
@@ -414,32 +413,6 @@ $this->end();
 
 </div>
 
-<!-- MODAL ELEMENTS -->
-
-<div id="dialogModal" class="bg-primary">
-        <!-- the external content is loaded inside this tag -->
-        <div id="contentWrap">
-            <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-md']) ?>
-            <?= $this->Modal->body()// No header ?>
-            <?= $this->Modal->footer()// Footer with close button (default) ?>
-            <?= $this->Modal->end() ?>
-        </div>
-        <div id="uploadContent">
-            <?= $this->Modal->create(['id' => 'upload', 'size' => 'modal-sm']) ?>
-            <?= $this->Modal->body('
-                <form>
-                  <div class="form-group">
-                    <label for="exampleFormControlFile1">Import file</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                  </div>
-                </form>
-            ')// No header ?>
-            <?= $this->Modal->footer()// Footer with close button (default) ?>
-            <?= $this->Modal->end() ?>
-        </div>
-    </div>
-
-
 <script>
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
@@ -535,23 +508,6 @@ $(function () {
         });
     });
 
-    $(document).ready(function() {
-            //respond to click event on anything with 'overlay' class
-            $(".overlay").click(function(event){
-                event.preventDefault();
-                //load content from href of link
-                $('#contentWrap .modal-body').load($(this).attr("href"), function(){
-                    $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content').removeClass()
-                    $('#MyModal4').modal('show')
-                });
-            });
-
-            $(".upload").click(function (event) {
-                event.preventDefault();
-                $("#upload").modal('show')
-            })
-            $('.dataTable').DataTable();
-        });
 </script>
 
 

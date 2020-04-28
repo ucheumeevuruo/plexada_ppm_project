@@ -285,9 +285,12 @@ class ProjectDetailsController extends AppController
      */
     public function edit($id = null)
     {
-        $projectDetail = $this->ProjectDetails->get($id, [
-            'contain' => ['Prices'],
-        ]);
+        $projectDetail = $this->ProjectDetails->get($id);
+        // $projectDetail = $this->ProjectDetails->get($id, [
+        //     'contain' => ['Prices'],
+        // ]);
+        // debug($projectDetail);
+        // die();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $projectDetail = $this->ProjectDetails->patchEntity(
                 $projectDetail,
@@ -300,24 +303,37 @@ class ProjectDetailsController extends AppController
                 return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The project detail could not be saved. Please, try again.'));
+
             // return $this->redirect(['action' => 'view', $id]);
             return $this->redirect($this->referer());
+
         }
+
+      
         $vendors = $this->ProjectDetails->Vendors->find('list', ['limit' => 200]);
+
         $staff = $this->ProjectDetails->Staff->find('list', ['limit' => 200]);
+
         $sponsors = $this->ProjectDetails->Sponsors->find('list', ['limit' => 200]);
-        $personnel = $this->ProjectDetails->Personnel->find('list', ['limit' => 200]);
+        // me
+        // $personnel = $this->ProjectDetails->Staffs->find('list', ['limit' => 200]);
+        //me
+
         // $lov = $this->ProjectDetails->Lov->find('list', ['limit' => 200]);
         $subStatus = $this->ProjectDetails->SubStatuses->find('list', [
             'conditions' => ['SubStatuses.lov_type' => 'project_sub_status'],
             'limit' => 200
         ]);
+        // debug($subStatus);
+        // die();
         $lov = $this->ProjectDetails->Lov->find('list', [
             'conditions' => ['Lov.lov_type' => 'project_status'],
             'limit' => 200
         ]);
         $users = $this->ProjectDetails->Users->find('list', ['limit' => 200]);
-        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'lov', 'users', 'personnel', 'subStatus'));
+        $userid = $id;
+        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'lov', 'users', 'personnel', 'subStatus','userid'));
+        // $this->set(compact('vendors', 'staff', 'sponsors', 'lov', 'users', 'personnel', 'subStatus'));
     }
 
     /**
