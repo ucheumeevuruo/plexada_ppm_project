@@ -3,12 +3,12 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Pim $pim
  */
-// $this->start('sidebar');
-// echo $this->element('sidebar/default');
-// $this->end();
-// $this->start('navbar');
-// echo $this->element('navbar/default');
-// $this->end();
+$this->start('sidebar');
+echo $this->element('sidebar/default');
+$this->end();
+$this->start('navbar');
+echo $this->element('navbar/default');
+$this->end();
 ?>
 
 <style>
@@ -66,8 +66,8 @@
                 </div>
                 <!-- <div class="form-group">
                     <label for="funding_agency">Funding Agency</label>
-                    <input type="text" class="form-control" id="funding_agency" name ="funding_agency" value="<?= $pim->funding_agency ?>" required="required">
-                </div>
+                    <input type="text" class="form-control" id="funding_agency" name ="funding_agency" required="required">
+                </div>   -->
                 <legend class="text-primary">Project Oversight Structure</legend>
                 <div class="form-group">
                     <label for="oversight_level">Oversight Level</label>
@@ -81,16 +81,18 @@
             <div class="col-md-5 col-sm-12 card tab">
             <legend class="text-primary">Project Components</legend>
                 <div class="mb-3">
-                <?= $this->Html->link(__('Add Milestones'), ['controller' => 'Milestones', 'action' => 'add'], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
-
+                    <?= $this->Html->link(__('Add Components'), ['controller' => 'projectComponents', 'action' => 'edit',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
+                    <?= $this->Html->link(__('Add Milestones'), ['controller' => 'Milestones', 'action' => 'edit',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
+                    <?= $this->Html->link(__('Add Activities'), ['controller' => 'Activities', 'action' => 'edit',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
+                    <?= $this->Html->link(__('Add Tasks'), ['controller' => 'Tasks', 'action' => 'edit',$project_info->id], ['class' => 'btn btn-primary btn-sm overlay']) ?>
                 </div>
                 <!-- <div class="form-group">
                     <label for="activities_achievement">Activities & Achievement</label>
-                    <input type="text" class="form-control" id="activities_achievement" name="activities_achievement" value="<?= $pim->activities_achievement ?>" required="required" >
+                    <input type="text" class="form-control" id="activities_achievement" name="activities_achievement" required="required" >
                 </div> -->
                 <!-- <div class="form-group">
                     <label for="Risks&Mitigation">Risks & Mitigation</label>
-                    <input type="text" class="form-control" id="risks_mitigation" name="risks_mitigation" value="<?= $pim->risks_mitigation ?>" required="required">
+                    <input type="text" class="form-control" id="risks_mitigation" name="risks_mitigation" required="required">
                 </div> -->
                 <div class="form-group">
                     <label for="activity_next_semester">Main Activities for Next Semester</label>
@@ -118,37 +120,29 @@
             <legend class="text-primary">Aprrovals</legend>
                <div id="inputApproval">
                     <div class="form-group">
-                            <label for="mda">MDA</label>
-                            <input type="text" class="form-control" id="mda" name="mda" value="<?= $pim->mda ?>" required="required">
+                        <label for="approvers_agency">Agency</label>
+                        <input type="text" class="form-control" id="approvers_agency" name="approvers_agency" value="<?= $pim->approvers_agency ?>"  required="required">
                     </div>
                     <div class="form-group">
-                        <label for="rev_commitee_rep_information">Representative Information</label>
-                        <input type="text" class="form-control" id="rev_commitee_rep_information" name="rev_commitee_rep_information" value="<?= $pim->rev_commitee_rep_information ?>" required="required">
+                        <label for="approvers_rep_information">Representative Information</label>
+                        <textarea class="form-control" id="approvers_rep_information" name="approvers_rep_information" required="required"><?= $pim->approvers_rep_information ?></textarea>
                     </div>
-                <legend class="text-primary">Aprrovals</legend>
-                <div class="form-group">
-                    <label for="approvers_agency">Agency</label>
-                    <input type="text" class="form-control" id="approvers_agency" name="approvers_agency" value="<?= $pim->approvers_agency ?>" required="required">
-                </div>
-                <div class="form-group">
-                    <label for="approvers_rep_information">Representative Information</label>
-                    <textarea class="form-control" id="approvers_rep_information" name="approvers_rep_information" required="required"><?= $pim->approvers_rep_information ?> </textarea>
-                </div>
-                <div class="form-group text">
-                    <label class="control-label" for="approvers_date">Date</label>
-                    <div class="input-group"><input type="text" name="approvers_date" value="<?= $pim->approvers_date ?>" class="form-control addon-right" empty="1" id="approvers_date" autocomplete="off">
-                    <span class="input-group-addon"><i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span>
+                    <div class="form-group text">
+                        <label class="control-label" for="approvers_date">Date</label>
+                        <div class="input-group"><input type="text" name="approvers_date" value="<?= $pim->approvers_date ?>"  class="form-control addon-right" empty="1" id="approvers_date" autocomplete="off">
+                        <span class="input-group-addon"><i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span>
+                        </div>
                     </div>
-                </div>
-                <div id="newApproval"></div>
-                <button id="addApproval" type="button" class="btn btn-primary mb-5">Add New Approval</button>
+               </div>
+               <div id="newApproval"></div>
+            <button id="addApproval" type="button" class="btn btn-primary mb-5">Add New Approval</button>
 <!-- <div class="form-group">
     <label for="signed_mou">FINANCIAL TEMPLATE DOCUMENT</label>
     <input type="file" class="form-control" id="financial_template" name="financial_template" required="required">
 </div>                  -->
                 <div class="form-group">
                     <label for="signed_mou">SIGNED MOU (PIM)</label>
-                    <input type="file" class="form-control" id="signed_mou" name="signed_mou" value="<?= $pim->signed_mou ?>" required="required">
+                    <input type="file" class="form-control" id="signed_mou" name="signed_mou" value="<?= $pim->signed_mou ?>"  required="required">
                 </div>
                 <div class="form-group">
                     <label for="signed_mou">ADOPTED MINUTES OF MEETING</label>
@@ -160,7 +154,7 @@
                 </div>
                 <div class="form-group">
                     <label for="signed_mou">FINANCIAL TEMPLATE DOCUMENT</label>
-                    <input type="file" class="form-control" id="financial_template" name="financial_template" value="<?= $pim->financial_template ?>" required="required">
+                    <input type="file" class="form-control" id="financial_template" name="financial_template" value="<?= $pim->financial_template ?>"required="required">
                 </div>
             </div>
             <div class="col-md-5 col-sm-12 card bat">
@@ -212,12 +206,12 @@
                 </div>
                 <div class="form-group">
                     <label for="targets">Targets</label>
-                    <input type="text" class="form-control" id="targets" name = "targets" value="<?= $pim->targets ?>" required = "required">
+                    <input type="text" class="form-control" id="targets" name = "targets" value="<?= $pim->targets ?>"  required = "required">
                 </div>
                 <!-- <legend class="text-primary">Milestone</legend>
                 <div class="form-group">
                     <label for="task">Task</label>
-                    <input type="text" class="form-control" id="task" name="task" value="<?= $pim->task ?>" required = "required">
+                    <input type="text" class="form-control" id="task" name="task" required = "required">
                 </div> -->
                 <!-- <div class="form-group">
                     <label for="OversightAgencyMDA">Oversight Agency / MDA</label>
@@ -240,7 +234,7 @@
                     </div>
                 <div class="form-group">
                     <label for="Agency">Responsible Party</label>
-                    <input type="text" class="form-control" id="responsible_party" name = "responsible_party" value="<?= $pim->responsible_party ?>" required = "required">
+                    <input type="text" class="form-control" id="responsible_party" name = "responsible_party"  value="<?= $pim->responsible_party ?>" required = "required">
                 </div>
                 <div class="form-group">
                     <div class="row justify-content-center">
@@ -267,7 +261,7 @@
                 <legend class="text-primary">Expenditure for output based disbursement</legend>
                         <div class="form-group">
                                 <label for="category">Category</label>
-                                <input type="text" class="form-control" id="category" name = "category" value="<?= $pim->category ?>" required="required">
+                                <input type="text" class="form-control" id="category" value="<?= $pim->category ?>" name = "category" required="required">
                         </div>
                         <div class="form-group">
                             <label for="owner">Owner</label>
@@ -275,7 +269,7 @@
                         </div>
                     <div class="form-group">
                         <label for="currency">Currency</label>
-                        <input type="text" class="form-control" id="currency" name = "currency" value="<?= $pim->currency ?>" required="required">
+                        <input type="text" class="form-control" id="currency" name = "currency" value="<?= $pim->currency ?>"  required="required">
                     </div>
                     <div class="form-group">
                         <label for="disbursed_amount">Disbursed Amount</label>
@@ -305,19 +299,19 @@
                 <!-- <legend class="text-primary">Progress Report</legend> -->
                     <!-- <div class="form-group">
                             <label for="progress_category">Category</label>
-                            <input type="text" class="form-control" id="progress_category" name="progress_category" value="<?= $pim->progress_category ?>" required="required">
-                    </div>
-                    <div class="form-group">
+                            <input type="text" class="form-control" id="progress_category" name="progress_category" required="required">
+                    </div> -->
+                    <!-- <div class="form-group">
                             <label for="progress_currency">Currency</label>
-                            <input type="text" class="form-control" id="progress_currency" name="progress_currency" value="<?= $pim->progress_currency ?>" required="required">
-                    </div>
-                    <div class="form-group">
-                    <label for="amount_credit_allocation">Amount of Credit Allocation</label>
+                            <input type="text" class="form-control" id="progress_currency" name="progress_currency" required="required">
+                    </div> -->
+                    <!-- <div class="form-group"> -->
+                    <!-- <label for="amount_credit_allocation">Amount of Credit Allocation</label>
                         <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">&#8358;</span>
                         </div>
-                            <input type="number" class="form-control" id="amount_credit_allocation" name="amount_credit_allocation" value="<?= $pim->amount_credit_allocation ?>" required="required" >
+                            <input type="number" class="form-control" id="amount_credit_allocation" name="amount_credit_allocation" required="required" >
                             <div class="input-group-append">
                             <span class="input-group-text">.00</span>
                             </div>
@@ -325,21 +319,21 @@
                         </div>
                     <div class="form-group">
                             <label for="disbursed_current_semester">Disbursed in current semester</label>
-                            <input type="text" class="form-control" id="disbursed_current_semester" name="disbursed_current_semester" value="<?= $pim->disbursed_current_semester ?>" required="required">
-                    </div>
-                    <div class="form-group text">
+                            <input type="text" class="form-control" id="disbursed_current_semester" name="disbursed_current_semester" required="required">
+                    </div> -->
+                    <!-- <div class="form-group text">
                         <label class="control-label" for="date_disbursement">Date of disbursement</label>
                         <div class="input-group"><input type="text" name="date_disbursement" class="form-control addon-right" empty="1" id="date_disbursement" autocomplete="off">
                         <span class="input-group-addon"><i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span>
                     </div> -->
                     <!-- <div class="form-group">
                             <label for="cumulated_disbursment">Cumulated disbursement</label>
-                            <input type="text" class="form-control" id="cumulated_disbursment" name="cumulated_disbursment" value="<?= $pim->cumulated_disbursment ?>"  required="required">
+                            <input type="text" class="form-control" id="cumulated_disbursment" name="cumulated_disbursment" required="required">
                     </div> -->
                 </div>
-            <!-- <div class="col-md-5 col-sm-12 bat"> -->
+            <!-- <div class="col-md-5 col-sm-12 bat">
 
-                <!-- </div> -->
+                </div> -->
             <!-- </div> -->
     </div>
 <!-- third Row End  -->
@@ -419,159 +413,176 @@
 
 </div>
 
-<div id="dialogModal" class="bg-primary">
-    <!-- the external content is loaded inside this tag -->
-    <div id="contentWrap">
-        <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-lg']) ?>
-        <?= $this->Modal->body()// No header ?>
-        <?= $this->Modal->footer()// Footer with close button (default) ?>
-        <?= $this->Modal->end() ?>
-    </div>
-    <div id="uploadContent">
-        <?= $this->Modal->create(['id' => 'upload', 'size' => 'modal-md']) ?>
-        <?= $this->Modal->body('
-            <form>
-                <div class="form-group">
-                <label for="exampleFormControlFile1">Import file</label>
-                <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                </div>
-            </form>
-        ')// No header ?>
-        <?= $this->Modal->footer()// Footer with close button (default) ?>
-        <?= $this->Modal->end() ?>
-    </div>
-</div>
-
 <script>
+var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the current tab
 
-    $(document).ready(function() {
-                //respond to click event on anything with 'overlay' class
-                $(".overlay").click(function(event){
-                    event.preventDefault();
-                    //load content from href of link
-                    $('#contentWrap .modal-body').load($(this).attr("href"), function(){
-                        $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content').removeClass()
-                        $('#MyModal4').modal('show')
-                    });
-                });
+function showTab(n) {
+  // This function will display the specified tab of the form ...
+  var x = document.getElementsByClassName("bat");
+  var y = document.getElementsByClassName("tab");
+  x[n].style.display = "block";
+  y[n].style.display = "block";
+  // ... and fix the Previous/Next buttons:
+  if (n == 0) {
+    document.getElementById("prevBtn").style.display = "none";
+  } else {
+    document.getElementById("prevBtn").style.display = "inline";
+  }
+  if (n == (x.length - 1)) {
+    // document.getElementById("nextBtn").innerHTML = "Submit";
+    // document.getElementById("nextBtn").type = "submit";
+    document.getElementById("nextBtn").style.display = "none";
+    document.getElementById("ssubmit").style.display = "block";
+  } else {
+    document.getElementById("nextBtn").innerHTML = "Next";
+    document.getElementById("nextBtn").style.display = "block";
+  }
+  // ... and run a function that displays the correct step indicator:
+  fixStepIndicator(n)
+}
 
-                $(".upload").click(function (event) {
-                    event.preventDefault();
-                    $("#upload").modal('show')
-                })
-                $('.dataTable').DataTable();
-            });
+function nextPrev(n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("bat");
+  var y = document.getElementsByClassName("tab");
+  console.log(n)
+  // Exit the function if any field in the current tab is invalid:
+//   if (n == 1 && !validateForm()) return false;
+  if (n == 1);
+  console.log(n)
+  // Hide the current tab:
+  x[currentTab].style.display = "none";
+  y[currentTab].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  currentTab = currentTab + n;
+  // if you have reached the end of the form... :
+  if (currentTab >= x.length) {
+    //...the form gets submitted:
+    // document.getElementById("regForm").submit();
+    // return false;
+  }
+  // Otherwise, display the correct tab:
+  showTab(currentTab);
+}
 
+// function validateForm() {
+//   // This function deals with validation of the form fields
+//   var x, y, i, valid = true;
+//   x = document.getElementsByClassName("tab");
+//   y = x[currentTab].getElementsByTagName("input");
+//   // A loop that checks every input field in the current tab:
+//   for (i = 0; i < y.length; i++) {
+//     // If a field is empty...
+//     if (y[i].value == "") {
+//       // add an "invalid" class to the field:
+//       y[i].className += " invalid";
+//       // and set the current valid status to false:
+//       valid = false;
+//     }
+//   }
+//   // If the valid status is true, mark the step as finished and valid:
+//   if (valid) {
+//     document.getElementsByClassName("step")[currentTab].className += " finish";
+//   }
+//   return valid; // return the valid status
+// }
 
-    var currentTab = 0; // Current tab is set to be the first tab (0)
-    showTab(currentTab); // Display the current tab
+function fixStepIndicator(n) {
+  // This function removes the "active" class of all steps...
+  var i, x = document.getElementsByClassName("step");
+  for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" active", "");
+  }
+  //... and adds the "active" class to the current step:
+  x[n].className += " active";
+}
 
-    function showTab(n) {
-    // This function will display the specified tab of the form ...
-    var x = document.getElementsByClassName("bat");
-    var y = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
-    y[n].style.display = "block";
-    // ... and fix the Previous/Next buttons:
-    if (n == 0) {
-        document.getElementById("prevBtn").style.display = "none";
-    } else {
-        document.getElementById("prevBtn").style.display = "inline";
-    }
-    if (n == (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Submit";
-        document.getElementById("nextBtn").type = "submit";
-        document.getElementById("nextBtn").style.display = "none";
-        document.getElementById("ssubmit").style.display = "block";
-    } else {
-        document.getElementById("nextBtn").innerHTML = "Next";
-        document.getElementById("nextBtn").style.display = "block";
-    }
-    // ... and run a function that displays the correct step indicator:
-    fixStepIndicator(n)
-    }
-
-    function nextPrev(n) {
-    // This function will figure out which tab to display
-    var x = document.getElementsByClassName("bat");
-    var y = document.getElementsByClassName("tab");
-    console.log(n)
-    // Exit the function if any field in the current tab is invalid:
-    //   if (n == 1 && !validateForm()) return false;
-    if (n == 1);
-    console.log(n)
-    // Hide the current tab:
-    x[currentTab].style.display = "none";
-    y[currentTab].style.display = "none";
-    // Increase or decrease the current tab by 1:
-    currentTab = currentTab + n;
-    // if you have reached the end of the form... :
-    if (currentTab >= x.length) {
-        //...the form gets submitted:
-        // document.getElementById("regForm").submit();
-        // return false;
-    }
-    // Otherwise, display the correct tab:
-    showTab(currentTab);
-    }
-
-    // function validateForm() {
-    //   // This function deals with validation of the form fields
-    //   var x, y, i, valid = true;
-    //   x = document.getElementsByClassName("tab");
-    //   y = x[currentTab].getElementsByTagName("input");
-    //   // A loop that checks every input field in the current tab:
-    //   for (i = 0; i < y.length; i++) {
-    //     // If a field is empty...
-    //     if (y[i].value == "") {
-    //       // add an "invalid" class to the field:
-    //       y[i].className += " invalid";
-    //       // and set the current valid status to false:
-    //       valid = false;
-    //     }
-    //   }
-    //   // If the valid status is true, mark the step as finished and valid:
-    //   if (valid) {
-    //     document.getElementsByClassName("step")[currentTab].className += " finish";
-    //   }
-    //   return valid; // return the valid status
-    // }
-
-    function fixStepIndicator(n) {
-    // This function removes the "active" class of all steps...
-    var i, x = document.getElementsByClassName("step");
-    for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace(" active", "");
-    }
-    //... and adds the "active" class to the current step:
-    x[n].className += " active";
-    }
-
-    $(function () {
-            $('#date, #approvers_date, #start_date, #end_date, #plan_start_date, #plan_end_date, #start_date, #exp_output_date, #date_disbursement').datepicker({
-                inline: true,
-                "format": "dd/mm/yyyy",
-                startDate: "0d",
-                // "endDate": "09-15-2017",
-                "keyboardNavigation": false
-            });
+$(function () {
+        $('#date, #approvers_date, #start_date, #end_date, #plan_start_date, #plan_end_date, #start_date, #exp_output_date, #date_disbursement').datepicker({
+            inline: true,
+            "format": "dd/mm/yyyy",
+            startDate: "0d",
+            // "endDate": "09-15-2017",
+            "keyboardNavigation": false
         });
+    });
 
-    $(document).ready(function() {
-            //respond to click event on anything with 'overlay' class
-            $(".overlay").click(function(event){
-                event.preventDefault();
-                //load content from href of link
-                $('#contentWrap .modal-body').load($(this).attr("href"), function(){
-                    $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content').removeClass()
-                    $('#MyModal4').modal('show')
-                });
-            });
-
-            $(".upload").click(function (event) {
-                event.preventDefault();
-                $("#upload").modal('show')
-            })
-            $('.dataTable').DataTable();
-        });
 </script>
+
+
+
+
+
+
+<!-- Edit view complete code commented out  -->
+<!-- <?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Pim $pim
+ */
+?>
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
+    <ul class="side-nav">
+        <li class="heading"><?= __('Actions') ?></li>
+        <li><?= $this->Form->postLink(
+                __('Delete'),
+                ['action' => 'delete', $pim->id],
+                ['confirm' => __('Are you sure you want to delete # {0}?', $pim->id)]
+            )
+        ?></li>
+        <li><?= $this->Html->link(__('List Pims'), ['action' => 'index']) ?></li>
+    </ul>
+</nav>
+<div class="pims form large-9 medium-8 columns content">
+    <?= $this->Form->create($pim) ?>
+    <fieldset>
+        <legend><?= __('Edit Pim') ?></legend>            
+        <?php
+            echo $this->Form->control('date');
+            echo $this->Form->control('brief');
+            echo $this->Form->control('funding_agency');
+            echo $this->Form->control('activities_achievement');
+            echo $this->Form->control('risks_mitigation');
+            echo $this->Form->control('activity_next_semester');
+            echo $this->Form->control('total_expenditure');
+            echo $this->Form->control('oversight_level');
+            echo $this->Form->control('oversight_agency_mda');
+            echo $this->Form->control('mda');
+            echo $this->Form->control('rev_commitee_rep_information');
+            echo $this->Form->control('approvers_agency');
+            echo $this->Form->control('approvers_rep_information');
+            echo $this->Form->control('approvers_date');
+            echo $this->Form->control('signed_mou');
+            echo $this->Form->control('adopted_minutes');
+            echo $this->Form->control('financial_management');
+            echo $this->Form->control('financial_template');
+            echo $this->Form->control('parties');
+            echo $this->Form->control('responsibilities');
+            echo $this->Form->control('start_date');
+            echo $this->Form->control('end_date');
+            echo $this->Form->control('financial_cost');
+            echo $this->Form->control('targets');
+            echo $this->Form->control('activities');
+            echo $this->Form->control('action');
+            echo $this->Form->control('responsible_party');
+            echo $this->Form->control('plan_start_date');
+            echo $this->Form->control('plan_end_date');
+            echo $this->Form->control('dependency');
+            echo $this->Form->control('category');
+            echo $this->Form->control('owner');
+            echo $this->Form->control('currency');
+            echo $this->Form->control('disbursed_amount');
+            echo $this->Form->control('exp_output_date');
+            echo $this->Form->control('task');
+            echo $this->Form->control('progress_category');
+            echo $this->Form->control('progress_currency');
+            echo $this->Form->control('amount_credit_allocation');
+            echo $this->Form->control('disbursed_current_semester');
+            echo $this->Form->control('date_disbursement');
+            echo $this->Form->control('cumulated_disbursment');
+        ?>
+    </fieldset>
+    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->end() ?>
+</div> -->

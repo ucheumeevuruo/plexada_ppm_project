@@ -15,7 +15,7 @@ $this->end();
 <div class="projectFundings container-fluid">
     <div class="shadow mb-4 br-m">
         <div class="py-3 pl-3 bg-primary br-t">
-            <h2 class="text-center text-light font-weight-bold"><?= __('Project Fundings') ?></h2>
+            <h2 class="text-center text-light font-weight-bold"><?= __('PPF') ?></h2>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -24,8 +24,9 @@ $this->end();
                     <thead class="bg-primary">
                         <tr>
                             <th scope="col"><?= __('Id') ?></th>
-                            <th scope="col"><?= __('Project Id') ?></th>
+                            <th scope="col"><?= __('Project Name') ?></th>
                             <th scope="col"><?= __('Milestone') ?></th>
+                            <th scope="col"><?= __('Status') ?></th>
                             <th scope="col"><?= __('Funding') ?></th>
                             <th scope="col" class="actions"><?= __('Actions') ?></th>
                         </tr>
@@ -38,9 +39,12 @@ $this->end();
                             <!-- <td><?= $this->Number->format($projectFunding->id) ?></td> -->
                             <td style="width:5%"><?= h($num) ?></td>
 
-                            <td><?= $projectFunding->has('milestone') ? $this->Html->link($projectFunding->milestone->id, ['controller' => 'Milestones', 'action' => 'view', $projectFunding->milestone->id]) : '' ?>
+                            <td><?= $projectFunding->has('milestone') ? $this->Html->link($projectFunding->project->name, ['controller' => 'Projects', 'action' => 'view', $projectFunding->project->id]) : '' ?>
                             </td>
                             <td><?= $projectFunding->has('milestone') ? $this->Html->link($projectFunding->milestone->description, ['controller' => 'Milestones', 'action' => 'view', $projectFunding->milestone->id]) : '' ?>
+                            </td>
+                            <td>
+                                <?= $projectFunding->has('projectDetails') ? $this->Html->link($projectFunding->projectdetails->name, ['controller' => 'ProjectDetails', $projectFunding->projectdetails->name]) : '' ?>
                             </td>
                             <td><?= $this->Number->format($projectFunding->funding) ?></td>
                             <td class="actions">
@@ -64,7 +68,45 @@ $this->end();
         <!-- </ul>
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p> -->
     </div>
+    <!-- MODAL ELEMENTS -->
+
+<div id="dialogModal" class="bg-primary">
+        <!-- the external content is loaded inside this tag -->
+        <div id="contentWrap">
+            <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-lg']) ?>
+            <?= $this->Modal->body()// No header ?>
+            <?= $this->Modal->footer()// Footer with close button (default) ?>
+            <?= $this->Modal->end() ?>
+        </div>
+        <div id="uploadContent">
+            <?= $this->Modal->create(['id' => 'upload', 'size' => 'modal-sm']) ?>
+            <?= $this->Modal->body('
+                <form>
+                  <div class="form-group">
+                    <label for="exampleFormControlFile1">Import file</label>
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                  </div>
+                </form>
+            ')// No header ?>
+            <?= $this->Modal->footer()// Footer with close button (default) ?>
+            <?= $this->Modal->end() ?>
+        </div>
+    </div>
+
     <script>
+    $(document).ready(function() {
+            //respond to click event on anything with 'overlay' class
+            $(".overlay").click(function(event){
+                event.preventDefault();
+                //load content from href of link
+                $('#contentWrap .modal-body').load($(this).attr("href"), function(){
+                    $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content').removeClass()
+                    $('#MyModal4').modal('show')
+                });
+            });
+        });
+
+
     $('.dataTable').DataTable();
     </script>
 </div>

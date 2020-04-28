@@ -22,7 +22,9 @@ class ProjectsController extends AppController
         // $this->paginate = [
         //     'contain' => ['Pims', 'ProjectFundings'],
         // ];
-        $projects = $this->paginate($this->Projects);
+        $query = $this->Projects->find('all',['contain'=>['ProjectDetails']])->select(['id', 'name','introduction','cost','percent'=>'ProjectDetails.completed_percent','waiting_on'=>'ProjectDetails.waiting_on_id']);
+        $projects = $this->paginate($query);
+        // $projects = $this->paginate($this->Projects);
 
         $this->set(compact('projects'));
     }

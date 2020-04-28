@@ -21,9 +21,14 @@ $this->end();
     <fieldset>
         <legend class="bg-primary text-light mb-3 text-center"><?= __('Add PAD') ?></legend>
         <div class="col-md-6 float-left">
-            <?= $this->Form->control('project_id', ['options' => $projects_info]); ?>
-            <input type="hidden" name="name" value="<?= $project_info->name ?>">
+            <!-- <?= $this->Form->control('project_id', ['options' => $projects]); ?> -->
             <!-- <?= $this->Form->control('name'); ?> -->
+
+            <label class="control-label" for="project">Project</label>
+            <div class="input-group"><input type="text" name="project" value="<?= $project_info->name ?>"
+                    class="form-control addon-right" empty="1" id="description" autocomplete="off">
+                <!-- <span class="input-group-addon"><i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span> -->
+            </div>
 
             <label class="control-label" for="description">Description</label>
             <div class="input-group"><input type="text" name="description" value="<?= $project_info->introduction ?>"
@@ -141,84 +146,86 @@ $this->end();
 
 <!-- MODAL ELEMENTS -->
 
-    <div id="dialogModal" class="bg-primary">
-        <!-- the external content is loaded inside this tag -->
-        <div id="contentWrap">
-            <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-md']) ?>
-            <?= $this->Modal->body()// No header ?>
-            <?= $this->Modal->footer()// Footer with close button (default) ?>
-            <?= $this->Modal->end() ?>
-        </div>
+<div id="dialogModal" class="bg-primary">
+    <!-- the external content is loaded inside this tag -->
+    <div id="contentWrap">
+        <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-md']) ?>
+        <?= $this->Modal->body() // No header 
+        ?>
+        <?= $this->Modal->footer() // Footer with close button (default) 
+        ?>
+        <?= $this->Modal->end() ?>
     </div>
+</div>
 
 <script type="text/javascript">
-    // add new env. factors
-    $("#addEnv").click(function() {
-        var html = '';
-        html += '<div id="inputEnv">';
-        html += '<div class="input-group mb-3">';
-        html +=
-            '<input type="text" name="title[]" class="form-control m-input" placeholder="Environmental factor" autocomplete="off">';
-        html += '<div class="input-group-append">';
-        html += '<button id="removeEnv" type="button" class="btn btn-danger">Remove</button>';
-        html += '</div>';
-        html += '</div>';
+// add new env. factors
+$("#addEnv").click(function() {
+    var html = '';
+    html += '<div id="inputEnv">';
+    html += '<div class="input-group mb-3">';
+    html +=
+        '<input type="text" name="title[]" class="form-control m-input" placeholder="Environmental factor" autocomplete="off">';
+    html += '<div class="input-group-append">';
+    html += '<button id="removeEnv" type="button" class="btn btn-danger">Remove</button>';
+    html += '</div>';
+    html += '</div>';
 
-        $('#newEnv').append(html);
+    $('#newEnv').append(html);
+});
+
+// remove row
+$(document).on('click', '#removeEnv', function() {
+    $(this).closest('#inputEnv').remove();
+});
+
+
+// ///////////////////ADD FA///
+
+$("#addFA").click(function() {
+    var html = '';
+    html += '<div id="inputFA">';
+    html += '<div class="input-group mb-3">';
+    html +=
+        '<input type="text" name="title[]" class="form-control m-input" placeholder="Funding Agency" autocomplete="off">';
+    html += '<div class="input-group-append">';
+    html += '<button id="removeFA" type="button" class="btn btn-danger">Remove</button>';
+    html += '</div>';
+    html += '</div>';
+
+    $('#newFA').append(html);
+});
+
+// remove row
+$(document).on('click', '#removeFA', function() {
+    $(this).closest('#inputFA').remove();
+});
+
+
+// ////Date picker
+$(function() {
+    $('#waiting_since, #start_dt, #end_dt').datepicker({
+        inline: true,
+        "format": "dd/mm/yyyy",
+        startDate: "0d",
+        // "endDate": "09-15-2017",
+        "keyboardNavigation": false
     });
-
-    // remove row
-    $(document).on('click', '#removeEnv', function() {
-        $(this).closest('#inputEnv').remove();
-    });
+});
 
 
-    // ///////////////////ADD FA///
-
-    $("#addFA").click(function() {
-        var html = '';
-        html += '<div id="inputFA">';
-        html += '<div class="input-group mb-3">';
-        html +=
-            '<input type="text" name="title[]" class="form-control m-input" placeholder="Funding Agency" autocomplete="off">';
-        html += '<div class="input-group-append">';
-        html += '<button id="removeFA" type="button" class="btn btn-danger">Remove</button>';
-        html += '</div>';
-        html += '</div>';
-
-        $('#newFA').append(html);
-    });
-
-    // remove row
-    $(document).on('click', '#removeFA', function() {
-        $(this).closest('#inputFA').remove();
-    });
-
-
-    // ////Date picker
-    $(function() {
-        $('#waiting_since, #start_dt, #end_dt').datepicker({
-            inline: true,
-            "format": "dd/mm/yyyy",
-            startDate: "0d",
-            // "endDate": "09-15-2017",
-            "keyboardNavigation": false
+$(document).ready(function() {
+    //respond to click event on anything with 'overlay' class
+    $(".overlay").click(function(event) {
+        console.log('hi');
+        event.preventDefault();
+        //load content from href of link
+        $('#contentWrap .modal-body').load($(this).attr("href"), function() {
+            $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content')
+                .removeClass()
+            $('#MyModal4').modal('show')
         });
     });
 
-
-    $(document).ready(function() {
-                //respond to click event on anything with 'overlay' class
-                $(".overlay").click(function(event){
-                    console.log('hi');
-                    event.preventDefault();
-                    //load content from href of link
-                    $('#contentWrap .modal-body').load($(this).attr("href"), function(){
-                        $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content').removeClass()
-                        $('#MyModal4').modal('show')
-                    });
-                });
-            });
-
-
+});
 </script>

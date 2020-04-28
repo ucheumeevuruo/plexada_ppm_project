@@ -62,8 +62,8 @@ $this->end();
                                                 <!-- <td><?= $this->Number->format($message->id) ?></td> -->
                                                 <!-- <td><?= $this->Number->format($message->sender_id) ?></td> -->
                                                 <td><?= $message->has('user') ? $message->user->username : '' ?></td>
-                                                <td><?= $this->Html->link($this->text->truncate($message->subject,15), ['action' => 'view', $message->id],['class'=>'overlay']) ?></td>
-                                                <td><?= $this->text->truncate(h($message->body),20) ?></td>
+                                                <td><?= $this->Html->link(($message->subject), ['action' => 'view', $message->id],['class'=>'overlay']) ?></td>
+                                                <td><?= (h($message->body)) ?></td>
                                                 <td><?= h($message->created->format('d-M-Y H:i')) ?></td>
                                                 <!-- <td><?= h($message->modified) ?></td> -->
                                                 <td class="actions">
@@ -97,8 +97,9 @@ $this->end();
                                                 <!-- <td><?= $this->Number->format($message->id) ?></td> -->
                                                 <!-- <td><?= $this->Number->format($message->sender_id) ?></td> -->
                                                 <td><?= $message->has('user') ? $message->user->username : '' ?></td>
-                                                <td><?= $this->Html->link($this->text->truncate($message->subject,15), ['action' => 'view', $message->id],['class'=>'overlay']) ?></td>
-                                                <td><?= $this->text->truncate(h($message->body),20) ?></td>
+                                                <td><?= $this->Html->link(_($message->subject), ['action' => 'view', $message->id],['class'=>'overlay']) ?></td>
+                                                <!-- <td><?= $this->Html->link(($message->subject), ['action' => 'view', $message->id],['class'=>'overlay']) ?></td> -->
+                                                <td><?= (($message->body)) ?></td>
                                                 <td><?= h($message->created->format('d-M-Y H:i')) ?></td>
                                                 <!-- <td><?= h($message->modified) ?></td> -->
                                                 <td class="actions">

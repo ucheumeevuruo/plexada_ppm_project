@@ -55,129 +55,8 @@ $this->end();
 
         ?>
     <?php endforeach; ?>
-    <div class="md-4 mb-5">
-        <div class="card h-100 br-m">
-            <div class="card-header box-header bg-primary py-2">
-                <div class="d-sm-flex align-items-center justify-content-between">
-                    <h4 class="text-white text-uppercase">Progress Summary</h4>
-                    <?= $this->Html->link("<i class=\"fa fa-download fa-sm text-white-50\"></i> Generate Report</a>", ['action' => 'downloadPdf', 'report.pdf'], ['escape' => false, 'class' => 'd-none d-sm-inline-block btn btn-sm btn-primary shadow-sm']) ?>
-                    <!--                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa fa-download fa-sm text-white-50"></i> Generate Report</a>-->
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-12 mb-0 d-flex justify-content-center table-hover" style="height:300px">
 
-                        <table class="table-sm table-responsive p-3 font-weight-bold">
-                            <thead class="thead-dark">
-                                <th>Projects</th>
-                                <th>Percent Complete</th>
-                            </thead>
-
-                            <?php foreach ($project_list as $project) : ?>
-
-                                <?php
-                                // debug($project->id) ;
-                                // die();
-                                $sdate = $project->start_dt->format("Y-m-d H:i:s");
-                                $edate = $project->end_dt->format("Y-m-d H:i:s");
-                                $today = date('Y-m-d H:i:s');
-                                $expectdays = 0;
-                                $projectdatediff = date_diff(new DateTime($sdate), new DateTime($edate));
-                                $result = intval($projectdatediff->format('%R%a'));
-                                $expectedprojectdays = intval(date_diff(new DateTime($sdate), new DateTime($today))->format('%R%a'));
-                                if ($expectedprojectdays > 0) {
-                                    $result2 = ($expectedprojectdays * 100) / $result;
-                                    $expectdays =  round(number_format($result2, 2), 2);
-                                } else {
-                                    $expectdays = 0;
-                                }
-
-                                // echo $expectdays;
-                                // End of epected
-
-                                // echo $freshdate = $a['completed_date'];
-
-                                $milestones = "";
-                                $milestones = $milestone_list->find('all');
-                                $milestones = $milestone_list->find('all', ['conditions' => ['project_id' => $project->id, 'status_id' => '3']]);
-                                // $milestones = $milestone_list->find('all')->where(['project_id =' => $project->id]);
-                                // sql($milestones);
-                                $prjid = $project->id;
-                                $conn = ConnectionManager::get('default');
-                                $stmt = $conn->execute("SELECT * FROM milestones where project_id ='" . $prjid . "' and status_id ='3' order by completed_date DESC");
-                                $results = $stmt->fetchAll('assoc');
-                                if (isset($results[0])) {
-                                    $freshdate = $results[0]['completed_date'];
-                                    $lastcloseddatediff = intval(date_diff(new DateTime($sdate),new DateTime($freshdate))->format('%R%a'));
-                                    if ($lastcloseddatediff > 0){
-                                        // echo $lastcloseddatediff;
-                                        $result3 = ($lastcloseddatediff * 100)/$result;
-                                        $completeddays =  round(number_format($result3,2),2);
-                                    }else{
-                                        $completeddays = 0;
-                                    }
-                                } else {
-                                    $completeddays = 0;
-                                }
-
-                                // $completeddays = 0;
-                                // if (isset($milestones->id)){
-
-                                //     $milestones->order(['completed_date'=>'DESC'],Query::OVERWRITE);
-                                //     $resultqry = $milestones->first();
-                                //     $lastcloseddate = $resultqry->completed_date;
-                                //     $lastcloseddatediff = intval(date_diff(new DateTime($sdate),new DateTime($freshdate))->format('%R%a'));
-                                //     $result3 = ($lastcloseddatediff * 100)/$result;
-                                //     $completeddays =  round(number_format($result3,2),2);
-                                //     // echo  $lastcloseddatediff;
-                                //     // sql($milestones);
-                                //     // die();                                    
-                                // }
-
-                                ?>
-
-                                <tr>
-                                    <td><a href="#" class="text-decoration-none"><?= $project->name ?></a></td>
-                                    <td>
-                                        <table style="width:500px;" class="table table-borderless">
-                                            <tr>
-                                                <td class="d-flex">
-                                                    <span style="width:50px;"><?= $completeddays ?>%</span>
-                                                    <div class="progress" style="width:600px;">
-                                                        <div class="progress-bar bg-danger progress-bar-striped active" title="overall this Project is currently <?= $completeddays ?>% complete" data-toggle="tooltip" data-placement="bottom" role="progressbar" style="width: <?= $completeddays ?>%;" aria-valuenow="<?= $completeddays ?>" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </td>
-                                            <tr>
-                                                <td class="d-flex">
-                                                    <span style="width:50px;"><?= $expectdays ?>%</span>
-                                                    <div class="progress" style="width:600px;">
-                                                        <div class="progress-bar bg-success progress-bar-striped active" title="This Project was planned to be <?= $expectdays ?>% completed by today" data-toggle="tooltip" data-placement="bottom" role="progressbar" style="width: <?= $expectdays ?>%;" aria-valuenow="<?= $expectdays ?>" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </td>
-                                            <tr>
-                                            <tr>
-                                        </table>
-                                    </td>
-                                </tr>
-
-                            <?php endforeach; ?>
-
-                        </table>
-
-
-
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <?= $this->Html->script('Chart.min.js') ?>
-    <?= $this->Html->script('mychart.js') ?>
-
+    <!-- start of health chart  -->
     <div class="row">
         <div class="col">
             <div class="card shadow mb-5">
@@ -218,8 +97,8 @@ $this->end();
                                     <?php
                                     // debug($project) ;
                                     // die();
-                                    $sdate = $project->start_dt->format("Y-m-d H:i:s");
-                                    $edate = $project->end_dt->format("Y-m-d H:i:s");
+                                    $sdate = $project->has('start_dt') ? $project->start_dt->format("Y-m-d H:i:s") : '';
+                                    $edate = $project->has('end_dt') ? $project->end_dt->format("Y-m-d H:i:s") : '';
                                     $today = date('Y-m-d H:i:s');
 
                                     $projectdatediff = date_diff(new DateTime($sdate), new DateTime($edate));
@@ -336,6 +215,133 @@ $this->end();
             </div>
         </div>
     </div>
+    <!-- End of health chart  -->
+    
+    <!-- start of progress chart -->
+    <div class="md-4 mb-5">
+        <div class="card h-100 br-m">
+            <div class="card-header box-header bg-primary py-2">
+                <div class="d-sm-flex align-items-center justify-content-between">
+                    <h4 class="text-white">Progress Summary</h4>
+                    <?= $this->Html->link("<i class=\"fa fa-download fa-sm text-white-50\"></i> Generate Report</a>", ['action' => 'downloadPdf', 'report.pdf'], ['escape' => false, 'class' => 'd-none d-sm-inline-block btn btn-sm btn-primary shadow-sm']) ?>
+                    <!--                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa fa-download fa-sm text-white-50"></i> Generate Report</a>-->
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 mb-0 d-flex justify-content-center table-hover" style="height:300px">
+
+                        <table class="table-sm table-responsive p-3 font-weight-bold">
+                            <thead class="thead-dark">
+                                <th>Projects</th>
+                                <th>Percent Complete</th>
+                            </thead>
+
+                            <?php foreach ($project_list as $project) : ?>
+
+                                <?php
+                                // debug($project->id) ;
+                                // die();
+                                $sdate = $project->has('start_dt') ? $project->start_dt->format("Y-m-d H:i:s") : '';
+                                $edate = $project->has('end_dt') ? $project->end_dt->format("Y-m-d H:i:s") : '';
+                                $today = date('Y-m-d H:i:s');
+                                $expectdays = 0;
+                                $projectdatediff = date_diff(new DateTime($sdate), new DateTime($edate));
+                                $result = intval($projectdatediff->format('%R%a'));
+                                $expectedprojectdays = intval(date_diff(new DateTime($sdate), new DateTime($today))->format('%R%a'));
+                                if ($expectedprojectdays > 0) {
+                                    $result2 = ($expectedprojectdays * 100) / $result;
+                                    $expectdays =  round(number_format($result2, 2), 2);
+                                } else {
+                                    $expectdays = 0;
+                                }
+
+                                // echo $expectdays;
+                                // End of epected
+
+                                // echo $freshdate = $a['completed_date'];
+
+                                $milestones = "";
+                                $milestones = $milestone_list->find('all');
+                                $milestones = $milestone_list->find('all', ['conditions' => ['project_id' => $project->id, 'status_id' => '3']]);
+                                // $milestones = $milestone_list->find('all')->where(['project_id =' => $project->id]);
+                                // sql($milestones);
+                                $prjid = $project->id;
+                                $conn = ConnectionManager::get('default');
+                                $stmt = $conn->execute("SELECT * FROM milestones where project_id ='" . $prjid . "' and status_id ='3' order by completed_date DESC");
+                                $results = $stmt->fetchAll('assoc');
+                                if (isset($results[0])) {
+                                    $freshdate = $results[0]['completed_date'];
+                                    $lastcloseddatediff = intval(date_diff(new DateTime($sdate),new DateTime($freshdate))->format('%R%a'));
+                                    if ($lastcloseddatediff > 0){
+                                        // echo $lastcloseddatediff;
+                                        $result3 = ($lastcloseddatediff * 100)/$result;
+                                        $completeddays =  round(number_format($result3,2),2);
+                                    }else{
+                                        $completeddays = 0;
+                                    }
+                                } else {
+                                    $completeddays = 0;
+                                }
+
+                                // $completeddays = 0;
+                                // if (isset($milestones->id)){
+
+                                //     $milestones->order(['completed_date'=>'DESC'],Query::OVERWRITE);
+                                //     $resultqry = $milestones->first();
+                                //     $lastcloseddate = $resultqry->completed_date;
+                                //     $lastcloseddatediff = intval(date_diff(new DateTime($sdate),new DateTime($freshdate))->format('%R%a'));
+                                //     $result3 = ($lastcloseddatediff * 100)/$result;
+                                //     $completeddays =  round(number_format($result3,2),2);
+                                //     // echo  $lastcloseddatediff;
+                                //     // sql($milestones);
+                                //     // die();                                    
+                                // }
+
+                                ?>
+
+                                <tr>
+                                    <td><a href="#" class="text-decoration-none"><?= $project->name ?></a></td>
+                                    <td>
+                                        <table style="width:500px;" class="table table-borderless">
+                                            <tr>
+                                                <td class="d-flex">
+                                                    <span style="width:50px;"><?= $completeddays ?>%</span>
+                                                    <div class="progress" style="width:600px;">
+                                                        <div class="progress-bar bg-danger progress-bar-striped active" title="overall this Project is currently <?= $completeddays ?>% complete" data-toggle="tooltip" data-placement="bottom" role="progressbar" style="width: <?= $completeddays ?>%;" aria-valuenow="<?= $completeddays ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </td>
+                                            <tr>
+                                                <td class="d-flex">
+                                                    <span style="width:50px;"><?= $expectdays ?>%</span>
+                                                    <div class="progress" style="width:600px;">
+                                                        <div class="progress-bar bg-success progress-bar-striped active" title="This Project was planned to be <?= $expectdays ?>% completed by today" data-toggle="tooltip" data-placement="bottom" role="progressbar" style="width: <?= $expectdays ?>%;" aria-valuenow="<?= $expectdays ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </td>
+                                            <tr>
+                                            <tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                            <?php endforeach; ?>
+
+                        </table>
+
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?= $this->Html->script('Chart.min.js') ?>
+    <?= $this->Html->script('mychart.js') ?>
+
+
 
 
     <div class="row">
@@ -419,10 +425,10 @@ $this->end();
         </div>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col">
             <div class="card shadow mb-5">
-                <!-- Card Header - Dropdown -->
+                
                 <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
                     <h4 class="m-0 text-white">Doughnut chart</h4>
                     <div class="dropdown no-arrow">
@@ -439,10 +445,10 @@ $this->end();
                     </div>
                 </div>
 
-                <!-- Card Body -->
+                
                 <div class="card-body">
                     <div id="container">
-                        <!-- <canvas id="myPieChart"></canvas> -->
+                        
                         <canvas id="myChart3" width="200" height="50" style="height:400px"></canvas>
                         <script>
                             <?php $code_array = json_encode($allprojects) ?>
@@ -454,7 +460,7 @@ $this->end();
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="row">
         <div class="col">

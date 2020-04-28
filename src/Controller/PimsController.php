@@ -92,7 +92,8 @@ class PimsController extends AppController
             debug($pim);
             die();
         }
-        $this->set(compact('pim'));
+
+        $this->set(compact('pim','project_info'));
     }
 
     /**

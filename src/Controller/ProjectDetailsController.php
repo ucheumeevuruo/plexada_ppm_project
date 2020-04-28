@@ -9,6 +9,7 @@ use Cake\Core\Configure\Engine\PhpConfig;
 
 use App\Form\ContactForm;
 use DateTime;
+
 /**
  * ProjectDetails Controller
  *
@@ -120,15 +121,37 @@ class ProjectDetailsController extends AppController
 
     public function evaluation()
     {
+
         // $this->paginate = [
         //     'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations'],
         // ];
+        if ($this->request->is('post')) {
+            $reportdate = $this->request->getData('reportdate');
+            $from = $this->request->getData('from');
+            $to = $this->request->getData('to');
+            $fromnumber = strtotime($from);
+            $tonumber = strtotime($to);
+
+            $this->set(compact('fromnumber', 'tonumber'));
+        }
 
         $projectDetails = $this->ProjectDetails->find('all');
 
+        $staff = $this->ProjectDetails->Staff->find('all');
+        $this->loadModel('Milestones');
+        $milestone_list =  $this->Milestones->find('all');
+        $this->loadModel('Activities');
+        $activities =  $this->Activities->find('all');
+        $this->loadModel('ProjectFundings');
+        $projectfundings =  $this->ProjectFundings->find('all');
+
+        // $fromnumber = " ";
+        // $tonumber = " ";
+
         // $inputValue =  $_POST['from'];
         // $projectDetails = $this->paginate($this->ProjectDetails);
-        $this->set(compact('projectDetails'));
+        $this->set(compact('projectDetails', 'staff', 'milestone_list', 'activities', 'projectfundings'));
+        // $this->set(compact('projectDetails', 'staff', 'milestone_list', 'activities', 'projectfundings', 'fromnumber', 'tonumber'));
     }
 
 
@@ -140,8 +163,9 @@ class ProjectDetailsController extends AppController
         if ($this->request->is('post')) {
             $sdate = $this->request->getData('from');
             $edate = $this->request->getData('dateto');
-            $projectReports = $this->Projects->find('all')->contain(['projectDetails'])->where(['ProjectDetails.start_dt >=' => $sdate,'ProjectDetails.end_dt <=' => $edate]);
-            $todays = date("Y");  
+
+            $projectReports = $this->Projects->find('all')->contain(['projectDetails'])->where(['ProjectDetails.start_dt >=' => $sdate, 'ProjectDetails.end_dt <=' => $edate]);
+            $todays = date("Y");
             $sObj = new DateTime($sdate);
             $shsdate = $sObj->format("j F Y");
             $shsdate1 = $sObj->format("F Y");
@@ -149,13 +173,15 @@ class ProjectDetailsController extends AppController
             $shedate = $eObj->format("j F Y");
             $fromshdate1 = "$shsdate to $shedate";
             $fromshdate2 = "$shsdate1-December, $todays";
-            $from =$sObj->format("d M Y");;
+
+            $from = $sObj->format("d M Y");;
             // $this->request->setData(['from'=> $from]);
             $this->request->data('from', $from);
             // debug($fromshdate1);
             // die();
 
-            $this->set(compact('projectReports','from','edate','fromshdate1','fromshdate2'));
+
+            $this->set(compact('projectReports', 'from', 'edate', 'fromshdate1', 'fromshdate2'));
         }
 
         $this->set(compact('projectDetails'));
@@ -164,16 +190,22 @@ class ProjectDetailsController extends AppController
 
     public function summary()
     {
-        // $this->paginate = [
-        //     'contain' => [
-        //         'Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations',
-        //     ],
-        // ];
+
         $projectDetails = $this->ProjectDetails->find('all');
 
-        // $projectDetails = $this->paginate($this->ProjectDetails);
         $this->set(compact('projectDetails'));
     }
+
+    public function printable($id = null)
+    {
+
+        $projectDetails = $this->ProjectDetails->get($id, [
+            'contain' => [],
+        ]);
+
+        $this->set('projectDetails', $projectDetails);
+    }
+
 
     function download()
     {
@@ -198,7 +230,7 @@ class ProjectDetailsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add($id=null)
+    public function add($id = null)
     {
         $this->loadModel('Projects');
         $project_info = $this->Projects->get($id);
@@ -211,7 +243,7 @@ class ProjectDetailsController extends AppController
             if ($this->ProjectDetails->save($projectDetail)) {
                 $this->Flash->success(__('The project detail has been saved.'));
 
-                return $this->redirect(['controller'=> 'projects', 'action' => 'index']);
+                return $this->redirect(['controller' => 'projects', 'action' => 'index']);
             }
             $this->Flash->error(__('The project detail could not be saved. Please, try again.'));
             // debug($projectDetail);
@@ -239,9 +271,9 @@ class ProjectDetailsController extends AppController
         $users = $this->ProjectDetails->Users->find('list', ['limit' => 200]);
         $annotations = $this->ProjectDetails->Annotations->find('list', ['limit' => 200]);
         $prices = $this->ProjectDetails->Prices->find('list', ['limit' => 200]);
-        $projects_info = $this->Projects->find('list', ['limit' => 200, 'conditions'=>['id'=>$id]]);
+        $projects_info = $this->Projects->find('list', ['limit' => 200, 'conditions' => ['id' => $id]]);
         // $subStatuses = $this->ProjectDetails->SubStatus->find('list', ['limit' => 200]);
-        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'lov', 'users', 'annotations', 'prices', 'projects', 'subStatus', 'users', 'authUser', 'project_info','projects_info'));
+        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'lov', 'users', 'annotations', 'prices', 'projects', 'subStatus', 'users', 'authUser', 'project_info', 'projects_info'));
     }
 
     /**
@@ -253,9 +285,12 @@ class ProjectDetailsController extends AppController
      */
     public function edit($id = null)
     {
-        $projectDetail = $this->ProjectDetails->get($id, [
-            'contain' => ['Prices'],
-        ]);
+        $projectDetail = $this->ProjectDetails->get($id);
+        // $projectDetail = $this->ProjectDetails->get($id, [
+        //     'contain' => ['Prices'],
+        // ]);
+        // debug($projectDetail);
+        // die();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $projectDetail = $this->ProjectDetails->patchEntity(
                 $projectDetail,
@@ -268,24 +303,37 @@ class ProjectDetailsController extends AppController
                 return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The project detail could not be saved. Please, try again.'));
+
             // return $this->redirect(['action' => 'view', $id]);
             return $this->redirect($this->referer());
+
         }
+
+      
         $vendors = $this->ProjectDetails->Vendors->find('list', ['limit' => 200]);
+
         $staff = $this->ProjectDetails->Staff->find('list', ['limit' => 200]);
+
         $sponsors = $this->ProjectDetails->Sponsors->find('list', ['limit' => 200]);
-        $personnel = $this->ProjectDetails->Personnel->find('list', ['limit' => 200]);
+        // me
+        // $personnel = $this->ProjectDetails->Staffs->find('list', ['limit' => 200]);
+        //me
+
         // $lov = $this->ProjectDetails->Lov->find('list', ['limit' => 200]);
         $subStatus = $this->ProjectDetails->SubStatuses->find('list', [
             'conditions' => ['SubStatuses.lov_type' => 'project_sub_status'],
             'limit' => 200
         ]);
+        // debug($subStatus);
+        // die();
         $lov = $this->ProjectDetails->Lov->find('list', [
             'conditions' => ['Lov.lov_type' => 'project_status'],
             'limit' => 200
         ]);
         $users = $this->ProjectDetails->Users->find('list', ['limit' => 200]);
-        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'lov', 'users', 'personnel', 'subStatus'));
+        $userid = $id;
+        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'lov', 'users', 'personnel', 'subStatus','userid'));
+        // $this->set(compact('vendors', 'staff', 'sponsors', 'lov', 'users', 'personnel', 'subStatus'));
     }
 
     /**
