@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -22,7 +23,7 @@ class ProjectsController extends AppController
         // $this->paginate = [
         //     'contain' => ['Pims', 'ProjectFundings'],
         // ];
-        $query = $this->Projects->find('all',['contain'=>['ProjectDetails']])->select(['id', 'name','introduction','cost','percent'=>'ProjectDetails.completed_percent','waiting_on'=>'ProjectDetails.waiting_on_id']);
+        $query = $this->Projects->find('all', ['contain' => ['ProjectDetails']])->select(['id', 'name', 'introduction', 'cost', 'percent' => 'ProjectDetails.completed_percent', 'waiting_on' => 'ProjectDetails.waiting_on_id']);
         $projects = $this->paginate($query);
         // $projects = $this->paginate($this->Projects);
 
@@ -40,6 +41,17 @@ class ProjectsController extends AppController
     {
         $project = $this->Projects->get($id, [
             'contain' => ['Pims', 'ProjectFundings', 'ProjectDetails', 'Activities', 'Annotations', 'Milestones', 'Objectives', 'Prices', 'RiskIssues'],
+        ]);
+
+        $this->set('project', $project);
+    }
+
+
+
+    public function report($id = null)
+    {
+        $project = $this->Projects->get($id, [
+            'contain' => ['Pims', 'ProjectFundings', 'ProjectDetails', 'Activities', 'Annotations', 'Milestones', 'Objectives', 'Prices', 'RiskIssues', 'Sponsors'],
         ]);
 
         $this->set('project', $project);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Project $project
@@ -16,11 +17,11 @@ $this->end();
     <div class="">
         <table class="vertical-table table-primary mt-3 w-75">
             <div class="mx-auto">
-            <?= $this->Html->link(__('Add PAD'), ['controller' => 'projectDetails', 'action' => 'add'], ['class' => 'btn btn-primary btn-sm mr-3']) ?>
-            <?= $this->Html->link(__('Add PIM'), ['controller' => 'pims', 'action' => 'add', $project->pims_id], ['class' => 'btn btn-primary btn-sm mr-3']) ?>
-            <?= $this->Html->link(__('Add PPF'), ['controller' => 'projectFundings','action' => 'add', $project->projectFunding_id], ['class' => 'btn btn-primary btn-sm mr-3']) ?>
-            <?= $this->Html->link(__('<i class="fa fa-pencil fa-sm"></i> Edit'), ['action' => 'edit', $project->id], ['class' => 'btn btn-primary btn-sm mr-3', 'title' => 'Edit', 'escape' => false]) ?>
-            <?= $this->Html->link(__('<i class="fa fa-trash fa-sm"></i> Delete'), ['action' => 'delete', $project->id], ['class' => 'btn btn-primary btn-sm mr-3', 'title' => 'Delete', 'escape' => false]) ?>
+                <?= $this->Html->link(__('Add PAD'), ['controller' => 'projectDetails', 'action' => 'add'], ['class' => 'btn btn-primary btn-sm mr-3']) ?>
+                <?= $this->Html->link(__('Add PIM'), ['controller' => 'pims', 'action' => 'add', $project->pims_id], ['class' => 'btn btn-primary btn-sm mr-3']) ?>
+                <?= $this->Html->link(__('Add PPF'), ['controller' => 'projectFundings', 'action' => 'add', $project->projectFunding_id], ['class' => 'btn btn-primary btn-sm mr-3']) ?>
+                <?= $this->Html->link(__('<i class="fa fa-pencil fa-sm"></i> Edit'), ['action' => 'edit', $project->id], ['class' => 'btn btn-primary btn-sm mr-3', 'title' => 'Edit', 'escape' => false]) ?>
+                <?= $this->Html->link(__('<i class="fa fa-trash fa-sm"></i> Delete'), ['action' => 'delete', $project->id], ['class' => 'btn btn-primary btn-sm mr-3', 'title' => 'Delete', 'escape' => false]) ?>
             </div>
             <tr>
                 <th scope="row" class="text-primary"><?= __('Name') ?></th>
@@ -50,7 +51,7 @@ $this->end();
 
     <div class="related">
         <h4 class="text-primary text-center"><?= __('Project Details') ?></h4>
-        <?php if (!empty($project->project_details)): ?>
+        <?php if (!empty($project->project_details)) : ?>
         <table class="table table-bordered dataTable table-primary br-m" cellpadding="0" cellspacing="0">
             <tr class="bg-primary text-light">
                 <th scope="col"><?= __('Id') ?></th>
@@ -81,7 +82,7 @@ $this->end();
                 <th scope="col"><?= __('Sub Status Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($project->project_details as $projectDetails): ?>
+            <?php foreach ($project->project_details as $projectDetails) : ?>
             <tr>
                 <td><?= h($projectDetails->id) ?></td>
                 <td><?= h($projectDetails->name) ?></td>
@@ -123,7 +124,7 @@ $this->end();
 
     <div class="related">
         <h4 class="text-primary text-center"><?= __('Project Funding') ?></h4>
-        <?php if (!empty($project->project_details)): ?>
+        <?php if (!empty($project->project_details)) : ?>
         <table class="table table-bordered dataTable table-primary br-m" cellpadding="0" cellspacing="0">
             <tr class="bg-primary text-light">
                 <!-- <th scope="col"><?= __('Id') ?></th> -->
@@ -132,10 +133,11 @@ $this->end();
                 <th scope="col"><?= __('Funding') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($project->project_fundings as $projectFunding): ?>
+            <?php foreach ($project->project_fundings as $projectFunding) : ?>
             <tr>
-            <!-- <td><?= $this->Number->format($projectFunding->id) ?></td> -->
-                <td><?= $projectFunding->has('milestone') ? $this->Html->link($projectFunding->milestone->id, ['controller' => 'Milestones', 'action' => 'view', $projectFunding->milestone->id]) : '' ?></td>
+                <!-- <td><?= $this->Number->format($projectFunding->id) ?></td> -->
+                <td><?= $projectFunding->has('milestone') ? $this->Html->link($projectFunding->milestone->id, ['controller' => 'Milestones', 'action' => 'view', $projectFunding->milestone->id]) : '' ?>
+                </td>
                 <td><?= $this->Number->format($projectFunding->project_id) ?></td>
                 <td><?= $this->Number->format($projectFunding->funding) ?></td>
                 <td class="actions">
@@ -152,7 +154,7 @@ $this->end();
 
     <div class="related">
         <h4 class="text-primary text-center"><?= __('Project Implementation') ?></h4>
-        <?php if (!empty($project->pims)): ?>
+        <?php if (!empty($project->pims)) : ?>
         <table class="table table-bordered dataTable table-primary br-m" cellpadding="0" cellspacing="0">
             <tr class="bg-primary text-light">
                 <th scope="col"><?= __('Brief') ?></th>
@@ -181,7 +183,7 @@ $this->end();
                 <th scope="col"><?= __('Expected output date') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($project->project_details as $projectDetails): ?>
+            <?php foreach ($project->project_details as $projectDetails) : ?>
             <tr>
                 <td><?= $this->Html->link(__(h($pim->brief)), ['action' => 'view', $pim->id]) ?></td>
                 <td><?= h($pim->date->format('d-M-Y')) ?></td>
@@ -237,7 +239,7 @@ $this->end();
 
     <div class="related">
         <h4 class="text-primary text-center"><?= __('Milestones') ?></h4>
-        <?php if (!empty($project->milestones)): ?>
+        <?php if (!empty($project->milestones)) : ?>
         <table class="table table-bordered table-primary br-m" cellpadding="0" cellspacing="0">
             <tr class="bg-primary br-t">
                 <th scope="col"><?= __('Id') ?></th>
@@ -255,7 +257,7 @@ $this->end();
                 <th scope="col"><?= __('Modified') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($project->milestones as $milestones): ?>
+            <?php foreach ($project->milestones as $milestones) : ?>
             <tr>
                 <td><?= h($milestones->id) ?></td>
                 <td><?= h($milestones->record_number) ?></td>
@@ -265,7 +267,6 @@ $this->end();
                 <td><?= h($milestones->status_id) ?></td>
                 <td><?= h($milestones->description) ?></td>
                 <td><?= h($milestones->achievement) ?></td>
-                <td><?= h($milestones->trigger_id) ?></td>
                 <td><?= h($milestones->completed_date) ?></td>
                 <td><?= h($milestones->expected_completion_date) ?></td>
                 <td><?= h($milestones->created) ?></td>
@@ -284,7 +285,7 @@ $this->end();
 
     <div class="related">
         <h4 class="text-primary text-center"><?= __('Activities') ?></h4>
-        <?php if (!empty($project->activities)): ?>
+        <?php if (!empty($project->activities)) : ?>
         <table class="table table-bordered dataTable table-primary br-m" cellpadding="0" cellspacing="0">
             <tr class="bg-primary text-light">
                 <th scope="col"><?= __('Activity Id') ?></th>
@@ -303,7 +304,7 @@ $this->end();
                 <th scope="col"><?= __('System User Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($project->activities as $activities): ?>
+            <?php foreach ($project->activities as $activities) : ?>
             <tr>
                 <td><?= h($activities->activity_id) ?></td>
                 <td><?= h($activities->project_id) ?></td>
@@ -333,7 +334,7 @@ $this->end();
 
     <!-- <div class="related">
         <h4 class="text-primary"><?= __('Related Prices') ?></h4>
-        <?php if (!empty($project->prices)): ?>
+        <?php if (!empty($project->prices)) : ?>
         <table class="table table-bordered dataTable table-primary br-m" cellpadding="0" cellspacing="0">
             <tr class="bg-primary">
                 <th scope="col"><?= __('Id') ?></th>
@@ -348,7 +349,7 @@ $this->end();
                 <th scope="col"><?= __('System User Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($project->prices as $prices): ?>
+            <?php foreach ($project->prices as $prices) : ?>
             <tr>
                 <td><?= h($prices->id) ?></td>
                 <td><?= h($prices->project_id) ?></td>
@@ -374,7 +375,7 @@ $this->end();
 
     <div class="related">
         <h4 class="text-primary text-center"><?= __('Risks') ?></h4>
-        <?php if (!empty($project->risk_issues)): ?>
+        <?php if (!empty($project->risk_issues)) : ?>
         <table class="table table-bordered dataTable table-primary br-m" cellpadding="0" cellspacing="0">
             <tr class="bg-primary">
                 <th scope="col"><?= __('Id') ?></th>
@@ -391,7 +392,7 @@ $this->end();
                 <th scope="col"><?= __('Modified') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($project->risk_issues as $riskIssues): ?>
+            <?php foreach ($project->risk_issues as $riskIssues) : ?>
             <tr>
                 <td><?= h($riskIssues->id) ?></td>
                 <td><?= h($riskIssues->record_number) ?></td>
@@ -418,6 +419,6 @@ $this->end();
     <hr>
 
     <script>
- $('.dataTable').DataTable();
- </script>
+    $('.dataTable').DataTable();
+    </script>
 </div>
