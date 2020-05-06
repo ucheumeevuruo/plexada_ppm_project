@@ -1,0 +1,15 @@
+.nav {
+    background-color: rgb(221, 218, 218);
+    cursor: pointer;
+    text-align: center;
+}
+
+.active {
+    color: white;
+    background-color: black;
+}
+
+.nav:hover {
+    background-color: black;
+    color: white;
+}

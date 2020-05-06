@@ -61,36 +61,36 @@ $this->end();
                             <td><?= $projectDetail->has('staff') ? $this->Html->link($projectDetail->staff->full_name, ['controller' => 'Staff', 'action' => 'view', $projectDetail->staff->id]) : '' ?>
                             </td>
 
-                <!-- <td><?= $projectDetail->has('sponsor') ? $this->Html->link($projectDetail->sponsor->full_name, ['controller' => 'Sponsors', 'action' => 'view', $projectDetail->sponsor->id]) : '' ?></td> -->
-                <!-- <td><?= h($projectDetail->waiting_since) ?></td> -->
-                <!-- <td><?= $projectDetail->has('staff') ? $this->Html->link($projectDetail->staff->full_name, ['controller' => 'Staff', 'action' => 'view', $projectDetail->staff->id]) : '' ?></td> -->
-                <!-- <td><?= $this->Number->format($projectDetail->status_id) ?></td> -->
-                <td><?= $projectDetail->has('lov') ? $this->Html->link($projectDetail->lov->lov_value, ['controller' => 'Lov', 'action' => 'view', $projectDetail->lov->id]) : '' ?></td>
-                <td><?= h($projectDetail->start_dt) ?></td>
-                <td><?= h($projectDetail->end_dt) ?></td>
-                <td><?= h($projectDetail->created) ?></td>
-                <!-- <td><?= h($projectDetail->last_updated) ?></td> -->
-                <!-- <td><?= $projectDetail->has('user') ? $this->Html->link($projectDetail->user->username, ['controller' => 'Users', 'action' => 'view', $projectDetail->user->id]) : '' ?></td> -->
-                <!-- <td><?= $projectDetail->has('annotation') ? $this->Html->link($projectDetail->annotation->id, ['controller' => 'Annotations', 'action' => 'view', $projectDetail->annotation->id]) : '' ?></td> -->
-                <td><?= $this->Number->format($projectDetail->project_id) ?></td>
-                <!-- <td><?= h($projectDetail->environmental_factors) ?></td> -->
-                <td><?= $this->Number->format($projectDetail->funding) ?></td>
-                <!-- <td><?= $this->Number->format($projectDetail->approvals) ?></td> -->
-                <!-- <td><?= h($projectDetail->risks) ?></td> -->
-                <!-- <td><?= h($projectDetail->components) ?></td> -->
-                <!-- <td><?= $projectDetail->has('price') ? $this->Html->link($projectDetail->price->id, ['controller' => 'Prices', 'action' => 'view', $projectDetail->price->id]) : '' ?></td> -->
-                <!-- <td><?= $this->Number->format($projectDetail->sub_status_id) ?></td> -->
-                <td class="actions ">
-                    <?= $this->Html->link(__('<i class="fa fa-pencil fa-lg"></i>'), ['action' => 'edit', $projectDetail->id], ['class' => 'btn btn-outline-primary btn-sm overlay float-left', 'title' => 'Edit', 'escape' => false]) ?>
-                    <?= $this->Form->postLink(__("<i class='fa fa-trash-o fa-lg'></i>"), ['action' => 'delete', $projectDetail->id], ['confirm' => __('Are you sure you want to delete # {0}?', $projectDetail->id), 'escape' => false, 'class' => 'btn btn-outline-danger btn-sm float-left']) ?>
-                </td>
-                <td>
-                    <?= $this->Html->link(__('Add Milestones'), ['controller' => 'milestones', 'action' => 'add',$projectDetail->project_id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+                            <!-- <td><?= $projectDetail->has('sponsor') ? $this->Html->link($projectDetail->sponsor->full_name, ['controller' => 'Sponsors', 'action' => 'view', $projectDetail->sponsor->id]) : '' ?></td> -->
+                            <!-- <td><?= h($projectDetail->waiting_since) ?></td> -->
+                            <!-- <td><?= $projectDetail->has('staff') ? $this->Html->link($projectDetail->staff->full_name, ['controller' => 'Staff', 'action' => 'view', $projectDetail->staff->id]) : '' ?></td> -->
+                            <!-- <td><?= $this->Number->format($projectDetail->status_id) ?></td> -->
+                            <td><?= $projectDetail->has('lov') ? $this->Html->link($projectDetail->lov->lov_value, ['controller' => 'Lov', 'action' => 'view', $projectDetail->lov->id]) : '' ?>
+                            </td>
+                            <td><?= h($projectDetail->start_dt) ?></td>
+                            <td><?= h($projectDetail->end_dt) ?></td>
+                            <td><?= h($projectDetail->created) ?></td>
+                            <!-- <td><?= h($projectDetail->last_updated) ?></td> -->
+                            <!-- <td><?= $projectDetail->has('user') ? $this->Html->link($projectDetail->user->username, ['controller' => 'Users', 'action' => 'view', $projectDetail->user->id]) : '' ?></td> -->
+                            <!-- <td><?= $projectDetail->has('annotation') ? $this->Html->link($projectDetail->annotation->id, ['controller' => 'Annotations', 'action' => 'view', $projectDetail->annotation->id]) : '' ?></td> -->
+                            <!-- <td><?= h($projectDetail->environmental_factors) ?></td> -->
+                            <td><?= $this->Number->format($projectDetail->funding) ?></td>
+                            <!-- <td><?= $this->Number->format($projectDetail->approvals) ?></td> -->
+                            <!-- <td><?= h($projectDetail->risks) ?></td> -->
+                            <!-- <td><?= h($projectDetail->components) ?></td> -->
+                            <!-- <td><?= $projectDetail->has('price') ? $this->Html->link($projectDetail->price->id, ['controller' => 'Prices', 'action' => 'view', $projectDetail->price->id]) : '' ?></td> -->
+                            <!-- <td><?= $this->Number->format($projectDetail->sub_status_id) ?></td> -->
+                            <td class="actions ">
+                                <?= $this->Html->link(__('<i class="fa fa-pencil fa-lg"></i>'), ['action' => 'edit', $projectDetail->id], ['class' => 'btn btn-outline-primary btn-sm overlay float-left', 'title' => 'Edit', 'escape' => false]) ?>
+                                <?= $this->Form->postLink(__("<i class='fa fa-trash-o fa-lg'></i>"), ['action' => 'delete', $projectDetail->id], ['confirm' => __('Are you sure you want to delete # {0}?', $projectDetail->id), 'escape' => false, 'class' => 'btn btn-outline-danger btn-sm float-left']) ?>
+                            </td>
+                            <td>
+                                <?= $this->Html->link(__('Add Milestones'), ['controller' => 'milestones', 'action' => 'add', $projectDetail->project_id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -112,35 +112,37 @@ $this->end();
         <!-- the external content is loaded inside this tag -->
         <div id="contentWrap">
             <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-lg']) ?>
-            <?= $this->Modal->body()// No header ?>
-            <?= $this->Modal->footer()// Footer with close button (default) ?>
+            <?= $this->Modal->body() // No header 
+            ?>
+            <?= $this->Modal->footer() // Footer with close button (default) 
+            ?>
             <?= $this->Modal->end() ?>
         </div>
     </div>
 
 
-<script>
- $('.dataTable').DataTable();
+    <script>
+    $('.dataTable').DataTable();
 
 
- $(document).ready(function() {
-            //respond to click event on anything with 'overlay' class
-            $(".overlay").click(function(event){
-                event.preventDefault();
-                //load content from href of link
-                $('#contentWrap .modal-body').load($(this).attr("href"), function(){
-                    // $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content').removeClass()
-                    $('#MyModal4').modal('show')
-                });
+    $(document).ready(function() {
+        //respond to click event on anything with 'overlay' class
+        $(".overlay").click(function(event) {
+            event.preventDefault();
+            //load content from href of link
+            $('#contentWrap .modal-body').load($(this).attr("href"), function() {
+                // $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content').removeClass()
+                $('#MyModal4').modal('show')
             });
-
         });
 
-        $(".upload").click(function(event) {
-            event.preventDefault();
-            $("#upload").modal('show')
-        })
-        $('.dataTable').DataTable();
+    });
+
+    $(".upload").click(function(event) {
+        event.preventDefault();
+        $("#upload").modal('show')
+    })
+    $('.dataTable').DataTable();
     });
     </script>
 </div>

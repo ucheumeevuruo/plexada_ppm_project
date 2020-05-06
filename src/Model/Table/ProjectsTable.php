@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -77,6 +78,9 @@ class ProjectsTable extends Table
         ]);
         $this->hasMany('RiskIssues', [
             'foreignKey' => 'project_id',
+        ]);
+        $this->hasMany('Sponsors', [
+            'foreignKey' => 'last_name',
         ]);
     }
 
