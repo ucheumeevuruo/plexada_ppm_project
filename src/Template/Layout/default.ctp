@@ -42,12 +42,14 @@ $cakeDescription = 'Ogun State Project';
     <?= $this->Html->script('fontawesome.min.js') ?>
     <?= $this->Html->script('moment-with-locales.min.js') ?>
     <?= $this->Html->script('bootstrap-datepicker.min.js') ?>
+    <?= $this->Html->script('anychart-core.min.js') ?>
+    <?= $this->Html->script('anychart-gantt.min.js') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
-    <script src="https://cdn.anychart.com/releases/8.6.0/js/anychart-core.min.js"> </script> 
-    <script src ="https://cdn.anychart.com/releases/8.6.0/js/anychart-gantt.min.js"></script>
+    <!-- <script src="https://cdn.anychart.com/releases/8.6.0/js/anychart-core.min.js"> </script> 
+    <script src ="https://cdn.anychart.com/releases/8.6.0/js/anychart-gantt.min.js"></script> -->
 </head>
 <body id="page-top">
     <?= $this->Flash->render() ?>
