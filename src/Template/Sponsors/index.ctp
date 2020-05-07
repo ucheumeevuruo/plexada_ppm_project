@@ -31,6 +31,7 @@ $this->end();
                         <th scope="col" class="text-white"><?= __('Last_name') ?></th>
                         <th scope="col" class="text-white"><?= __('First name') ?></th>
                         <th scope="col" class="text-white"><?= __('Other names') ?></th>
+                        <th scope="col" class="text-white"><?= __('Sponor Type') ?></th>
                         <th scope="col" class="text-white"><?= __('Role') ?></th>
                         <th scope="col" class="text-white"><?= __('Address') ?></th>
                         <th scope="col" class="text-white"><?= __('State') ?></th>
@@ -47,6 +48,7 @@ $this->end();
                             <td><?= h($sponsor->last_name) ?></td>
                             <td><?= h($sponsor->first_name) ?></td>
                             <td><?= h($sponsor->other_names) ?></td>
+                            <td><?= $sponsor->has('sponsor_type') ? h($sponsor->sponsor_type->lov_value) : '' ?></td>
                             <td><?= h($sponsor->role) ?></td>
                             <td><?= h($sponsor->address) ?></td>
                             <td><?= h($sponsor->state) ?></td>

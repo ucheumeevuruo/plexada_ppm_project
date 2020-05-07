@@ -53,7 +53,7 @@
 
             <li class="nav-item">
                 <?= $this->Html->link(
-                    __('<i class="fa fa-archive fa-lg text-primary"></i> &nbsp;PPF'),
+                    __('<i class="fa fa-archive fa-lg text-primary"></i> &nbsp;PPA'),
                     ['controller' => 'ProjectFundings', 'action' => 'index'],
                     ['escape' => false, 'class' => 'nav-link collapsed text-primary my-0']
                 ) ?>
@@ -170,6 +170,6 @@
     <hr class="sidebar-divider mx-0">
 
     </ul>
-    
+
 
 </aside>

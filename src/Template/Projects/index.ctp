@@ -36,7 +36,7 @@ $this->end();
                         <tr>
                             <!-- <th scope="col" width="15%"><?= __('Id')  ?></th> -->
                             <th scope="col" width="13%"><?= __('Name') ?></th>
-                            <th scope="col"><?= __('Introduction') ?></th>
+                            <th scope="col"><?= __('Brief') ?></th>
                             <th scope="col"width="15%"><?= __('Status') ?></th>
                             <th scope="col"width="15%"><?= __('Waiting On') ?></th>
                             <th scope="col" width="15%"><?= __('Cost') ?></th>
@@ -73,7 +73,7 @@ $this->end();
                         }
                         // echo $status;
                         ?>
-                            
+
                         <tr>
                             <!-- <td><?= $this->Number->format($project->id) ?></td> -->
                             <td><?= $this->Html->link($project->name, ['controller' => 'projects', 'action' => 'view', $project->id], ['id' => 'transmit']) ?>
@@ -126,9 +126,9 @@ $this->end();
                                         $resultsppf = $qrycount->fetchAll('assoc');
                                         if (isset($resultsppf[0])) {
                                             // echo '<a  class="text-success txt-sm">Add PPF</a>';
-                                            echo $this->Html->link(__('Add PPF'), ['controller' => 'projectFundings', 'action' => 'add', $project->id], ['class' => 'text-light txt-sm']);
+                                            echo $this->Html->link(__('Add PPA'), ['controller' => 'projectFundings', 'action' => 'add', $project->id], ['class' => 'text-light txt-sm']);
                                         } else {
-                                            echo $this->Html->link(__('Add PPF'), ['controller' => 'projectFundings', 'action' => 'add', $project->id], ['class' => 'text-light txt-sm']);
+                                            echo $this->Html->link(__('Add PPA'), ['controller' => 'projectFundings', 'action' => 'add', $project->id], ['class' => 'text-light txt-sm']);
                                         }
                                         ?>
                                 </button>
