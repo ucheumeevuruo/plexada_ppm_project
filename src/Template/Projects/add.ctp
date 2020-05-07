@@ -17,7 +17,7 @@ $this->end();
         <legend class="bg-primary text-light"><?= __('Add Project') ?></legend>
         <?php
             echo $this->Form->control('name');
-            echo $this->Form->control('introduction');
+            echo $this->Form->control('introduction', ['label' => 'Brief']);
             echo $this->Form->control('location');
             echo $this->Form->control('cost',['label'=>'Cost(USD)']);
         ?>

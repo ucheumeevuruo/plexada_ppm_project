@@ -16,6 +16,7 @@ $this->end();
             echo $this->Form->control('first_name');
             echo $this->Form->control('other_names');
             echo $this->Form->control('role');
+            echo $this->Form->control('sponsor_type_id');
             echo $this->Form->control('address');
             echo $this->Form->control('state');
             echo $this->Form->control('country');
