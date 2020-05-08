@@ -82,6 +82,9 @@ class ProjectsTable extends Table
         $this->hasMany('Sponsors', [
             'foreignKey' => 'last_name',
         ]);
+        $this->hasMany('Tasks', [
+            'foreignKey' => 'Task_name',
+        ]);
     }
 
     /**

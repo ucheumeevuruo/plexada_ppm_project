@@ -40,7 +40,7 @@ class ActivitiesTable extends Table
         parent::initialize($config);
 
         $this->setTable('activities');
-        $this->setDisplayField('description');# What field do you want as the default field?description
+        $this->setDisplayField('description'); # What field do you want as the default field?description
         $this->setPrimaryKey('activity_id');
 
         $this->addBehavior('Timestamp');
@@ -65,6 +65,12 @@ class ActivitiesTable extends Table
         ]);
         $this->belongsTo('Users', [
             'foreignKey' => 'system_user_id',
+        ]);
+        $this->belongsTo('Lov', [
+            'foreignKey' => 'priority_id',
+        ]);
+        $this->hasMany('Tasks', [
+            'foreignKey' => 'activities_id',
         ]);
     }
 
