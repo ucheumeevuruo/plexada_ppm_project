@@ -56,14 +56,10 @@ class MilestonesController extends AppController
             // $milestone = $this->Milestones->patchEntity($milestone, $this->request->getData());
             $milestone = $this->Milestones->patchEntity($milestone, $this->Milestones->identify($this->request->getData()));
             if ($this->Milestones->save($milestone)) {
-                $this->Flash->success(__('The milestone has been saved.'));
-
-                // debug($milestone);
-                // die();
-                // return $this->redirect(['action' => 'index']);
                 return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The milestone could not be saved. Please, try again.'));
+            return $this->redirect($this->referer());
         }
         $projects = $this->Milestones->Projects->find('list', ['limit' => 200, 'conditions' => ['id' => $id]]);
         //         sql($projects);

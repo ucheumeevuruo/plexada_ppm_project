@@ -20,9 +20,10 @@ $this->end();
         <div class="col-md-6 float-left">
 
             <label class="control-label" for="project">Project</label>
-            <div class="input-group mb-3"><input type="text" name="project" value="<?= $project_info->name ?>"
+            <div class="input-group mb-3"><input type="text" name="name" id="name" value="<?= $project_info->name ?>"
                     class="form-control addon-right" empty="1" id="description" autocomplete="off">
             </div>
+            <input type="text" name="project_id" id="project_id" value="<?= $project_info->id ?>" />
 
             <label class="control-label" for="description">Brief</label>
             <div class="input-group mb-3"><input type="text" name="description" value="<?= $project_info->introduction ?>"
@@ -50,7 +51,7 @@ $this->end();
 
         <div class="col-md-6 float-left">
 
-            <?= $this->Html->link(__('Add Milestones'), ['controller' => 'milestones', 'action' => 'add', $project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 mt-5 mb-3 overlay']) ?>
+            <?= $this->Html->link(__('Add Indicator'), ['controller' => 'milestones', 'action' => 'add', $project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 mt-5 mb-3 overlay']) ?>
 
             <div id="inputEnv">
                 <div class="input-group mb-3">
