@@ -90,7 +90,7 @@
             });
         });
     });
-    
+
     $(function() {
         $('#waiting_since, #start_date, #end_date').datepicker({
             inline: true,
