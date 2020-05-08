@@ -18,14 +18,10 @@ $this->end();
                         echo $this->Form->control('project_id', ['options' => $projectDetails, 'empty' => true]);
                     else
                         echo $this->Form->control('project_id', ['options' => [$project_id], 'default' => $project_id, 'empty' => false, 'type' => 'hidden']);
-//                    if($activity_type == null)
-//                        echo $this->Form->control('activity_type_id', ['options' => $activityTypes, 'empty' => true]);
-//                    else
                     echo $this->Form->hidden('activity_type_id', ['options' => [12], 'default' => 12, 'empty' => false]);
                     echo $this->Form->control('description', ['type' => 'textarea']);
                     echo $this->Form->control('priority_id', ['options' => $priority, 'empty' => true]);
                     echo $this->Form->control('sponsor_id', ['options' => $sponsors, 'empty' => true]);
-//                    echo $this->Form->control('priority_id', ['options' => $priority]);
                 ?>
             </div>
             <div class="col-md-6">

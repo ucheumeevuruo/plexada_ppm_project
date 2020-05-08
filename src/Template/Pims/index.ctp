@@ -14,18 +14,10 @@ $this->end();
 // 
 ?>
 <div class="container-fluid">
-
-    <!-- <div class="pims index large-9 medium-8 columns content"> -->
-    <h2 class="text-center text-primary font-weight-bold"><?= __('Project') ?></h2>
     <div class="shadow mb-4 br-m">
         <div class="py-3 pl-3 bg-primary br-t">
-            <h3 class="m-0 text-white"><?= __('New PIM') ?>
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <?= $this->Html->link(__('<i class="fa fa-plus fa-lg"></i>'), ['action' => 'add'], ['class' => 'btn btn-light overlay ml-2', 'title' => 'Add', 'escape' => false]) ?>
-                </div>
-            </h3>
+            <h2 class="text-center text-light font-weight-bold"><?= __('PIMS') ?></h2>
         </div>
-    </div>
 
     <div class="card-body">
         <div class="table-responsive">

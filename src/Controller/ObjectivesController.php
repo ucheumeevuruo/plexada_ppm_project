@@ -50,20 +50,28 @@ class ObjectivesController extends AppController
      */
     public function add($id=null)
     {
+        $this->loadModel('Projects');
+        $project_info = $this->Projects->get($id);
+
         $objective = $this->Objectives->newEntity();
         if ($this->request->is('post')) {
-            $objective = $this->Objectives->patchEntity($objective, $this->request->getData());
             // $objective = $this->Objectives->patchEntity($objective, $this->Objectives->identify($this->request->getData()));
+
+            $objective = $this->Objectives->patchEntity($objective, $this->request->getData());
 
             if ($this->Objectives->save($objective)) {
                 $this->Flash->success(__('The objective has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                // return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The objective could not be saved. Please, try again.'));
+            // debug($objective);
+            // die();
+            return $this->redirect($this->referer());
         }
-        $projects = $this->Objectives->Projects->find('list', ['limit' => 200]);
-        $this->set(compact('objective', 'projects'));
+        $projects = $this->Objectives->Projects->find('list', ['limit' => 200]) ;
+        $this->set(compact('objective', 'projects', 'project_info'));
     }
 
     /**
