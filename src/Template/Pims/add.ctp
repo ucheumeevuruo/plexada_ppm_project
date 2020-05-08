@@ -64,10 +64,7 @@ $this->end();
                     <label for="Brief">Brief</label>
                     <textarea class="form-control" id="Brief" required="required" name="brief" value="<?= $project_info->introduction; ?>"></textarea>
                 </div>
-                <!-- <div class="form-group">
-                    <label for="funding_agency">Funding Agency</label>
-                    <input type="text" class="form-control" id="funding_agency" name ="funding_agency" required="required">
-                </div>   -->
+
                 <legend class="text-primary">Project Oversight Structure</legend>
                 <div class="form-group">
                     <label for="oversight_level">Oversight Level</label>
@@ -256,10 +253,18 @@ $this->end();
                             <label for="owner">Owner</label>
                             <input type="text" class="form-control" id="owner" name = "owner" required="required">
                         </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="currency">Currency</label>
                         <input type="text" class="form-control" id="currency" name = "currency" required="required">
-                    </div>
+                    </div> -->
+
+                    <label for="cars">Currency</label>
+                    <select id="cars" name="currency" class="mb-3">
+                        <option value="naira">NGN</option>
+                        <option value="dollar">USD</option>
+                        <option value="euro">EU</option>
+                        <option value="pound">GBP</option>
+                    </select>
                     <div class="form-group">
                         <label for="disbursed_amount">Disbursed Amount</label>
                         <div class="input-group mb-3">

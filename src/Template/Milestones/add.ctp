@@ -16,7 +16,7 @@ $this->end();
     <fieldset>
         <legend class="text-primary text-center"><?= __('Add Milestone') ?></legend>
         <?php
-            echo $this->Form->control('record_number');
+            // echo $this->Form->control('record_number');
             echo $this->Form->control('project_id', ['options' => $projects, 'text'=>'hidden']);
             echo $this->Form->control('amount',['label' => 'Amount (USD)']);
             echo $this->Form->control('payment');
