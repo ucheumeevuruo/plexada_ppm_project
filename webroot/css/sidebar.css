@@ -1,0 +1,23 @@
+.side-text {
+    color: #4e73df;
+    background-color: white;
+    font-weight: bold;
+}
+
+.side-text:hover {
+    background-color: #4e73df;
+    color: white;
+    font-weight: bold;
+}
+
+.dropout {
+    background-color: #ebebef;
+    font-weight: bold;
+}
+
+.dropout:hover {
+    background-color: #4e73df;
+    color: white;
+    font-weight: bold;
+    outline: 2px solid white;
+}

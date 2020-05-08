@@ -57,6 +57,44 @@ class ProjectsController extends AppController
         $this->set('project', $project);
     }
 
+
+    public function milestones($id = null)
+    {
+        $project = $this->Projects->get($id, [
+            'contain' => ['Milestones'],
+        ]);
+
+        $this->set('project', $project);
+    }
+
+
+    public function activities($id = null)
+    {
+        $project = $this->Projects->get($id, [
+            'contain' => ['Activities', 'Milestones', 'Tasks', 'ProjectDetails'],
+        ]);
+
+        $this->set('project', $project);
+    }
+
+    public function partners($id = null)
+    {
+        $project = $this->Projects->get($id, [
+            'contain' => ['Sponsors', 'ProjectDetails'],
+        ]);
+
+        $this->set('project', $project);
+    }
+
+    public function riskIssues($id = null)
+    {
+        $project = $this->Projects->get($id, [
+            'contain' => ['RiskIssues'],
+        ]);
+
+        $this->set('project', $project);
+    }
+
     /**
      * Add method
      *

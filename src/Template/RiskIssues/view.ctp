@@ -1,38 +1,33 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\RiskIssue $riskIssue
  */
+$this->start('sidebar');
+echo $this->element('sidebar/default');
+$this->end();
+$this->start('navbar');
+echo $this->element('navbar/default');
+$this->end();
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Risk Issue'), ['action' => 'edit', $riskIssue->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Risk Issue'), ['action' => 'delete', $riskIssue->id], ['confirm' => __('Are you sure you want to delete # {0}?', $riskIssue->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Risk Issues'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Risk Issue'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Project Details'), ['controller' => 'ProjectDetails', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Project Detail'), ['controller' => 'ProjectDetails', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Staff'), ['controller' => 'Staff', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Staff'), ['controller' => 'Staff', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Lov'), ['controller' => 'Lov', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Lov'), ['controller' => 'Lov', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
+
 <div class="riskIssues view large-9 medium-8 columns content">
-    <h3><?= h($riskIssue->id) ?></h3>
     <table class="vertical-table">
+        <h3><?= h($riskIssue->description) ?></h3>
         <tr>
             <th scope="row"><?= __('Record Number') ?></th>
             <td><?= h($riskIssue->record_number) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Project Detail') ?></th>
-            <td><?= $riskIssue->has('project_detail') ? $this->Html->link($riskIssue->project_detail->id, ['controller' => 'ProjectDetails', 'action' => 'view', $riskIssue->project_detail->id]) : '' ?></td>
+            <td><?= $riskIssue->has('project_detail') ? $this->Html->link($riskIssue->project_detail->id, ['controller' => 'ProjectDetails', 'action' => 'view', $riskIssue->project_detail->id]) : '' ?>
+            </td>
         </tr>
         <tr>
             <th scope="row"><?= __('Staff') ?></th>
-            <td><?= $riskIssue->has('staff') ? $this->Html->link($riskIssue->staff->full_name, ['controller' => 'Staff', 'action' => 'view', $riskIssue->staff->id]) : '' ?></td>
+            <td><?= $riskIssue->has('staff') ? $this->Html->link($riskIssue->staff->full_name, ['controller' => 'Staff', 'action' => 'view', $riskIssue->staff->id]) : '' ?>
+            </td>
         </tr>
         <tr>
             <th scope="row"><?= __('Remediation') ?></th>
@@ -48,7 +43,8 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Lov') ?></th>
-            <td><?= $riskIssue->has('lov') ? $this->Html->link($riskIssue->lov->lov_value, ['controller' => 'Lov', 'action' => 'view', $riskIssue->lov->id]) : '' ?></td>
+            <td><?= $riskIssue->has('lov') ? $this->Html->link($riskIssue->lov->lov_value, ['controller' => 'Lov', 'action' => 'view', $riskIssue->lov->id]) : '' ?>
+            </td>
         </tr>
         <tr>
             <th scope="row"><?= __('Id') ?></th>
