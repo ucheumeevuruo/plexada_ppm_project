@@ -29,7 +29,10 @@ class ProjectFunding extends Entity
         'milestone_id' => true,
         'project_id' => true,
         'funding' => true,
-        'milestone' => true,
-        'projects' => true,
+        'start_date' => true,
+        'end_date' => true,
+        'currency_id' => true,
+        'project' => true,
+        'currency' => true
     ];
 }

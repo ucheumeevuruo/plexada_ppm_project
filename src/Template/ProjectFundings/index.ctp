@@ -23,33 +23,32 @@ $this->end();
                     aria-describedby="dataTable_info" cellpadding="0" cellspacing="0">
                     <thead class="bg-primary">
                         <tr>
-                            <th scope="col"><?= __('Id') ?></th>
                             <th scope="col"><?= __('Project Name') ?></th>
-                            <th scope="col"><?= __('Milestone') ?></th>
-                            <th scope="col"><?= __('Status') ?></th>
+                            <th scope="col"><?= __('Start Date') ?></th>
+                            <th scope="col"><?= __('End Date') ?></th>
+                            <th scope="col"><?= __('Currency') ?></th>
                             <th scope="col"><?= __('Funding') ?></th>
                             <th scope="col" class="actions"><?= __('Actions') ?></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $num = 0; ?>
                         <?php foreach ($projectFundings as $projectFunding) : ?>
-                        <?php $num++; ?>
                         <tr>
-                            <!-- <td><?= $this->Number->format($projectFunding->id) ?></td> -->
-                            <td style="width:5%"><?= h($num) ?></td>
-
-                            <td><?= $projectFunding->has('milestone') ? $this->Html->link($projectFunding->project->name, ['controller' => 'Projects', 'action' => 'view', $projectFunding->project->id]) : '' ?>
-                            </td>
-                            <td><?= $projectFunding->has('milestone') ? $this->Html->link($projectFunding->milestone->description, ['controller' => 'Milestones', 'action' => 'view', $projectFunding->milestone->id]) : '' ?>
+                            <td>
+                                <?= $this->Html->link($projectFunding->project->name, ['controller' => 'Projects', 'action' => 'view', $projectFunding->project->id]) ?>
                             </td>
                             <td>
-                                <?= $projectFunding->has('projectDetails') ? $this->Html->link($projectFunding->projectdetails->name, ['controller' => 'ProjectDetails', $projectFunding->projectdetails->name]) : '' ?>
+                                <?= $projectFunding->start_date ?>
                             </td>
-                            <td><?= $this->Number->format($projectFunding->funding) ?></td>
+                            <td>
+                                <?= $projectFunding->end_date ?>
+                            </td>
+                            <td><?= $projectFunding->has('currency') ? $projectFunding->currency->symbol : '' ?></td>
+                            <td>
+                                <?= $projectFunding->funding ?>
+                            </td>
                             <td class="actions">
-                                <!-- <?= $this->Html->link(__('View'), ['action' => 'view', $projectFunding->id]) ?> -->
-                                <?= $this->Html->link(__('<i class="fa fa-pencil fa-lg"></i>'), ['action' => 'edit', $projectFunding->id], ['class' => 'btn btn-outline-primary btn-sm overlay float-left', 'title' => 'Edit', 'escape' => false]) ?>
+                                <?= $this->Html->link(__('<i class="fa fa-plus fa-lg"></i> Activity'), ['controller' => 'activities', 'action' => 'indexAdd', $projectFunding->project->id, 'activity'], ['class' => 'btn btn-outline-primary btn-sm overlay float-left', 'title' => 'Edit', 'escape' => false]) ?>
                                 <?= $this->Form->postLink(__("<i class='fa fa-trash-o fa-lg'></i>"), ['action' => 'delete', $projectFunding->id], ['confirm' => __('Are you sure you want to delete # {0}?', $projectFunding->id), 'escape' => false, 'class' => 'btn btn-outline-danger btn-sm float-left']) ?>
                             </td>
                         </tr>

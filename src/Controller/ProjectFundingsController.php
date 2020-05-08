@@ -20,7 +20,7 @@ class ProjectFundingsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Milestones','Projects'],
+            'contain' => ['Projects', 'Currencies'],
         ];
         $projectFundings = $this->paginate($this->ProjectFundings);
 
@@ -44,6 +44,7 @@ class ProjectFundingsController extends AppController
         ]);
 
         $this->set('projectFunding', $projectFunding);
+        
     }
 
     /**

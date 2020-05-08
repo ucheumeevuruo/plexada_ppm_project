@@ -38,13 +38,16 @@ class ProjectFundingsTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('Milestones', [
-            'foreignKey' => 'milestone_id', # This cannot be the foreign key. Please change
-            'joinType' => 'INNER',
-        ]);
+        // $this->belongsTo('Milestones', [
+        //     'foreignKey' => 'milestone_id', # This cannot be the foreign key. Please change
+        //     'joinType' => 'INNER',
+        // ]);
         $this->belongsTo('Projects', [
             'foreignKey' => 'project_id',
             'joinType' => 'INNER',
+        ]);
+        $this->belongsTo('Currencies', [
+            'foreignKey' => 'currency_id',
         ]);
     }
 
@@ -61,8 +64,18 @@ class ProjectFundingsTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->integer('funding')
-            ->requirePresence('funding', 'create')
+            ->date('start_date')
+            // ->requirePresence('start_dt', 'create')
+            ->notEmptyDate('start_date');
+
+        $validator
+            ->date('end_date')
+            // ->requirePresence('end_dt', 'create')
+            ->notEmptyDate('end_date');
+
+        $validator
+            ->decimal('funding')
+            // ->requirePresence('funding', 'create')
             ->notEmptyString('funding');
 
         return $validator;
@@ -77,8 +90,9 @@ class ProjectFundingsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['milestone_id'], 'Milestones'));
+        // $rules->add($rules->existsIn(['milestone_id'], 'Milestones'));
         $rules->add($rules->existsIn(['project_id'], 'Projects'));
+        $rules->add($rules->existsIn(['currency_id'], 'Currencies'));
 
         return $rules;
     }
