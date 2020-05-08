@@ -25,23 +25,23 @@ $this->end();
                     <table class="table table-borderless no-border">
                         <tr>
                             <th scope="row"><?= __('Task name') ?></th>
-                            <td><?= h($task->task_name) ?></td>
+                            <td><?= h($task->Task_name) ?></td>
                         </tr>
                         <tr>
                             <th scope="row"><?= __('start Date') ?></th>
-                            <td><?= h($task->start_date) ?></td>
+                            <td><?= h($task->Start_date) ?></td>
                         </tr>
                         <tr>
                             <th scope="row"><?= __('Description') ?></th>
-                            <td><?= h($task->description) ?></td>
+                            <td><?= h($task->Description) ?></td>
                         </tr>
                         <tr>
                             <th scope="row"><?= __('Predecessor') ?></th>
-                            <td><?= h($task->predecessor) ?></td>
+                            <td><?= h($task->Predecessor) ?></td>
                         </tr>
                         <tr>
-                            <th scope="row"><?= __('Successort') ?></th>
-                            <td><?= h($task->successor) ?></td>
+                            <th scope="row"><?= __('Successor') ?></th>
+                            <td><?= h($task->Successor) ?></td>
                         </tr>
 
                     </table>

@@ -15,41 +15,50 @@ $this->end();
 <?php echo $this->Html->css('report'); ?>
 
 <div class="container-fluid">
-    <dov class="card-deck">
-        <span class="border border-white p-4 card mx-auto font-weight-bold font nav active"
+    <div class="card-deck">
+        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav active"
             style=" font-size: 20px;">Summary</span>
-        <span class="border border-white p-4 card mx-auto font-weight-bold font nav"
-            style=" font-size: 20px;">Milestones</span>
-        <span class="border border-white p-4 card mx-auto font-weight-bold font nav"
-            style=" font-size: 20px;">Activities</span>
-        <span class="border border-white p-4 card mx-auto font-weight-bold font nav"
+        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav"
+            style=" font-size: 20px;">
+            <?= $this->Html->link('Indicators', ['controller' => 'projects', 'action' => 'milestones', $project->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
+        </span>
+        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold nav" style=" font-size: 20px;">
+            <?= $this->Html->link('Activities', ['controller' => 'projects', 'action' => 'activities', $project->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
+        </span>
+        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav"
             style=" font-size: 20px;">Resources</span>
-        <span class="border border-white p-4 card mx-auto font-weight-bold font nav"
-            style=" font-size: 20px;">Partners</span>
-        <span class="border border-white p-4 card mx-auto font-weight-bold font nav" style=" font-size: 20px;">Risks &
-            Issues</span>
-        <span class="border border-white p-4 card mx-auto font-weight-bold font nav" style=" font-size: 20px;">Gand
+        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav" style=" font-size: 20px;">
+            <?= $this->Html->link('Partners', ['controller' => 'projectDetails', 'action' => 'partners', $project->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
+        </span>
+        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav" style=" font-size: 20px;">
+            <?= $this->Html->link('Risks & Issues', ['controller' => 'projects', 'action' => 'riskIssues', $project->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
+        </span>
+        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav"
+            style=" font-size: 20px;">Gantt
             Charts</span>
+        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav"
+            style=" font-size: 20px;">Documents</span>
 
-    </dov>
+    </div>
     <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($project->name) ?>
     </h2>
-    <div class="shadow mb-4 br-m">
+    <div class="mb-4 br-m">
         <div class="py-3 pl-3 bg-default br-t">
             <div class="card-deck mb-3">
-                <div class="card">
+                <div class="card card-outline shadow">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold text-primary">Project Brief</h5>
                         <p class="card-text"><?= h($project->name) ?></p>
+
                     </div>
                 </div>
-                <div class="card">
+                <div class="card card-outline shadow">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold text-primary">Objectives</h5>
                         <p class="card-text"><?= h($project->introduction) ?></p>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card card-outline shadow">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold text-primary">Sponsors & Donors</h5>
                         <?php foreach ($project->sponsors as $sponsors) : ?>
@@ -59,7 +68,7 @@ $this->end();
                 </div>
             </div>
             <div class="card-deck mb-3">
-                <div class="card">
+                <div class="card card-outline shadow">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold text-primary">Budget and Expense</h5>
                         <p class="card-text"><?= $this->Number->currency($project->cost) ?></p>
@@ -67,13 +76,13 @@ $this->end();
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="card card-outline shadow">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold text-primary">PPA</h5>
                         <p class="card-text"></p>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card card-outline shadow">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold text-primary">MDA</h5>
                         <p class="card-text"></p>
@@ -81,9 +90,9 @@ $this->end();
                 </div>
             </div>
             <div class="card-deck">
-                <div class="card">
+                <div class="card card-outline shadow">
                     <div class="card-body">
-                        <h5 class="card-title font-weight-bold text-primary">Completed Milestones</h5>
+                        <h5 class="card-title font-weight-bold text-primary">Completed Indicators</h5>
                         <?php foreach ($project->milestones as $milestones) : ?>
                         <p class="card-text">
                             <?= $this->Html->link($milestones->description, ['controller' => 'milestones', 'action' => 'view', $milestones->id],) ?>
@@ -91,13 +100,13 @@ $this->end();
                         <?php endforeach; ?>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card card-outline shadow">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold text-primary">DLI</h5>
                         <p class="card-text"></p>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card card-outline shadow">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold text-primary">Risk & Issues</h5>
                         <?php foreach ($project->risk_issues as $riskIssues) : ?>

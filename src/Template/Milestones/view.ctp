@@ -12,12 +12,12 @@ echo $this->element('navbar/default');
 $this->end();
 ?>
 
-<div class="container-fluid" id="main">
-    <div class="card shadow mb-4 " style="padding: 20px 20px 0 20px">
+<div class="container-fluid" id="main" style="display: flex;">
+    <div class="card shadow mb-4 " style="padding: 20px 20px 0 20px; min-width: 35vw;">
         <div class="me-dropdowns input-group mb-4" style="display: flex; justify-content:space-between;">
 
             <div class="milestones view large-9 medium-8 columns content">
-                <h3><?= h($milestone->id) ?></h3>
+                <h3 class="text-center"><?= h($milestone->description) ?></h3>
                 <table class="vertical-table">
                     <tr>
                         <th scope="row"><?= __('Record Number') ?></th>
@@ -25,7 +25,8 @@ $this->end();
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Project Detail') ?></th>
-                        <td><?= $milestone->has('project_detail') ? $this->Html->link($milestone->project_detail->id, ['controller' => 'ProjectDetails', 'action' => 'view', $milestone->project_detail->id]) : '' ?>
+                        <td><?= $milestone->has('project') ? h($milestone->project->name) : '' ?>
+
                         </td>
                     </tr>
                     <tr>
@@ -33,10 +34,11 @@ $this->end();
                         <td><?= h($milestone->payment) ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Lov') ?></th>
-                        <td><?= $milestone->has('lov') ? $this->Html->link($milestone->lov->lov_value, ['controller' => 'Lov', 'action' => 'view', $milestone->lov->id]) : '' ?>
+                        <th scope="row"><?= __('Status') ?></th>
+                        <td><?= $milestone->has('lov') ? h($milestone->lov->lov_value) : '' ?>
                         </td>
                     </tr>
+
                     <tr>
                         <th scope="row"><?= __('Description') ?></th>
                         <td><?= h($milestone->description) ?></td>
@@ -47,7 +49,7 @@ $this->end();
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Trigger') ?></th>
-                        <td><?= $milestone->has('trigger') ? $this->Html->link($milestone->trigger->lov_value, ['controller' => 'Lov', 'action' => 'view', $milestone->trigger->id]) : '' ?>
+                        <td><?= $milestone->has('trigger') ? h($milestone->trigger->lov_value) : '' ?>
                         </td>
                     </tr>
                     <tr>
@@ -78,5 +80,48 @@ $this->end();
             </div>
 
         </div>
+    </div>
+    <div class="card  mb-4 " style="background-color: #EDEEF1; outline: 2px solid #D1D3E2">
+        <h1 class="text-center">Activities</h1>
+        <table class="table-responsive">
+            <thead>
+                <tr>
+                    <th>S/N</th>
+                    <th>Task</th>
+                    <th>Start Date</th>
+                    <th>Finish Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $num = 0; ?>
+                <?php foreach ($milestone->activities as $activity) : ?>
+                <?php $num++; ?>
+                <?php if (h($activity->status_id, ['controller' => 'activities'] == 1)) {
+                        $status = 'Open';
+                    } elseif (h($activity->status_id, ['controller' => 'activities'] == 1)) {
+                        $status = 'Not yet started';
+                    } else {
+                        $status = 'Close';
+                    }
+                    ?>
+                <p class="card-text">
+                </p>
+                <tr>
+                    <td><?= h($num) ?></td>
+                    <td>
+                        <?= $this->Html->link($activity->description, ['controller' => 'activities', 'action' => 'view', $activity->activity_id],) ?>
+                    </td>
+                    <td style="max-width: 50vw;"><?= h($activity->created,) ?> </td>
+                    <td><?= h($milestone->expected_completion_date) ?></td>
+                    <td>
+                        <?= h($status) ?>
+
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+
+            </tbody>
+        </table>
     </div>
 </div>

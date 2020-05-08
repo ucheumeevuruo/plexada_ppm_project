@@ -85,7 +85,7 @@ $this->end();
                                 <?= $this->Form->postLink(__("<i class='fa fa-trash-o fa-lg'></i>"), ['action' => 'delete', $projectDetail->id], ['confirm' => __('Are you sure you want to delete # {0}?', $projectDetail->id), 'escape' => false, 'class' => 'btn btn-outline-danger btn-sm float-left']) ?>
                             </td>
                             <td>
-                                <?= $this->Html->link(__('Add Milestones'), ['controller' => 'milestones', 'action' => 'add', $projectDetail->project_id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
+                                <?= $this->Html->link(__('Add Indicator'), ['controller' => 'milestones', 'action' => 'add', $projectDetail->project_id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

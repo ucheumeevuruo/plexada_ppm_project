@@ -44,6 +44,17 @@ class ActivitiesController extends AppController
         $this->set('activity', $activity);
     }
 
+
+
+    public function tasks($id = null)
+    {
+        $activity = $this->Activities->get($id, [
+            'contain' => ['Tasks'],
+        ]);
+
+        $this->set('activity', $activity);
+    }
+
     /**
      * Add method
      *
@@ -66,7 +77,6 @@ class ActivitiesController extends AppController
             die();
             //            return $this->redirect(['controller' => 'ProjectDetails', 'action' => 'view', $project_id]);
             return $this->redirect($this->referer());
-
         }
         $projectDetails = $this->Activities->ProjectDetails->find('list', ['limit' => 200]);
         $staff = $this->Activities->Staff->find('list', ['limit' => 200]);

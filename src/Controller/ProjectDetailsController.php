@@ -47,16 +47,6 @@ class ProjectDetailsController extends AppController
         //        ]);
         // $projectDetails = $this->paginate($this->ProjectDetails);
         $this->set(compact('projectDetails'));
-
-
-        // $this->loadModel('Tasks');
-        // $tasks = $this->Tasks->find('all');
-        // $this->set('tasks', $tasks);
-
-
-        // $this->loadModel('Activities');
-        // $activities = $this->Activities->find('all');
-        // $this->set('activities', $activities);
     }
 
     /**
@@ -72,12 +62,6 @@ class ProjectDetailsController extends AppController
             'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Activities.Priorities', 'Lov', 'Activities.Statuses', 'Users', 'Activities', 'Activities.Staff', 'SubStatuses', 'Priorities'],
 
         ]);
-
-        // $this->set('projectDetail', $projectDetail);
-        // $this->loadModel('Tasks');
-        // $tasks = $this->Tasks->find('all');
-
-        // $this->set('tasks', $tasks);
     }
 
     public function activities($id = null)
@@ -102,29 +86,15 @@ class ProjectDetailsController extends AppController
     public function riskIssues($id = null)
     {
         $projectDetail = $this->ProjectDetails->get($id, [
-            // 'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'RiskIssues', 'RiskIssues.Lov', 'RiskIssues.Impact', 'RiskIssues.Staff', 'Priorities', 'Prices', 'Prices.Currencies'],
             'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'RiskIssues', 'RiskIssues.Lov', 'RiskIssues.Impact', 'RiskIssues.Staff', 'Priorities', 'Prices'],
         ]);
 
         $this->set('projectDetail', $projectDetail);
     }
 
-    // public function evaluation($id = null)
-    // {
-    //     $projectDetail = $this->ProjectDetails->get($id, [
-    //         // 'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'RiskIssues', 'RiskIssues.Lov', 'RiskIssues.Impact', 'RiskIssues.Staff', 'Priorities', 'Prices', 'Prices.Currencies'],
-    //         'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'RiskIssues', 'RiskIssues.Lov', 'RiskIssues.Impact', 'RiskIssues.Staff', 'Priorities', 'Prices'],
-    //     ]);
-
-    //     $this->set('projectDetail', $projectDetail);
-    // }
-
     public function evaluation()
     {
 
-        // $this->paginate = [
-        //     'contain' => ['Vendors', 'Staff', 'Sponsors', 'Lov', 'Users', 'Prices', 'SubStatuses', 'Priorities', 'Annotations'],
-        // ];
         if ($this->request->is('post')) {
             $reportdate = $this->request->getData('reportdate');
             $from = $this->request->getData('from');
@@ -145,13 +115,7 @@ class ProjectDetailsController extends AppController
         $this->loadModel('ProjectFundings');
         $projectfundings =  $this->ProjectFundings->find('all');
 
-        // $fromnumber = " ";
-        // $tonumber = " ";
-
-        // $inputValue =  $_POST['from'];
-        // $projectDetails = $this->paginate($this->ProjectDetails);
         $this->set(compact('projectDetails', 'staff', 'milestone_list', 'activities', 'projectfundings'));
-        // $this->set(compact('projectDetails', 'staff', 'milestone_list', 'activities', 'projectfundings', 'fromnumber', 'tonumber'));
     }
 
 
@@ -179,25 +143,35 @@ class ProjectDetailsController extends AppController
             $this->request->data('from', $from);
             // debug($fromshdate1);
             // die();
-
-
             $this->set(compact('projectReports', 'from', 'edate', 'fromshdate1', 'fromshdate2'));
         }
-
         $this->set(compact('projectDetails'));
     }
 
 
     public function summary()
     {
-
         $projectDetails = $this->ProjectDetails->find('all');
-
         $this->set(compact('projectDetails'));
     }
 
     public function printable($id = null)
     {
+        $projectDetails = $this->ProjectDetails->get($id, [
+            'contain' => [],
+        ]);
+
+        $this->set('projectDetails', $projectDetails);
+    }
+
+
+
+    public function report($id = null)
+    {
+        $this->loadModel('Milestones');
+        $this->loadModel('RiskIssues');
+
+        $milestone_list =  $this->Milestones->find('all');
 
         $projectDetails = $this->ProjectDetails->get($id, [
             'contain' => [],
@@ -205,6 +179,24 @@ class ProjectDetailsController extends AppController
 
         $this->set('projectDetails', $projectDetails);
     }
+
+
+    public function partners($id = null)
+    {
+        $projectDetails = $this->ProjectDetails->get($id, [
+            'contain' => ['Sponsors', 'Projects'],
+        ]);
+
+
+
+        // $projectDetails = $this->ProjectDetails->find('all')->contain(['sponsors'])->where(['project_id' => 1]);
+
+
+        // sql($projectDetails);
+        // die();
+        $this->set('projectDetails', $projectDetails);
+    }
+
 
 
     function download()
@@ -306,10 +298,9 @@ class ProjectDetailsController extends AppController
 
             // return $this->redirect(['action' => 'view', $id]);
             return $this->redirect($this->referer());
-
         }
 
-      
+
         $vendors = $this->ProjectDetails->Vendors->find('list', ['limit' => 200]);
 
         $staff = $this->ProjectDetails->Staff->find('list', ['limit' => 200]);
@@ -332,7 +323,7 @@ class ProjectDetailsController extends AppController
         ]);
         $users = $this->ProjectDetails->Users->find('list', ['limit' => 200]);
         $userid = $id;
-        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'lov', 'users', 'personnel', 'subStatus','userid'));
+        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'lov', 'users', 'personnel', 'subStatus', 'userid'));
         // $this->set(compact('vendors', 'staff', 'sponsors', 'lov', 'users', 'personnel', 'subStatus'));
     }
 

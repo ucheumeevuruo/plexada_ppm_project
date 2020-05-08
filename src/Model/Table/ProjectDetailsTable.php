@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -79,7 +80,7 @@ class ProjectDetailsTable extends Table
             'foreignKey' => 'annotation_id',
         ]);
         $this->hasOne('Projects', [
-            'foreignKey' => 'project_id',
+            'foreignKey' => 'id',
             'joinType' => 'INNER',
         ]);
         $this->belongsTo('Prices', [
@@ -100,6 +101,9 @@ class ProjectDetailsTable extends Table
             'className' => 'lov',
             'foreignKey' => 'status_id',
             'joinType' => 'INNER',
+        ]);
+        $this->hasMany('Sponsors', [
+            'foreignKey' => 'id',
         ]);
     }
 
@@ -185,7 +189,8 @@ class ProjectDetailsTable extends Table
     }
 
 
-    public function identify($formData) {
+    public function identify($formData)
+    {
         $formData['waiting_since'] = !empty($formData['waiting_since']) ?
             DateTime::createFromFormat('d/m/Y', $formData['waiting_since']) : $formData['waiting_since'];
         $formData['start_dt'] = !empty($formData['start_dt']) ?
