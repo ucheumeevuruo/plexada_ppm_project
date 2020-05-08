@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use DateTime;
 
 /**
  * ProjectFundings Model
@@ -79,6 +80,24 @@ class ProjectFundingsTable extends Table
             ->notEmptyString('funding');
 
         return $validator;
+    }
+
+    public function identify($formData)
+    {
+        if (isset($formData['status_id'])) {
+
+            $status = $this->Statuses->find()
+                ->where(['id' => $formData['status_id']])
+                ->first();
+            if (strtolower($status->lov_value) == 'closed') {
+                $formData['completion_date'] = Time::now();
+            }
+        }
+        $formData['start_date'] = !empty($formData['start_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['start_date'])->format('Y-m-d') : $formData['start_date'];
+        $formData['end_date'] = !empty($formData['end_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['end_date'])->format('Y-m-d') : $formData['end_date'];
+        return $formData;
     }
 
     /**

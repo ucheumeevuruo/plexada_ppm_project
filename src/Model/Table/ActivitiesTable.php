@@ -186,9 +186,9 @@ class ActivitiesTable extends Table
             }
         }
         $formData['start_date'] = !empty($formData['start_date']) ?
-            DateTime::createFromFormat('d/m/Y', $formData['start_date']) : $formData['start_date'];
+            DateTime::createFromFormat('d/m/Y', $formData['start_date'])->format('Y-m-d') : $formData['start_date'];
         $formData['end_date'] = !empty($formData['end_date']) ?
-            DateTime::createFromFormat('d/m/Y', $formData['end_date']) : $formData['end_date'];
+            DateTime::createFromFormat('d/m/Y', $formData['end_date'])->format('Y-m-d') : $formData['end_date'];
         return $formData;
     }
 }
