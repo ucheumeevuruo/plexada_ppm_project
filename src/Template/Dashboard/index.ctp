@@ -111,6 +111,9 @@ $this->end();
                                     $projectdatediff = date_diff(new DateTime($sdate), new DateTime($edate));
                                     $result = intval($projectdatediff->format('%R%a'));
                                     $expectedprojectdays = intval(date_diff(new DateTime($sdate), new DateTime($today))->format('%R%a'));
+                                    if ($result == 0){
+                                        $result = 1;
+                                    };
                                     $result2 = ($expectedprojectdays * 100) / $result;
                                     $expectdays =  round(number_format($result2, 2), 2);
                                     // echo $expectdays;

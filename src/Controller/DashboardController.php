@@ -488,7 +488,7 @@ class DashboardController extends AppController
             $mileConnector = "$num _ $num_mile2" ;
             $object_activity = new \stdClass();
             $object_activity->id = $mileID;
-            $object_activity->name = $activity['description'];
+            $object_activity->name = $activity['next_activity'];
             $object_activity->actualStart = $activity['created'];
             $object_activity->actualEnd= $activity['last_updated'];
             $object_activity->connectTo= $mileConnector;

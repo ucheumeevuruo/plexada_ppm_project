@@ -14,12 +14,12 @@ $this->end();
 <div class="milestones container">
     <?= $this->Form->create($milestone) ?>
     <fieldset>
-        <legend class="text-primary text-center"><?= __('Add Milestone') ?></legend>
+        <legend class="text-primary text-center"><?= __('Add Indicator') ?></legend>
         <?php
             // echo $this->Form->control('record_number');
             echo $this->Form->control('project_id', ['options' => $projects, 'text'=>'hidden']);
             echo $this->Form->control('amount',['label' => 'Amount (USD)']);
-            echo $this->Form->control('payment');
+            echo $this->Form->control('payment',['options'=>['N','Y'],'empty' => true]);
             echo $this->Form->control('status_id', ['options' => $lov]);
         ?>
             <div class="form-group text"><label class="control-label" for="description">Description</label>
@@ -29,9 +29,9 @@ $this->end();
         <?php
             // echo $this->Form->control('description');
             echo $this->Form->control('achievement');
-            echo $this->Form->control('trigger_id', ['options' => $triggers, 'empty' => true]);
+            echo $this->Form->control('trigger_id', ['options' => $triggers, 'empty' => true, 'type'=>'hidden']);
             // echo $this->Form->control('completed_date', ['empty' => true,'id'=>'completed_date']);
-            echo $this->Form->control('completed_date', ['empty' => true, 'class' => 'addon-right', 'label' => 'Completed Date', 'id' => 'completed_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);
+            echo $this->Form->control('completed_date', ['empty' => true, 'class' => 'addon-right', 'label' => 'Start Date', 'id' => 'completed_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);
             echo $this->Form->control('expected_completion_date', ['empty' => true, 'class' => 'addon-right', 'label' => 'Expected Completion Date', 'id' => 'expected_completion_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);
                  // echo $this->Form->control('expected_completion_date', ['empty' => true]);
         ?>

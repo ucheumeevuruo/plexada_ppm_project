@@ -154,12 +154,31 @@ $this->end();
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div> -->
 
+<!-- MODAL ELEMENTS -->
+
+<div id="dialogModal" class="bg-primary">
+    <!-- the external content is loaded inside this tag -->
+    <div id="contentWrap">
+        <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-lg']) ?>
+        <?= $this->Modal->body()// No header ?>
+        <?= $this->Modal->footer()// Footer with close button (default) ?>
+        <?= $this->Modal->end() ?>
+    </div>
+</div>
+
     <script>
     $('.dataTable').DataTable();
 
-    $(function() {
-        console.log('l');
-        $('[data-toggle="tooltip"]').tooltip()
-    });
+    $(document).ready(function() {
+            //respond to click event on anything with 'overlay' class
+            $(".overlay").click(function(event){
+                event.preventDefault();
+                //load content from href of link
+                $('#contentWrap .modal-body').load($(this).attr("href"), function(){
+                    $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content').removeClass()
+                    $('#MyModal4').modal('show')
+                });
+            });
+        });
     </script>
 </div>

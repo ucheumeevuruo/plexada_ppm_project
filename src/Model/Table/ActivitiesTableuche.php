@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\I18n\Time;
@@ -6,6 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use DateTime;
 
 /**
  * Activities Model
@@ -39,7 +41,7 @@ class ActivitiesTable extends Table
         parent::initialize($config);
 
         $this->setTable('activities');
-        $this->setDisplayField('next_activity');
+        $this->setDisplayField('description'); # What field do you want as the default field?description
         $this->setPrimaryKey('activity_id');
 
         $this->addBehavior('Timestamp');
@@ -49,6 +51,12 @@ class ActivitiesTable extends Table
         ]);
         $this->belongsTo('Staff', [
             'foreignKey' => 'assigned_to_id',
+        ]);
+        $this->belongsTo('Sponsors', [
+            'foreignKey' => 'sponsor_id',
+        ]);
+        $this->belongsTo('Currencies', [
+            'foreignKey' => 'currency_id',
         ]);
         $this->belongsTo('Priorities', [
             'className' => 'Lov',
@@ -62,8 +70,20 @@ class ActivitiesTable extends Table
             'joinType' => 'LEFT',
             'conditions' => ['Statuses.lov_type' => 'project_status']
         ]);
+        $this->belongsTo('ActivityTypes', [
+            'className' => 'Lov',
+            'foreignKey' => 'activity_type_id',
+            'joinType' => 'INNER',
+            'conditions' => ['ActivityTypes.lov_type' => 'activity_type']
+        ]);
         $this->belongsTo('Users', [
             'foreignKey' => 'system_user_id',
+        ]);
+        $this->belongsTo('Lov', [
+            'foreignKey' => 'priority_id',
+        ]);
+        $this->hasMany('Tasks', [
+            'foreignKey' => 'activities_id',
         ]);
     }
 
@@ -94,6 +114,16 @@ class ActivitiesTable extends Table
             ->allowEmptyDate('waiting_since');
 
         $validator
+            ->date('start_date')
+             ->requirePresence('start_date', 'create')
+            ->notEmptyDate('start_date');
+
+        $validator
+            ->date('end_date')
+             ->requirePresence('end_date', 'create')
+            ->notEmptyDate('end_date');
+
+        $validator
             ->scalar('next_activity')
             ->maxLength('next_activity', 300)
             ->allowEmptyString('next_activity');
@@ -103,13 +133,13 @@ class ActivitiesTable extends Table
 
         $validator
             ->integer('percentage_completion')
-            ->requirePresence('percentage_completion', 'create')
+//            ->requirePresence('percentage_completion', 'create')
             ->notEmptyString('percentage_completion');
 
         $validator
             ->scalar('description')
             ->maxLength('description', 300)
-//            ->requirePresence('Description', 'create')
+            //            ->requirePresence('Description', 'create')
             ->notEmptyString('Description');
 
         $validator
@@ -132,8 +162,11 @@ class ActivitiesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        // $rules->add($rules->existsIn(['project_id'], 'ProjectDetails'));
+        // $rules->add($rules->existsIn(['id'], 'Projects'));
+        $rules->add($rules->existsIn(['project_id'], 'ProjectDetails'));
         $rules->add($rules->existsIn(['assigned_to_id'], 'Staff'));
+        $rules->add($rules->existsIn(['currency_id'], 'Currencies'));
+        $rules->add($rules->existsIn(['sponsor_id'], 'Sponsors'));
         $rules->add($rules->existsIn(['priority_id'], 'Priorities'));
         $rules->add($rules->existsIn(['status_id'], 'Statuses'));
         $rules->add($rules->existsIn(['system_user_id'], 'Users'));
@@ -141,18 +174,21 @@ class ActivitiesTable extends Table
         return $rules;
     }
 
-    public function identify($formData) {
-        if(isset($formData['status_id']))
-        {
+    public function identify($formData)
+    {
+        if (isset($formData['status_id'])) {
 
             $status = $this->Statuses->find()
-            ->where(['id' => $formData['status_id']])
-            ->first();
-            if(strtolower($status->lov_value) == 'closed')
-            {
+                ->where(['id' => $formData['status_id']])
+                ->first();
+            if (strtolower($status->lov_value) == 'closed') {
                 $formData['completion_date'] = Time::now();
             }
         }
+        $formData['start_date'] = !empty($formData['start_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['start_date']) : $formData['start_date'];
+        $formData['end_date'] = !empty($formData['end_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['end_date']) : $formData['end_date'];
         return $formData;
     }
 }
