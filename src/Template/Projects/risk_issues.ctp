@@ -66,7 +66,7 @@ $this->end();
                         <div class="card-body">
                             <h5 class="card-title font-weight-bold text-primary"> Risks & Issues <?= h($num) ?></h5>
                             <p class="card-text">
-                                <?= $this->Html->link($riskissue->description, ['controller' => 'riskIssues', 'action' => 'view', $riskissue->id],) ?>
+                                <?= $this->Html->link($riskissue->description, ['controller' => 'riskIssues', 'action' => 'view', $riskissue->id]) ?>
                             </p>
                         </div>
                     </div>

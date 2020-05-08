@@ -81,17 +81,17 @@ $this->end();
                         ?>
                     <tr>
                         <td><?= h($num) ?></td>
-                        <td> <?= $this->Html->link($activity->description, ['controller' => 'activities', 'action' => 'view', $activity->activity_id],) ?>
+                        <td> <?= $this->Html->link($activity->description, ['controller' => 'activities', 'action' => 'view', $activity->activity_id]) ?>
                         </td>
                         <td><?= h($status) ?></td>
-                        <td><?= h($activity->created,) ?> </td>
+                        <td><?= h($activity->created) ?> </td>
                         <!-- <td><?= h($activity->milestones->expected_completion_date) ?></td> -->
                         <td></td>
                         <td><?= h($activity->assigned_to_id) ?></td>
                         <td><?= h($activity->next_activity) ?></td>
 
 
-                        <td> <?= $this->Html->link('list of Tasks', ['controller' => 'activities', 'action' => 'tasks',  $activity->activity_id], ['id' => 'transmit'],) ?>
+                        <td> <?= $this->Html->link('list of Tasks', ['controller' => 'activities', 'action' => 'tasks',  $activity->activity_id], ['id' => 'transmit']) ?>
                         </td>
 
                     </tr>
