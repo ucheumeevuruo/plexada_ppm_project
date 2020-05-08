@@ -95,7 +95,7 @@ $this->end();
                         <h5 class="card-title font-weight-bold text-primary">Completed Indicators</h5>
                         <?php foreach ($project->milestones as $milestones) : ?>
                         <p class="card-text">
-                            <?= $this->Html->link($milestones->description, ['controller' => 'milestones', 'action' => 'view', $milestones->id],) ?>
+                            <?= $this->Html->link($milestones->description, ['controller' => 'milestones', 'action' => 'view', $milestones->id]) ?>
                         </p>
                         <?php endforeach; ?>
                     </div>

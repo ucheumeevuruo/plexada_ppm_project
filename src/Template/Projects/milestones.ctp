@@ -65,7 +65,7 @@ $this->end();
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold text-primary">Indicator <?= h($num) ?></h5>
                         <p class="card-text">
-                            <?= $this->Html->link($milestones->description, ['controller' => 'milestones', 'action' => 'view', $milestones->id],) ?>
+                            <?= $this->Html->link($milestones->description, ['controller' => 'milestones', 'action' => 'view', $milestones->id]) ?>
                         </p>
                     </div>
                 </div>
