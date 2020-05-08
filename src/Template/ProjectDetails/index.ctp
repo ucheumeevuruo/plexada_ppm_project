@@ -15,7 +15,7 @@ $this->end();
 <div class="projectDetails container-fluid">
     <div class="shadow mb-4 br-m">
         <div class="py-3 pl-3 bg-primary br-t">
-            <h2 class="text-center text-light font-weight-bold"><?= __('PAD Details') ?></h2>
+            <h2 class="text-center text-light font-weight-bold"><?= __('Project Details') ?></h2>
         </div>
 
 
@@ -27,7 +27,7 @@ $this->end();
                         <tr>
                             <th scope="col"><?= __('Project Id') ?></th>
                             <th scope="col"><?= __('Project Name') ?></th>
-                            <th scope="col"><?= __('Description') ?></th>
+                            <th scope="col"><?= __('Brief') ?></th>
                             <th scope="col"><?= __('Location') ?></th>
                             <th scope="col"><?= __('Manager') ?></th>
                             <th scope="col"><?= __('Status') ?></th>
@@ -112,9 +112,9 @@ $this->end();
         <!-- the external content is loaded inside this tag -->
         <div id="contentWrap">
             <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-lg']) ?>
-            <?= $this->Modal->body() // No header 
+            <?= $this->Modal->body() // No header
             ?>
-            <?= $this->Modal->footer() // Footer with close button (default) 
+            <?= $this->Modal->footer() // Footer with close button (default)
             ?>
             <?= $this->Modal->end() ?>
         </div>

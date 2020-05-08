@@ -86,14 +86,6 @@ $this->end();
                     <?= $this->Html->link(__('Add Activities'), ['controller' => 'Activities', 'action' => 'add',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
                     <?= $this->Html->link(__('Add Tasks'), ['controller' => 'Tasks', 'action' => 'add',$project_info->id], ['class' => 'btn btn-primary btn-sm overlay']) ?>
                 </div>
-                <!-- <div class="form-group">
-                    <label for="activities_achievement">Activities & Achievement</label>
-                    <input type="text" class="form-control" id="activities_achievement" name="activities_achievement" required="required" >
-                </div> -->
-                <!-- <div class="form-group">
-                    <label for="Risks&Mitigation">Risks & Mitigation</label>
-                    <input type="text" class="form-control" id="risks_mitigation" name="risks_mitigation" required="required">
-                </div> -->
                 <div class="form-group">
                     <label for="activity_next_semester">Main Activities for Next Semester</label>
                     <textarea class="form-control" id="activity_next_semester" name ="activity_next_semester" required="required"></textarea>
@@ -136,10 +128,6 @@ $this->end();
                 </div>
                 <div id="newApproval"></div>
                 <button id="addApproval" type="button" class="btn btn-primary mb-5">Add New Approval</button>
-<!-- <div class="form-group">
-    <label for="signed_mou">FINANCIAL TEMPLATE DOCUMENT</label>
-    <input type="file" class="form-control" id="financial_template" name="financial_template" required="required">
-</div>                  -->
                 <div class="form-group">
                     <label for="signed_mou">SIGNED MOU (PIM)</label>
                     <input type="file" class="form-control" id="signed_mou" name="signed_mou" required="required">

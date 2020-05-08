@@ -20,7 +20,7 @@ class SponsorsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Users'],
+            'contain' => ['Users', 'SponsorTypes'],
         ];
         $sponsors = $this->paginate($this->Sponsors);
 
@@ -61,7 +61,8 @@ class SponsorsController extends AppController
             $this->Flash->error(__('The sponsor could not be saved. Please, try again.'));
         }
         $users = $this->Sponsors->Users->find('list', ['limit' => 200]);
-        $this->set(compact('sponsor', 'users'));
+        $sponsorTypes = $this->Sponsors->SponsorTypes->find('list', ['limit' => 200]);
+        $this->set(compact('sponsor', 'users', 'sponsorTypes'));
     }
 
     /**
@@ -86,7 +87,8 @@ class SponsorsController extends AppController
             $this->Flash->error(__('The sponsor could not be saved. Please, try again.'));
         }
         $users = $this->Sponsors->Users->find('list', ['limit' => 200]);
-        $this->set(compact('sponsor', 'users'));
+        $sponsorTypes = $this->Sponsors->SponsorTypes->find('list', ['limit' => 200]);
+        $this->set(compact('sponsor', 'users', 'sponsorTypes'));
     }
 
     /**

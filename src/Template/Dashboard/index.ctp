@@ -37,6 +37,13 @@ $this->end();
             /* width: 900px; */
             height: 300px;
         }
+        #container3 {
+            /* position: absolute; */
+            overflow-y: scroll;
+            overflow-x: scroll;
+            /* width: 900px; */
+            height: 300px;
+        }        
     </style>
     <?php
     $arrcompleted = [];
@@ -377,8 +384,6 @@ $this->end();
                             var array_code = <?php echo $code_array; ?>;
                             var array_complete = <?php echo $comp; ?>;
                             var array_open = <?php echo $op; ?>;
-                            console.log(array_complete)
-                            console.log(array_open)
                             doBarChart(array_code, array_complete, array_open);
                         </script>
                     </div>
@@ -462,6 +467,39 @@ $this->end();
         </div>
     </div> -->
 
+    <!-- <div class="row">
+        <div class="col">
+            <div class="card shadow mb-5">
+
+                <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
+                    <h4 class="m-0 text-white">Gant Chart</h4>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="card-body">
+                    <div id="container2">
+                        <div id="ganttcontainer" style="height: 500px; width: 100%"></div>
+                    </div>
+
+                    <div class="mt-4 text-center small status"></div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+
     <div class="row">
         <div class="col">
             <div class="card shadow mb-5">
@@ -484,8 +522,15 @@ $this->end();
 
                 <!-- Gantt Chart -->
                 <div class="card-body">
-                    <div id="container2">
-                        <div id="ganttcontainer" style="height: 500px; width: 100%"></div>
+                    <div id="container3">
+                        <div id="ganttcontainer2" style="height: 500px; width: 100%">
+                        <script>
+                            <?php $obj_array = json_encode($ganttDetails) ?>
+                            var array_code2 = <?php echo $obj_array; ?>;
+                            ganttProject2(array_code2);
+                            // console.log(array_code2)
+                        </script>
+                        </div>
                     </div>
 
                     <div class="mt-4 text-center small status"></div>
@@ -494,11 +539,9 @@ $this->end();
         </div>
     </div>
 
-
 </div>
 <script>
     $(function() {
-        console.log('l');
         $('[data-toggle="tooltip"]').tooltip()
     });
 </script>

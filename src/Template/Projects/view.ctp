@@ -56,7 +56,7 @@ $this->end();
             <tr class="bg-primary text-light">
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Name') ?></th>
-                <th scope="col"><?= __('Description') ?></th>
+                <th scope="col"><?= __('Brief') ?></th>
                 <th scope="col"><?= __('Location') ?></th>
                 <th scope="col"><?= __('Vendor Id') ?></th>
                 <th scope="col"><?= __('Manager Id') ?></th>

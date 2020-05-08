@@ -59,7 +59,7 @@ class ProjectDetailsTable extends Table
             'foreignKey' => 'manager_id',
         ]);
         $this->belongsTo('Sponsors', [
-            'foreignKey' => 'sponsor_id',
+            'foreignKey' => 'sponsor_id'
         ]);
         $this->belongsTo('Staff', [
             'foreignKey' => 'waiting_on_id',
@@ -191,8 +191,8 @@ class ProjectDetailsTable extends Table
 
     public function identify($formData)
     {
-        $formData['waiting_since'] = !empty($formData['waiting_since']) ?
-            DateTime::createFromFormat('d/m/Y', $formData['waiting_since']) : $formData['waiting_since'];
+        // $formData['waiting_since'] = !empty($formData['waiting_since']) ?
+        //     DateTime::createFromFormat('d/m/Y', $formData['waiting_since']) : $formData['waiting_since'];
         $formData['start_dt'] = !empty($formData['start_dt']) ?
             DateTime::createFromFormat('d/m/Y', $formData['start_dt']) : $formData['start_dt'];
         $formData['end_dt'] = !empty($formData['end_dt']) ?
@@ -214,6 +214,7 @@ class ProjectDetailsTable extends Table
         $rules->add($rules->existsIn(['vendor_id'], 'Vendors'));
         $rules->add($rules->existsIn(['manager_id'], 'Staff'));
         $rules->add($rules->existsIn(['sponsor_id'], 'Sponsors'));
+        // $rules->add($rules->existsIn(['mda_id'], 'MDA'));
         $rules->add($rules->existsIn(['waiting_on_id'], 'Staff'));
         $rules->add($rules->existsIn(['status_id'], 'Lov'));
         $rules->add($rules->existsIn(['priority_id'], 'Lov'));

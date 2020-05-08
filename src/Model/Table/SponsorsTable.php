@@ -50,6 +50,12 @@ class SponsorsTable extends Table
             'joinType' => 'INNER',
         ]);
 
+        $this->belongsTo('SponsorTypes', [
+            'className' => 'Lov',
+            'foreignKey' => 'sponsor_type_id',
+            'conditions' => ['SponsorTypes.lov_type' => 'sponsor_type']
+        ]);
+
         $this->hasMany('ProjectDetails', [
             'foreignKey' => 'sponsor_id',
         ]);
@@ -81,6 +87,9 @@ class SponsorsTable extends Table
             ->scalar('other_names')
             ->maxLength('other_names', 150)
             ->allowEmptyString('other_names');
+
+        $validator
+            ->requirePresence('sponsor_type_id', 'create');
 
         $validator
             ->scalar('role')
