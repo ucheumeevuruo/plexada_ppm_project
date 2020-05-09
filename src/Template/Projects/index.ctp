@@ -128,9 +128,9 @@ $this->end();
                                         $resultsppf = $qrycount->fetchAll('assoc');
                                         if (isset($resultsppf[0])) {
                                             // echo '<a  class="text-success txt-sm">Add PPF</a>';
-                                            echo $this->Html->link(__('Add PPA'), ['controller' => 'projectFundings', 'action' => 'add', $project->id], ['class' => 'text-light txt-sm']);
+                                            echo $this->Html->link(__('Add PPA'), ['controller' => 'projectFundings', 'action' => 'add', $project->id], ['class' => 'text-light txt-sm overlay']);
                                         } else {
-                                            echo $this->Html->link(__('Add PPA'), ['controller' => 'projectFundings', 'action' => 'add', $project->id], ['class' => 'text-light txt-sm']);
+                                            echo $this->Html->link(__('Add PPA'), ['controller' => 'projectFundings', 'action' => 'add', $project->id], ['class' => 'text-light txt-sm overlay']);
                                         }
                                         ?>
                                 </button>
@@ -154,6 +154,7 @@ $this->end();
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div> -->
 
+
 <!-- MODAL ELEMENTS -->
 
 <div id="dialogModal" class="bg-primary">
@@ -167,9 +168,7 @@ $this->end();
 </div>
 
     <script>
-    $('.dataTable').DataTable();
-
-    $(document).ready(function() {
+   $(document).ready(function() {
             //respond to click event on anything with 'overlay' class
             $(".overlay").click(function(event){
                 event.preventDefault();
@@ -180,5 +179,7 @@ $this->end();
                 });
             });
         });
+
+        $('.dataTable').DataTable();
     </script>
 </div>
