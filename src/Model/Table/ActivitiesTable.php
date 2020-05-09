@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\I18n\Time;
@@ -65,6 +66,9 @@ class ActivitiesTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'system_user_id',
         ]);
+        $this->hasMany('Tasks', [
+            'foreignKey' => 'Task_name',
+        ]);
     }
 
     /**
@@ -109,7 +113,7 @@ class ActivitiesTable extends Table
         $validator
             ->scalar('description')
             ->maxLength('description', 300)
-//            ->requirePresence('Description', 'create')
+            //            ->requirePresence('Description', 'create')
             ->notEmptyString('Description');
 
         $validator
@@ -141,15 +145,14 @@ class ActivitiesTable extends Table
         return $rules;
     }
 
-    public function identify($formData) {
-        if(isset($formData['status_id']))
-        {
+    public function identify($formData)
+    {
+        if (isset($formData['status_id'])) {
 
             $status = $this->Statuses->find()
-            ->where(['id' => $formData['status_id']])
-            ->first();
-            if(strtolower($status->lov_value) == 'closed')
-            {
+                ->where(['id' => $formData['status_id']])
+                ->first();
+            if (strtolower($status->lov_value) == 'closed') {
                 $formData['completion_date'] = Time::now();
             }
         }

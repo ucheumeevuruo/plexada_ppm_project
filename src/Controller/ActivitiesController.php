@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -43,6 +44,17 @@ class ActivitiesController extends AppController
         $this->set('activity', $activity);
     }
 
+    public function tasks($id = null)
+    {
+        $activity = $this->Activities->get($id, [
+            'contain' => ['Tasks'],
+        ]);
+
+        $this->set('activity', $activity);
+    }
+
+
+
     /**
      * Add method
      *
@@ -50,20 +62,21 @@ class ActivitiesController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add($project_id = null)
-    {    $this->loadModel('Milestones');
+    {
+        $this->loadModel('Milestones');
         $activity = $this->Activities->newEntity();
         if ($this->request->is('post')) {
             $activity = $this->Activities->patchEntity($activity, $this->request->getData());
             if ($this->Activities->save($activity)) {
                 $this->Flash->success(__('The activity has been saved.'));
 
-//                return $this->redirect(['controller' => 'ProjectDetails', 'action' => 'view', $project_id]);
+                //                return $this->redirect(['controller' => 'ProjectDetails', 'action' => 'view', $project_id]);
                 return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The activity could not be saved. Please, try again.'));
 
-//            return $this->redirect(['controller' => 'ProjectDetails', 'action' => 'view', $project_id]);
-           
+            //            return $this->redirect(['controller' => 'ProjectDetails', 'action' => 'view', $project_id]);
+
             return $this->redirect($this->referer());
         }
         $projectDetails = $this->Activities->ProjectDetails->find('list', ['limit' => 200]);
@@ -71,8 +84,8 @@ class ActivitiesController extends AppController
         $priority = $this->Activities->Priorities->find('list', ['limit' => 200]);
         $status = $this->Activities->Statuses->find('list', ['limit' => 200]);
         $users = $this->Activities->Users->find('list', ['limit' => 200]);
-        $milestone_info = $this->Milestones->find('list', ['limit' => 200, 'conditions'=>['project_id'=>$project_id]]);
-        $this->set(compact('activity', 'projectDetails', 'staff', 'priority', 'status', 'users', 'project_id','milestone_info'));
+        $milestone_info = $this->Milestones->find('list', ['limit' => 200, 'conditions' => ['project_id' => $project_id]]);
+        $this->set(compact('activity', 'projectDetails', 'staff', 'priority', 'status', 'users', 'project_id', 'milestone_info'));
     }
 
     /**
@@ -92,7 +105,7 @@ class ActivitiesController extends AppController
             if ($this->Activities->save($activity)) {
                 $this->Flash->success(__('The activity has been saved.'));
 
-//                return $this->redirect(['action' => 'index']);
+                //                return $this->redirect(['action' => 'index']);
                 return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The activity could not be saved. Please, try again.'));
@@ -100,14 +113,17 @@ class ActivitiesController extends AppController
         }
         $projectDetails = $this->Activities->ProjectDetails->find('list', ['limit' => 200]);
         $staff = $this->Activities->Staff->find('list', ['limit' => 200]);
-//        $lov = $this->Activities->Lov->find('list', ['limit' => 200]);
+        //        $lov = $this->Activities->Lov->find('list', ['limit' => 200]);
         $priority = $this->Activities->Priorities->find('list', [
             'conditions' => ['Priorities.lov_type' => 'priority'],
             'limit' => 200
         ]);
-        $status = $this->Activities->Statuses->find('list', [
-            'conditions' => ['Statuses.lov_type' => 'project_status'],
-            'limit' => 200]
+        $status = $this->Activities->Statuses->find(
+            'list',
+            [
+                'conditions' => ['Statuses.lov_type' => 'project_status'],
+                'limit' => 200
+            ]
         );
         $users = $this->Activities->Users->find('list', ['limit' => 200]);
         $this->set(compact('activity', 'projectDetails', 'staff', 'users', 'priority', 'status'));
@@ -130,7 +146,7 @@ class ActivitiesController extends AppController
             $this->Flash->error(__('The activity could not be deleted. Please, try again.'));
         }
 
-//        return $this->redirect(['action' => 'index']);
+        //        return $this->redirect(['action' => 'index']);
         return $this->redirect($this->referer());
     }
 }

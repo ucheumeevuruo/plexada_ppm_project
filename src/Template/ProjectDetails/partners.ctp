@@ -45,7 +45,6 @@ $this->end();
 
 
     </div>
-    <!-- <?= h($projectDetails->projects->id) ?> -->
     <div class="card-body">
 
         <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($projectDetails->name) ?> Partners
@@ -66,23 +65,53 @@ $this->end();
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $num = 0; ?>
-                    <?php foreach ($projectDetails->sponsors as $sponsor) : ?>
-                    <?php $num++; ?>
-
+                    <?php if ($projectDetails->sponsor_id == 1) {
+                        $first = 'World bank';
+                        $last = 'International';
+                        $email = 'worldbank@worldbank.com';
+                        $phone = '+1234567890';
+                        $address = 'Switzerland';
+                    } elseif ($projectDetails->sponsor_id == 3) {
+                        $first = 'Central bank of Nigeria';
+                        $last = 'CBN';
+                        $email = 'cbnk@fgn.com';
+                        $phone = '+1234567890';
+                        $address = 'Abuja';
+                    } elseif ($projectDetails->sponsor_id == 4) {
+                        $first = 'IMF';
+                        $last = 'International Monetary Fund';
+                        $email = 'imf@world.com';
+                        $phone = '+1234567890';
+                        $address = 'Switzerland';
+                    } elseif ($projectDetails->sponsor_id == 5) {
+                        $first = 'Ministry of Agriculture';
+                        $last = 'Ministry';
+                        $email = 'magric@ogunstate.com';
+                        $phone = '+1234567890';
+                        $address = 'Abeokuta, Ogun state';
+                    } elseif ($projectDetails->sponsor_id == 6) {
+                        $first = 'Ministry of Health';
+                        $last = 'Ministry';
+                        $email = 'mhealth@ogunstate.com';
+                        $phone = '+1234567890';
+                        $address = 'Abeokuta, Ogun state';
+                    } else {
+                        $first = 'The Governor of Ogun state';
+                        $last = 'His Excellency';
+                        $email = 'hisexcellency@ogunstate.com';
+                        $phone = '+1234567890';
+                        $address = 'Government House, Abeokuta';
+                    }
+                    ?>
                     <tr>
-                        <td><?= h($num) ?></td>
-                        <td><?= h($sponsor->last_name) ?></td>
-                        <td><?= h($sponsor->first_name) ?></td>
-                        <td><?= h($sponsor->email) ?></td>
-                        <td><?= h($sponsor->phone_no) ?></td>
-                        <td><?= h($sponsor->address) ?></td>
-                        <!-- <td><?= h($projectDetails->sponsor_id) ?></td> -->
 
-
+                        <td>1</td>
+                        <td><?= h($last) ?></td>
+                        <td><?= h($first) ?></td>
+                        <td><?= h($email) ?></td>
+                        <td><?= h($phone) ?></td>
+                        <td><?= h($address) ?></td>
                     </tr>
-                    <?php endforeach; ?>
-
                 </tbody>
             </table>
         </div>
