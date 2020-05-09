@@ -53,7 +53,8 @@ class ProjectsController extends AppController
         $project = $this->Projects->get($id, [
             'contain' => ['Pims', 'ProjectFundings', 'ProjectDetails', 'Activities', 'Annotations', 'Milestones', 'Objectives', 'Prices', 'RiskIssues', 'Sponsors'],
         ]);
-
+        // debug($project);
+        // die();
         $this->set('project', $project);
     }
 
@@ -111,7 +112,6 @@ class ProjectsController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The project could not be saved. Please, try again.'));
-
         }
         $pims = $this->Projects->Pims->find('list', ['limit' => 200]);
         $projectDetails = $this->Projects->ProjectDetails->find('list', ['limit' => 200]);

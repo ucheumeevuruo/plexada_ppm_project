@@ -61,9 +61,23 @@ $this->end();
                 <div class="card card-outline shadow">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold text-primary">Sponsors & Donors</h5>
-                        <?php foreach ($project->sponsors as $sponsors) : ?>
-                        <p class="card-text"><?= h($sponsors->first_name) ?></p>
-                        <?php endforeach; ?>
+
+                        <?php if ($project->project_detail->sponsor_id == 1) {
+                            $sponsor = 'World Bank';
+                        } elseif ($project->project_detail->sponsor_id == 3) {
+                            $sponsor = 'CBN';
+                        } elseif ($project->project_detail->sponsor_id == 4) {
+                            $sponsor = 'IMF';
+                        } elseif ($project->project_detail->sponsor_id == 5) {
+                            $sponsor = 'Ministry of Agriculture';
+                        } elseif ($project->project_detail->sponsor_id == 6) {
+                            $sponsor = 'Ministry of Health';
+                        } else {
+                            $sponsor = 'His Excellency';
+                        }
+                        ?>
+                        <p class="card-text"><?= h($sponsor) ?></p>
+
                     </div>
                 </div>
             </div>
@@ -71,7 +85,12 @@ $this->end();
                 <div class="card card-outline shadow">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold text-primary">Budget and Expense</h5>
-                        <p class="card-text"><?= $this->Number->currency($project->cost) ?></p>
+                        <p class="card-text">Budget :
+                            <strong><?= $this->Number->currency($project->project_detail->budget) ?></strong>
+                        </p>
+                        <p class="card-text">Expenses :<strong>
+                                <?= $this->Number->currency($project->project_detail->expenses) ?></p>
+                        </strong>
 
                     </div>
                 </div>
@@ -79,13 +98,15 @@ $this->end();
                 <div class="card card-outline shadow">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold text-primary">PPA</h5>
-                        <p class="card-text"></p>
+                        <p class="card-text"><strong><?= $this->Number->currency($project->cost) ?></strong></p>
                     </div>
                 </div>
                 <div class="card card-outline shadow">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold text-primary">MDA</h5>
-                        <p class="card-text"></p>
+                        <p class="card-text"><?= h('Ogun State Ministry') ?></p>
+                        <!-- <p class="card-text"><?= h($project->project_detail->mda_id) ?></p>
+                        <p class="card-text"><?= h($project->project_detail->mda_id) ?></p> -->
                     </div>
                 </div>
             </div>
@@ -103,15 +124,16 @@ $this->end();
                 <div class="card card-outline shadow">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold text-primary">DLI</h5>
-                        <p class="card-text"></p>
+                        <p class="card-text">
+                            <?= h($project->project_detail->DLI) ?>
+                        </p>
                     </div>
                 </div>
                 <div class="card card-outline shadow">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold text-primary">Risk & Issues</h5>
-                        <?php foreach ($project->risk_issues as $riskIssues) : ?>
-                        <p class="card-text"><?= h($riskIssues->description) ?></p>
-                        <?php endforeach; ?>
+                        <?= h($project->project_detail->risk_and_issues) ?>
+
                     </div>
                 </div>
             </div>

@@ -183,6 +183,9 @@ class ProjectDetailsController extends AppController
 
     public function partners($id = null)
     {
+
+
+        // $projectDetails = $this->ProjectDetails->find('all', ['contain' => ['Sponsors']]);
         $projectDetails = $this->ProjectDetails->get($id, [
             'contain' => ['Sponsors', 'Projects'],
         ]);
@@ -190,7 +193,8 @@ class ProjectDetailsController extends AppController
 
 
         // $projectDetails = $this->ProjectDetails->find('all')->contain(['sponsors'])->where(['project_id' => 1]);
-
+        // debug($projectDetails);
+        // die();
 
         // sql($projectDetails);
         // die();
