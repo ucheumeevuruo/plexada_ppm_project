@@ -155,37 +155,20 @@ $this->end();
     </div> -->
 
 
-    <!-- MODAL ELEMENTS -->
+<!-- MODAL ELEMENTS -->
 
-    <div id="dialogModal" class="bg-primary">
-        <!-- the external content is loaded inside this tag -->
-        <div id="contentWrap">
-            <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-lg']) ?>
-            <?= $this->Modal->body()// No header ?>
-            <?= $this->Modal->footer()// Footer with close button (default) ?>
-            <?= $this->Modal->end() ?>
-        </div>
-        <div id="uploadContent">
-            <?= $this->Modal->create(['id' => 'upload', 'size' => 'modal-sm']) ?>
-            <?= $this->Modal->body('
-                <form>
-                  <div class="form-group">
-                    <label for="exampleFormControlFile1">Import file</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                  </div>
-                </form>
-            ')// No header ?>
-            <?= $this->Modal->footer()// Footer with close button (default) ?>
-            <?= $this->Modal->end() ?>
-        </div>
+<div id="dialogModal" class="bg-primary">
+    <!-- the external content is loaded inside this tag -->
+    <div id="contentWrap">
+        <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-lg']) ?>
+        <?= $this->Modal->body()// No header ?>
+        <?= $this->Modal->footer()// Footer with close button (default) ?>
+        <?= $this->Modal->end() ?>
     </div>
+</div>
 
     <script>
-        $(function() {
-            console.log('l');
-            $('[data-toggle="tooltip"]').tooltip()
-        });
-        $(document).ready(function() {
+   $(document).ready(function() {
             //respond to click event on anything with 'overlay' class
             $(".overlay").click(function(event){
                 event.preventDefault();

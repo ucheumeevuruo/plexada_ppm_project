@@ -79,7 +79,7 @@ $this->end();
             <legend class="text-primary">Project Components</legend>
                 <div class="mb-3">
                     <?= $this->Html->link(__('Add Components'), ['controller' => 'projectComponents', 'action' => 'add',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
-                    <?= $this->Html->link(__('Add Milestones'), ['controller' => 'Milestones', 'action' => 'add',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
+                    <?= $this->Html->link(__('Add Indicator'), ['controller' => 'Milestones', 'action' => 'add',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
                     <?= $this->Html->link(__('Add Activities'), ['controller' => 'Activities', 'action' => 'add',$project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
                     <?= $this->Html->link(__('Add Tasks'), ['controller' => 'Tasks', 'action' => 'add',$project_info->id], ['class' => 'btn btn-primary btn-sm overlay']) ?>
                 </div>

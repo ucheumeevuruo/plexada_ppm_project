@@ -23,7 +23,7 @@ $this->end();
             <div class="input-group mb-3"><input type="text" name="name" id="name" value="<?= $project_info->name ?>"
                     class="form-control addon-right" empty="1" id="description" autocomplete="off">
             </div>
-            <input type="text" name="project_id" id="project_id" value="<?= $project_info->id ?>" />
+            <input type="hidden" name="project_id" id="project_id" value="<?= $project_info->id ?>" />
 
             <label class="control-label" for="description">Brief</label>
             <div class="input-group mb-3"><input type="text" name="description" value="<?= $project_info->introduction ?>"
@@ -42,9 +42,9 @@ $this->end();
             <?= $this->Form->control('sponsor_id', ['options' => $sponsors, 'empty' => true]); ?>
 
             <?= $this->Form->control('donor_id', ['options' => $donors, 'empty' => true]); ?>
-            <?= $this->Form->control('mda_id', ['options' => $mdas, 'empty' => true]); ?>
+            <?= $this->Form->control('mda_id', ['options' => $mdas, 'empty' => true,'label'=>'MDA']); ?>
 
-            <?= $this->Form->control('DLI'); ?>
+            <?= $this->Form->control('DLI',['label'=>'DLI']); ?>
 
         </div>
 

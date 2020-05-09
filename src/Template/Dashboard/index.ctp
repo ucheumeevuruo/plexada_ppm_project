@@ -52,7 +52,7 @@ $this->end();
     <?php foreach ($project_list as $project) : ?>
         <?php
         $conn = ConnectionManager::get('default');
-        $prjid = $project->id;
+        $prjid = $project->project_id;
         $completed = $conn->execute("SELECT count(*) as T FROM milestones where project_id ='" . $prjid . "' and status_id ='3' ");
         $open = $conn->execute("SELECT count(*) as S FROM milestones where project_id ='" . $prjid . "' and status_id ='1' ");
         $complete = $completed->fetch('assoc');
@@ -62,7 +62,10 @@ $this->end();
 
         ?>
     <?php endforeach; ?>
-
+    <?php
+        // debug($arropen);
+        // die();
+    ?>
     <!-- start of health chart  -->
     <div class="row">
         <div class="col">
@@ -111,6 +114,9 @@ $this->end();
                                     $projectdatediff = date_diff(new DateTime($sdate), new DateTime($edate));
                                     $result = intval($projectdatediff->format('%R%a'));
                                     $expectedprojectdays = intval(date_diff(new DateTime($sdate), new DateTime($today))->format('%R%a'));
+                                    if ($result == 0){
+                                        $result = 1;
+                                    };
                                     $result2 = ($expectedprojectdays * 100) / $result;
                                     $expectdays =  round(number_format($result2, 2), 2);
                                     // echo $expectdays;
@@ -120,10 +126,10 @@ $this->end();
 
                                     $milestones = "";
                                     $milestones = $milestone_list->find('all');
-                                    $milestones = $milestone_list->find('all', ['conditions' => ['project_id' => $project->id, 'status_id' => '3']]);
+                                    $milestones = $milestone_list->find('all', ['conditions' => ['project_id' => $project->project_id, 'status_id' => '3']]);
                                     // $milestones = $milestone_list->find('all')->where(['project_id =' => $project->id]);
                                     // sql($milestones);
-                                    $prjid = $project->id;
+                                    $prjid = $project->project_id;
                                     $conn = ConnectionManager::get('default');
                                     $qrycount = $conn->execute("SELECT count(*) as recount FROM milestones where project_id ='" . $prjid . "' ");
                                     $mlcount = $qrycount->fetch('assoc')['recount'];
@@ -270,10 +276,10 @@ $this->end();
 
                                 $milestones = "";
                                 $milestones = $milestone_list->find('all');
-                                $milestones = $milestone_list->find('all', ['conditions' => ['project_id' => $project->id, 'status_id' => '3']]);
+                                $milestones = $milestone_list->find('all', ['conditions' => ['project_id' => $project->project_id, 'status_id' => '3']]);
                                 // $milestones = $milestone_list->find('all')->where(['project_id =' => $project->id]);
                                 // sql($milestones);
-                                $prjid = $project->id;
+                                $prjid = $project->project_id;
                                 $conn = ConnectionManager::get('default');
                                 $stmt = $conn->execute("SELECT * FROM milestones where project_id ='" . $prjid . "' and status_id ='3' order by completed_date DESC");
                                 $results = $stmt->fetchAll('assoc');
@@ -420,8 +426,12 @@ $this->end();
                         <canvas id="myChart2" width="200" height="50" style="height:400px"></canvas>
                         <script>
                             <?php $code_array = json_encode($allprojects) ?>
+                            <?php $budget_array = json_encode($allBudgetList) ?>
+                            <?php $expense_array = json_encode($allExpenseList) ?>
                             var array_code = <?php echo $code_array; ?>;
-                            doBarChart2(array_code);
+                            var array_budget = <?php echo $budget_array; ?>;
+                            var array_expense = <?php echo $expense_array; ?>;
+                            doBarChart2(array_code, array_budget,array_expense);
                         </script>
                     </div>
                     <div class="mt-4 text-center small status"></div>

@@ -96,6 +96,9 @@ options:{
     scales: {
         xAxes: [{
              stacked: true,
+            barPercentage: 0.7,
+            categoryPercentage:0.55,
+            // barThickness: 6,
         }],
         yAxes: [{
              stacked: true
@@ -120,7 +123,8 @@ options:{
 }
 
 
-function doBarChart2(projects){
+function doBarChart2(projects, budget, expense){
+    console.log(budget)
     var ctx = document.getElementById('myChart2').getContext('2d');
 var myChart = new Chart(ctx, {
 type: 'bar',
@@ -129,12 +133,14 @@ data: {
     datasets : [
         {
             label: 'Budget',
-            data: [1000000, 3000000, 5000000, 7000000, 2000000, 4000000],
+            data: budget,
+            // data: [1000000, 3000000, 5000000, 7000000, 2000000, 4000000],
             backgroundColor: '#22aa99'
          },
          {
             label: 'Paid',
-            data: [2000000, 4000000, 1000000, 2000000, 1000000, 2000000],
+            data: expense,
+            // data: [2000000, 4000000, 1000000, 2000000, 1000000, 2000000],
             backgroundColor: '#dc3912'
          },
          {
@@ -190,7 +196,10 @@ options:{
                 
             },
              display: true
-        }]
+        }],
+        // xAxes:[{
+        //     barPercentage: 0.6
+        // }]
    }
   }
 
@@ -235,228 +244,7 @@ function fnum(x) {
     return "1T+";
 }
 
-// var abc = console.log(fnum(9000000));
 
-
-// anychart.onDocumentReady(function () {
-// 	// create data
-// 	var data = [{
-// 		id: "1",
-// 		name: "Solar Street Light",
-// 		actualStart: Date.UTC(2020, 01, 02),
-// 		actualEnd: Date.UTC(2020, 12, 31),
-// 		children: [{
-// 				id: "1_1",
-// 				name: "Planning",
-// 				actualStart: Date.UTC(2020, 01, 02),
-// 				actualEnd: Date.UTC(2020, 01, 22),
-// 				connectTo: "1_2",
-// 				connectorType: "finish-start",
-//                 progressValue: "75%",
-//                 children: [{
-//                     id: "1_2",
-//                     name: "Visit Ministry",
-//                     actualStart: Date.UTC(2020, 01, 03),
-//                     actualEnd: Date.UTC(2020, 01, 04),
-//                     connectTo: "1_2",
-//                     connectorType: "finish-start",
-//                     progressValue: "50%",
-//                     children:[{
-//                         id: "1_2",
-//                         name: "Visit MDA",
-//                         actualStart: Date.UTC(2020, 01, 04),
-//                         actualEnd: Date.UTC(2020, 01, 07),
-//                         connectTo: "1_2",
-//                         connectorType: "finish-start",
-//                         progressValue: "70%",
-//                     }]
-//                 },
-//                 {
-//                     id: "1_2",
-//                     name: "Payment to Ministry",
-//                     actualStart: Date.UTC(2020, 01, 05),
-//                     actualEnd: Date.UTC(2020, 01, 06),
-//                     connectTo: "1_4",
-//                     connectorType: "finish-start",
-//                     progressValue: "65%",
-//                 },
-//                 {
-//                     id: "1_4",
-//                     name: "Planning-Inside",
-//                     actualStart: Date.UTC(2020, 01, 07),
-//                     actualEnd: Date.UTC(2020, 01, 08),
-//                     connectTo: "1_5",
-//                     connectorType: "finish-start",
-//                     progressValue: "80%",
-//                 }
-//                 ]
-// 			},
-// 			{
-// 				id: "1_2",
-// 				name: "Design and Prototyping",
-// 				actualStart: Date.UTC(2020, 01, 23),
-// 				actualEnd: Date.UTC(2020, 02, 20),
-// 				connectTo: "1_3",
-// 				connectorType: "start-start",
-// 				progressValue: "60%"
-// 			},
-// 			{
-// 				id: "1_3",
-// 				name: "Obtain Plan Diagram",
-// 				actualStart: Date.UTC(2020, 02, 23),
-// 				actualEnd: Date.UTC(2020, 02, 23),
-// 				connectTo: "1_4",
-// 				connectorType: "start-start",
-// 				progressValue: "80%"
-// 			},
-// 			{
-// 				id: "1_4",
-// 				name: "Completion of site survey",
-// 				actualStart: Date.UTC(2020, 02, 26),
-// 				actualEnd: Date.UTC(2020, 04, 26),
-// 				connectTo: "1_5",
-// 				connectorType: "finish-finish",
-// 				progressValue: "90%"
-// 			},
-// 			{
-// 				id: "1_5",
-// 				name: "Release of funds to contractors for next phase ",
-// 				actualStart: Date.UTC(2020, 04, 29),
-// 				actualEnd: Date.UTC(2020, 05, 15),
-// 				connectTo: "1_6",
-// 				connectorType: "start-finish",
-// 				progressValue: "60%"
-// 			},
-// 			{
-// 				id: "1_6",
-// 				name: "Follow up on beneficiaries for the regional training participation",
-// 				actualStart: Date.UTC(2020, 05, 20),
-// 				actualEnd: Date.UTC(2020, 05, 27),
-// 				connectTo: "1_7",
-// 				connectorType: "start-finish",
-// 				progressValue: "100%"
-// 			},
-// 			{
-// 				id: "1_7",
-// 				name: "Maintenance",
-// 				actualStart: Date.UTC(2020, 05, 30),
-// 				actualEnd: Date.UTC(2020, 06, 11),
-// 				progressValue: "40%"
-// 			},
-
-// 		]
-//     },
-//     {
-// 		id: "2",
-// 		name: "Dredging of the River Niger",
-// 		actualStart: Date.UTC(2020, 01, 02),
-// 		actualEnd: Date.UTC(2020, 06, 15),
-// 		children: [{
-// 				id: "1_1",
-// 				name: "Planning",
-// 				actualStart: Date.UTC(2020, 01, 02),
-// 				actualEnd: Date.UTC(2020, 01, 22),
-// 				connectTo: "1_2",
-// 				connectorType: "finish-start",
-// 				progressValue: "75%"
-// 			},
-// 			{
-// 				id: "1_2",
-// 				name: "Design and Prototyping",
-// 				actualStart: Date.UTC(2020, 01, 23),
-// 				actualEnd: Date.UTC(2020, 02, 20),
-// 				connectTo: "1_3",
-// 				connectorType: "start-start",
-// 				progressValue: "60%"
-// 			},
-// 			{
-// 				id: "1_3",
-// 				name: "Evaluation Meeting",
-// 				actualStart: Date.UTC(2020, 02, 23),
-// 				actualEnd: Date.UTC(2020, 02, 23),
-// 				connectTo: "1_4",
-// 				connectorType: "start-start",
-// 				progressValue: "80%"
-// 			},
-// 			{
-// 				id: "1_4",
-// 				name: "Application Development",
-// 				actualStart: Date.UTC(2020, 02, 26),
-// 				actualEnd: Date.UTC(2020, 04, 26),
-// 				connectTo: "1_5",
-// 				connectorType: "finish-finish",
-// 				progressValue: "90%"
-// 			},
-// 			{
-// 				id: "1_5",
-// 				name: "Testing",
-// 				actualStart: Date.UTC(2020, 04, 29),
-// 				actualEnd: Date.UTC(2020, 05, 15),
-// 				connectTo: "1_6",
-// 				connectorType: "start-finish",
-// 				progressValue: "60%"
-// 			},
-// 			{
-// 				id: "1_6",
-// 				name: "Deployment",
-// 				actualStart: Date.UTC(2020, 05, 20),
-// 				actualEnd: Date.UTC(2020, 05, 27),
-// 				connectTo: "1_7",
-// 				connectorType: "start-finish",
-// 				progressValue: "100%"
-// 			},
-// 			{
-// 				id: "1_7",
-// 				name: "ReTesting",
-// 				actualStart: Date.UTC(2020, 05, 30),
-//                 actualEnd: Date.UTC(2020, 06, 11),
-//                 connectTo: "1_8",
-// 				connectorType: "start-finish",
-// 				progressValue: "70%"
-//             },
-//             {
-// 				id: "1_8",
-// 				name: "Maintenance",
-// 				actualStart: Date.UTC(2020, 06, 30),
-// 				actualEnd: Date.UTC(2020, 07, 11),
-// 				progressValue: "40%"
-// 			},
-
-
-// 		]
-// 	}];
-// 	// create a data tree
-//     var treeData = anychart.data.tree(data, "as-tree");
-
-
-
-// 	// create a chart
-// 	var chart = anychart.ganttProject();
-
-//     // title 
-//     var title = chart.title();
-//     title.enabled(true);
-//     title.text("Timelines");
-//     title.fontColor("#64b5f6");
-//     title.fontSize(18);
-//     title.fontWeight(600);
-//     title.padding(5);
-//     // set the minimum and maximum values of the scale
-//     chart.getTimeline().scale().minimum("2020-01-01");
-//     chart.getTimeline().scale().maximum("2020-12-31");
-// 	// set the data
-//     chart.data(treeData);
-//     // set background color
-//     chart.background("#64b5f6 0.2");
-// 	// configure the scale
-// 	chart.getTimeline().scale().maximum(Date.UTC(2020, 06, 30));
-// 	// set the container id
-// 	chart.container("ganttcontainer");
-// 	// initiate drawing the chart
-// 	chart.draw();
-// 	// fit elements to the width of the timeline
-// 	chart.fitAll();
-// });
 
 function donut(projects){
 	var resourceChartElement = document.getElementById("myChart3");
@@ -525,7 +313,7 @@ var resourceChart = new Chart(resourceChartElement, {
 }
 
 function ganttProject2 (array_code2) {
-    console.log(array_code2)
+    // console.log(array_code2)
     // function dd ((array_code2){
 	// create data
 	// var data = [{
@@ -560,17 +348,19 @@ function ganttProject2 (array_code2) {
     title.padding(5);
     // set the minimum and maximum values of the scale
     chart.getTimeline().scale().minimum("2020-01-01");
-    chart.getTimeline().scale().maximum("2020-12-31");
+    chart.getTimeline().scale().maximum("2030-12-31");
+    
 	// set the data
     chart.data(treeData);
     // set background color
     chart.background("#64b5f6 0.2");
 	// configure the scale
-	chart.getTimeline().scale().maximum(Date.UTC(2020, 06, 30));
+	chart.getTimeline().scale().maximum(Date.UTC(2020, 12, 30));
 	// set the container id
 	chart.container("ganttcontainer2");
 	// initiate drawing the chart
 	chart.draw();
 	// fit elements to the width of the timeline
-	chart.fitAll();
+    chart.fitAll();
+    chart.collapseAll();
 };
