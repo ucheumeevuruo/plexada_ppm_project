@@ -96,6 +96,9 @@ options:{
     scales: {
         xAxes: [{
              stacked: true,
+            barPercentage: 0.7,
+            categoryPercentage:0.55,
+            // barThickness: 6,
         }],
         yAxes: [{
              stacked: true
@@ -120,7 +123,8 @@ options:{
 }
 
 
-function doBarChart2(projects){
+function doBarChart2(projects, budget, expense){
+    console.log(budget)
     var ctx = document.getElementById('myChart2').getContext('2d');
 var myChart = new Chart(ctx, {
 type: 'bar',
@@ -129,12 +133,14 @@ data: {
     datasets : [
         {
             label: 'Budget',
-            data: [1000000, 3000000, 5000000, 7000000, 2000000, 4000000],
+            data: budget,
+            // data: [1000000, 3000000, 5000000, 7000000, 2000000, 4000000],
             backgroundColor: '#22aa99'
          },
          {
             label: 'Paid',
-            data: [2000000, 4000000, 1000000, 2000000, 1000000, 2000000],
+            data: expense,
+            // data: [2000000, 4000000, 1000000, 2000000, 1000000, 2000000],
             backgroundColor: '#dc3912'
          },
          {
@@ -190,7 +196,10 @@ options:{
                 
             },
              display: true
-        }]
+        }],
+        // xAxes:[{
+        //     barPercentage: 0.6
+        // }]
    }
   }
 
@@ -304,7 +313,7 @@ var resourceChart = new Chart(resourceChartElement, {
 }
 
 function ganttProject2 (array_code2) {
-    console.log(array_code2)
+    // console.log(array_code2)
     // function dd ((array_code2){
 	// create data
 	// var data = [{
@@ -339,14 +348,14 @@ function ganttProject2 (array_code2) {
     title.padding(5);
     // set the minimum and maximum values of the scale
     chart.getTimeline().scale().minimum("2020-01-01");
-    chart.getTimeline().scale().maximum("2020-12-31");
+    chart.getTimeline().scale().maximum("2030-12-31");
     
 	// set the data
     chart.data(treeData);
     // set background color
     chart.background("#64b5f6 0.2");
 	// configure the scale
-	chart.getTimeline().scale().maximum(Date.UTC(2020, 06, 30));
+	chart.getTimeline().scale().maximum(Date.UTC(2020, 12, 30));
 	// set the container id
 	chart.container("ganttcontainer2");
 	// initiate drawing the chart

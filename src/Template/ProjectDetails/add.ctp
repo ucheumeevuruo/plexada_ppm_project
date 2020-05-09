@@ -42,9 +42,9 @@ $this->end();
             <?= $this->Form->control('sponsor_id', ['options' => $sponsors, 'empty' => true]); ?>
 
             <?= $this->Form->control('donor_id', ['options' => $donors, 'empty' => true]); ?>
-            <?= $this->Form->control('mda_id', ['options' => $mdas, 'empty' => true]); ?>
+            <?= $this->Form->control('mda_id', ['options' => $mdas, 'empty' => true,'label'=>'MDA']); ?>
 
-            <?= $this->Form->control('DLI'); ?>
+            <?= $this->Form->control('DLI',['label'=>'DLI']); ?>
 
         </div>
 

@@ -56,7 +56,7 @@ class MilestonesController extends AppController
             // $milestone = $this->Milestones->patchEntity($milestone, $this->request->getData());
             $milestone = $this->Milestones->patchEntity($milestone, $this->Milestones->identify($this->request->getData()));
             if ($this->Milestones->save($milestone)) {
-                $this->Flash->success(__('Indicator saved succefully.'));
+                $this->Flash->success(__('Indicator saved successfully.'));
                 return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The milestone could not be saved. Please, try again.'));

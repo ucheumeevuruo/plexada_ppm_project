@@ -50,7 +50,7 @@ class ActivitiesController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add($project_id = null)
-    {
+    {    $this->loadModel('Milestones');
         $activity = $this->Activities->newEntity();
         if ($this->request->is('post')) {
             $activity = $this->Activities->patchEntity($activity, $this->request->getData());
@@ -61,9 +61,9 @@ class ActivitiesController extends AppController
                 return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The activity could not be saved. Please, try again.'));
-            debug($activity);
-            die();
+
 //            return $this->redirect(['controller' => 'ProjectDetails', 'action' => 'view', $project_id]);
+           
             return $this->redirect($this->referer());
         }
         $projectDetails = $this->Activities->ProjectDetails->find('list', ['limit' => 200]);
@@ -71,7 +71,8 @@ class ActivitiesController extends AppController
         $priority = $this->Activities->Priorities->find('list', ['limit' => 200]);
         $status = $this->Activities->Statuses->find('list', ['limit' => 200]);
         $users = $this->Activities->Users->find('list', ['limit' => 200]);
-        $this->set(compact('activity', 'projectDetails', 'staff', 'priority', 'status', 'users', 'project_id'));
+        $milestone_info = $this->Milestones->find('list', ['limit' => 200, 'conditions'=>['project_id'=>$project_id]]);
+        $this->set(compact('activity', 'projectDetails', 'staff', 'priority', 'status', 'users', 'project_id','milestone_info'));
     }
 
     /**

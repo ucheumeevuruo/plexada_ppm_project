@@ -25,18 +25,18 @@ $this->end();
                     aria-describedby="dataTable_info" cellpadding="0" cellspacing="0">
                     <thead class="bg-primary br-t">
                         <tr>
-                            <th scope="col"><?= __('Project Id') ?></th>
+                            <!-- <th scope="col"><?= __('Project Id') ?></th> -->
                             <th scope="col"><?= __('Project Name') ?></th>
                             <th scope="col"><?= __('Brief') ?></th>
                             <th scope="col"><?= __('Location') ?></th>
                             <th scope="col"><?= __('Manager') ?></th>
-                            <th scope="col"><?= __('Status') ?></th>
+                            <!-- <th scope="col"><?= __('Status') ?></th> -->
                             <th scope="col"><?= __('Start date') ?></th>
                             <th scope="col"><?= __('End date') ?></th>
-                            <th scope="col"><?= __('Created') ?></th>
+                            <!-- <th scope="col"><?= __('Created') ?></th> -->
                             <th scope="col"><?= __('Funding') ?></th>
                             <th scope="col" class="actions"><?= __('Actions') ?></th>
-                            <th scope="col" class="actions"><?= __('Add') ?></th>
+                            <th scope="col" class="actions"><?= __('Indicators') ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,7 +52,7 @@ $this->end();
                             }
                             ?>
                         <tr>
-                            <td><?= $this->Number->format($projectDetail->id) ?></td>
+                            <!-- <td><?= $this->Number->format($projectDetail->id) ?></td> -->
                             <td><?= h($projectDetail->name) ?></td>
                             <td><?= h($projectDetail->description) ?></td>
                             <td><?= h($projectDetail->location) ?></td>
@@ -65,11 +65,11 @@ $this->end();
                             <!-- <td><?= h($projectDetail->waiting_since) ?></td> -->
                             <!-- <td><?= $projectDetail->has('staff') ? $this->Html->link($projectDetail->staff->full_name, ['controller' => 'Staff', 'action' => 'view', $projectDetail->staff->id]) : '' ?></td> -->
                             <!-- <td><?= $this->Number->format($projectDetail->status_id) ?></td> -->
-                            <td><?= $projectDetail->has('lov') ? $this->Html->link($projectDetail->lov->lov_value, ['controller' => 'Lov', 'action' => 'view', $projectDetail->lov->id]) : '' ?>
+                            <!-- <td><?= $projectDetail->has('lov') ? $this->Html->link($projectDetail->lov->lov_value, ['controller' => 'Lov', 'action' => 'view', $projectDetail->lov->id]) : '' ?> -->
                             </td>
                             <td><?= h($projectDetail->start_dt) ?></td>
                             <td><?= h($projectDetail->end_dt) ?></td>
-                            <td><?= h($projectDetail->created) ?></td>
+                            <!-- <td><?= h($projectDetail->created) ?></td> -->
                             <!-- <td><?= h($projectDetail->last_updated) ?></td> -->
                             <!-- <td><?= $projectDetail->has('user') ? $this->Html->link($projectDetail->user->username, ['controller' => 'Users', 'action' => 'view', $projectDetail->user->id]) : '' ?></td> -->
                             <!-- <td><?= $projectDetail->has('annotation') ? $this->Html->link($projectDetail->annotation->id, ['controller' => 'Annotations', 'action' => 'view', $projectDetail->annotation->id]) : '' ?></td> -->
@@ -80,7 +80,7 @@ $this->end();
                             <!-- <td><?= h($projectDetail->components) ?></td> -->
                             <!-- <td><?= $projectDetail->has('price') ? $this->Html->link($projectDetail->price->id, ['controller' => 'Prices', 'action' => 'view', $projectDetail->price->id]) : '' ?></td> -->
                             <!-- <td><?= $this->Number->format($projectDetail->sub_status_id) ?></td> -->
-                            <td class="actions ">
+                            <td class="actions">
                                 <?= $this->Html->link(__('<i class="fa fa-pencil fa-lg"></i>'), ['action' => 'edit', $projectDetail->id], ['class' => 'btn btn-outline-primary btn-sm overlay float-left', 'title' => 'Edit', 'escape' => false]) ?>
                                 <?= $this->Form->postLink(__("<i class='fa fa-trash-o fa-lg'></i>"), ['action' => 'delete', $projectDetail->id], ['confirm' => __('Are you sure you want to delete # {0}?', $projectDetail->id), 'escape' => false, 'class' => 'btn btn-outline-danger btn-sm float-left']) ?>
                             </td>
@@ -122,27 +122,22 @@ $this->end();
 
 
     <script>
-    $('.dataTable').DataTable();
-
-
     $(document).ready(function() {
-        //respond to click event on anything with 'overlay' class
-        $(".overlay").click(function(event) {
-            event.preventDefault();
-            //load content from href of link
-            $('#contentWrap .modal-body').load($(this).attr("href"), function() {
-                // $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content').removeClass()
-                $('#MyModal4').modal('show')
+            //respond to click event on anything with 'overlay' class
+            $(".overlay").click(function(event){
+                event.preventDefault();
+                //load content from href of link
+                $('#contentWrap .modal-body').load($(this).attr("href"), function(){
+                    $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content').removeClass()
+                    $('#MyModal4').modal('show')
+                });
             });
+
+            $(".upload").click(function (event) {
+                event.preventDefault();
+                $("#upload").modal('show')
+            })
+            $('.dataTable').DataTable();
         });
-
-    });
-
-    $(".upload").click(function(event) {
-        event.preventDefault();
-        $("#upload").modal('show')
-    })
-    $('.dataTable').DataTable();
-    });
     </script>
 </div>

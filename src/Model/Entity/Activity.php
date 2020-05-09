@@ -56,5 +56,6 @@ class Activity extends Entity
         'priority' => true,
         'status' => true,
         'user' => true,
+        'milestone_id'=>true
     ];
 }

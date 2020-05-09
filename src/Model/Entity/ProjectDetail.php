@@ -91,5 +91,12 @@ class ProjectDetail extends Entity
         'project' => true,
         'price' => true,
         'sub_status' => true,
+        'donor_id'=>true,
+        'mda_id' => true,
+        'DLI'=>true,
+        'risk_and_issues'=>true,
+        'currency'=>true,
+        'budget'=>true,
+        'expenses '=>true
     ];
 }

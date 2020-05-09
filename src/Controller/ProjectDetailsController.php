@@ -237,7 +237,8 @@ class ProjectDetailsController extends AppController
                 return $this->redirect(['controller' => 'projects', 'action' => 'index']);
             }
             $this->Flash->error(__('The project detail could not be saved. Please, try again.'));
-
+            // debug($projectDetail);
+            // die();
             return $this->redirect(['controller' => 'projects', 'action' => 'index']);
         }
         $projects = $this->ProjectDetails->Projects->find('list', ['limit' => 200]);
@@ -302,14 +303,10 @@ class ProjectDetailsController extends AppController
             );
             if ($this->ProjectDetails->save($projectDetail)) {
                 $this->Flash->success(__('The project detail has been saved.'));
-                debug($projectDetail);
-                die();
 
                 return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The project detail could not be saved. Please, try again.'));
-            debug($projectDetail);
-            die();
 
             return $this->redirect($this->referer());
         }
