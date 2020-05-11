@@ -37,9 +37,6 @@ $this->end();
         <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav" style=" font-size: 20px;">
             <?= $this->Html->link('Partners', ['controller' => 'projectDetails', 'action' => 'partners', $project->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
         </span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav" style=" font-size: 20px;">
-            <?= $this->Html->link('Risks & Issues', ['controller' => 'projects', 'action' => 'riskIssues', $project->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-        </span>
         <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav"
             style=" font-size: 20px;">Gantt
             Charts</span>
@@ -47,7 +44,7 @@ $this->end();
             style=" font-size: 20px;">Documents</span>
 
     </div>
-    <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($project->name) ?> Documents </h2>
+    <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($project->name) ?> </h2>
     <div class="card-body docs">
         <div class="table-responsive ">
             <h4 class="font-weight-bold">Project Documents</h4>

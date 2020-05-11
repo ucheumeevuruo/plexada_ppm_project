@@ -34,10 +34,6 @@ $this->end();
         <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav active"
             style=" font-size: 20px;">Partners</span>
         <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav"
-            style=" font-size: 20px;">
-            <?= $this->Html->link('Risks & Issues', ['controller' => 'projects', 'action' => 'riskIssues', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-        </span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav"
             style=" font-size: 20px;">Gantt
             Charts</span>
         <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav" style=" font-size: 20px;">
@@ -46,42 +42,38 @@ $this->end();
 
 
     </div>
-    <div class="card-body">
+    <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($projectDetails->name) ?>
+    </h2>
+    <div class="table-responsive">
+        <table cellpadding="0" cellspacing="0" class="table table-bordered  table-hover table-primary br-m" role="grid"
+            aria-describedby="dataTable_info">
+            <thead class="bg-primary br-t">
+                <tr>
+                    <th scope="col" width="3%"><?= __('S/N') ?></th>
+                    <th scope="col" width="15%"><?= __('Last Name') ?></th>
+                    <th scope="col" width="15%"><?= __('First Name') ?></th>
+                    <th scope="col" width="20%"><?= __('Email') ?></th>
+                    <th scope="col" width="12%"><?= __('Phone Number') ?></th>
+                    <th scope="col" width="20%"><?= __('Address') ?></th>
+                    <!-- <th scope="col" width="10%"><?= __('Amount Committed') ?></th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <?php $num = 0; ?>
+                <?php foreach ($projectDetails->sponsors as $sponsor) : ?>
+                <?php $num++; ?>
+                <tr>
+                    <td><?= h($num) ?></td>
+                    <td><?= h($sponsor->last_name) ?></td>
+                    <td><?= h($sponsor->first_name) ?></td>
+                    <td><?= h($sponsor->email) ?></td>
+                    <td><?= h($sponsor->phone_no) ?></td>
+                    <td><?= h($sponsor->address) ?></td>
+                </tr>
 
-        <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($projectDetails->name) ?> Partners
-        </h2>
+                <?php endforeach; ?>
 
-        <div class="table-responsive">
-            <table cellpadding="0" cellspacing="0" class="table table-bordered  table-hover table-primary br-m"
-                role="grid" aria-describedby="dataTable_info">
-                <thead class="bg-primary br-t">
-                    <tr>
-                        <th scope="col" width="3%"><?= __('S/N') ?></th>
-                        <th scope="col" width="15%"><?= __('Last Name') ?></th>
-                        <th scope="col" width="15%"><?= __('First Name') ?></th>
-                        <th scope="col" width="20%"><?= __('Email') ?></th>
-                        <th scope="col" width="12%"><?= __('Phone Number') ?></th>
-                        <th scope="col" width="20%"><?= __('Address') ?></th>
-                        <!-- <th scope="col" width="10%"><?= __('Amount Committed') ?></th> -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $num = 0; ?>
-                    <?php foreach ($projectDetails->sponsors as $sponsor) : ?>
-                    <?php $num++; ?>
-                    <tr>
-                        <td><?= h($num) ?></td>
-                        <td><?= h($sponsor->last_name) ?></td>
-                        <td><?= h($sponsor->first_name) ?></td>
-                        <td><?= h($sponsor->email) ?></td>
-                        <td><?= h($sponsor->phone_no) ?></td>
-                        <td><?= h($sponsor->address) ?></td>
-                    </tr>
-
-                    <?php endforeach; ?>
-
-                </tbody>
-            </table>
-        </div>
+            </tbody>
+        </table>
     </div>
 </div>

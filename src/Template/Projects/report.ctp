@@ -30,9 +30,7 @@ $this->end();
         <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav" style=" font-size: 20px;">
             <?= $this->Html->link('Partners', ['controller' => 'projectDetails', 'action' => 'partners', $project->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
         </span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav" style=" font-size: 20px;">
-            <?= $this->Html->link('Risks & Issues', ['controller' => 'projects', 'action' => 'riskIssues', $project->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-        </span>
+
         <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav"
             style=" font-size: 20px;">Gantt
             Charts</span>
@@ -105,38 +103,43 @@ $this->end();
                 <div class="card card-outline shadow">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold text-primary">MDA</h5>
-                        <p class="card-text"><?= h('Ogun State Ministry') ?></p>
-                        <!-- <p class="card-text"><?= h($project->project_detail->mda_id) ?></p>
-                        <p class="card-text"><?= h($project->project_detail->mda_id) ?></p> -->
+                        <?php if (isset($project->pim->mda)) { ?>
+                        <p class="card-text"><?= h($project->pim->mda) ?></p>
                     </div>
+                    <?php } ?>
+                    <?php if (!isset($project->pim->mda)) { ?>
+                    <p class="card-text"><?= h('Ogun State Ministry') ?></p>
+                </div>
+                <?php } ?>
+
+            </div>
+        </div>
+        <div class="card-deck">
+            <div class="card card-outline shadow">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold text-primary">Completed Indicators</h5>
+                    <?php foreach ($project->milestones as $milestones) : ?>
+                    <p class="card-text">
+                        <?= $this->Html->link($milestones->description, ['controller' => 'milestones', 'action' => 'view', $milestones->id]) ?>
+                    </p>
+                    <?php endforeach; ?>
                 </div>
             </div>
-            <div class="card-deck">
-                <div class="card card-outline shadow">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold text-primary">Completed Indicators</h5>
-                        <?php foreach ($project->milestones as $milestones) : ?>
-                        <p class="card-text">
-                            <?= $this->Html->link($milestones->description, ['controller' => 'milestones', 'action' => 'view', $milestones->id]) ?>
-                        </p>
-                        <?php endforeach; ?>
-                    </div>
+            <div class="card card-outline shadow">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold text-primary">DLI</h5>
+                    <p class="card-text">
+                        <?= h($project->project_detail->DLI) ?>
+                    </p>
                 </div>
-                <div class="card card-outline shadow">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold text-primary">DLI</h5>
-                        <p class="card-text">
-                            <?= h($project->project_detail->DLI) ?>
-                        </p>
-                    </div>
-                </div>
-                <div class="card card-outline shadow">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold text-primary">Risk & Issues</h5>
-                        <?= h($project->project_detail->risk_and_issues) ?>
+            </div>
+            <div class="card card-outline shadow">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold text-primary">Risk & Issues</h5>
+                    <?= h($project->project_detail->risk_and_issues) ?>
 
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
