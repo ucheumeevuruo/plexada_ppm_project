@@ -20,12 +20,14 @@
 
 
         <li class="dropdown nav-item ">
-            <a href="#" class="dropdown-toggle  nav-link side-text" data-toggle="dropdown" role="button"
-                aria-expanded="false">
-                <i class="fa fa-archive fa-lg"></i>
-                Projects <span class="caret "></span>
-            </a>
-            <ul class="dropdown-menu py-0" role="menu">
+                <li class="nav-item">
+                    <?= $this->Html->link(
+                        __('<i class="fa fa-archive fa-lg"></i> &nbsp;Project List'),
+                        ['controller' => 'Projects', 'action' => 'index'],
+                        ['escape' => false, 'class' => 'nav-link collapsed my-0 dropout']
+                    ) ?>
+                </li>
+            <!-- <ul class="dropdown-menu py-0" role="menu">
                 <li class="nav-item">
                     <?= $this->Html->link(
                         __('<i class="fa fa-archive fa-lg"></i> &nbsp;Project List'),
@@ -53,18 +55,17 @@
                 </li>
                 <hr class="sidebar-divider m-0 bg-primary">
 
-                <!-- <hr class="sidebar-divider m-0 bg-primary"> -->
+
                 <li class="nav-item">
                     <?= $this->Html->link(
                         __('<i class="fa fa-archive fa-lg"></i> &nbsp;PIM'),
                         ['controller' => 'Pims', 'action' => 'index'],
                         ['escape' => false, 'class' => 'nav-link collapsed my-0 dropout']
                     ) ?>
-                    <!-- </p> -->
-                </li>
-                <!-- <hr class="sidebar-divider m-0 bg-primary"> -->
 
-            </ul>
+                </li>
+
+            </ul> -->
         </li>
 
         <!-- Nav Item - Pages Collapse Menu -->
