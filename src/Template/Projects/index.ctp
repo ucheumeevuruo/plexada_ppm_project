@@ -15,7 +15,21 @@ $this->start('navbar');
 echo $this->element('navbar/default');
 $this->end();
 ?>
-
+<style>
+.container{
+    background: none repeat scroll 0 0 #000;
+    height: 100px;
+    padding: 10px;
+    width: 40px;}
+.red, .yellow, .green{border-radius: 100%;
+    height: 25px;
+    margin-top: 3px;
+    padding: 2px;
+    width: 25px;}
+.red{background: red;}
+.yellow{background: yellow;}
+.green{background: green;}
+</style>
 <div class="container-fluid">
     <h2 class="text-center text-primary font-weight-bold"><?= __('Projects') ?></h2>
     <div class="shadow mb-4 br-m">
@@ -38,8 +52,11 @@ $this->end();
                             <th scope="col"><?= __('Brief') ?></th>
                             <th scope="col" width="15%"><?= __('Status') ?></th>
                             <th scope="col" width="15%"><?= __('Waiting On') ?></th>
-                            <th scope="col" width="15%"><?= __('Cost') ?></th>
+                            <th scope="col" width="15%"><?= __('Amount Approved') ?></th>
                             <th scope="col" class="actions" width="22%"><?= __('Actions') ?></th>
+                            <th scope="col" width="15%"><?= __('Project Duration') ?></th>
+                            <th scope="col" width="15%"><?= __('Status') ?></th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -134,6 +151,26 @@ $this->end();
                                         }
                                         ?>
                                 </button>
+                            </td>
+                            <td class="actions">
+                                    <?php
+                                        $prjid = $project->id;
+                                        // echo $prjid;
+                                        $conn = ConnectionManager::get('default');
+                                        $qrycount = $conn->execute("SELECT * FROM project_details where project_id ='" . $prjid . "' ");
+                                        $results = $qrycount->fetchAll('assoc');
+                                        $to =" to ";
+                                        if (isset($results[0])) {
+                                            echo(date_format(new DateTime($results[0]['start_dt']),"d F, Y") . $to . date_format(new DateTime($results[0]['end_dt']),"d F, Y") );
+                                        }
+                                        ?>
+                            </td>
+                            <td>
+                            <div class="container">
+                            <div class="red"></div>
+                            <div class="yellow"></div>
+                            <div class="green"></div>
+                            </div>
                             </td>
                         </tr>
                         <?php endforeach; ?>
