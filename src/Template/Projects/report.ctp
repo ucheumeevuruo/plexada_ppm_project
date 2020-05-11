@@ -36,8 +36,9 @@ $this->end();
         <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav"
             style=" font-size: 20px;">Gantt
             Charts</span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav"
-            style=" font-size: 20px;">Documents</span>
+        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav" style=" font-size: 20px;">
+            <?= $this->Html->link('Documents', ['controller' => 'projects', 'action' => 'documents', $project->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
+        </span>
 
     </div>
     <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($project->name) ?>
