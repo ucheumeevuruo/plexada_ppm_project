@@ -52,7 +52,7 @@ $this->end();
     </div>
 
     <div class="d-flex justify-content-between align-items-end">
-        <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($project->name) ?> Indicators</h2>
+        <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($project->name) ?> Indicators </h2>
         <span aria-hidden="true" class=""><?= $this->Html->link(__('<i class="fa fa-plus fa-3x" aria-hidden="true"></i>'), ['controller' => 'milestones','action' => 'add', $project->id], ['escape' => false, 'class' => 'btn btn-outline-primary btn-sm overlay']) ?></span>
     </div>
 
