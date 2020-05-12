@@ -111,6 +111,7 @@ class ActivitiesController extends AppController
             $this->Flash->error(__('The activity could not be saved. Please, try again.'));
             return $this->redirect($this->referer());
         }
+
         $projectDetails = $this->Activities->ProjectDetails->find('list', ['limit' => 200]);
         $staff = $this->Activities->Staff->find('list', ['limit' => 200]);
         //        $lov = $this->Activities->Lov->find('list', ['limit' => 200]);
@@ -125,6 +126,7 @@ class ActivitiesController extends AppController
                 'limit' => 200
             ]
         );
+
         $users = $this->Activities->Users->find('list', ['limit' => 200]);
         $this->set(compact('activity', 'projectDetails', 'staff', 'users', 'priority', 'status'));
     }

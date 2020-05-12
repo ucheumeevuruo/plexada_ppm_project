@@ -63,7 +63,7 @@ class ProjectsController extends AppController
     public function report($id = null)
     {
         $project = $this->Projects->get($id, [
-            'contain' => ['Pims', 'ProjectFundings', 'ProjectDetails', 'Activities', 'Annotations', 'Milestones', 'Objectives', 'Prices', 'RiskIssues', 'Sponsors'],
+            'contain' => ['Pims', 'ProjectFundings', 'ProjectDetails', 'Activities', 'Annotations', 'Milestones', 'Objectives', 'Prices', 'RiskIssues', 'Sponsors', 'Pads'],
         ]);
         // debug($project);
         // die();
@@ -109,8 +109,21 @@ class ProjectsController extends AppController
     public function riskIssues($id = null)
     {
         $project = $this->Projects->get($id, [
-            'contain' => ['RiskIssues'],
+            'contain' => ['RiskIssues', 'ProjectDetails'],
         ]);
+
+        // debug($project);
+        // die();
+        $this->set('project', $project);
+    }
+
+    public function documents($id = null)
+    {
+        $project = $this->Projects->get($id, [
+            'contain' => ['Pads', 'Pims', 'Documents'],
+        ]);
+        // debug($project);
+        // die();
 
         $this->set('project', $project);
     }

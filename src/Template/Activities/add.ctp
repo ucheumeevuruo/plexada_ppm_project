@@ -10,7 +10,7 @@ $this->end();
 <div class="activities container-fluid">
     <?= $this->Form->create($activity) ?>
     <fieldset>
-        <legend><?= __('Activities') ?></legend>
+        <legend class="text-primary text-center"><?= __('Add Activities') ?></legend>
         <div class="row">
             <div class="col-md-6">
                 <?php
