@@ -34,6 +34,11 @@ $cakeDescription = 'Ogun State Project';
     <?= $this->Html->script('vendor/bootstrap/js/bootstrap.bundle.min.js') ?>
     <?= $this->Html->script('vendor/jquery-easing/jquery.easing.min.js') ?>
     <?= $this->Html->script('sb-admin-2.min.js') ?>
+    <?= $this->Html->script('popper.min.js') ?>
+    <?= $this->Html->script('moment-with-locales.min.js') ?>
+    <?= $this->Html->script('bootstrap-datepicker.min.js') ?>
+    <?= $this->Html->script('anychart-core.min.js') ?>
+    <?= $this->Html->script('anychart-gantt.min.js') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>

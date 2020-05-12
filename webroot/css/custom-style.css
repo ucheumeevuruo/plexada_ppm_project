@@ -297,6 +297,7 @@ textarea.form-control{
     position:fixed;
     top:40%;
     left:50%;
+    z-index:1;
 }
 #clickable-card:hover,#clickable-sub-applet:hover{
     cursor:pointer;
