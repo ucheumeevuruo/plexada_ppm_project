@@ -52,6 +52,7 @@ $this->end();
                 role="grid" aria-describedby="dataTable_info">
                 <thead class="bg-primary br-t">
                     <tr>
+                        <th scope="col" width='15%'><?= __('S/N') ?></th>
                         <th scope="col"><?= __('Document Title') ?></th>
                         <th scope="col"><?= __('Date Uploaded') ?></th>
                         <th scope="col"><?= __('Document ID') ?></th>
@@ -59,13 +60,23 @@ $this->end();
                     </tr>
                 </thead>
                 <tbody>
+                <?php $num = 0; ?>
+                <?php foreach ($project->documents as $document) : ?>
+                <?php $num++; ?>
+
                     <tr>
-                        <td><?= h($project->pad->file_upload) ?></td>
-                        <td><?= h($project->pad->date) ?></td>
-                        <td><?= h($project->pad->id) ?></td>
-                        <td>Project Apprasal Document</td>
+                    <td><?= h($num) ?></td>
+                        <td><?= h($document->file_uploaded) ?></td>
+                        <td><?= h($document->date_uploaded) ?></td>
+                        <td><?= h($document->document_no) ?></td>
+                        <td><?= h($document->document_type) ?></td>
                     </tr>
+                    <?php endforeach; ?>
                 </tbody>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                    <?= $this->Html->link('<i class="fa fa-plus fa-lg"></i>', ['controller' => 'documents', 'action' => 'add', $project->id], ['id' => 'transmit', 'class' => 'nav-col', 'class' => 'btn btn-light overlay ml-2', 'title' => 'Add', 'escape' => false]) ?>
+
+                </div>
             </table>
         </div>
     </div>
