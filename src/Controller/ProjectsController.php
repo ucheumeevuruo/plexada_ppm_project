@@ -101,7 +101,7 @@ class ProjectsController extends AppController
     public function documents($id = null)
     {
         $project = $this->Projects->get($id, [
-            'contain' => ['Pads', 'Pims'],
+            'contain' => ['Pads', 'Pims', 'Documents'],
         ]);
         // debug($project);
         // die();
