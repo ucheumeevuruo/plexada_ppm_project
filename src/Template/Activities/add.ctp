@@ -10,7 +10,7 @@ $this->end();
 <div class="activities container-fluid">
     <?= $this->Form->create($activity) ?>
     <fieldset>
-        <legend><?= __('Activities') ?></legend>
+        <legend class="text-primary text-center"><?= __('Add Activities') ?></legend>
         <div class="row">
             <div class="col-md-6">
                 <?php
@@ -21,7 +21,7 @@ $this->end();
                     echo $this->Form->control('next_activity', ['label' => 'Activity Name']);
                     echo $this->Form->control('assigned_to_id', ['options' => $staff, 'empty' => true]);
                     echo $this->Form->control('percentage_completion', ['type' => 'number', 'min' => 0, 'max' => 100, 'class' => 'addon-right', 'append' => '<i class="addon-right">%</i>']);
-                    echo $this->Form->control('milestone_id', ['options' => $milestone_info, 'label' => 'Milestone Name', 'empty' => true]);
+                    echo $this->Form->control('milestone_id', ['options' => $milestone_info, 'label' => 'Indicator Name', 'empty' => true]);
                     echo $this->Form->hidden('status_id', ['options' => $status, 'default' => 1]);
                     ?>
             </div>

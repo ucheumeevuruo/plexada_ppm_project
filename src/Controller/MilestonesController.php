@@ -88,7 +88,8 @@ class MilestonesController extends AppController
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $milestone = $this->Milestones->patchEntity($milestone, $this->request->getData());
+            // $milestone = $this->Milestones->patchEntity($milestone, $this->request->getData());
+            $milestone = $this->Milestones->patchEntity($milestone, $this->Milestones->identify($this->request->getData()));
             if ($this->Milestones->save($milestone)) {
                 $this->Flash->success(__('The milestone has been saved.'));
 
@@ -96,13 +97,15 @@ class MilestonesController extends AppController
                 return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The milestone could not be saved. Please, try again.'));
+            return $this->redirect($this->referer());
         }
 
         $projects = $this->Milestones->Projects->find('list', ['limit' => 200]);
+        // $projectDetails = $this->Milestones->ProjectDetails->find('list', ['limit' => 200]);
 
         $lov = $this->Milestones->Lov->find('list', ['limit' => 200]);
         $triggers = $this->Milestones->Triggers->find('list', ['limit' => 200]);
-        $this->set(compact('milestone', 'projects', 'lov', 'triggers'));
+        $this->set(compact('milestone', 'projects', 'lov', 'triggers','projectDetails'));
     }
 
     /**
