@@ -31,7 +31,7 @@ $this->Paginator->setTemplates([
     <!-- Menu area [Search, pagination] -->
     <!-- I was supposed to put this section in the element template but will do that soon. -->
     <nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
-        <a class="navbar-brand" href="#">Project Details</a>
+        <a class="navbar-brand" href="#">Projects</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
