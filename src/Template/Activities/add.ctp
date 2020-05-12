@@ -17,12 +17,11 @@ $this->end();
                     if($project_id == null)
                         echo $this->Form->control('project_id', ['options' => $projectDetails, 'empty' => true]);
                     else
-                        echo $this->Form->control('project_id', ['options' => [$project_id], 'default' => $project_id, 'empty' => false, 'type' => 'hidden']);
-                    echo $this->Form->control('next_activity', ['label' => 'Activity Name']);
+                        echo $this->Form->hidden('project_id', ['value' => $project_id, 'empty' => false]);
                     echo $this->Form->control('assigned_to_id', ['options' => $staff, 'empty' => true]);
-                    echo $this->Form->control('percentage_completion', ['type' => 'number', 'min' => 0, 'max' => 100, 'class' => 'addon-right', 'append' => '<i class="addon-right">%</i>']);
-                    echo $this->Form->control('milestone_id', ['options' => $milestone_info, 'label' => 'Milestone Name', 'empty' => true]);
-                    echo $this->Form->hidden('status_id', ['options' => $status, 'default' => 1]);
+                    echo $this->Form->control('start_date', ['empty' => true, 'class' => 'addon-right', 'label' => 'Start Date', 'id' => 'start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);
+                    echo $this->Form->control('end_date', ['empty' => true, 'class' => 'addon-right', 'label' => 'End Date', 'id' => 'end_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);
+                    echo $this->Form->hidden('status_id', ['options' => $status]);
                     ?>
             </div>
             <div class="col-md-6">

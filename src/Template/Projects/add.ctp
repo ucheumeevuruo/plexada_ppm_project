@@ -11,17 +11,19 @@ echo $this->element('navbar/default');
 $this->end();
 ?>
 
-<div class="projects w-75 mx-auto">
-    <?= $this->Form->create($project) ?>
-    <fieldset>
-        <legend class="bg-primary text-light"><?= __('Add Project') ?></legend>
-        <?php
+<section id="flyby">
+    <div class="projects container-fluid w-75 mx-auto">
+        <?= $this->Form->create($project) ?>
+        <fieldset>
+            <legend class="bg-primary text-light"><?= __('Add Project') ?></legend>
+            <?php
             echo $this->Form->control('name');
             echo $this->Form->control('introduction', ['label' => 'Brief']);
             echo $this->Form->control('location');
             echo $this->Form->control('cost',['label'=>'Cost(USD)']);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit'), ["class" => "btn-primary"]) ?>
-    <?= $this->Form->end() ?>
-</div>
+            ?>
+        </fieldset>
+        <?= $this->Form->button(__('Submit'), ["class" => "btn-primary"]) ?>
+        <?= $this->Form->end() ?>
+    </div>
+</section>

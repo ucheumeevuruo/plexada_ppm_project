@@ -64,14 +64,6 @@ class ProjectDetailsTable extends Table
         $this->belongsTo('Staff', [
             'foreignKey' => 'waiting_on_id',
         ]);
-        $this->belongsTo('Lov', [
-            'foreignKey' => 'status_id',
-            'joinType' => 'INNER',
-        ]);
-        $this->belongsTo('Lov', [
-            'foreignKey' => 'priority_id',
-            'joinType' => 'INNER',
-        ]);
         $this->belongsTo('Users', [
             'foreignKey' => 'system_user_id',
             'joinType' => 'INNER',
@@ -81,15 +73,6 @@ class ProjectDetailsTable extends Table
         ]);
         $this->hasOne('Projects', [
             'foreignKey' => 'id',
-            'joinType' => 'INNER',
-        ]);
-        $this->belongsTo('Prices', [
-            'foreignKey' => 'price_id',
-            'joinType' => 'INNER',
-        ]);
-        $this->belongsTo('SubStatuses', [
-            'className' => 'lov',
-            'foreignKey' => 'sub_status_id',
             'joinType' => 'INNER',
         ]);
         $this->belongsTo('Priorities', [

@@ -20,12 +20,24 @@ class ProjectsController extends AppController
      */
     public function index()
     {
-        // $this->paginate = [
-        //     'contain' => ['Pims', 'ProjectFundings'],
-        // ];
-        $query = $this->Projects->find('all', ['contain' => ['ProjectDetails']])->select(['id', 'name', 'introduction', 'cost', 'percent' => 'ProjectDetails.completed_percent', 'waiting_on' => 'ProjectDetails.waiting_on_id']);
-        $projects = $this->paginate($query);
-        // $projects = $this->paginate($this->Projects);
+        $q = $this->request->getQuery('q');
+
+        $customFinderOptions = [
+            'id' => $q
+        ];
+
+
+        $this->paginate = [
+            'contain' => [
+                'ProjectDetails.Statuses'
+            ],
+//            'maxLimit' => 3
+            'finder' => [
+                'byProjectName' => $customFinderOptions
+            ]
+        ];
+
+        $projects = $this->paginate($this->Projects);
 
         $this->set(compact('projects'));
     }
@@ -59,23 +71,30 @@ class ProjectsController extends AppController
     }
 
 
-    public function milestones($id = null)
+    public function milestones($project_id = null)
     {
-        $project = $this->Projects->get($id, [
-            'contain' => ['Milestones'],
-        ]);
+        $q = $this->request->getQuery('q');
 
-        $this->set('project', $project);
+        $milestones = $this->Projects->Milestones->find()
+            ->contain(['Lov'])
+            ->where(['project_id' => $project_id]);
+
+        $milestones = $this->paginate($milestones);
+
+        $this->set(compact('milestones', 'project_id'));
     }
 
 
-    public function activities($id = null)
+    public function activities($project_id = null)
     {
-        $project = $this->Projects->get($id, [
-            'contain' => ['Activities', 'Milestones', 'Tasks', 'ProjectDetails'],
-        ]);
 
-        $this->set('project', $project);
+        $activities = $this->Projects->Activities->find()
+            ->contain(['Statuses', 'Priorities', 'Currencies'])
+            ->where(['project_id' => $project_id]);
+
+        $activities = $this->paginate($activities);
+
+        $this->set(compact('activities', 'project_id'));
     }
 
     public function partners($id = null)

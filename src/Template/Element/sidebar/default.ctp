@@ -1,168 +1,135 @@
 <?php echo $this->Html->css('sidebar'); ?>
 
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-<aside class="navbar navbar-nav sidebar cover sidebar-primary sb" id="">
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
+        </div>
+        <!--        <div class="sidebar-brand-text mx-3">Project Management <sup>2</sup></div>-->
+    </a>
 
-    <ul class="side-container">
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
 
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item side-text">
-            <?= $this->Html->link(__('<i class="fa fa-line-chart fa-lg side-text"></i> &nbsp;Dashboard'), ['controller' => 'Dashboard', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link side-text']) ?>
-        </li>
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item">
+        <?= $this->Html->link(__('<i class="fa fa-line-chart fa-lg"></i> &nbsp;Dashboard'), ['controller' => 'Dashboard', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link']) ?>
+        <!--        <a class="nav-link" href="index.html">-->
+        <!--            <i class="fas fa-fw fa-tachometer-alt"></i>-->
+        <!--            <span>Dashboard</span></a>-->
+    </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider m-0 w-100 mb-3">
+    <!-- Divider -->
+    <hr class="sidebar-divider">
 
-        <h5 class="text-default font-weight-bold m-0 pb-2 text-center">
-            User Options
-        </h5>
-        <hr class="sidebar-divider  mx-auto my-0 w-25 px-5">
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        User Options
+    </div>
 
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">-->
+        <!--            <i class="fas fa-fw fa-cog"></i>-->
+        <!--            <span>Components</span>-->
+        <!--        </a>-->
+        <?= $this->Html->link(__('<i class="fa fa-archive fa-lg"></i> &nbsp;Projects'),
+            ['controller' => 'Projects', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
+        <!--        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">-->
+        <!--            <div class="bg-white py-2 collapse-inner rounded">-->
+        <!--                <h6 class="collapse-header">Custom Components:</h6>-->
+        <!--                <a class="collapse-item" href="buttons.html">Buttons</a>-->
+        <!--                <a class="collapse-item" href="cards.html">Cards</a>-->
+        <!--            </div>-->
+        <!--        </div>-->
+    </li>
 
-        <li class="dropdown nav-item ">
-            <a href="#" class="dropdown-toggle  nav-link side-text" data-toggle="dropdown" role="button"
-                aria-expanded="false">
-                <i class="fa fa-archive fa-lg"></i>
-                Projects <span class="caret "></span>
-            </a>
-            <ul class="dropdown-menu py-0" role="menu">
-                <li class="nav-item">
-                    <?= $this->Html->link(
-                        __('<i class="fa fa-archive fa-lg"></i> &nbsp;Project List'),
-                        ['controller' => 'Projects', 'action' => 'index'],
-                        ['escape' => false, 'class' => 'nav-link collapsed my-0 dropout']
-                    ) ?>
-                </li>
-                <hr class="sidebar-divider m-0 bg-primary">
-                <li class="nav-item">
-                    <?= $this->Html->link(
-                        __('<i class="fa fa-archive fa-lg"></i> &nbsp;PAD'),
-                        ['controller' => 'ProjectDetails', 'action' => 'index'],
-                        ['escape' => false, 'class' => 'nav-link collapsed my-0 dropout']
-                    ) ?>
-                </li>
-                <hr class="sidebar-divider m-0 bg-primary">
+    <!-- Nav Item - Utilities Collapse Menu -->
+    <!--    <li class="nav-item">-->
+    <!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">-->
+    <!--            <i class="fas fa-fw fa-wrench"></i>-->
+    <!--            <span>Utilities</span>-->
+    <!--        </a>-->
 
+    <!--        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">-->
+    <!--            <div class="bg-white py-2 collapse-inner rounded">-->
+    <!--                <h6 class="collapse-header">Custom Utilities:</h6>-->
+    <!--                <a class="collapse-item" href="utilities-color.html">Colors</a>-->
+    <!--                <a class="collapse-item" href="utilities-border.html">Borders</a>-->
+    <!--                <a class="collapse-item" href="utilities-animation.html">Animations</a>-->
+    <!--                <a class="collapse-item" href="utilities-other.html">Other</a>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </li>-->
 
-                <li class="nav-item">
-                    <?= $this->Html->link(
-                        __('<i class="fa fa-archive fa-lg"></i> &nbsp;PPF'),
-                        ['controller' => 'ProjectFundings', 'action' => 'index'],
-                        ['escape' => false, 'class' => 'nav-link collapsed my-0 dropout']
-                    ) ?>
-                </li>
-                <hr class="sidebar-divider m-0 bg-primary">
+    <!-- Divider -->
+    <hr class="sidebar-divider">
 
-                <!-- <hr class="sidebar-divider m-0 bg-primary"> -->
-                <li class="nav-item">
-                    <?= $this->Html->link(
-                        __('<i class="fa fa-archive fa-lg"></i> &nbsp;PIM'),
-                        ['controller' => 'Pims', 'action' => 'index'],
-                        ['escape' => false, 'class' => 'nav-link collapsed my-0 dropout']
-                    ) ?>
-                    <!-- </p> -->
-                </li>
-                <!-- <hr class="sidebar-divider m-0 bg-primary"> -->
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Administrative options
+    </div>
 
-            </ul>
-        </li>
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">-->
+        <!--            <i class="fas fa-fw fa-folder"></i>-->
+        <!--            <span>Pages</span>-->
+        <!--        </a>-->
+        <?= $this->Html->link(__('<i class="fa fa-user-o fa-lg"></i> &nbsp;Personnel'),
+            ['controller' => 'Staff', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
+        <!--        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">-->
+        <!--            <div class="bg-white py-2 collapse-inner rounded">-->
+        <!--                <h6 class="collapse-header">Login Screens:</h6>-->
+        <!--                <a class="collapse-item" href="login.html">Login</a>-->
+        <!--                <a class="collapse-item" href="register.html">Register</a>-->
+        <!--                <a class="collapse-item" href="forgot-password.html">Forgot Password</a>-->
+        <!--                <div class="collapse-divider"></div>-->
+        <!--                <h6 class="collapse-header">Other Pages:</h6>-->
+        <!--                <a class="collapse-item" href="404.html">404 Page</a>-->
+        <!--                <a class="collapse-item" href="blank.html">Blank Page</a>-->
+        <!--            </div>-->
+        <!--        </div>-->
+    </li>
+    <li class="nav-item">
+        <?= $this->Html->link(__('<i class="fa fa-list fa-lg"></i> &nbsp;List of Values'),
+            ['controller' => 'Lov', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
+    </li>
+    <li class="nav-item">
+        <?= $this->Html->link(__('<i class="fa fa-user-circle-o fa-lg"></i> &nbsp;Donors'),
+            ['controller' => 'Vendors', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
+    </li>
+    <li class="nav-item">
+        <?= $this->Html->link(__('<i class="fa fa-user fa-lg"></i> &nbsp;Sponsors'),
+            ['controller' => 'Sponsors', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
+    </li>
+    <li class="nav-item">
+        <?= $this->Html->link(__('<i class="fa fa-cube fa-lg"></i> &nbsp;Roles'),
+            ['controller' => 'Roles', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
+    </li>
 
-        <!-- Nav Item - Pages Collapse Menu -->
+    <!-- Nav Item - Charts -->
+    <!--    <li class="nav-item">-->
+    <!--        <a class="nav-link" href="charts.html">-->
+    <!--            <i class="fas fa-fw fa-chart-area"></i>-->
+    <!--            <span>Charts</span></a>-->
+    <!--    </li>-->
 
-        <!-- fdgfd -->
-        <li class="dropdown nav-item">
-            <a href="#" class="dropdown-toggle side-text nav-link" data-toggle="dropdown" role="button"
-                aria-expanded="false">
-                <i class="fa fa-archive fa-lg"></i>
-                M & E <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu py-0" role="menu">
-                <li class="nav-item m-0">
-                    <?= $this->Html->link(
-                        __('<i class="fa fa-desktop fa-lg"></i> &nbsp;Progress Report'),
-                        ['controller' => 'ProjectDetails', 'action' => 'evaluation'],
-                        ['escape' => false, 'class' => 'nav-link collapsed collapsed my-0 dropout']
-                    ) ?>
-                </li>
-                <hr class="sidebar-divider m-0 bg-primary">
-                <li class="nav-item">
-                    <?= $this->Html->link(
-                        __('<i class="fa fa-archive fa-lg "></i> &nbsp;Consolidated Report'),
-                        ['controller' => 'ProjectDetails', 'action' => 'consolidated'],
-                        ['escape' => false, 'class' => 'nav-link collapsed  my-0 dropout']
-                    ) ?>
-                </li>
-                <hr class="sidebar-divider m-0 bg-primary">
-            </ul>
-        </li>
-        <!-- dsdsfds -->
-        <hr class="sidebar-divider m-0">
+    <!-- Nav Item - Tables -->
+    <!--    <li class="nav-item">-->
+    <!--        <a class="nav-link" href="tables.html">-->
+    <!--            <i class="fas fa-fw fa-table"></i>-->
+    <!--            <span>Tables</span></a>-->
+    <!--    </li>-->
 
-        <!-- Divider -->
-        <hr class="sidebar-divider mx-0 w-100">
+    <!-- Divider -->
+    <!--    <hr class="sidebar-divider d-none d-md-block">-->
 
-        <!-- Heading -->
-        <h5 class="text-default m-0 text-center pb-2 font-weight-bold">
-            Administrative Options
-        </h5>
-        <hr class="sidebar-divider mx-auto my-0 w-50 px-5 ">
+    <!-- Sidebar Toggler (Sidebar) -->
+    <!--    <div class="text-center d-none d-md-inline">-->
+    <!--        <button class="rounded-circle border-0" id="sidebarToggle"></button>-->
+    <!--    </div>-->
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item m-0">
-            <?= $this->Html->link(
-                __('<i class="fa fa-user-o fa-lg"></i> &nbsp;Personnel'),
-                ['controller' => 'Staff', 'action' => 'index'],
-                ['escape' => false, 'class' => 'nav-link collapsed side-text']
-            ) ?>
-        </li>
-        <hr class="sidebar-divider m-0">
-
-        <li class="nav-item m-0">
-            <?= $this->Html->link(
-                __('<i class="fa fa-list fa-lg"></i> &nbsp;List of Values'),
-                ['controller' => 'Lov', 'action' => 'index'],
-                ['escape' => false, 'class' => 'nav-link collapsed side-text']
-            ) ?>
-        </li>
-        <hr class="sidebar-divider m-0">
-
-        <li class="nav-item">
-            <?= $this->Html->link(
-                __('<i class="fa fa-user-circle-o fa-lg"></i> &nbsp;Donors'),
-                ['controller' => 'Vendors', 'action' => 'index'],
-                ['escape' => false, 'class' => 'nav-link collapsed side-text']
-            ) ?>
-        </li>
-        <hr class="sidebar-divider mx-0">
-
-        <li class="nav-item">
-            <?= $this->Html->link(
-                __('<i class="fa fa-user fa-lg"></i> &nbsp;Sponsors'),
-                ['controller' => 'Sponsors', 'action' => 'index'],
-                ['escape' => false, 'class' => 'nav-link collapsed side-text']
-            ) ?>
-        </li>
-        <hr class="sidebar-divider mx-0">
-
-        <li class="nav-item">
-            <?= $this->Html->link(
-                __('<i class="fa fa-cube fa-lg"></i> &nbsp;Roles'),
-                ['controller' => 'Roles', 'action' => 'index'],
-                ['escape' => false, 'class' => 'nav-link collapsed side-text']
-            ) ?>
-        </li>
-        <hr class="sidebar-divider mx-0">
-
-        <li class="nav-item">
-            <?= $this->Html->link(
-                __('<i class="fa fa-users fa-lg "></i> &nbsp;Users'),
-                ['controller' => 'Users', 'action' => 'index'],
-                ['escape' => false, 'class' => 'nav-link collapsed side-text']
-            ) ?>
-        </li>
-        <hr class="sidebar-divider mx-0">
-
-    </ul>
-
-
-</aside>
+</ul>

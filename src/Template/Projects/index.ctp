@@ -1,185 +1,115 @@
 <?php
-
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\Project[]|\Cake\Collection\CollectionInterface $projects
  */
-
-use Cake\ORM\Query;
-use Cake\Datasource\ConnectionManager;
-
 $this->start('sidebar');
 echo $this->element('sidebar/default');
 $this->end();
 $this->start('navbar');
 echo $this->element('navbar/default');
 $this->end();
+
+/**
+ *
+ * This section is used to customize the pagination area.
+ * Do not tamper with if you have not read the document https://book.cakephp.org/3/en/controllers/components/pagination.html
+ *
+ */
+$this->Paginator->setTemplates([
+    'number' => '',
+    'nextActive' => '<li class="nav-item"><a class="nav-link navigator" href="{{url}}">{{text}}</a></li>',
+    'nextDisabled' => '<li class="nav-item"><a class="nav-link text-gray-300 unclickable" href="#">{{text}}</a></li>',
+    'prevActive' => '<li class="nav-item"><a class="nav-link navigator" href="{{url}}">{{text}}</a></li>',
+    'prevDisabled' => '<li class="nav-item"><a class="nav-link text-gray-300 unclickable" href="#">{{text}}</a></li>',
+    'first' => '',
+    'last' => ''
+]);
 ?>
+<!-- section area. This is where the ajax call places the element on -->
+<section id="flyby">
+    <!-- Menu area [Search, pagination] -->
+    <!-- I was supposed to put this section in the element template but will do that soon. -->
+    <nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
+        <a class="navbar-brand" href="#">Project Details</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<div class="container-fluid">
-    <h2 class="text-center text-primary font-weight-bold"><?= __('Projects') ?></h2>
-    <div class="shadow mb-4 br-m">
-        <div class="py-3 pl-3 bg-primary br-t">
-            <h3 class="m-0 text-white"><?= __('Project') ?>
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <?= $this->Html->link(__('<i class="fa fa-plus fa-lg"></i>'), ['action' => 'add'], ['class' => 'btn btn-light overlay ml-2', 'title' => 'Add', 'escape' => false]) ?>
-                </div>
-            </h3>
-        </div>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <div class="mr-auto mt-2 mt-lg-0">
+                <?= $this->Html->link(__('Create'), ['action' => 'add'], ['class' => 'btn btn-info rounded-0 navigator', 'title' => 'Add', 'escape' => false]) ?>
+            </div>
+            <!-- Search Form -->
+            <form class="form-inline my-2 my-lg-0" method="get" id="searchable">
+                <input class="form-control rounded-0" type="search" name="q" placeholder="Search">
+                <button class="btn btn-outline-info rounded-0 my-2 my-sm-0 navigator" type="submit">Search</button>
+            </form>
+            <!-- ./end Search form -->
 
-        <div class="card-body">
-            <div class="table-responsive">
-                <table cellpadding="0" cellspacing="0"
-                    class="table table-bordered dataTable table-hover table-primary br-m" role="grid"
-                    aria-describedby="dataTable_info">
-                    <thead class="bg-primary br-t">
-                        <tr>
-                            <th scope="col" width="13%"><?= __('Name') ?></th>
-                            <th scope="col"><?= __('Brief') ?></th>
-                            <th scope="col" width="15%"><?= __('Status') ?></th>
-                            <th scope="col" width="15%"><?= __('Waiting On') ?></th>
-                            <th scope="col" width="15%"><?= __('Cost') ?></th>
-                            <th scope="col" class="actions" width="22%"><?= __('Actions') ?></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($projects as $project) :
-                            $color = "";
-                            $status = 0;
-                            $status = $project->percent;
+            <!-- Pagination -->
+            <span class="navbar-text ml-3 pl-4 border-left">
+                    <?= $this->Paginator->counter(['format' => __('{{page}}/{{pages}}  of {{count}}')]) ?>
+            </span>
+            <!-- ./end pagination -->
 
-                            if ($status == 0) {
-                                $color = "bg-light";
-                                $title = "Project is about to kick off";
-                            } else if ($status > 0 && $status < 50) {
-                                $color = "bg-warning";
-                                $title = "Project is active but with limited concerns, needs close monitoring !!!";
-                            } else if ($status == 50) {
-                                $color = "bg-primary";
-                                $title = "Project is on hold !";
-                            } else if ($status > 50 && $status < 70) {
-                                $color = "bg-danger";
-                                $title = "Project is active but with major concerns, needs corrective action !!!";
-                            } else if ($status > 70 && $status < 100) {
-                                $color = "bg-success";
-                                $title = "Project is active and On-Track";
-                            } else if ($status == 100) {
-                                $color = "bg-dark";
-                                $title = "Project Completed";
-                            } else {
-                                $color = "bg-info";
-                                $title = "";
-                            }
-                            // echo $status;
-                        ?>
+            <div class="mt-2 mt-lg-0">
+                <ul class="navbar-nav">
+                    <?= $this->Paginator->prev(__('<i class="fas fa-less-than fa-1x"></i>'), ['class' => 'test', 'escape' => false]) ?>
 
-                        <tr>
-                            <!-- <td><?= $this->Number->format($project->id) ?></td> -->
-                            <td><?= $this->Html->link($project->name, ['controller' => 'projects', 'action' => 'report', $project->id], ['id' => 'transmit']) ?>
-                            </td>
-                            <td><?= h($project->introduction) ?></td>
-                            <!-- <td><?= h($project->percent) ?></td> -->
-                            <td>
-                                <div class="progress " style="width:110px; height: 40px">
-                                    <div class="progress-bar <?= $color ?> progress-bar-striped active"
-                                        title="<?= $title ?>" data-toggle="tooltip" data-placement="right"
-                                        role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0"
-                                        aria-valuemax="100"></div>
-                                </div>
-                            </td>
-                            <!-- <td><?= h($project->waiting_on) ?></td> -->
-                            <td>Umeevuruo Uche</td>
-                            <td><?= $this->Number->currency($project->cost) ?></td>
-                            <td class="actions">
-                                <button class="btn btn-small btn-dark">
-                                    <?php
-                                        $prjid = $project->id;
-                                        // echo $prjid;
-                                        $conn = ConnectionManager::get('default');
-                                        $qrycount = $conn->execute("SELECT * FROM project_details where project_id ='" . $prjid . "' ");
-                                        $results = $qrycount->fetchAll('assoc');
-                                        if (isset($results[0])) {
-                                            echo '<a  class="text-success txt-sm">Add PAD</a>';
-                                        } else {
-                                            echo $this->Html->link(__('Add PAD'), ['controller' => 'projectDetails', 'action' => 'add', $project->id], ['class' => 'text-light txt-sm']);
-                                        }
-                                        ?>
-                                </button>
-                                <button class="btn btn-small btn-dark">
-                                    <?php
-                                        $prjid = $project->id;
-                                        // echo $prjid;
-                                        $conn = ConnectionManager::get('default');
-                                        $qrycount = $conn->execute("SELECT * FROM pims where project_id ='" . $prjid . "' ");
-                                        $resultspim = $qrycount->fetchAll('assoc');
-                                        if (isset($resultspim[0])) {
-                                            echo '<a  class="text-success txt-sm">Add PIM</a>';
-                                        } else {
-                                            echo $this->Html->link(__('Add PIM'), ['controller' => 'pims', 'action' => 'add', $project->id], ['class' => 'text-light txt-sm']);
-                                        }
-                                        ?>
-                                </button>
-                                <button class="btn btn-small btn-dark">
-                                    <?php
-                                        $prjid = $project->id;
-                                        // echo $prjid;
-                                        $conn = ConnectionManager::get('default');
-                                        $qrycount = $conn->execute("SELECT * FROM project_fundings where project_id ='" . $prjid . "' ");
-                                        $resultsppf = $qrycount->fetchAll('assoc');
-                                        if (isset($resultsppf[0])) {
-                                            // echo '<a  class="text-success txt-sm">Add PPF</a>';
-                                            echo $this->Html->link(__('Add PPA'), ['controller' => 'projectFundings', 'action' => 'add', $project->id], ['class' => 'text-light txt-sm overlay']);
-                                        } else {
-                                            echo $this->Html->link(__('Add PPA'), ['controller' => 'projectFundings', 'action' => 'add', $project->id], ['class' => 'text-light txt-sm overlay']);
-                                        }
-                                        ?>
-                                </button>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                    <?= $this->Paginator->next(__('<i class="fas fa-greater-than fa-1x"></i>'), ['escape' => false]) ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-th-large fa-1x"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-list fa-1x text-gray-300"></i></a>
+                    </li>
+                </ul>
             </div>
         </div>
+    </nav>
+    <!-- .\end Menu Area -->
+
+    <div class="container-fluid">
+
+        <!-- Breadcrumb area -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">Projects</li>
+            </ol>
+        </nav>
+        <!-- ./end Breadcrumb -->
+
+        <div class="row">
+            <?php foreach ($projects as $project): ?>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card <?= $this->Indicator->status($project->project_detail->has('status')?$project->project_detail->status->lov_value:'') ?> shadow h-100 py-0">
+                        <div class="card-body py-2 px-2">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2" id="clickable-card" data-attr="<?= $this->Url->build(['action' => 'milestones', $project->id]) ?>">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        <?= $project->name ?>
+                                    </div>
+                                    <div class="h6 mb-0 font-weight-bold text-gray-800"><?= $this->NumberFormat->format($project->cost, ['before' => '₦']) ?></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <i class="fas fa-clock fa-1x text-gray-300"></i>
+                                </div>
+                                <div class="col border-left ">
+                                    <i class="fas fa-book fa-1x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
     </div>
+</section>
 
-    <!-- <div class="paginator">
-        <ul class="pagination">
-        <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
-    </div> -->
-
-
-<!-- MODAL ELEMENTS -->
-
-<div id="dialogModal" class="bg-primary">
-    <!-- the external content is loaded inside this tag -->
-    <div id="contentWrap">
-        <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-lg']) ?>
-        <?= $this->Modal->body()// No header ?>
-        <?= $this->Modal->footer()// Footer with close button (default) ?>
-        <?= $this->Modal->end() ?>
-    </div>
-</div>
-
-    <script>
-   $(document).ready(function() {
-            //respond to click event on anything with 'overlay' class
-            $(".overlay").click(function(event){
-                event.preventDefault();
-                //load content from href of link
-                $('#contentWrap .modal-body').load($(this).attr("href"), function(){
-                    $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content').removeClass()
-                    $('#MyModal4').modal('show')
-                });
-            });
-        });
-
-        $('.dataTable').DataTable();
-    </script>
-</div>

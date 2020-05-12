@@ -19,7 +19,8 @@ table tr th{
     border-bottom: 0px none !important;
 }
 .nav-shadow-bottom{
-    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
+    /*box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;*/
+    box-shadow: 0 .5rem .5rem 0 rgba(58,59,69,.15)!important;
 }
 .row{
     /*width: 100% !important;*/
@@ -30,7 +31,8 @@ table tr th{
     background: #fafafa !important;
 }
 .shadow {
-    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
+    /*box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;*/
+    box-shadow: 0 .5rem .5rem 0 rgba(58,59,69,.15)!important;
 }
 .card{
     border: 1px solid #e3e6f0;
@@ -290,4 +292,15 @@ input.addon-right {
 }
 textarea.form-control{
     height:122px !important;
+}
+.loader{
+    position:fixed;
+    top:40%;
+    left:50%;
+}
+#clickable-card:hover,#clickable-sub-applet:hover{
+    cursor:pointer;
+}
+.white-bg{
+    background:#fff;
 }

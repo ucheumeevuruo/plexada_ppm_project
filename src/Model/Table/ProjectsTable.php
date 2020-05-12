@@ -58,7 +58,7 @@ class ProjectsTable extends Table
         $this->hasMany('Objectives', [
             'foreignKey' => 'project_id',
         ]);
-        $this->hasMany('Prices', [
+        $this->hasOne('Prices', [
             'foreignKey' => 'project_id',
         ]);
         $this->hasOne('ProjectDetails', [
@@ -122,5 +122,18 @@ class ProjectsTable extends Table
             ->notEmptyString('cost');
 
         return $validator;
+    }
+
+    public function findByProjectName(Query $query, $options)
+    {
+        $id = $options['id'];
+
+        if(!is_null($id))
+        {
+            $query->where(function ($exp, Query $q) use ($id){
+                return $exp->like('Projects.name', "%$id%");
+            });
+        }
+        return $query;
     }
 }

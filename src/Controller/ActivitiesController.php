@@ -38,7 +38,7 @@ class ActivitiesController extends AppController
     public function view($id = null)
     {
         $activity = $this->Activities->get($id, [
-            'contain' => ['ProjectDetails', 'Staff', 'Lov', 'Users'],
+            'contain' => ['ProjectDetails', 'Staff', 'Statuses', 'Users', 'Priorities'],
         ]);
 
         $this->set('activity', $activity);

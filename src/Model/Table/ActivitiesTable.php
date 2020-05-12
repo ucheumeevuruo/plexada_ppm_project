@@ -51,6 +51,9 @@ class ActivitiesTable extends Table
         $this->belongsTo('Staff', [
             'foreignKey' => 'assigned_to_id',
         ]);
+        $this->belongsTo('Currencies', [
+           'foreignKey' => 'currency_id'
+        ]);
         $this->belongsTo('Priorities', [
             'className' => 'Lov',
             'foreignKey' => 'priority_id',
