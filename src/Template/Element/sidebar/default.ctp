@@ -1,13 +1,13 @@
 <?php echo $this->Html->css('sidebar'); ?>
 
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
+<!--            <i class="fas fa-laugh-wink"></i>-->
         </div>
-        <!--        <div class="sidebar-brand-text mx-3">Project Management <sup>2</sup></div>-->
+<!--                <div class="sidebar-brand-text mx-3">Project Management <sup>2</sup></div>-->
     </a>
 
     <!-- Divider -->
@@ -78,7 +78,7 @@
         <!--            <i class="fas fa-fw fa-folder"></i>-->
         <!--            <span>Pages</span>-->
         <!--        </a>-->
-        <?= $this->Html->link(__('<i class="fa fa-user-o fa-lg"></i> &nbsp;Personnel'),
+        <?= $this->Html->link(__('<i class="fa fa-user fa-lg"></i> &nbsp;Personnel'),
             ['controller' => 'Staff', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
         <!--        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">-->
         <!--            <div class="bg-white py-2 collapse-inner rounded">-->
@@ -98,7 +98,7 @@
             ['controller' => 'Lov', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
     </li>
     <li class="nav-item">
-        <?= $this->Html->link(__('<i class="fa fa-user-circle-o fa-lg"></i> &nbsp;Donors'),
+        <?= $this->Html->link(__('<i class="fa fa-user-circle fa-lg"></i> &nbsp;Donors'),
             ['controller' => 'Vendors', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
     </li>
     <li class="nav-item">
