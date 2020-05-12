@@ -17,7 +17,7 @@ $this->end();
             <?= $this->Html->link(__('<i class="fa fa-pencil fa-sm"></i> Edit'), ['action' => 'edit', $projectDetail->id], ['class' => 'btn btn-outline-dark btn-sm overlay', 'title' => 'Edit', 'escape' => false]) ?>
             <div class="clearfix"></div>
             <br />
-            <div class="col-md-4 float-left">
+             <div class="col-md-4 float-left">
                 <div class="table-responsive">
                     <table class="table table-borderless no-border">
                         <tr>
@@ -44,10 +44,6 @@ $this->end();
                 <div class="table-responsive">
                     <table class="table table-borderless no-border">
                         <tr>
-                            <th scope="row"><?= __('Current Status') ?></th>
-                            <td><?= h($projectDetail->lov->lov_value) ?></td>
-                        </tr>
-                        <tr>
                             <th scope="row"><?= __('Project Manager') ?></th>
                             <td><?= $projectDetail->has('staff') ? $projectDetail->staff->full_name : '' ?></td>
                         </tr>
@@ -59,12 +55,33 @@ $this->end();
                             <th scope="row"><?= __('Waiting Since') ?></th>
                             <td><?= h($projectDetail->has('personnel') ? $projectDetail->waiting_since : '') ?></td>
                         </tr>
+                        <tr>
+                            <th scope="row"><?= __('Current Status') ?></th>
+                            <td><?= h($projectDetail->lov->lov_value) ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><?= __('Sub Status') ?></th>
+                            <td><?= h($projectDetail->has('sub_status') ? $projectDetail->sub_status->lov_value : '') ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><?= __('Priority') ?></th>
+                            <td><?= h($projectDetail->has('priority') ? $projectDetail->priority->lov_value : '') ?></td>
+                        </tr>
                     </table>
                 </div>
             </div>
             <div class="col-md-4 float-left">
                 <div class="table-responsive">
                     <table class="table table-borderless">
+
+                        <tr>
+                            <th scope="row"><?= __('Currency') ?></th>
+                            <td><?= $projectDetail->has('price') ? h($projectDetail->price->currency->code) : '' ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><?= __('Budget') ?></th>
+                            <td><?= $projectDetail->has('price') ? h($this->NumberFormat->format($projectDetail->price->budget, ['before' => isset($projectDetail->price->currency) ? $projectDetail->price->currency->symbol : ''])) : '0.00' ?></td>
+                        </tr>
                         <tr>
                             <th scope="row"><?= __('Start Date') ?></th>
                             <td><?= h($projectDetail->start_dt) ?></td>

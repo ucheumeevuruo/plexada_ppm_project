@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -36,13 +37,23 @@ class SponsorsTable extends Table
         parent::initialize($config);
 
         $this->setTable('sponsors');
-        $this->setDisplayField('full_name');
+        $this->setDisplayField('first_name');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
 
         $this->belongsTo('Users', [
             'foreignKey' => 'system_user_id',
+        ]);
+        $this->belongsTo('Projects', [
+            'foreignKey' => 'first_name',
+            'joinType' => 'INNER',
+        ]);
+
+        $this->belongsTo('SponsorTypes', [
+            'className' => 'Lov',
+            'foreignKey' => 'sponsor_type_id',
+            'conditions' => ['SponsorTypes.lov_type' => 'sponsor_type']
         ]);
 
         $this->hasMany('ProjectDetails', [
@@ -76,6 +87,9 @@ class SponsorsTable extends Table
             ->scalar('other_names')
             ->maxLength('other_names', 150)
             ->allowEmptyString('other_names');
+
+        $validator
+            ->requirePresence('sponsor_type_id', 'create');
 
         $validator
             ->scalar('role')

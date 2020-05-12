@@ -48,6 +48,7 @@ class Activity extends Entity
         'priority_id' => true,
         'status_id' => true,
         'completion_date' => true,
+        'cost' => true,
         'created' => true,
         'last_updated' => true,
         'system_user_id' => true,
@@ -56,5 +57,6 @@ class Activity extends Entity
         'priority' => true,
         'status' => true,
         'user' => true,
+        'milestone_id'=>true
     ];
 }

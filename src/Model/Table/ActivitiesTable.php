@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\I18n\Time;
@@ -39,7 +40,7 @@ class ActivitiesTable extends Table
         parent::initialize($config);
 
         $this->setTable('activities');
-        $this->setDisplayField('last_name');
+        $this->setDisplayField('next_activity');
         $this->setPrimaryKey('activity_id');
 
         $this->addBehavior('Timestamp');
@@ -49,6 +50,9 @@ class ActivitiesTable extends Table
         ]);
         $this->belongsTo('Staff', [
             'foreignKey' => 'assigned_to_id',
+        ]);
+        $this->belongsTo('Currencies', [
+           'foreignKey' => 'currency_id'
         ]);
         $this->belongsTo('Priorities', [
             'className' => 'Lov',
@@ -64,6 +68,9 @@ class ActivitiesTable extends Table
         ]);
         $this->belongsTo('Users', [
             'foreignKey' => 'system_user_id',
+        ]);
+        $this->hasMany('Tasks', [
+            'foreignKey' => 'Task_name',
         ]);
     }
 
@@ -109,7 +116,7 @@ class ActivitiesTable extends Table
         $validator
             ->scalar('description')
             ->maxLength('description', 300)
-//            ->requirePresence('Description', 'create')
+            //            ->requirePresence('Description', 'create')
             ->notEmptyString('Description');
 
         $validator
@@ -132,7 +139,7 @@ class ActivitiesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['project_id'], 'ProjectDetails'));
+        // $rules->add($rules->existsIn(['project_id'], 'ProjectDetails'));
         $rules->add($rules->existsIn(['assigned_to_id'], 'Staff'));
         $rules->add($rules->existsIn(['priority_id'], 'Priorities'));
         $rules->add($rules->existsIn(['status_id'], 'Statuses'));
@@ -141,15 +148,14 @@ class ActivitiesTable extends Table
         return $rules;
     }
 
-    public function identify($formData) {
-        if(isset($formData['status_id']))
-        {
+    public function identify($formData)
+    {
+        if (isset($formData['status_id'])) {
 
             $status = $this->Statuses->find()
-            ->where(['id' => $formData['status_id']])
-            ->first();
-            if(strtolower($status->lov_value) == 'closed')
-            {
+                ->where(['id' => $formData['status_id']])
+                ->first();
+            if (strtolower($status->lov_value) == 'closed') {
                 $formData['completion_date'] = Time::now();
             }
         }

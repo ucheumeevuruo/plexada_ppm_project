@@ -20,7 +20,7 @@ class MilestonesFixture extends TestFixture
         'project_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'amount' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'payment' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => 'N', 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
-        'status_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'status_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => true, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'description' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'achievement' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'trigger_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => true, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
@@ -63,10 +63,10 @@ class MilestonesFixture extends TestFixture
                 'description' => 'Lorem ipsum dolor sit amet',
                 'achievement' => 'Lorem ipsum dolor sit amet',
                 'trigger_id' => 1,
-                'completed_date' => '2020-04-05',
-                'expected_completion_date' => '2020-04-05',
-                'created' => '2020-04-05 23:58:04',
-                'modified' => '2020-04-05 23:58:04',
+                'completed_date' => '2020-04-22',
+                'expected_completion_date' => '2020-04-22',
+                'created' => '2020-04-22 20:39:42',
+                'modified' => '2020-04-22 20:39:42',
             ],
         ];
         parent::init();

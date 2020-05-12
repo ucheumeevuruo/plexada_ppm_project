@@ -23,12 +23,17 @@ class ProjectDetailsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.ProjectDetailsOld',
+        'app.ProjectDetails',
         'app.Vendors',
         'app.Staff',
         'app.Sponsors',
         'app.Lov',
+        'app.Priorities',
         'app.Users',
+        'app.Annotations',
+        'app.Projects',
+        'app.Prices',
+        'app.SubStatuses',
     ];
 
     /**
@@ -39,8 +44,8 @@ class ProjectDetailsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::getTableLocator()->exists('ProjectDetailsOld') ? [] : ['className' => ProjectDetailsTable::class];
-        $this->ProjectDetails = TableRegistry::getTableLocator()->get('ProjectDetailsOld', $config);
+        $config = TableRegistry::getTableLocator()->exists('ProjectDetails') ? [] : ['className' => ProjectDetailsTable::class];
+        $this->ProjectDetails = TableRegistry::getTableLocator()->get('ProjectDetails', $config);
     }
 
     /**

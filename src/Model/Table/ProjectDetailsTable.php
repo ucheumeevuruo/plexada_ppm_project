@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -8,16 +9,19 @@ use Cake\Validation\Validator;
 use DateTime;
 
 /**
- * ProjectDetailsOld Model
+ * ProjectDetails Model
  *
  * @property \App\Model\Table\VendorsTable&\Cake\ORM\Association\BelongsTo $Vendors
  * @property \App\Model\Table\StaffTable&\Cake\ORM\Association\BelongsTo $Staff
  * @property \App\Model\Table\SponsorsTable&\Cake\ORM\Association\BelongsTo $Sponsors
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Priorities
+ * @property \App\Model\Table\StaffTable&\Cake\ORM\Association\BelongsTo $Staff
+ * @property \App\Model\Table\LovTable&\Cake\ORM\Association\BelongsTo $Lov
  * @property \App\Model\Table\LovTable&\Cake\ORM\Association\BelongsTo $Lov
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\HasMany $Milestones
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\HasMany $RiskIssues
+ * @property \App\Model\Table\AnnotationsTable&\Cake\ORM\Association\BelongsTo $Annotations
+ * @property \App\Model\Table\ProjectsTable&\Cake\ORM\Association\BelongsTo $Projects
+ * @property \App\Model\Table\PricesTable&\Cake\ORM\Association\BelongsTo $Prices
+ * @property \App\Model\Table\LovTable&\Cake\ORM\Association\BelongsTo $SubStatuses
  *
  * @method \App\Model\Entity\ProjectDetail get($primaryKey, $options = [])
  * @method \App\Model\Entity\ProjectDetail newEntity($data = null, array $options = [])
@@ -52,51 +56,37 @@ class ProjectDetailsTable extends Table
             'foreignKey' => 'vendor_id',
         ]);
         $this->belongsTo('Staff', [
-            'className' => 'Staff',
             'foreignKey' => 'manager_id',
         ]);
         $this->belongsTo('Sponsors', [
-            'foreignKey' => 'sponsor_id',
+            'foreignKey' => 'sponsor_id'
         ]);
-        $this->belongsTo('Personnel', [
-            'className' => 'Staff',
-            'foreignKey' => 'waiting_on_id'
-        ]);
-        $this->belongsTo('Lov', [
-            'foreignKey' => 'status_id',
-            'joinType' => 'INNER',
-        ]);
-        $this->belongsTo('SubStatuses', [
-            'foreignKey' => 'sub_status_id',
-            'className' => 'Lov'
-        ]);
-        $this->belongsTo('Priorities', [
-            'className' => 'Lov',
-            'foreignKey' => 'priority_id',
-            'joinType' => 'INNER',
+        $this->belongsTo('Staff', [
+            'foreignKey' => 'waiting_on_id',
         ]);
         $this->belongsTo('Users', [
             'foreignKey' => 'system_user_id',
+            'joinType' => 'INNER',
         ]);
-        $this->hasOne('Annotations', [
-            'foreignKey' => 'project_id',
-            'joinType' => 'LEFT'
+        $this->belongsTo('Annotations', [
+            'foreignKey' => 'annotation_id',
         ]);
-        $this->hasOne('Prices', [
-            'foreignKey' => 'project_id',
-            'joinType' => 'LEFT'
+        $this->hasOne('Projects', [
+            'foreignKey' => 'id',
+            'joinType' => 'INNER',
         ]);
-        $this->hasMany('Activities', [
-            'foreignKey' => 'project_id',
-            'joinType' => 'LEFT'
+        $this->belongsTo('Priorities', [
+            'className' => 'lov',
+            'foreignKey' => 'priority_id',
+            'joinType' => 'INNER',
         ]);
-        $this->hasMany('Milestones', [
-            'foreignKey' => 'project_id',
-            'joinType' => 'LEFT'
+        $this->belongsTo('Statuses', [
+            'className' => 'lov',
+            'foreignKey' => 'status_id',
+            'joinType' => 'INNER',
         ]);
-        $this->hasMany('RiskIssues', [
-            'foreignKey' => 'project_id',
-            'joinType' => 'LEFT'
+        $this->hasMany('Sponsors', [
+            'foreignKey' => 'id',
         ]);
     }
 
@@ -112,11 +102,6 @@ class ProjectDetailsTable extends Table
             ->nonNegativeInteger('id')
             ->allowEmptyString('id', null, 'create');
 
-        $validator
-            ->scalar('name')
-            ->maxLength('name', 150)
-            ->requirePresence('name', 'create')
-            ->notEmptyString('name');
 
         $validator
             ->scalar('description')
@@ -127,31 +112,78 @@ class ProjectDetailsTable extends Table
         $validator
             ->scalar('location')
             ->maxLength('location', 150)
-            ->allowEmptyString('location');
+            ->requirePresence('location', 'create')
+            ->notEmptyString('location');
 
         $validator
             ->date('waiting_since')
-            ->allowEmptyDate('waiting_on');
-
-//        $validator
-//            ->scalar('waiting_on')
-//            ->maxLength('waiting_on', 70)
-//            ->allowEmptyString('waiting_on');
+            // ->requirePresence('waiting_since', 'create')
+            ->notEmptyDate('waiting_since');
 
         $validator
             ->date('start_dt')
-            ->allowEmptyDate('start_dt');
+            // ->requirePresence('start_dt', 'create')
+            ->notEmptyDate('start_dt');
 
         $validator
             ->date('end_dt')
-            ->allowEmptyDate('end_dt');
+            // ->requirePresence('end_dt', 'create')
+            ->notEmptyDate('end_dt');
 
         $validator
             ->dateTime('last_updated')
             ->allowEmptyDateTime('last_updated');
 
+        $validator
+            ->scalar('environmental_factors')
+            ->maxLength('environmental_factors', 500)
+            ->requirePresence('environmental_factors', 'create')
+            ->notEmptyString('environmental_factors');
+
+        $validator
+            ->scalar('partners')
+            ->maxLength('partners', 4294967295)
+            // ->requirePresence('partners', 'create')
+            ->allowEmptyString('partners');
+
+        $validator
+            ->integer('funding')
+            // ->requirePresence('funding', 'create')
+            ->allowEmptyString('funding');
+
+        $validator
+            ->integer('approvals')
+            // ->requirePresence('approvals', 'create')
+            ->allowEmptyString('approvals');
+
+        $validator
+            ->scalar('risks')
+            ->maxLength('risks', 500)
+            // ->requirePresence('risks', 'create')
+            ->allowEmptyString('risks');
+
+        $validator
+            ->scalar('components')
+            ->maxLength('components', 255)
+            // ->requirePresence('components', 'create')
+            ->allowEmptyString('components');
+
         return $validator;
     }
+
+
+    public function identify($formData)
+    {
+        // $formData['waiting_since'] = !empty($formData['waiting_since']) ?
+        //     DateTime::createFromFormat('d/m/Y', $formData['waiting_since']) : $formData['waiting_since'];
+        $formData['start_dt'] = !empty($formData['start_dt']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['start_dt']) : $formData['start_dt'];
+        $formData['end_dt'] = !empty($formData['end_dt']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['end_dt']) : $formData['end_dt'];
+        return $formData;
+    }
+
+
 
     /**
      * Returns a rules checker object that will be used for validating
@@ -165,21 +197,16 @@ class ProjectDetailsTable extends Table
         $rules->add($rules->existsIn(['vendor_id'], 'Vendors'));
         $rules->add($rules->existsIn(['manager_id'], 'Staff'));
         $rules->add($rules->existsIn(['sponsor_id'], 'Sponsors'));
+        // $rules->add($rules->existsIn(['mda_id'], 'MDA'));
         $rules->add($rules->existsIn(['waiting_on_id'], 'Staff'));
         $rules->add($rules->existsIn(['status_id'], 'Lov'));
-//        $rules->add($rules->existsIn(['annotation_id'], 'Annotations'));
-        $rules->add($rules->existsIn(['sub_status_id'], 'SubStatuses'));
-        $rules->add($rules->existsIn(['priority_id'], 'Priorities'));
+        $rules->add($rules->existsIn(['priority_id'], 'Lov'));
         $rules->add($rules->existsIn(['system_user_id'], 'Users'));
+        $rules->add($rules->existsIn(['annotation_id'], 'Annotations'));
+        $rules->add($rules->existsIn(['project_id'], 'Projects'));
+        $rules->add($rules->existsIn(['price_id'], 'Prices'));
+        $rules->add($rules->existsIn(['sub_status_id'], 'SubStatuses'));
 
         return $rules;
-    }
-
-    public function identify($formData) {
-        $formData['start_dt'] = !empty($formData['start_dt']) ?
-            DateTime::createFromFormat('d/m/Y', $formData['start_dt']) : $formData['start_dt'];
-        $formData['end_dt'] = !empty($formData['end_dt']) ?
-            DateTime::createFromFormat('d/m/Y', $formData['end_dt']) : $formData['end_dt'];
-        return $formData;
     }
 }

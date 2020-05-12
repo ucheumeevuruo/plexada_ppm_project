@@ -1,0 +1,40 @@
+.nav {
+    background-color: rgb(221, 218, 218);
+    cursor: pointer;
+    text-align: center;
+}
+
+.active {
+    color: white;
+    background-color: black;
+}
+
+.nav:hover {
+    background-color: black;
+    color: white;
+}
+
+.card-outline {
+    outline: 1px solid #dddada;
+}
+
+.nav-col {
+    color: #858796;
+}
+
+.nav-col:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.indicator {
+    font-size: 25px;
+}
+
+.shadow {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.5) !important;
+}
+
+.docs {
+    outline: 4px solid #858796;
+}

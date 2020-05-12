@@ -12,7 +12,9 @@
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Controller;
+
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
@@ -84,6 +86,10 @@ class AppController extends Controller
                 'key' => 'Auth.Users',
             ],
 //            'authorize' => ['Controller']
+            'abc' => [
+                'controller' => 'Messages',
+                'action' => 'getMessageCount'
+            ],
         ]);
 
 
@@ -93,10 +99,34 @@ class AppController extends Controller
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
+        // $response = $this->requestAction('Messages/getMessageCount/');
+        $logged_in_user = $this->Auth->user('id');
+        $this->loadModel('Messages');
+        $qryinbox = $this->Messages->find('all')->where(['recipient_id =' => $logged_in_user]) ;
+        // $noofmessages = $qryinbox->func()->count();
+        $noOfMessage = $qryinbox->count();
+        $this->request->session()->write('akpython', $noOfMessage);
+
+
+
     }
 
     public function beforeFilter(Event $event)
     {
         $this->Auth->allow(['login', 'logout', 'register']);
+
+        $this->loadModel('ProjectDetails');
+        $dateDiff = 30;
+        $today = date("Y-m-d");
+        $qryproject = $this->ProjectDetails->find()->where("DATEDIFF(end_dt,'$today') <= $dateDiff ");
+        // $qryproject = $this->ProjectDetails->find('all');
+        // $diff = $qryproject->func()->dateDiff(['ProjectDetails.end_dt', $today] <= 30) ;
+        // $qryproject->select(['difference' => $diff,]);
+        // $qryproject = $this->ProjectDetails->find('all')->where(['end_dt <='=> $today]) ;
+        // debug($qryproject->all());
+        // die();
+        $projectCount = $qryproject->count();
+        $this->set(compact('qryproject','projectCount'));
+
     }
 }

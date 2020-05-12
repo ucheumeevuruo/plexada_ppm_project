@@ -10,6 +10,8 @@ use DateTime;
 /**
  * Pims Model
  *
+ * @property &\Cake\ORM\Association\BelongsTo $Projects
+ *
  * @method \App\Model\Entity\Pim get($primaryKey, $options = [])
  * @method \App\Model\Entity\Pim newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Pim[] newEntities(array $data, array $options = [])
@@ -34,6 +36,11 @@ class PimsTable extends Table
         $this->setTable('pims');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->belongsTo('Projects', [
+            'foreignKey' => 'project_id',
+            'joinType' => 'INNER',
+        ]);
     }
 
     /**
@@ -59,23 +66,23 @@ class PimsTable extends Table
             ->requirePresence('brief', 'create')
             ->notEmptyString('brief');
 
-        $validator
-            ->scalar('funding_agency')
-            ->maxLength('funding_agency', 100)
-            ->requirePresence('funding_agency', 'create')
-            ->notEmptyString('funding_agency');
+        // $validator
+        //     ->scalar('funding_agency')
+        //     ->maxLength('funding_agency', 100)
+        //     ->requirePresence('funding_agency', 'create')
+        //     ->notEmptyString('funding_agency');
 
-        $validator
-            ->scalar('activities_achievement')
-            ->maxLength('activities_achievement', 120)
-            ->requirePresence('activities_achievement', 'create')
-            ->notEmptyString('activities_achievement');
+        // $validator
+        //     ->scalar('activities_achievement')
+        //     ->maxLength('activities_achievement', 120)
+        //     ->requirePresence('activities_achievement', 'create')
+        //     ->notEmptyString('activities_achievement');
 
-        $validator
-            ->scalar('risks_mitigation')
-            ->maxLength('risks_mitigation', 120)
-            ->requirePresence('risks_mitigation', 'create')
-            ->notEmptyString('risks_mitigation');
+        // $validator
+        //     ->scalar('risks_mitigation')
+        //     ->maxLength('risks_mitigation', 120)
+        //     ->requirePresence('risks_mitigation', 'create')
+        //     ->notEmptyString('risks_mitigation');
 
         $validator
             ->scalar('activity_next_semester')
@@ -245,46 +252,48 @@ class PimsTable extends Table
             ->requirePresence('exp_output_date', 'create')
             ->notEmptyDate('exp_output_date');
 
-        $validator
-            ->scalar('task')
-            ->maxLength('task', 120)
-            ->requirePresence('task', 'create')
-            ->notEmptyString('task');
+        // $validator
+        //     ->scalar('task')
+        //     ->maxLength('task', 120)
+        //     ->requirePresence('task', 'create')
+        //     ->notEmptyString('task');
 
-        $validator
-            ->scalar('progress_category')
-            ->maxLength('progress_category', 120)
-            ->requirePresence('progress_category', 'create')
-            ->notEmptyString('progress_category');
+        // $validator
+        //     ->scalar('progress_category')
+        //     ->maxLength('progress_category', 120)
+        //     ->requirePresence('progress_category', 'create')
+        //     ->notEmptyString('progress_category');
 
-        $validator
-            ->scalar('progress_currency')
-            ->maxLength('progress_currency', 100)
-            ->requirePresence('progress_currency', 'create')
-            ->notEmptyString('progress_currency');
+        // $validator
+        //     ->scalar('progress_currency')
+        //     ->maxLength('progress_currency', 100)
+        //     ->requirePresence('progress_currency', 'create')
+        //     ->notEmptyString('progress_currency');
 
-        $validator
-            ->requirePresence('amount_credit_allocation', 'create')
-            ->notEmptyString('amount_credit_allocation');
+        // $validator
+        //     ->requirePresence('amount_credit_allocation', 'create')
+        //     ->notEmptyString('amount_credit_allocation');
 
-        $validator
-            ->scalar('disbursed_current_semester')
-            ->maxLength('disbursed_current_semester', 120)
-            ->requirePresence('disbursed_current_semester', 'create')
-            ->notEmptyString('disbursed_current_semester');
+        // $validator
+        //     ->scalar('disbursed_current_semester')
+        //     ->maxLength('disbursed_current_semester', 120)
+        //     ->requirePresence('disbursed_current_semester', 'create')
+        //     ->notEmptyString('disbursed_current_semester');
 
-        $validator
-            ->date('date_disbursement')
-            ->requirePresence('date_disbursement', 'create')
-            ->notEmptyDate('date_disbursement');
+        // $validator
+        //     ->date('date_disbursement')
+        //     ->requirePresence('date_disbursement', 'create')
+        //     ->notEmptyDate('date_disbursement');
 
-        $validator
-            ->scalar('cumulated_disbursment')
-            ->maxLength('cumulated_disbursment', 120)
-            ->requirePresence('cumulated_disbursment', 'create')
-            ->notEmptyString('cumulated_disbursment');
+        // $validator
+        //     ->scalar('cumulated_disbursment')
+        //     ->maxLength('cumulated_disbursment', 120)
+        //     ->requirePresence('cumulated_disbursment', 'create')
+        //     ->notEmptyString('cumulated_disbursment');
 
         return $validator;
+
+        
     }
 
     public function identify($formData) {
@@ -302,8 +311,21 @@ class PimsTable extends Table
             DateTime::createFromFormat('d/m/Y', $formData['plan_end_date']) : $formData['plan_end_date'];
         $formData['exp_output_date'] = !empty($formData['exp_output_date']) ?
             DateTime::createFromFormat('d/m/Y', $formData['exp_output_date']) : $formData['exp_output_date'];
-        $formData['date_disbursement'] = !empty($formData['date_disbursement']) ?
-            DateTime::createFromFormat('d/m/Y', $formData['date_disbursement']) : $formData['date_disbursement'];                      
+        // $formData['date_disbursement'] = !empty($formData['date_disbursement']) ?
+        //     DateTime::createFromFormat('d/m/Y', $formData['date_disbursement']) : $formData['date_disbursement'];                      
         return $formData;
+    }
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['project_id'], 'Projects'));
+
+        return $rules;
     }
 }

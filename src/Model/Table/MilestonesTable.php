@@ -1,17 +1,21 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use DateTime;
 
 /**
  * Milestones Model
  *
- * @property \App\Model\Table\ProjectDetailsTable&\Cake\ORM\Association\BelongsTo $ProjectDetails
+ * @property \App\Model\Table\ProjectsTable&\Cake\ORM\Association\BelongsTo $Projects
  * @property \App\Model\Table\LovTable&\Cake\ORM\Association\BelongsTo $Lov
  * @property \App\Model\Table\LovTable&\Cake\ORM\Association\BelongsTo $Lov
+ * @property \App\Model\Table\ActivitiesTable&\Cake\ORM\Association\HasMany $Activities
+ * @property \App\Model\Table\ProjectFundingsTable&\Cake\ORM\Association\HasMany $ProjectFundings
  *
  * @method \App\Model\Entity\Milestone get($primaryKey, $options = [])
  * @method \App\Model\Entity\Milestone newEntity($data = null, array $options = [])
@@ -37,21 +41,27 @@ class MilestonesTable extends Table
         parent::initialize($config);
 
         $this->setTable('milestones');
-        $this->setDisplayField('id');
+        $this->setDisplayField('description');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('ProjectDetails', [
+        $this->belongsTo('Projects', [
             'foreignKey' => 'project_id',
             'joinType' => 'INNER',
         ]);
         $this->belongsTo('Lov', [
             'foreignKey' => 'status_id',
-            'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Lov', [
+        $this->belongsTo('Triggers', [
+            'className' => 'Lov',
             'foreignKey' => 'trigger_id',
+        ]);
+        $this->hasMany('Activities', [
+            'foreignKey' => 'milestone_id',
+        ]);
+        $this->hasMany('ProjectFundings', [
+            'foreignKey' => 'projects',
         ]);
     }
 
@@ -103,6 +113,16 @@ class MilestonesTable extends Table
         return $validator;
     }
 
+    public function identify($formData)
+    {
+        $formData['completed_date'] = !empty($formData['completed_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['completed_date']) : $formData['completed_date'];
+        $formData['expected_completion_date'] = !empty($formData['expected_completion_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['expected_completion_date']) : $formData['expected_completion_date'];
+
+        return $formData;
+    }
+
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
@@ -112,7 +132,7 @@ class MilestonesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['project_id'], 'ProjectDetails'));
+        $rules->add($rules->existsIn(['project_id'], 'Projects'));
         $rules->add($rules->existsIn(['status_id'], 'Lov'));
         $rules->add($rules->existsIn(['trigger_id'], 'Lov'));
 

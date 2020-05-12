@@ -49,6 +49,7 @@ use Cake\ORM\Entity;
  * @property string $disbursed_current_semester
  * @property \Cake\I18n\FrozenDate $date_disbursement
  * @property string $cumulated_disbursment
+ * @property int $project_id
  */
 class Pim extends Entity
 {
@@ -64,7 +65,7 @@ class Pim extends Entity
     protected $_accessible = [
         'date' => true,
         'brief' => true,
-        'funding_agency' => true,
+        'funding_agency' => false,
         'activities_achievement' => true,
         'risks_mitigation' => true,
         'activity_next_semester' => true,
@@ -104,5 +105,6 @@ class Pim extends Entity
         'disbursed_current_semester' => true,
         'date_disbursement' => true,
         'cumulated_disbursment' => true,
+        'project_id' => true,
     ];
 }

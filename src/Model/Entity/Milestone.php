@@ -11,7 +11,7 @@ use Cake\ORM\Entity;
  * @property int $project_id
  * @property int $amount
  * @property string|null $payment
- * @property int $status_id
+ * @property int|null $status_id
  * @property string|null $description
  * @property string|null $achievement
  * @property int|null $trigger_id
@@ -20,9 +20,10 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
- * @property \App\Model\Entity\ProjectDetail $project_detail
+ * @property \App\Model\Entity\Project $project
  * @property \App\Model\Entity\Lov $lov
- * @property \App\Model\Entity\Lov $trigger
+ * @property \App\Model\Entity\Activity[] $activities
+ * @property \App\Model\Entity\ProjectFunding[] $project_fundings
  */
 class Milestone extends Entity
 {
@@ -48,8 +49,9 @@ class Milestone extends Entity
         'expected_completion_date' => true,
         'created' => true,
         'modified' => true,
-        'project_detail' => true,
+        'project' => true,
         'lov' => true,
-        'trigger' => true,
+        'activities' => true,
+        'project_fundings' => true,
     ];
 }
