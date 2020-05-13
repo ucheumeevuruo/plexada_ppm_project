@@ -23,7 +23,7 @@ $this->end();
             echo $this->Form->control('status_id', ['options' => $lov]);
         ?>
             <div class="form-group text"><label class="control-label" for="description">Description</label>
-            <input type="text" name="description" class="form-control" id="description">
+            <textarea type="text" name="description" class="form-control" id="description"></textarea>
             </div>
 
         <?php

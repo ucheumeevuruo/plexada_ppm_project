@@ -66,7 +66,7 @@ class ActivitiesController extends AppController
         $this->loadModel('Milestones');
         $activity = $this->Activities->newEntity();
         if ($this->request->is('post')) {
-            $activity = $this->Activities->patchEntity($activity, $this->request->getData());
+            $activity = $this->Activities->patchEntity($activity, $this->Activities->identify($this->request->getData()));
             if ($this->Activities->save($activity)) {
                 $this->Flash->success(__('The activity has been saved.'));
 

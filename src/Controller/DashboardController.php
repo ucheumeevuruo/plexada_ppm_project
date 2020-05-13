@@ -403,16 +403,27 @@ class DashboardController extends AppController
         $this->set('projectDetail', $projectDetail);
     }
 
-    public function ganttChart(){
+    public function ganttChart($id = null){
+        $array_gantt = array();
+        $array_gantt_child = array();
         $conn = ConnectionManager::get('default');
-        $qryallprojects = $conn->execute("SELECT *  FROM projects inner join project_details on projects.id = project_details.project_id");
+        $qryallprojects = $conn->execute("SELECT * , projects.id as pid  FROM projects inner join project_details on projects.id = project_details.project_id where projects.id= $id");
         $mlcount = $qryallprojects->fetch('assoc');
-        $object = new \stdClass();
-        $object->id = 1;
-        $object->name = "Solar Street Light";
-		$object->actualStart = date('Y-m-d H:i:s');
-		$object->actualEnd= date('Y-m-d H:i:s');
-        return [($object)];
+        $num = 1;
+        foreach ($qryallprojects as $projects){
+            $projectID = $projects['pid'];
+            $object = new \stdClass();
+            $object->id = $num;
+            $object->name = $projects['name'];
+            $object->actualStart = $projects['start_dt'];
+            $object->actualEnd= $projects['end_dt'];
+            $object->children = $this->milestoneRecords($projectID, $num);
+            array_push($array_gantt,$object);
+        $num ++;
+        }
+        $ganttDetails = $array_gantt;
+
+        $this->set(compact('ganttDetails'));
         
     }
 

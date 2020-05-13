@@ -7,6 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use DateTime;
 
 /**
  * Activities Model
@@ -148,9 +149,28 @@ class ActivitiesTable extends Table
         return $rules;
     }
 
+    // public function identify($formData)
+    // {
+    //     if (isset($formData['status_id'])) {
+
+    //         $status = $this->Statuses->find()
+    //             ->where(['id' => $formData['status_id']])
+    //             ->first();
+    //         if (strtolower($status->lov_value) == 'closed') {
+    //             $formData['completion_date'] = Time::now();
+    //         }
+    //     }
+    //     $formData['start_date'] = !empty($formData['start_date']) ?
+    //     DateTime::createFromFormat('d/m/Y', $formData['start_date']) : $formData['start_date'];
+    //     $formData['end_date'] = !empty($formData['end_date']) ?
+    //     DateTime::createFromFormat('d/m/Y', $formData['end_date']) : $formData['end_date'];
+        
+    //     return $formData;
+    // }
+
     public function identify($formData)
     {
-        if (isset($formData['status_id'])) {
+                if (isset($formData['status_id'])) {
 
             $status = $this->Statuses->find()
                 ->where(['id' => $formData['status_id']])
@@ -159,6 +179,11 @@ class ActivitiesTable extends Table
                 $formData['completion_date'] = Time::now();
             }
         }
+        $formData['start_date'] = !empty($formData['start_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['start_date']) : $formData['start_date'];
+        $formData['end_date'] = !empty($formData['end_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['end_date']) : $formData['end_date'];
+
         return $formData;
     }
 }

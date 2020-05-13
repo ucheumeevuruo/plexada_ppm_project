@@ -15,6 +15,7 @@ $this->end();
 
 <div class="container-fluid  mt-4">
 
+<<<<<<< Updated upstream
     <!-- Breadcrumb area -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -61,6 +62,15 @@ $this->end();
             <span class="navbar-toggler-icon"></span>
         </button>
     </nav>
+=======
+        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav"
+            style=" font-size: 20px;">
+            <?= $this->Html->link('Gantt Chart', ['controller' => 'projects', 'action' => 'ganttChart', $project->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
+            </span>
+        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav" style=" font-size: 20px;">
+            <?= $this->Html->link('Documents', ['controller' => 'projects', 'action' => 'documents', $project->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
+        </span>
+>>>>>>> Stashed changes
 
     <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($project->name) ?>
     </h2>
