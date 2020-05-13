@@ -46,7 +46,7 @@ $this->end();
             <?= $this->Html->link('Partners', [], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Gantt Charts', [], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+            <?= $this->Html->link('Gantt Charts', ['controller' => 'projects', 'action' => 'gantt_chart', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
             <?= $this->Html->link('Documents', ['controller' => 'projects', 'action' => 'documents', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-link ']) ?>
