@@ -95,6 +95,8 @@ class TasksTable extends Table
     {
         $formData['Start_date'] = !empty($formData['Start_date']) ?
             DateTime::createFromFormat('d/m/Y', $formData['Start_date']) : $formData['Start_date'];
+        $formData['Expected_end_date'] = !empty($formData['Expected_end_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['Expected_end_date']) : $formData['Expected_end_date'];            
         return $formData;
     }
     /**
