@@ -53,7 +53,16 @@ $this->Paginator->setTemplates([
             <?= $this->Html->link('Activities', ['action' => 'activities', $project_id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Partners', ['action' => 'partners', $project_id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+            <?= $this->Html->link('Resources', [], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Partners', ['controller' => 'projectDetails', 'action' => 'partners', $project_id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Gantt Charts', [], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Documents', ['action' => 'documents', $project_id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
     </ul>
     <!-- ./end Navigation area -->
@@ -63,7 +72,8 @@ $this->Paginator->setTemplates([
     <!-- I was supposed to put this section in the element template but will do that soon. -->
     <nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
         <a class="navbar-brand" href="#">Indicators</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -80,7 +90,7 @@ $this->Paginator->setTemplates([
 
             <!-- Pagination -->
             <span class="navbar-text ml-3 pl-4 border-left">
-                    <?= $this->Paginator->counter(['format' => __('{{page}}/{{count}}  of {{pages}}')]) ?>
+                <?= $this->Paginator->counter(['format' => __('{{page}}/{{count}}  of {{pages}}')]) ?>
             </span>
             <!-- ./end pagination -->
 
@@ -103,37 +113,40 @@ $this->Paginator->setTemplates([
 
     <div class="row pt-4" style="height:24em">
         <?php foreach ($milestones as $milestone): ?>
-            <div class="col-xl-3 col-md-6 mb-4" data-attr="<?= $this->Url->build(['action' => 'view', $project_id]) ?>">
-                <div class="card shadow py-0">
-                    <div class="card-body py-2 px-2">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    <?= $milestone->record_number ?>
-                                </div>
-                                <div class="h6 mb-0 font-weight-bold text-gray-800"><?= $this->NumberFormat->format($milestone->amount, ['before' => '₦']) ?></div>
+        <div class="col-xl-3 col-md-6 mb-4" data-attr="<?= $this->Url->build(['action' => 'view', $project_id]) ?>">
+            <div class="card shadow py-0">
+                <div class="card-body py-2 px-2">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                <?= $milestone->record_number ?>
                             </div>
-<!--                            <div class="col-auto">-->
-<!--                                <i class="fas fa-calendar fa-2x text-gray-300"></i>-->
-<!--                            </div>-->
+                            <div class="h6 mb-0 font-weight-bold text-gray-800">
+                                <?= $this->NumberFormat->format($milestone->amount, ['before' => '₦']) ?></div>
                         </div>
+                        <!--                            <div class="col-auto">-->
+                        <!--                                <i class="fas fa-calendar fa-2x text-gray-300"></i>-->
+                        <!--                            </div>-->
                     </div>
-                    <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-                        <div class="row">
-                            <div class="col-auto dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="fas fa-info-circle fa-1x text-gray-300"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-header"><?= $milestone->lov->lov_value ?></div>
-                                </div>
-<!--                                <i class="fas fa-info-circle fa-1x text-gray-300"></i>-->
-                            </div>
-                        </div>
-                    </div>
-                    
                 </div>
+                <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
+                    <div class="row">
+                        <div class="col-auto dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <i class="fas fa-info-circle fa-1x text-gray-300"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in"
+                                aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-header"><?= $milestone->lov->lov_value ?></div>
+                            </div>
+                            <!--                                <i class="fas fa-info-circle fa-1x text-gray-300"></i>-->
+                        </div>
+                    </div>
+                </div>
+
             </div>
+        </div>
         <?php endforeach; ?>
     </div>
     <div class="row border-top">
@@ -153,16 +166,17 @@ $this->Paginator->setTemplates([
         </div>
     </div>
     <script>
-        $(document).ready(function() {
-            //respond to click event on anything with 'overlay' class
-            $(".overlay").click(function(event){
-                event.preventDefault();
-                //load content from href of link
-                $('#contentWrap .modal-body').load($(this).attr("href"), function(){
-                    $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content').removeClass()
-                    $('#MyModal4').modal('show')
-                });
+    $(document).ready(function() {
+        //respond to click event on anything with 'overlay' class
+        $(".overlay").click(function(event) {
+            event.preventDefault();
+            //load content from href of link
+            $('#contentWrap .modal-body').load($(this).attr("href"), function() {
+                $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content')
+                    .removeClass()
+                $('#MyModal4').modal('show')
             });
         });
+    });
     </script>
 </div>
