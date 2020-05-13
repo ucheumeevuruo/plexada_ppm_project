@@ -33,5 +33,6 @@ class Task extends Entity
         'activities_id' => true,
         'status' => true,
         'percentage_completion' => true,
+        'Expected_end_date' => true,
     ];
 }

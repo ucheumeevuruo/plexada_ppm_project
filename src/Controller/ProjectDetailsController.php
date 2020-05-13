@@ -238,7 +238,9 @@ class ProjectDetailsController extends AppController
             if ($this->ProjectDetails->save($projectDetail)) {
                 $this->Flash->success(__('The project detail has been saved.'));
 
-                return $this->redirect(['controller' => 'projects', 'action' => 'index']);
+
+                // return $this->redirect(['controller' => 'projects', 'action' => 'index']);
+                return $this->redirect(['controller' => 'pims', 'action' => 'add',$id]);
             }
             $this->Flash->error(__('The project detail could not be saved. Please, try again.'));
             // debug($projectDetail);

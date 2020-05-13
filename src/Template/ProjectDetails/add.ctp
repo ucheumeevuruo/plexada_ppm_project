@@ -83,7 +83,7 @@ $this->end();
             </div>
 
             <label for="cars">Currency</label>
-            <select id="cars" name="currency" class="mb-3">
+            <select id="cars" name="currency" class="mb-3 form-control">
                 <option value="naira">NGN</option>
                 <option value="dollar">USD</option>
                 <option value="euro">EU</option>

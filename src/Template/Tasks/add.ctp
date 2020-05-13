@@ -15,7 +15,7 @@ $this->end();
         <?php
         echo $this->Form->control('Task_name',['label'=>'Task Name','id' => 'Task_name', ]);
         echo $this->Form->control('Start_date', ['empty' => true, 'class' => 'addon-right', 'label' => 'Start Date', 'id' => 'Start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);
-        echo $this->Form->control('Description');
+        echo $this->Form->control('Description',['type'=>'textarea']);
         // echo $this->Form->control('Predecessor');
         // echo $this->Form->control('Successor');
         echo $this->Form->control('activities_id', ['options' => $activities_info, 'label' => 'Activity Name', 'empty' => true]);
@@ -34,8 +34,11 @@ $this->end();
         </div>
         <div class="form-group select">
         <label class="control-label" for="activities-id">Percentage Complete</label>
-        <input text="number" id="percentage_completion" name="percentage_completion" class="form-control">
+        <input text="number" max='100' min='0' id="percentage_completion" name="percentage_completion" class="form-control">
         </div>
+        <?php
+        echo $this->Form->control('Expected_end_date', ['empty' => true, 'class' => 'addon-right', 'label' => 'Expected End Date', 'id' => 'Start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);
+        ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
@@ -43,7 +46,7 @@ $this->end();
 
 <script>
 $(function() {
-    $('#start_dt, #Start_date').datepicker({
+    $('#Expected_end_date, #Start_date').datepicker({
         inline: true,
         "format": "dd/mm/yyyy",
         startDate: "0d",
