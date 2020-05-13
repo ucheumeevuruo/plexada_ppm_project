@@ -88,6 +88,9 @@ class ProjectDetailsTable extends Table
         $this->hasMany('Sponsors', [
             'foreignKey' => 'id',
         ]);
+        $this->hasOne('Prices', [
+            'foreignKey' => 'project_id',
+        ]);
     }
 
     /**

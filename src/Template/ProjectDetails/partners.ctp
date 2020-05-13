@@ -40,40 +40,34 @@ $this->end();
             <?= $this->Html->link('Documents', ['controller' => 'projects', 'action' => 'documents', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
         </span>
 
-
     </div>
     <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($projectDetails->name) ?>
     </h2>
-    <div class="table-responsive">
-        <table cellpadding="0" cellspacing="0" class="table table-bordered  table-hover table-primary br-m" role="grid"
-            aria-describedby="dataTable_info">
-            <thead class="bg-primary br-t">
-                <tr>
-                    <th scope="col" width="3%"><?= __('S/N') ?></th>
-                    <th scope="col" width="15%"><?= __('Last Name') ?></th>
-                    <th scope="col" width="15%"><?= __('First Name') ?></th>
-                    <th scope="col" width="20%"><?= __('Email') ?></th>
-                    <th scope="col" width="12%"><?= __('Phone Number') ?></th>
-                    <th scope="col" width="20%"><?= __('Address') ?></th>
-                    <!-- <th scope="col" width="10%"><?= __('Amount Committed') ?></th> -->
-                </tr>
-            </thead>
-            <tbody>
-                <?php $num = 0; ?>
-                <?php foreach ($projectDetails->sponsors as $sponsor) : ?>
-                <?php $num++; ?>
-                <tr>
-                    <td><?= h($num) ?></td>
-                    <td><?= h($sponsor->last_name) ?></td>
-                    <td><?= h($sponsor->first_name) ?></td>
-                    <td><?= h($sponsor->email) ?></td>
-                    <td><?= h($sponsor->phone_no) ?></td>
-                    <td><?= h($sponsor->address) ?></td>
-                </tr>
 
-                <?php endforeach; ?>
 
-            </tbody>
-        </table>
+
+    <div class="row m-3">
+        <?php $num = 0; ?>
+        <?php foreach ($projectDetails->sponsors as $sponsor) : ?>
+        <?php $num++; ?>
+
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card  shadow h-100 py-0">
+                <div class="card-body py-2 px-2">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2" id="clickable-card" data-attr="">
+                            <div class="h6 mb-0 font-weight-bold text-gray-800">
+                                <p><i style="color: blue;">Last Name: </i><?= h($sponsor->last_name) ?></p>
+                                <p><i style="color: blue;">First Name: </i><?= h($sponsor->first_name) ?></p>
+                                <p><i style="color: blue;">Email: </i><?= h($sponsor->email) ?></p>
+                                <p><i style="color: blue;">Phone Number: </i><?= h($sponsor->phone_no) ?></p>
+                                <p><i style="color: blue;">Address: </i><?= h($sponsor->address) ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
     </div>
 </div>

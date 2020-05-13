@@ -94,7 +94,10 @@ class ProjectsController extends AppController
 
         $activities = $this->paginate($activities);
 
+        // debug($activities);
+        // die();
         $this->set(compact('activities', 'project_id'));
+        
     }
 
     public function partners($id = null)
