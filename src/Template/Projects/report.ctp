@@ -12,33 +12,56 @@ echo $this->element('navbar/default');
 $this->end();
 ?>
 
-<?php echo $this->Html->css('report'); ?>
 
-<div class="container-fluid">
-    <div class="card-deck">
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav active"
-            style=" font-size: 20px;">Summary</span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav"
-            style=" font-size: 20px;">
-            <?= $this->Html->link('Indicators', ['controller' => 'projects', 'action' => 'milestones', $project->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-        </span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold nav" style=" font-size: 20px;">
-            <?= $this->Html->link('Activities', ['controller' => 'projects', 'action' => 'activities', $project->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-        </span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav"
-            style=" font-size: 20px;">Resources</span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav" style=" font-size: 20px;">
-            <?= $this->Html->link('Partners', ['controller' => 'projectDetails', 'action' => 'partners', $project->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-        </span>
+<div class="container-fluid  mt-4">
 
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav"
-            style=" font-size: 20px;">Gantt
-            Charts</span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav" style=" font-size: 20px;">
-            <?= $this->Html->link('Documents', ['controller' => 'projects', 'action' => 'documents', $project->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-        </span>
+    <!-- Breadcrumb area -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <?= $this->Html->link(__('Projects'), ['action' => 'index'])?>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Summary</li>
+        </ol>
+    </nav>
+    <!-- ./end Breadcrumb -->
 
-    </div>
+    <!-- Navigation area -->
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <?= $this->Html->link('Summary', ['action' => 'report', $project->id], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Indicators', ['controller' => 'projects', 'action' => 'milestones', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Activities', ['controller' => 'projects', 'action' => 'activities', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Resources', [], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Partners', ['controller' => 'projectDetails', 'action' => 'partners', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Gantt Charts', [], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Documents', ['controller' => 'projects', 'action' => 'documents', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+    </ul>
+    <!-- ./end Navigation area -->
+
+    <!-- Menu area [Search, pagination] -->
+    <!-- I was supposed to put this section in the element template but will do that soon. -->
+    <nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
+        <a class="navbar-brand" href="#">Summary</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
     <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($project->name) ?>
     </h2>
 </div>
@@ -248,6 +271,5 @@ $this->end();
             </div>
         </div>
     </div>
-</div>
 
 </div>

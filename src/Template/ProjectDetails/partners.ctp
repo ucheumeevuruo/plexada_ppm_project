@@ -12,39 +12,57 @@ echo $this->element('navbar/default');
 $this->end();
 ?>
 
-<?php echo $this->Html->css('report'); ?>
-
-<div class="container-fluid">
-
-    <div class="card-deck">
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav"
-            style=" font-size: 20px;">
-            <?= $this->Html->link('Summary', ['controller' => 'projects', 'action' => 'report', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-        </span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav"
-            style=" font-size: 20px;">
-            <?= $this->Html->link('Indicators', ['controller' => 'projects', 'action' => 'milestones', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-        </span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav"
-            style=" font-size: 20px;">
-            <?= $this->Html->link('Activities', ['controller' => 'projects', 'action' => 'activities', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-        </span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav"
-            style=" font-size: 20px;">Resources</span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav active"
-            style=" font-size: 20px;">Partners</span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav"
-            style=" font-size: 20px;">Gantt
-            Charts</span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav" style=" font-size: 20px;">
-            <?= $this->Html->link('Documents', ['controller' => 'projects', 'action' => 'documents', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-        </span>
-
-    </div>
-    <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($projectDetails->name) ?>
-    </h2>
+<!-- <?php echo $this->Html->css('report'); ?> -->
 
 
+<div class="container-fluid  mt-4">
+
+    <!-- Breadcrumb area -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <?= $this->Html->link(__('Projects'), ['action' => 'index'])?>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Partners</li>
+        </ol>
+    </nav>
+    <!-- ./end Breadcrumb -->
+
+    <!-- Navigation area -->
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <?= $this->Html->link('Summary', ['controller' => 'projects', 'action' => 'report', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Indicators', ['controller' => 'projects', 'action' => 'milestones', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Activities', ['controller' => 'projects', 'action' => 'activities', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Resources', [], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Partners', [], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Gantt Charts', [], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Documents', ['controller' => 'projects', 'action' => 'documents', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-link ']) ?>
+        </li>
+    </ul>
+    <!-- ./end Navigation area -->
+
+    <!-- Menu area [Search, pagination] -->
+    <!-- I was supposed to put this section in the element template but will do that soon. -->
+    <nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
+        <a class="navbar-brand" href="#">Partners</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
 
     <div class="row m-3">
         <?php $num = 0; ?>
