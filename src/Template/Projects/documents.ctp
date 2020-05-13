@@ -16,9 +16,6 @@ echo $this->element('navbar/default');
 $this->end();
 ?>
 
-
-<!-- <?php echo $this->Html->css('report'); ?> -->
-
 <div class="container-fluid  mt-4">
 
     <!-- Breadcrumb area -->
@@ -50,7 +47,7 @@ $this->end();
             <?= $this->Html->link('Partners', ['controller' => 'projectDetails', 'action' => 'partners', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Gantt Charts', [], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+            <?= $this->Html->link('Gantt Charts', ['action' => 'gantt_chart', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
             <?= $this->Html->link('Documents', [ 'action' => 'documents', $project->id], ['id' => 'transmit', 'class' => 'nav-link active']) ?>

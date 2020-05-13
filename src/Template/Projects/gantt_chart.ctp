@@ -12,34 +12,57 @@ echo $this->element('navbar/default');
 $this->end();
 ?>
 
-<?php echo $this->Html->css('report'); ?>
 
-<div class="container-fluid">
-    <div class="card-deck">
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav "
-            style=" font-size: 20px;">Summary</span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav"
-            style=" font-size: 20px;">
-            <?= $this->Html->link('Indicators', ['controller' => 'projects', 'action' => 'milestones', $id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-        </span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold nav" style=" font-size: 20px;">
-            <?= $this->Html->link('Activities', ['controller' => 'projects', 'action' => 'activities', $id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-        </span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav"
-            style=" font-size: 20px;">Resources</span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav" style=" font-size: 20px;">
-            <?= $this->Html->link('Partners', ['controller' => 'projectDetails', 'action' => 'partners', $id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-        </span>
+<div class="container-fluid  mt-4">
 
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav active"
-            style=" font-size: 20px;">
-            <?= $this->Html->link('Gantt Chart', ['controller' => 'projects', 'action' => 'ganttChart', $id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-            </span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav" style=" font-size: 20px;">
-            <?= $this->Html->link('Documents', ['controller' => 'projects', 'action' => 'documents', $id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-        </span>
+    <!-- Breadcrumb area -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <?= $this->Html->link(__('Projects'), ['action' => 'index'])?>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Gantt Charts</li>
+        </ol>
+    </nav>
+    <!-- ./end Breadcrumb -->
 
-    </div>
+    <!-- Navigation area -->
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <?= $this->Html->link('Summary', ['action' => 'report', $id], ['id' => 'transmit', 'class' => 'nav-link ']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Indicators', ['controller' => 'projects', 'action' => 'milestones', $id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Activities', ['controller' => 'projects', 'action' => 'activities', $id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Resources', [], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Partners', ['controller' => 'projectDetails', 'action' => 'partners', $id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Gantt Charts', ['action' => 'gantt_chart', $id], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Documents', [ 'action' => 'documents', $id], ['id' => 'transmit', 'class' => 'nav-link ']) ?>
+        </li>
+    </ul>
+    <!-- ./end Navigation area -->
+
+    <!-- Menu area [Search, pagination] -->
+    <!-- I was supposed to put this section in the element template but will do that soon. -->
+    <nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
+        <a class="navbar-brand" href="#">Gantt Charts</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+
 
     <?= $this->Html->script('Chart.min.js') ?>
     <?= $this->Html->script('mychart.js') ?>
@@ -47,20 +70,20 @@ $this->end();
     <div class="card-body">
 
         <div class="row">
-        <div class="col">
-            <div class="card shadow mb-5">
-                <!-- Card Header - Dropdown -->
+            <div class="col">
+                <div class="card shadow mb-5">
+                    <!-- Card Header - Dropdown -->
 
                     <!-- Gantt Chart -->
                     <div class="card-body">
                         <div id="container3">
                             <div id="ganttcontainer2" style="height: 500px; width: 100%">
-                            <script>
-                                <?php $obj_array = json_encode($ganttDetails) ?>
-                                var array_code2 = <?php echo $obj_array; ?>;
+                                <script>
+                                < ? php $obj_array = json_encode($ganttDetails) ? >
+                                    var array_code2 = < ? php echo $obj_array; ? > ;
                                 ganttProject2(array_code2);
                                 // console.log(array_code2)
-                            </script>
+                                </script>
                             </div>
                         </div>
 
