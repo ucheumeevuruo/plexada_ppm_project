@@ -78,6 +78,12 @@ class MilestonesTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
+            ->scalar('name')
+            ->maxLength('name', 30)
+            ->requirePresence('name', 'create')
+            ->notEmptyString('name');
+
+        $validator
             ->scalar('record_number')
             ->maxLength('record_number', 100)
             ->allowEmptyString('record_number');
@@ -110,15 +116,23 @@ class MilestonesTable extends Table
             ->date('expected_completion_date')
             ->allowEmptyDate('expected_completion_date');
 
+        $validator
+            ->date('start_date')
+            ->allowEmptyDate('start_date');
+
+        $validator
+            ->date('end_date')
+            ->allowEmptyDate('end_date');
+
         return $validator;
     }
 
     public function identify($formData)
     {
-        $formData['completed_date'] = !empty($formData['completed_date']) ?
-            DateTime::createFromFormat('d/m/Y', $formData['completed_date']) : $formData['completed_date'];
-        $formData['expected_completion_date'] = !empty($formData['expected_completion_date']) ?
-            DateTime::createFromFormat('d/m/Y', $formData['expected_completion_date']) : $formData['expected_completion_date'];
+        $formData['start_date'] = !empty($formData['start_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['start_date'])->format('Y-m-d') : $formData['start_date'];
+        $formData['end_date'] = !empty($formData['end_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['end_date'])->format('Y-m-d') : $formData['end_date'];
 
         return $formData;
     }

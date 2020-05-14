@@ -305,3 +305,12 @@ textarea.form-control{
 .white-bg{
     background:#fff;
 }
+.grey-bg{
+    background:#eaecf4 !important;
+}
+.vh-5{
+    min-height:80vh;
+}
+.vh-6{
+    min-height:100vh
+}

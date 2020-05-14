@@ -28,6 +28,7 @@ $cakeDescription = 'Ogun State Project';
 
     <?= $this->Html->css('fontawesome-free/css/all.min.css') ?>
     <?= $this->Html->css('sb-admin-2.min.css') ?>
+    <?= $this->Html->css('bootstrap-datepicker.min.css') ?>
     <?= $this->Html->css('custom-style.css') ?>
 
     <?= $this->Html->script('vendor/jquery/jquery.min.js') ?>

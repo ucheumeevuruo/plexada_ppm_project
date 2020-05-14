@@ -79,7 +79,7 @@ $this->Paginator->setTemplates([
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <div class="mr-auto mt-2 mt-lg-0">
-                <?= $this->Html->link(__('Create'), ['controller' => 'milestones', 'action' => 'add'], ['class' => 'btn btn-info rounded-0 overlay', 'title' => 'Add', 'escape' => false]) ?>
+                <?= $this->Html->link(__('Create'), ['controller' => 'milestones', 'action' => 'add', $project_id], ['class' => 'btn btn-info rounded-0 overlay', 'title' => 'Add', 'escape' => false]) ?>
             </div>
             <!-- Search Form -->
             <form class="form-inline my-2 my-lg-0" method="get" id="searchable">
@@ -111,7 +111,8 @@ $this->Paginator->setTemplates([
     </nav>
     <!-- .\end Menu Area -->
 
-    <div class="row pt-4" style="height:24em">
+    <div class=" light-bg vh-5 py-4">
+    <div class="row mx-0" style="height:24em">
         <?php foreach ($milestones as $milestone): ?>
         <div class="col-xl-3 col-md-6 mb-4" data-attr="<?= $this->Url->build(['action' => 'view', $project_id]) ?>">
             <div class="card shadow py-0">
@@ -119,7 +120,7 @@ $this->Paginator->setTemplates([
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                <?= $milestone->record_number ?>
+                                <?= $milestone->name ?>
                             </div>
                             <div class="h6 mb-0 font-weight-bold text-gray-800">
                                 <?= $this->NumberFormat->format($milestone->amount, ['before' => '₦']) ?></div>

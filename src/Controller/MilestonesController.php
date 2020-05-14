@@ -53,24 +53,24 @@ class MilestonesController extends AppController
     {
         $milestone = $this->Milestones->newEntity();
         if ($this->request->is('post')) {
-            // $milestone = $this->Milestones->patchEntity($milestone, $this->request->getData());
-            $milestone = $this->Milestones->patchEntity($milestone, $this->Milestones->identify($this->request->getData()));
+             $milestone = $this->Milestones->patchEntity($milestone, $this->request->getData());
+//            $milestone = $this->Milestones->patchEntity($milestone, $this->Milestones->identify($this->request->getData()));
+//             debug($milestone);
+//             die();
             if ($this->Milestones->save($milestone)) {
                 $this->Flash->success(__('Indicator saved successfully.'));
                 return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The milestone could not be saved. Please, try again.'));
-            return $this->redirect($this->referer());
-            // debug($milestone);
-            // die();
+//            return $this->redirect($this->referer());
         }
-        $projects = $this->Milestones->Projects->find('list', ['limit' => 200, 'conditions' => ['id' => $id]]);
+        $projects = $this->Milestones->Projects->find('list', ['limit' => 200]);
 
         $lov = $this->Milestones->Lov->find('list', ['limit' => 200]);
-        $triggers = $this->Milestones->Triggers->find('list', ['limit' => 200]);
+//        $triggers = $this->Milestones->Triggers->find('list', ['limit' => 200]);
+        $triggers = [];
 
-
-        $this->set(compact('milestone', 'projects', 'lov', 'triggers'));
+        $this->set(compact('milestone', 'projects', 'lov', 'triggers', 'id'));
     }
 
     /**

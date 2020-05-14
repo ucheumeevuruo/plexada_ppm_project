@@ -80,7 +80,9 @@ $this->Paginator->setTemplates([
         </nav>
         <!-- ./end Breadcrumb -->
 
-        <div class="row">
+        <div class="grey-bg vh-5 py-4">
+
+            <div class="row mx-0">
             <?php foreach ($projects as $project): ?>
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card <?= $this->Indicator->status($project->project_detail->has('status')?$project->project_detail->status->lov_value:'') ?> shadow h-100 py-0">
@@ -110,6 +112,8 @@ $this->Paginator->setTemplates([
                     </div>
                 </div>
             <?php endforeach; ?>
+        </div>
+
         </div>
     </div>
 </section>
