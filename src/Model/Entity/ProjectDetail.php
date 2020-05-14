@@ -98,6 +98,6 @@ class ProjectDetail extends Entity
         'risk_and_issues'=>true,
         'currency'=>true,
         'budget'=>true,
-        'expenses '=>true
+        'expenses '=>true,
     ];
 }

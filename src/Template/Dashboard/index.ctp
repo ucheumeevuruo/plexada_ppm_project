@@ -231,13 +231,12 @@ $this->end();
     <!-- End of health chart  -->
     
     <!-- start of progress chart -->
-    <div class="md-4 mb-5">
+    <!-- <div class="md-4 mb-5">
         <div class="card h-100 br-m">
             <div class="card-header box-header bg-primary py-2">
                 <div class="d-sm-flex align-items-center justify-content-between">
                     <h4 class="text-white">Progress Summary</h4>
                     <?= $this->Html->link("<i class=\"fa fa-download fa-sm text-white-50\"></i> Generate Report</a>", ['action' => 'downloadPdf', 'report.pdf'], ['escape' => false, 'class' => 'd-none d-sm-inline-block btn btn-sm btn-primary shadow-sm']) ?>
-                    <!--                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fa fa-download fa-sm text-white-50"></i> Generate Report</a>-->
                 </div>
             </div>
             <div class="card-body">
@@ -253,8 +252,6 @@ $this->end();
                             <?php foreach ($project_list as $project) : ?>
 
                                 <?php
-                                // debug($project->id) ;
-                                // die();
                                 $sdate = $project->has('start_dt') ? $project->start_dt->format("Y-m-d H:i:s") : '';
                                 $edate = $project->has('end_dt') ? $project->end_dt->format("Y-m-d H:i:s") : '';
                                 $today = date('Y-m-d H:i:s');
@@ -269,16 +266,9 @@ $this->end();
                                     $expectdays = 0;
                                 }
 
-                                // echo $expectdays;
-                                // End of epected
-
-                                // echo $freshdate = $a['completed_date'];
-
                                 $milestones = "";
                                 $milestones = $milestone_list->find('all');
                                 $milestones = $milestone_list->find('all', ['conditions' => ['project_id' => $project->project_id, 'status_id' => '3']]);
-                                // $milestones = $milestone_list->find('all')->where(['project_id =' => $project->id]);
-                                // sql($milestones);
                                 $prjid = $project->project_id;
                                 $conn = ConnectionManager::get('default');
                                 $stmt = $conn->execute("SELECT * FROM milestones where project_id ='" . $prjid . "' and status_id ='3' order by completed_date DESC");
@@ -296,20 +286,6 @@ $this->end();
                                 } else {
                                     $completeddays = 0;
                                 }
-
-                                // $completeddays = 0;
-                                // if (isset($milestones->id)){
-
-                                //     $milestones->order(['completed_date'=>'DESC'],Query::OVERWRITE);
-                                //     $resultqry = $milestones->first();
-                                //     $lastcloseddate = $resultqry->completed_date;
-                                //     $lastcloseddatediff = intval(date_diff(new DateTime($sdate),new DateTime($freshdate))->format('%R%a'));
-                                //     $result3 = ($lastcloseddatediff * 100)/$result;
-                                //     $completeddays =  round(number_format($result3,2),2);
-                                //     // echo  $lastcloseddatediff;
-                                //     // sql($milestones);
-                                //     // die();                                    
-                                // }
 
                                 ?>
 
@@ -349,7 +325,7 @@ $this->end();
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <?= $this->Html->script('Chart.min.js') ?>
     <?= $this->Html->script('mychart.js') ?>
@@ -404,7 +380,7 @@ $this->end();
             <div class="card shadow mb-5">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
-                    <h4 class="m-0 text-white">Cost : Budget vs Actual</h4>
+                    <h4 class="m-0 text-white">Cost : Budget vs Spent</h4>
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>

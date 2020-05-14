@@ -65,11 +65,10 @@ class ProjectsController extends AppController
     public function report($id = null)
     {
         $project = $this->Projects->get($id, [
-            'contain' => ['Pims', 'ProjectFundings', 'ProjectDetails', 'Activities', 'Annotations', 'Milestones', 'Objectives', 'Prices', 'RiskIssues', 'Sponsors', 'Pads'],
+            'contain' => ['Pims', 'ProjectFundings', 'ProjectDetails', 'Activities', 'Annotations', 'Milestones', 'Objectives', 'Prices', 'RiskIssues', 'Sponsors', 'Pads', 'ProjectDetails.Currencies'],
         ]);
-        // debug($project);
-        // die();
-        $this->set('project', $project);
+        $proDetail = $this->ProjectDetails->find('all')->contain(['Currencies'])->where(['project_id' => $id]);
+        $this->set('project', $project,'proDetail');
     }
 
 

@@ -163,10 +163,21 @@ $this->end();
                         <div class=" font-weight-bold mb-4 mt- 2 text-primary text-uppercase mb-1">
                             <?= h('Budget and Expense') ?>
                         </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">Currency :
+                        <?php 
+                            if ($project->project_detail->currency === 1){
+                                $currency = "Naira";
+                            }elseif ($project->project_detail->currency === 2){
+                                $currency = "USD";
+                            }else{
+                                $currency = "";
+                            }
+                        ?>
+                            <?=$currency ?></div>
                         <div class="h6 mb-0 font-weight-bold text-gray-800">Budget :
-                            <?= $this->Number->currency($project->project_detail->budget) ?></div>
+                            <?= $this->Number->precision($project->project_detail->budget,2) ?></div>
                         <div class="h6 mb-0 font-weight-bold text-gray-800">Expenses :
-                            <?= $this->Number->currency($project->project_detail->expenses) ?></div>
+                            <?= $this->Number->precision($project->project_detail->expenses,2) ?></div>
 
                     </div>
                 </div>
