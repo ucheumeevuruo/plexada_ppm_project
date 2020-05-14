@@ -20,9 +20,21 @@ class ActivitiesController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['ProjectDetails', 'Staff', 'Lov', 'Users'],
+        $q = $this->request->getQuery('q');
+
+        $customFinderOptions = [
+            'name' => $q
         ];
+        $this->paginate = [
+            'contain' => [
+                'ProjectDetails', 'Staff', 'Lov', 'Users'
+            ],
+            'maxLimit' => 8,
+            'finder' => [
+                'byProjectName' => $customFinderOptions
+            ]
+        ];
+
         $activities = $this->paginate($this->Activities);
 
         $this->set(compact('activities'));
@@ -77,7 +89,7 @@ class ActivitiesController extends AppController
 
             //            return $this->redirect(['controller' => 'ProjectDetails', 'action' => 'view', $project_id]);
 
-            return $this->redirect($this->referer());
+//            return $this->redirect($this->referer());
         }
         $projectDetails = $this->Activities->ProjectDetails->find('list', ['limit' => 200]);
         $staff = $this->Activities->Staff->find('list', ['limit' => 200]);

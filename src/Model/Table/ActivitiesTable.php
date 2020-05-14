@@ -88,6 +88,11 @@ class ActivitiesTable extends Table
             ->allowEmptyString('activity_id', null, 'create');
 
         $validator
+            ->scalar('name')
+            ->requirePresence('name', 'create')
+            ->notEmptyString('name');
+
+        $validator
             ->scalar('current_activity')
             ->maxLength('current_activity', 300)
             ->allowEmptyString('current_activity');
@@ -110,9 +115,9 @@ class ActivitiesTable extends Table
             ->notEmptyString('priority_id');
 
         $validator
-            ->integer('percentage_completion')
-            ->requirePresence('percentage_completion', 'create')
-            ->notEmptyString('percentage_completion');
+            ->integer('percentage_completion');
+//            ->requirePresence('percentage_completion', 'create')
+//            ->notEmptyString('percentage_completion');
 
         $validator
             ->scalar('description')
@@ -167,6 +172,19 @@ class ActivitiesTable extends Table
         
     //     return $formData;
     // }
+
+    public function findByProjectName($query, $options)
+    {
+        $name = $options['id'];
+
+        if(!is_null($id))
+        {
+            $query->where(function ($exp, Query $q) use ($name){
+                return $exp->like('Activities.name', "%$name%");
+            });
+        }
+        return $query;
+    }
 
     public function identify($formData)
     {

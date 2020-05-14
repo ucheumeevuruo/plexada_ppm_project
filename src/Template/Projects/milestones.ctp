@@ -111,8 +111,8 @@ $this->Paginator->setTemplates([
     </nav>
     <!-- .\end Menu Area -->
 
-    <div class="grey-bg vh-5 py-4">
-        <div class="row mx-0" style="height:24em">
+    <div class="grey-bg vh-4 py-4">
+        <div class="row mx-0">
             <?php foreach ($milestones as $milestone): ?>
             <div class="col-xl-3 col-md-6 mb-4" data-attr="<?= $this->Url->build(['action' => 'view', $project_id]) ?>">
                 <div class="card shadow py-0">

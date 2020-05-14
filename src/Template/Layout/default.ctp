@@ -82,14 +82,14 @@ $cakeDescription = 'Ogun State Project';
                 complete: function(){
                     $('#loader').hide();
                 },
-                error: function(){
+                error: function(jqXHR, testStatus, error){
                     alert("Page " + href + " cannot open.");
                     $('#loader').hide();
                 },
-                timeout: 3000
+                // timeout: 5000
             })
         }
-        $('.unclickable').click(function(){
+        $('.unclickable').click(function(event){
             $('#loader').hide();
             event.preventDefault();
             return false;

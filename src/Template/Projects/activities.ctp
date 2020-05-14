@@ -27,7 +27,8 @@ $this->Paginator->setTemplates([
     'last' => ''
 ]);
 ?>
-<div class="container-fluid mt-4">
+<section id="flyby">
+    <div class="container-fluid mt-4">
     <!-- Breadcrumb area -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -108,7 +109,8 @@ $this->Paginator->setTemplates([
     </nav>
     <!-- .\end Menu Area -->
 
-    <div class="row pt-4">
+    <div class="grey-bg vh-4 py-4">
+        <div class="row mx-0">
         <?php foreach ($activities as $activity): ?>
         <div class="col-xl-3 col-md-6 mb-4">
             <div
@@ -118,7 +120,7 @@ $this->Paginator->setTemplates([
                         <div class="col mr-2" id="clickable-sub-applet"
                             data-attr="<?= $this->Url->build(['controller' => 'activities', 'action' => 'view', $activity->activity_id]) ?>">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                <?= $activity->subject ?>
+                                <?= $activity->name ?>
                             </div>
                             <div class="h6 mb-0 font-weight-bold text-gray-800">
                                 <?= $this->NumberFormat->format($activity->cost, ['before' => $activity->currency->symbol]) ?>
@@ -131,7 +133,10 @@ $this->Paginator->setTemplates([
                 </div>
                 <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
                     <div class="row">
-                        <div class="col-auto dropdown no-arrow">
+                        <div class="col-auto">
+                            <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['controller' => 'activities', 'action' => 'edit', $activity->activity_id], ['class' => 'overlay', 'escape' => false])?>
+                        </div>
+                        <div class="col-auto dropdown no-arrow border-left">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 <i class="fas fa-info-circle fa-1x text-gray-300"></i>
@@ -151,7 +156,8 @@ $this->Paginator->setTemplates([
         </div>
         <?php endforeach; ?>
     </div>
-    <div class="py-4 py-0" id="sub-applet">
+    </div>
+    <div class="py-0" id="sub-applet">
 
     </div>
     <!-- MODAL ELEMENTS -->
@@ -196,13 +202,16 @@ $this->Paginator->setTemplates([
                 complete: function() {
                     $('#loader').hide();
                 },
-                error: function() {
-                    alert("Page " + href + " cannot open.");
+                error: function(jqXHR, testStatus, error) {
+
+                    console.log(error);
+                    alert("Page " + href + " cannot open. Error:" + error);
                     $('#loader').hide();
                 },
-                timeout: 3000
+                timeout: 8000
             })
         })
     });
     </script>
 </div>
+</section>

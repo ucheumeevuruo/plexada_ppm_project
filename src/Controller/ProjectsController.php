@@ -86,13 +86,26 @@ class ProjectsController extends AppController
         $this->set(compact('milestones', 'project_id'));
     }
 
-
     public function activities($project_id = null)
     {
 
-        $activities = $this->Projects->Activities->find()
-            ->contain(['Statuses', 'Priorities', 'Currencies'])
-            ->where(['project_id' => $project_id]);
+        $q = $this->request->getQuery('q');
+
+        $activities = $this->Projects->Activities->find();
+
+        $activities->contain(['Statuses', 'Priorities', 'Currencies']);
+
+        $activities->where(['project_id' => $project_id]);
+
+        if(!is_null($q)){
+            $activities->andWhere(function ($exp, $query) use ($q){
+                return $exp->like('Activities.name', "%$q%");
+            });
+        }
+
+        $this->paginate = [
+            'maxLimit' => 8
+        ];
 
         $activities = $this->paginate($activities);
 
@@ -155,7 +168,7 @@ class ProjectsController extends AppController
         $pims = $this->Projects->Pims->find('list', ['limit' => 200]);
         $projectDetails = $this->Projects->ProjectDetails->find('list', ['limit' => 200]);
         $projectFundings = $this->Projects->ProjectFundings->find('list', ['limit' => 200]);
-        $this->set(compact('project', 'pims', 'projectFundings', 'projectDetails'));
+        $this->set(compact('project', 'pims', 'projectFundings', 'projectDetails', 'status'));
     }
 
     
