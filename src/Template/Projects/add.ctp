@@ -27,12 +27,11 @@ $this->end();
     <div class="projects container-fluid w-75 mx-auto mb-4">
         <?= $this->Form->create($project) ?>
         <fieldset>
-            <legend class="bg-primary text-light"><?= __('Add Project') ?></legend>
             <?php
             echo $this->Form->control('name');
             echo $this->Form->control('introduction', ['label' => 'Brief', 'type'=> 'textarea']);
             echo $this->Form->control('location');
-            echo $this->Form->control('cost',['label'=>'Cost(USD)']);
+            echo $this->Form->control('cost',['label'=>'Budget(USD)']);
             ?>
         </fieldset>
         <?= $this->Form->button(__('Submit'), ["class" => "btn-primary"]) ?>
