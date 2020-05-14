@@ -12,6 +12,8 @@ echo $this->element('navbar/default');
 $this->end();
 ?>
 
+<?php echo $this->Html->css('report'); ?>
+
 
 <div class="container-fluid  mt-4">
 
@@ -19,7 +21,7 @@ $this->end();
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <?= $this->Html->link(__('Projects'), ['action' => 'index'])?>
+                <?= $this->Html->link(__('Projects'), ['action' => 'index']) ?>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Summary</li>
         </ol>
@@ -44,7 +46,7 @@ $this->end();
             <?= $this->Html->link('Partners', ['controller' => 'projectDetails', 'action' => 'partners', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Gantt Charts', ['controller' => 'projects','action' => 'gantt_chart', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+            <?= $this->Html->link('Gantt Charts', ['controller' => 'projects', 'action' => 'gantt_chart', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
             <?= $this->Html->link('Documents', ['controller' => 'projects', 'action' => 'documents', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
@@ -66,19 +68,19 @@ $this->end();
     </h2>
 </div>
 <?php if ($project->project_detail->sponsor_id == 1) {
-        $sponsor = 'World Bank';
-    } elseif ($project->project_detail->sponsor_id == 3) {
-        $sponsor = 'CBN';
-    } elseif ($project->project_detail->sponsor_id == 4) {
-        $sponsor = 'IMF';
-    } elseif ($project->project_detail->sponsor_id == 5) {
-        $sponsor = 'Ministry of Agriculture';
-    } elseif ($project->project_detail->sponsor_id == 6) {
-        $sponsor = 'Ministry of Health';
-    } else {
-        $sponsor = 'His Excellency';
-    }
-    ?>
+    $sponsor = 'World Bank';
+} elseif ($project->project_detail->sponsor_id == 3) {
+    $sponsor = 'CBN';
+} elseif ($project->project_detail->sponsor_id == 4) {
+    $sponsor = 'IMF';
+} elseif ($project->project_detail->sponsor_id == 5) {
+    $sponsor = 'Ministry of Agriculture';
+} elseif ($project->project_detail->sponsor_id == 6) {
+    $sponsor = 'Ministry of Health';
+} else {
+    $sponsor = 'His Excellency';
+}
+?>
 
 <div class="row m-3">
 
@@ -230,7 +232,7 @@ $this->end();
     <div class="card  shadow h-100 py-0">
         <div class="card-body py-2 px-2">
             <div class="row no-gutters align-items-center">
-                <div class="col mr-2" id="clickable-card" data-attr="">
+                <div class="col mr-2" id="" data-attr="">
                     <div class=" font-weight-bold mb-4 mt- 2 text-primary text-uppercase mb-1">
                         <?= h('Completed Indicators') ?>
                     </div>
@@ -269,6 +271,36 @@ $this->end();
                     <div class="h6 mb-0 font-weight-bold text-gray-800">
                         <?= h($project->project_detail->risk_and_issues) ?></div>
                 </div>
+            </div>
+        </div>
+        <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
+            <div class="row">
+                <div class="col-auto">
+                    <i class="fas fa-clock fa-1x text-gray-300"></i>
+                </div>
+                <div class="col border-left ">
+                    <i class="fas fa-book fa-1x text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card  shadow h-100 py-0">
+        <div class="card-body py-2 px-2">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2" id="clickable-card" data-attr="">
+                    <div class=" font-weight-bold mb-4 mt- 2 text-primary text-uppercase mb-1">
+                        <?= h('Project Duration') ?>
+                    </div>
+                    <div class="h6 mb-0 font-weight-bold text-gray-800">Start date :
+                        <?= h($project->project_detail->start_dt) ?></div>
+                    <br>
+                    <div class="h6 mb-0 font-weight-bold text-gray-800">End date :
+                        <?= h($project->project_detail->end_dt) ?></div>
+                </div>
+
             </div>
         </div>
         <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
