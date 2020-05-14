@@ -288,7 +288,7 @@ class ProjectDetailsController extends AppController
         $annotations = $this->ProjectDetails->Annotations->find('list', ['limit' => 200]);
         $prices = $this->ProjectDetails->Prices->find('list', ['limit' => 200]);
         $projects_info = $this->Projects->find('list', ['limit' => 200, 'conditions' => ['id' => $id]]);
-        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'donors', 'mdas', 'lov', 'users', 'annotations', 'prices', 'projects', 'subStatus', 'users', 'authUser', 'project_info', 'projects_info'));
+        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'donors', 'mdas', 'priority', 'lov', 'users', 'annotations', 'prices', 'projects', 'subStatus', 'users', 'authUser', 'project_info', 'projects_info'));
     }
 
     /**
