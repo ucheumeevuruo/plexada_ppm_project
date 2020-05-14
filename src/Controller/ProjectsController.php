@@ -67,8 +67,20 @@ class ProjectsController extends AppController
         $project = $this->Projects->get($id, [
             'contain' => ['Pims', 'ProjectFundings', 'ProjectDetails', 'Activities', 'Annotations', 'Milestones', 'Objectives', 'Prices', 'RiskIssues', 'Sponsors', 'Pads', 'ProjectDetails.Currencies'],
         ]);
+
         $proDetail = $this->ProjectDetails->find('all')->contain(['Currencies'])->where(['project_id' => $id]);
         $this->set('project', $project,'proDetail');
+
+
+        $this->loadModel('Milestones');
+        $milestone_list =  $this->Milestones->find('all');
+
+        $milestones = $this->Projects->Milestones->find()->contain(['Activities']);
+
+        // debug($project);
+        // die();
+        $this->set(compact('project', 'milestones', 'milestone_list'));
+
     }
 
 
