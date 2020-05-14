@@ -105,7 +105,6 @@ $this->end();
         <?= $this->Form->end() ?>
     </div>
 </div>
-</div>
 
 <!-- <?= $this->Form->control('risks'); ?> -->
 <!-- <?= $this->Form->control('components'); ?> -->
