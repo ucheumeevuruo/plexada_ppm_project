@@ -30,7 +30,7 @@ $this->end();
             <?php
             echo $this->Form->control('name', ['autocomplete' => 'off']);
             echo $this->Form->control('introduction', ['label' => 'Brief', 'type'=> 'textarea']);
-            echo $this->Form->hidden('project_detail.status', ['value' => 1]);
+            echo $this->Form->hidden('project_detail.status_id', ['value' => 1]);
             echo $this->Form->control('location');
             echo $this->Form->control('cost',['label'=>'Budget(USD)']);
             ?>
