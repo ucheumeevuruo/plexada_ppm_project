@@ -18,6 +18,7 @@ $this->end();
                         echo $this->Form->control('project_id', ['options' => $projectDetails, 'empty' => true]);
                     else
                         echo $this->Form->hidden('project_id', ['value' => $project_id, 'empty' => false]);
+                    echo $this->Form->control('milestone_id', ['options' => $milestones]);
                     echo $this->Form->control('name', ['autocomplete' => 'off']);
                     echo $this->Form->control('description', ['type' => 'textarea']);
                     echo $this->Form->control('assigned_to_id', ['options' => $staff, 'empty' => true]);

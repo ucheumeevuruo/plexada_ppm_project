@@ -67,11 +67,14 @@ class ActivitiesTable extends Table
             'joinType' => 'LEFT',
             'conditions' => ['Statuses.lov_type' => 'project_status']
         ]);
+        $this->belongsTo('Milestones', [
+            'foreignKey' => 'milestone_id'
+        ]);
         $this->belongsTo('Users', [
             'foreignKey' => 'system_user_id',
         ]);
         $this->hasMany('Tasks', [
-            'foreignKey' => 'Task_name',
+            'foreignKey' => 'activity_id',
         ]);
     }
 

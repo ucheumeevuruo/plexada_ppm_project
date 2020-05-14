@@ -50,7 +50,7 @@ class ActivitiesController extends AppController
     public function view($id = null)
     {
         $activity = $this->Activities->get($id, [
-            'contain' => ['ProjectDetails', 'Staff', 'Statuses', 'Users', 'Priorities'],
+            'contain' => ['ProjectDetails', 'Staff', 'Statuses', 'Users', 'Priorities', 'Tasks'],
         ]);
 
         $this->set('activity', $activity);
@@ -96,8 +96,8 @@ class ActivitiesController extends AppController
         $priority = $this->Activities->Priorities->find('list', ['limit' => 200]);
         $status = $this->Activities->Statuses->find('list', ['limit' => 200]);
         $users = $this->Activities->Users->find('list', ['limit' => 200]);
-        $milestone_info = $this->Milestones->find('list', ['limit' => 200, 'conditions' => ['project_id' => $project_id]]);
-        $this->set(compact('activity', 'projectDetails', 'staff', 'priority', 'status', 'users', 'project_id', 'milestone_info'));
+        $milestones = $this->Activities->Milestones->find('list', ['limit' => 200, 'conditions' => ['project_id' => $project_id]]);
+        $this->set(compact('activity', 'projectDetails', 'staff', 'priority', 'status', 'users', 'project_id', 'milestones'));
     }
 
     /**

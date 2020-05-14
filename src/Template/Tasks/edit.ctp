@@ -12,14 +12,20 @@ $this->end();
     <?= $this->Form->create($task) ?>
     <fieldset>
         <legend><?= __('Edit Task') ?></legend>
-        <?php
-        echo $this->Form->control('Name');
-        echo $this->Form->control('Start Date');
-        echo $this->Form->control('Description',['text'=>'textarea']);
-        echo $this->Form->control('Predecessor');
-        echo $this->Form->control('Successor');
-        echo $this->Form->control('Expected_end_date', ['empty' => true, 'class' => 'addon-right', 'label' => 'Expected End Date', 'id' => 'Start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);
-        ?>
+        <div class="row">
+            <div class="col">
+                <?= $this->Form->hidden('activity_id') ?>
+                <?= $this->Form->control('Task_name', ['label'=>'Task Name','id' => 'Task_name', ]) ?>
+                <?= $this->Form->control('Description', ['type'=>'textarea']) ?>
+            </div>
+            <div class="col">
+                <?= $this->Form->control('Predecessor') ?>
+                <?= $this->Form->control('Successor') ?>
+                <?= $this->Form->control('Start_date', [
+                    'empty' => true, 'class' => 'addon-right', 'label' => 'Start Date', 'id' => 'Start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off'
+                ]) ?>
+            </div>
+        </div>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
