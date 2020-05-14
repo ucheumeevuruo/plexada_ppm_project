@@ -54,6 +54,7 @@ class ProjectsTable extends Table
         ]);
         $this->hasMany('Milestones', [
             'foreignKey' => 'project_id',
+            'joinType' => 'LEFT'
         ]);
         $this->hasMany('Objectives', [
             'foreignKey' => 'project_id',

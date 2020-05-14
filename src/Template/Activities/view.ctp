@@ -10,10 +10,8 @@ $this->end();
 $this->start('navbar');
 echo $this->element('navbar/default');
 $this->end();
+//dataTables.bootstrap4.min.css
 ?>
-
-
-
 <div class="container-fluid py-4 border-top white-bg">
     <h3><?= h($activity->subject) ?></h3>
     <div class="row">
@@ -32,10 +30,7 @@ $this->end();
                     <th scope="row"><?= __('Assigned To') ?></th>
                     <td><?= $activity->has('staff') ? $this->Html->link($activity->staff->full_name, ['controller' => 'Staff', 'action' => 'view', $activity->staff->id]) : '' ?>
                 </tr>
-            </table>
-        </div>
-        <div class="col border-left">
-            <table class="table table-borderless" style="font-size:14px">
+
                 <tr>
                     <th scope="row"><?= __('Priority') ?></th>
                     <td><?= $activity->has('priority') ? $this->Html->link($activity->priority->lov_value, ['controller' => 'Lov', 'action' => 'view', $activity->priority->id]) : '' ?>
@@ -55,5 +50,69 @@ $this->end();
                 </tr>
             </table>
         </div>
+        <div class="col border-left">
+            <div class="px-0 py-4">
+                <?= $this->Html->link(__('Create'), ['controller' => 'tasks', 'action' => 'add', $activity->activity_id], ['class' => 'btn btn-info rounded-0 overlay', 'title' => 'Add', 'escape' => false]) ?>
+            </div>
+
+            <table class="table table-striped table-responsive table-sm dataTable" role="grid"
+                   aria-describedby="dataTable_info">
+                <thead>
+                    <tr>
+                        <th scope="col"><?= __('Task Name') ?></th>
+                        <th scope="col"><?= __('Start Date') ?></th>
+                        <th scope="col"><?= __('Description') ?></th>
+                        <th scope="col"><?= __('Predecessor') ?></th>
+                        <th scope="col"><?= __('Successor') ?></th>
+                        <th scope="col"><?= __('Actions') ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($activity->tasks as $task) : ?>
+                        <tr>
+                            <td><?= h($task->Task_name) ?></td>
+                            <td><?= h($task->Start_date) ?></td>
+                            <td><?= h($task->Description) ?></td>
+                            <td><?= h($task->Predecessor) ?></td>
+                            <td><?= h($task->Successor) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-sm"></i>'), ['controller' => 'tasks', 'action' => 'edit', $task->id], ['class' => 'btn btn-outline-warning btn-sm overlay', 'title' => 'Edit', 'escape' => false]) ?>
+
+                                <?= $this->Form->postLink(__("<i class='fas fa-trash fa-sm'></i>"), ['controller' => 'tasks', 'action' => 'delete', $task->id], ['confirm' => __('Are you sure you want to delete # {0}?', $task->Task_name), 'escape' => false, 'class' => 'btn btn-outline-danger btn-sm']) ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
+<div id="dialogModal">
+    <!-- the external content is loaded inside this tag -->
+    <div id="contentWrap">
+        <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-lg']) ?>
+        <?= $this->Modal->body() // No header
+        ?>
+        <?= $this->Modal->footer() // Footer with close button (default)
+        ?>
+        <?= $this->Modal->end() ?>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function() {
+        $(".overlay").click(function(event) {
+            event.preventDefault();
+            //load content from href of link
+            $('#contentWrap .modal-body').load($(this).attr("href"), function() {
+                $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content')
+                    .removeClass()
+                $('#MyModal4').modal('show')
+            });
+        });
+        $('.dataTable').DataTable();
+    });
+</script>
+<?= $this->Html->script('jquery.dataTables.min.js') ?>

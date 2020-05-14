@@ -53,8 +53,8 @@ class MilestonesController extends AppController
     {
         $milestone = $this->Milestones->newEntity();
         if ($this->request->is('post')) {
-             $milestone = $this->Milestones->patchEntity($milestone, $this->request->getData());
-//            $milestone = $this->Milestones->patchEntity($milestone, $this->Milestones->identify($this->request->getData()));
+            //  $milestone = $this->Milestones->patchEntity($milestone, $this->request->getData());
+           $milestone = $this->Milestones->patchEntity($milestone, $this->Milestones->identify($this->request->getData()));
 //             debug($milestone);
 //             die();
             if ($this->Milestones->save($milestone)) {
@@ -66,7 +66,7 @@ class MilestonesController extends AppController
         }
         $projects = $this->Milestones->Projects->find('list', ['limit' => 200]);
 
-        $lov = $this->Milestones->Lov->find('list', ['limit' => 200]);
+        $lov = $this->Milestones->Lov->find('list', ['limit' => 200])->where(['lov_type'=>'project_status']);
 //        $triggers = $this->Milestones->Triggers->find('list', ['limit' => 200]);
         $triggers = [];
 

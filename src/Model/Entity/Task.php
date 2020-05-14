@@ -30,9 +30,6 @@ class Task extends Entity
         'Description' => true,
         'Predecessor' => true,
         'Successor' => true,
-        'activities_id' => true,
-        'status' => true,
-        'percentage_completion' => true,
-        'Expected_end_date' => true,
+        'activity_id' => true,
     ];
 }

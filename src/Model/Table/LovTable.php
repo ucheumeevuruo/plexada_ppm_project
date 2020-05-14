@@ -69,9 +69,9 @@ class LovTable extends Table
             ->maxLength('lov_value', 150)
             ->allowEmptyString('lov_value');
 
-        $validator
-            ->dateTime('last_updated')
-            ->allowEmptyDateTime('last_updated');
+        // $validator
+        //     ->dateTime('last_updated')
+        //     ->allowEmptyDateTime('last_updated');
 
         return $validator;
     }
