@@ -60,9 +60,19 @@ ul {
     /* margin-left: 1.1rem; */
 }
 .error{
+    position:static;
     font-size:14px !important;
     background:#ff5d6c !important;
     padding: 10px !important;
+    width:auto;
+    top:0px !important;
+}
+.help-block.error-message{
+    color: #ff0000;
+}
+.message.hidden{
+    transition: height 1s ease-out;
+    display:none !important;
 }
 .btn-default{
     background: #036;
@@ -304,4 +314,20 @@ textarea.form-control{
 }
 .white-bg{
     background:#fff;
+}
+.grey-bg{
+    background:#eaecf4 !important;
+}
+.nav-tabs .nav-link.active{
+    background:#f7f8fb;
+    border-color: #dddfeb #dddfeb #f8f9fc !important
+}
+.vh-4{
+    min-height:60vh
+}
+.vh-5{
+    min-height:80vh;
+}
+.vh-6{
+    min-height:100vh
 }

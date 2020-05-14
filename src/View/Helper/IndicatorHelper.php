@@ -11,7 +11,7 @@ class IndicatorHelper extends Helper
 
         if ($status == 'closed')
             return 'border-left-success';
-        elseif ($status == 'in-progress')
+        elseif ($status == 'not-started')
             return 'border-left-warning';
         elseif ($status == 'open')
             return 'border-left-danger';

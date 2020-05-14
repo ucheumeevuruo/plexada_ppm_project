@@ -48,6 +48,7 @@ class Project extends Entity
         'milestones' => true,
         'objectives' => true,
         'prices' => true,
+        'project_detail' => true,
         'project_milestones' => true,
         'project_objectives' => true,
         'risk_issues' => true,

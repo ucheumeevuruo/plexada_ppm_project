@@ -64,6 +64,9 @@ class ProjectDetailsTable extends Table
         $this->belongsTo('Staff', [
             'foreignKey' => 'waiting_on_id',
         ]);
+        $this->belongsTo('Currencies', [
+            'foreignKey' => 'currency_id',
+        ]);
         $this->belongsTo('Lov', [
             'foreignKey' => 'status_id',
             'joinType' => 'INNER',
@@ -120,17 +123,17 @@ class ProjectDetailsTable extends Table
             ->allowEmptyString('id', null, 'create');
 
 
-        $validator
-            ->scalar('description')
-            ->maxLength('description', 600)
-            ->requirePresence('description', 'create')
-            ->notEmptyString('description');
+//        $validator
+//            ->scalar('description')
+//            ->maxLength('description', 600)
+//            ->requirePresence('description', 'create')
+//            ->notEmptyString('description');
 
         $validator
             ->scalar('location')
-            ->maxLength('location', 150)
-            ->requirePresence('location', 'create')
-            ->notEmptyString('location');
+            ->maxLength('location', 150);
+//            ->requirePresence('location', 'create')
+//            ->notEmptyString('location');
 
         $validator
             ->date('waiting_since')
@@ -153,9 +156,9 @@ class ProjectDetailsTable extends Table
 
         $validator
             ->scalar('environmental_factors')
-            ->maxLength('environmental_factors', 500)
-            ->requirePresence('environmental_factors', 'create')
-            ->notEmptyString('environmental_factors');
+            ->maxLength('environmental_factors', 500);
+//            ->requirePresence('environmental_factors', 'create')
+//            ->notEmptyString('environmental_factors');
 
         $validator
             ->scalar('partners')

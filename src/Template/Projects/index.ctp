@@ -80,13 +80,15 @@ $this->Paginator->setTemplates([
         </nav>
         <!-- ./end Breadcrumb -->
 
-        <div class="row">
+        <div class="grey-bg vh-5 py-4">
+
+            <div class="row mx-0">
             <?php foreach ($projects as $project): ?>
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card <?= $this->Indicator->status($project->project_detail->has('status')?$project->project_detail->status->lov_value:'') ?> shadow h-100 py-0">
                         <div class="card-body py-2 px-2">
                             <div class="row no-gutters align-items-center">
-                                <div class="col mr-2" id="clickable-card" data-attr="<?= $this->Url->build(['action' => 'milestones', $project->id]) ?>">
+                                <div class="col mr-2" id="clickable-card" data-attr="<?= $this->Url->build(['action' => 'report', $project->id]) ?>">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                         <?= $project->name ?>
                                     </div>
@@ -99,7 +101,13 @@ $this->Paginator->setTemplates([
                         </div>
                         <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
                             <div class="row">
-                                <div class="col-auto">
+								<div class="col-auto">
+									<?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['action' => 'edit', $project->id], ['class' => 'overlay', 'escape' => false])?>
+								</div>
+                                <div class="col-auto border-left">
+                                    <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id), 'escape' => false]) ?>
+                                </div>
+                                <div class="col-auto border-left">
                                     <i class="fas fa-clock fa-1x text-gray-300"></i>
                                 </div>
                                 <div class="col border-left ">
@@ -111,6 +119,35 @@ $this->Paginator->setTemplates([
                 </div>
             <?php endforeach; ?>
         </div>
+
+        </div>
     </div>
 </section>
+<!-- MODAL ELEMENTS -->
+
+    <div id="dialogModal" class="bg-primary">
+        <!-- the external content is loaded inside this tag -->
+        <div id="contentWrap">
+            <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-lg']) ?>
+            <?= $this->Modal->body() // No header
+            ?>
+            <?= $this->Modal->footer() // Footer with close button (default)
+            ?>
+            <?= $this->Modal->end() ?>
+        </div>
+    </div>
+	<script>
+    $(document).ready(function() {
+        //respond to click event on anything with 'overlay' class
+        $(".overlay").click(function (event) {
+            event.preventDefault();
+            //load content from href of link
+            $('#contentWrap .modal-body').load($(this).attr("href"), function () {
+                $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content')
+                    .removeClass()
+                $('#MyModal4').modal('show')
+            });
+        });
+    });
+	</script>
 

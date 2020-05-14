@@ -74,6 +74,7 @@ class ProjectDetail extends Entity
         'annotation_id' => true,
         'project_id' => true,
         'environmental_factors' => true,
+        'completed_percent' => true,
         'partners' => true,
         'funding' => true,
         'approvals' => true,

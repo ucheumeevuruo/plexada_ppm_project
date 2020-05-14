@@ -13,7 +13,7 @@ $this->end();
 ?>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-<div class="projectDetails container-fluid mb-4">
+<div class="projectDetails container-fluid mb-4 mt-4">
     <!-- Breadcrumb area -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -26,7 +26,7 @@ $this->end();
     <!-- ./end Breadcrumb -->
     <?= $this->Form->create($projectDetail) ?>
     <fieldset>
-        <legend class="bg-primary text-light mb-3 text-center"><?= __('Add Project Details') ?></legend>
+        <legend class="text-center"><?= __('Add Project Details') ?></legend>
         <div class="col-md-6 float-left">
 
             <label class="control-label" for="project">Project</label>
@@ -44,8 +44,8 @@ $this->end();
             <div class="input-group mb-3"><input type="text" name="location" value="<?= $project_info->location ?>"
                     class="form-control addon-right" empty="1" id="location" autocomplete="off">
             </div>
-            <div class="mb-3">
-                <?= $this->Html->link(__('Add Objectives'), ['controller' => 'objectives', 'action' => 'add', $project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
+            <div class="mb-3 hidden">
+                <?= $this->Html->link(__('Add Objectives'), ['controller' => 'objectives', 'action' => 'add', $project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay', 'style' => "display: none"]) ?>
             </div>
 
             <?= $this->Form->control('manager_id', ['options' => $staff, 'empty' => true]); ?>
@@ -55,50 +55,32 @@ $this->end();
             <?= $this->Form->control('mda_id', ['options' => $mdas, 'empty' => true,'label'=>'MDA']); ?>
 
             <?= $this->Form->control('DLI',['label'=>'DLI']); ?>
+            <?= $this->Form->control('priority_id', ['options' => $priority]); ?>
+            <?= $this->Form->hidden('completed_percent', ['value' => 0]); ?>
 
         </div>
 
 
         <div class="col-md-6 float-left">
 
-            <?= $this->Html->link(__('Add Indicator'), ['controller' => 'milestones', 'action' => 'add', $project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 mt-5 mb-3 overlay']) ?>
+            <?= $this->Html->link(__('Add Indicator'), ['controller' => 'milestones', 'action' => 'add', $project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 mt-5 mb-3 overlay hidden', 'style' => "display: none"]) ?>
 
-            <div id="inputEnv">
-                <div class="input-group mb-3">
-                    <input type="text" name="environmental_factors" class="form-control m-input"
-                        placeholder="Environmental factor" autocomplete="off">
-                    <div class="input-group-append">
-                        <button id="removeEnv" type="button" class="btn btn-danger">Remove</button>
-                    </div>
-                </div>
-            </div>
+<!--            <div id="inputEnv">-->
+<!--                <div class="input-group mb-3">-->
+<!--                    <input type="text" name="environmental_factors" class="form-control m-input"-->
+<!--                        placeholder="Environmental factor" autocomplete="off">-->
+<!--                    <div class="input-group-append">-->
+<!--                        <button id="removeEnv" type="button" class="btn btn-danger">Remove</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+            <?= $this->Form->control('environmental_factors');?>
             <div id="newEnv"></div>
-            <button id="addEnv" type="button" class="btn btn-primary mb-3">Add Environmental Factor</button>
+            <button id="addEnv" type="button" class="btn btn-primary mb-3" style="display: none">Add Environmental Factor</button>
 
-            <div class="form-group text">
-                <label class="control-label" for="start_dt">Start date</label>
-                <div class="input-group"><input type="text" name="start_dt" class="form-control addon-right" empty="1"
-                        id="start_dt" autocomplete="off">
-                    <span class="input-group-addon"><i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0 ml-5"></i></span>
-                </div>
-            </div>
-
-            <div class="form-group text">
-                <label class="control-label" for="end_dt">End date</label>
-                <div class="input-group"><input type="text" name="end_dt" class="form-control addon-right" empty="1"
-                        id="end_dt" autocomplete="off">
-                    <span class="input-group-addon"><i
-                            class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span>
-                </div>
-            </div>
-
-            <label for="cars">Currency</label>
-            <select id="cars" name="currency" class="mb-3 form-control">
-                <option value="naira">NGN</option>
-                <option value="dollar">USD</option>
-                <option value="euro">EU</option>
-                <option value="pound">GBP</option>
-            </select>
+            <?= $this->Form->control('start_dt', ['empty' => true, 'class' => 'addon-right', 'label' => 'Start Date', 'id' => 'start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);?>
+            <?= $this->Form->control('end_dt', ['empty' => true, 'class' => 'addon-right', 'label' => 'End Date', 'id' => 'end_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);?>
+            <?= $this->Form->control('currency_id', ['options' => $currencies, 'empty' => true]);?>
 
             <?= $this->Form->control('budget'); ?>
 

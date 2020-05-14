@@ -245,7 +245,7 @@ class ProjectDetailsController extends AppController
             $this->Flash->error(__('The project detail could not be saved. Please, try again.'));
             // debug($projectDetail);
             // die();
-            return $this->redirect(['controller' => 'projects', 'action' => 'index']);
+//            return $this->redirect(['controller' => 'projects', 'action' => 'index']);
         }
         $projects = $this->ProjectDetails->Projects->find('list', ['limit' => 200]);
         $vendors = $this->ProjectDetails->Vendors->find('list', ['limit' => 200]);
@@ -284,11 +284,14 @@ class ProjectDetailsController extends AppController
             'limit' => 200
         ]);
         $authUser = $this->Auth->User();
+        $currencies = $this->ProjectDetails->Currencies->find('list', [
+            'limit' => 200
+        ]);
         $users = $this->ProjectDetails->Users->find('list', ['limit' => 200]);
         $annotations = $this->ProjectDetails->Annotations->find('list', ['limit' => 200]);
         $prices = $this->ProjectDetails->Prices->find('list', ['limit' => 200]);
         $projects_info = $this->Projects->find('list', ['limit' => 200, 'conditions' => ['id' => $id]]);
-        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'donors', 'mdas', 'lov', 'users', 'annotations', 'prices', 'projects', 'subStatus', 'users', 'authUser', 'project_info', 'projects_info'));
+        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'donors', 'mdas', 'priority', 'lov', 'users', 'annotations', 'prices', 'projects', 'subStatus', 'users', 'authUser', 'project_info', 'projects_info', 'currencies'));
     }
 
     /**
@@ -348,6 +351,9 @@ class ProjectDetailsController extends AppController
             'conditions' => ['Lov.lov_type' => 'priority'],
             'limit' => 200
         ]);
+        $currencies = $this->ProjectDetails->Currencies->find('list', [
+            'limit' => 200
+        ]);
         $subStatus = $this->ProjectDetails->SubStatuses->find('list', [
             'conditions' => ['SubStatuses.lov_type' => 'project_sub_status'],
             'limit' => 200
@@ -355,7 +361,7 @@ class ProjectDetailsController extends AppController
 
         $users = $this->ProjectDetails->Users->find('list', ['limit' => 200]);
         $userid = $id;
-        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'donors', 'mdas', 'lov', 'users', 'subStatus', 'users'));
+        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'donors', 'mdas', 'lov', 'users', 'subStatus', 'users', 'currencies'));
     }
     /**
      * Delete method
