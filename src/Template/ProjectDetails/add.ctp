@@ -47,7 +47,7 @@ $this->end();
     </fieldset>
 
     <fieldset class="col-md-6 float-right mb-3" style="border: #464751 1px solid;">
-        <legend>Project stackholders</legend>
+        <legend>Project Stakeholders</legend>
         <?= $this->Form->control('manager_id', ['options' => $staff, 'empty' => true]); ?>
         <?= $this->Form->control('sponsor_id', ['options' => $sponsors, 'empty' => true]); ?>
 
@@ -83,7 +83,7 @@ $this->end();
             Factor</button>
     </div>
     <fieldset class="col-md-6 float-left mb-3" style="border: #494B55 1px solid;">
-        <legend>Project Duration</legend>
+        <legend>Project Funding</legend>
         <?= $this->Form->control('currency_id', ['options' => $currencies, 'empty' => true]); ?>
 
         <?= $this->Form->control('budget', ['placeholder' => '0.00']); ?>
@@ -96,7 +96,6 @@ $this->end();
         <?= $this->Form->control('end_dt', ['empty' => true, 'class' => 'addon-right', 'label' => 'End Date', 'id' => 'end_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']); ?>
     </fieldset>
 
-    <legend>Risks and Issues</legend>
 
     <?= $this->Form->control('risk_and_issues'); ?>
 

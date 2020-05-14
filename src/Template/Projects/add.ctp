@@ -33,7 +33,7 @@ $this->end();
                 echo $this->Form->control('introduction', ['label' => 'Brief', 'type' => 'textarea']);
                 echo $this->Form->hidden('project_detail.status_id', ['value' => 1]);
                 echo $this->Form->control('location');
-                echo $this->Form->control('cost', ['label' => 'Budget(USD)']);
+                echo $this->Form->control('cost', ['label' => 'Budget']);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit'), ["class" => "btn-primary"]) ?>
