@@ -63,7 +63,6 @@ class ProjectsTable extends Table
         ]);
         $this->hasOne('ProjectDetails', [
             'foreignKey' => 'project_id',
-            'joinType' => 'LEFT'
         ]);
         $this->hasOne('ProjectFundings', [
             'foreignKey' => 'project_id',

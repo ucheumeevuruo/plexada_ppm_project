@@ -245,7 +245,7 @@ class ProjectDetailsController extends AppController
             $this->Flash->error(__('The project detail could not be saved. Please, try again.'));
             // debug($projectDetail);
             // die();
-            return $this->redirect(['controller' => 'projects', 'action' => 'index']);
+//            return $this->redirect(['controller' => 'projects', 'action' => 'index']);
         }
         $projects = $this->ProjectDetails->Projects->find('list', ['limit' => 200]);
         $vendors = $this->ProjectDetails->Vendors->find('list', ['limit' => 200]);
