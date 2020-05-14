@@ -26,7 +26,7 @@ $this->end();
     <!-- ./end Breadcrumb -->
     <?= $this->Form->create($projectDetail) ?>
     <fieldset>
-        <legend class="bg-primary text-light mb-3 text-center"><?= __('Add Project Details') ?></legend>
+        <legend class="text-center"><?= __('Add Project Details') ?></legend>
         <div class="col-md-6 float-left">
 
             <label class="control-label" for="project">Project</label>
