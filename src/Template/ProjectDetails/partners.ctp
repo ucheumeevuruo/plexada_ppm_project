@@ -74,12 +74,11 @@ $this->end();
                 <div class="card-body py-2 px-2">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2" id="clickable-card" data-attr="">
-                            <div class="h6 mb-0 font-weight-bold text-gray-800">
-                                <p><i style="color: blue;">Last Name: </i><?= h($sponsor->last_name) ?></p>
-                                <p><i style="color: blue;">First Name: </i><?= h($sponsor->first_name) ?></p>
-                                <p><i style="color: blue;">Email: </i><?= h($sponsor->email) ?></p>
-                                <p><i style="color: blue;">Phone Number: </i><?= h($sponsor->phone_no) ?></p>
-                                <p><i style="color: blue;">Address: </i><?= h($sponsor->address) ?></p>
+                            <div class="h6 mb-0 font-weight-bold text-gray-800 p-3">
+                                <div class="mb-3"><i class="fa fa-user-shield"></i><span class="ml-2 text-primary"><?= h($sponsor->last_name) . ' ' .h($sponsor->first_name) ?></span></div>
+                                <div class="mb-3"><i class="fa fa-envelope-open-text"> </i><span class="ml-2 text-primary"><?= h($sponsor->email) ?></span></div>
+                                <div class="mb-3"><i class="fa fa-phone-alt"></i><span class="ml-2 text-primary"><?= h($sponsor->phone_no) ?></span></div>
+                                <div><i class="fa fa-map-marker-alt"></i><span class="ml-2 text-primary"><?= h($sponsor->address) ?></span></div>
                             </div>
                         </div>
                     </div>

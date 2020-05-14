@@ -66,6 +66,7 @@ class ProjectDetailsTable extends Table
         ]);
         $this->belongsTo('Currencies', [
             'foreignKey' => 'currency_id',
+            'joinType' => 'INNER',
         ]);
         $this->belongsTo('Lov', [
             'foreignKey' => 'status_id',
@@ -106,6 +107,9 @@ class ProjectDetailsTable extends Table
             'joinType' => 'INNER',
         ]);
         $this->hasMany('Sponsors', [
+            'foreignKey' => 'id',
+        ]);
+        $this->hasMany('Currencies', [
             'foreignKey' => 'id',
         ]);
     }
@@ -226,6 +230,7 @@ class ProjectDetailsTable extends Table
         $rules->add($rules->existsIn(['project_id'], 'Projects'));
         $rules->add($rules->existsIn(['price_id'], 'Prices'));
         $rules->add($rules->existsIn(['sub_status_id'], 'SubStatuses'));
+        $rules->add($rules->existsIn(['currency_id'], 'SubStatuses'));
 
         return $rules;
     }

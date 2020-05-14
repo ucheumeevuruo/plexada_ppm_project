@@ -22,6 +22,7 @@ $this->end();
                 <?= $this->Form->control('name', ['autocomplete' => 'off']); ?>
                 <?= $this->Form->control('description', ['type' => 'textarea']); ?>
                 <?= $this->Form->hidden('status_id', ['value' => 1]); ?>
+                <?= $this->Form->control('status_id', ['options' => $lov]); ?>
             </div>
             <div class="col-md-6">
                 <?= $this->Form->hidden('trigger_id', ['options' => $triggers, 'empty' => true]); ?>
@@ -37,7 +38,7 @@ $this->end();
 
 <script>
 $(function() {
-    $('#start_date').datepicker({
+    $('#start_date, #end_date').datepicker({
         inline: true,
         "format": "dd/mm/yyyy",
         startDate: "0d"
