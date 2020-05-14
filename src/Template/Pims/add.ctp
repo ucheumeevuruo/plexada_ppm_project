@@ -42,6 +42,16 @@ $this->end();
 </style>
 
 <div class="container-fluid">
+    <!-- Breadcrumb area -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <?= $this->Html->link(__('Projects'), ['action' => 'index'])?>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">PIM</li>
+        </ol>
+    </nav>
+    <!-- ./end Breadcrumb -->
     <?= $this->Form->create($pim) ?>
     <fieldset>
     <!-- <div class="text-center mb-3">a</div> -->
