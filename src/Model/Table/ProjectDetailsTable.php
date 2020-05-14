@@ -64,6 +64,9 @@ class ProjectDetailsTable extends Table
         $this->belongsTo('Staff', [
             'foreignKey' => 'waiting_on_id',
         ]);
+        $this->belongsTo('Currencies', [
+            'foreignKey' => 'currency_id',
+        ]);
         $this->belongsTo('Lov', [
             'foreignKey' => 'status_id',
             'joinType' => 'INNER',

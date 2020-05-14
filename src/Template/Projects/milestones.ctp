@@ -132,7 +132,13 @@ $this->Paginator->setTemplates([
                     </div>
                     <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
                         <div class="row">
-                            <div class="col-auto dropdown no-arrow">
+							<div class="col-auto">
+								<?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['action' => 'edit', $milestone->activity_id], ['class' => 'overlay', 'escape' => false])?>
+							</div>
+                            <div class="col-auto border-left">
+                                <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['controller' => 'milestones', 'action' => 'delete', $milestone->id], ['confirm' => __('Are you sure you want to delete # {0}?', $milestone->id), 'escape' => false]) ?>
+                            </div>
+                            <div class="col-auto dropdown no-arrow border-left">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     <i class="fas fa-info-circle fa-1x text-gray-300"></i>

@@ -13,7 +13,7 @@ $this->end();
 ?>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-<div class="projectDetails container-fluid mb-4">
+<div class="projectDetails container-fluid mb-4 mt-4">
     <!-- Breadcrumb area -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -44,8 +44,8 @@ $this->end();
             <div class="input-group mb-3"><input type="text" name="location" value="<?= $project_info->location ?>"
                     class="form-control addon-right" empty="1" id="location" autocomplete="off">
             </div>
-            <div class="mb-3">
-                <?= $this->Html->link(__('Add Objectives'), ['controller' => 'objectives', 'action' => 'add', $project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?>
+            <div class="mb-3 hidden">
+                <?= $this->Html->link(__('Add Objectives'), ['controller' => 'objectives', 'action' => 'add', $project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay', 'style' => "display: none"]) ?>
             </div>
 
             <?= $this->Form->control('manager_id', ['options' => $staff, 'empty' => true]); ?>
@@ -63,7 +63,7 @@ $this->end();
 
         <div class="col-md-6 float-left">
 
-            <?= $this->Html->link(__('Add Indicator'), ['controller' => 'milestones', 'action' => 'add', $project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 mt-5 mb-3 overlay']) ?>
+            <?= $this->Html->link(__('Add Indicator'), ['controller' => 'milestones', 'action' => 'add', $project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 mt-5 mb-3 overlay hidden', 'style' => "display: none"]) ?>
 
 <!--            <div id="inputEnv">-->
 <!--                <div class="input-group mb-3">-->
@@ -76,18 +76,11 @@ $this->end();
 <!--            </div>-->
             <?= $this->Form->control('environmental_factors');?>
             <div id="newEnv"></div>
-            <button id="addEnv" type="button" class="btn btn-primary mb-3">Add Environmental Factor</button>
+            <button id="addEnv" type="button" class="btn btn-primary mb-3" style="display: none">Add Environmental Factor</button>
 
             <?= $this->Form->control('start_dt', ['empty' => true, 'class' => 'addon-right', 'label' => 'Start Date', 'id' => 'start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);?>
             <?= $this->Form->control('end_dt', ['empty' => true, 'class' => 'addon-right', 'label' => 'End Date', 'id' => 'end_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);?>
-
-            <label for="cars">Currency</label>
-            <select id="cars" name="currency" class="mb-3 form-control">
-                <option value="naira">NGN</option>
-                <option value="dollar">USD</option>
-                <option value="euro">EU</option>
-                <option value="pound">GBP</option>
-            </select>
+            <?= $this->Form->control('currency_id', ['options' => $currencies, 'empty' => true]);?>
 
             <?= $this->Form->control('budget'); ?>
 
