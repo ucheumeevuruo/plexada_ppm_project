@@ -9,11 +9,13 @@ class IndicatorHelper extends Helper
     {
         $status = strtolower($status);
 
-        if ($status == 'closed')
+        if ($status == 'open')
             return 'border-left-success';
         elseif ($status == 'not-started')
-            return 'border-left-warning';
-        elseif ($status == 'open')
+            return 'border-left-light';
+        elseif ($status == 'closed')
             return 'border-left-danger';
+        elseif ($status == 'on-hold')
+            return 'border-left-primary';
     }
 }
