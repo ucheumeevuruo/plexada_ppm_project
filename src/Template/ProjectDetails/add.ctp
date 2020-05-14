@@ -13,7 +13,17 @@ $this->end();
 ?>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-<div class="projectDetails container-fluid">
+<div class="projectDetails container-fluid mb-4">
+    <!-- Breadcrumb area -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <?= $this->Html->link(__('Projects'), ['action' => 'index'])?>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">PAD</li>
+        </ol>
+    </nav>
+    <!-- ./end Breadcrumb -->
     <?= $this->Form->create($projectDetail) ?>
     <fieldset>
         <legend class="bg-primary text-light mb-3 text-center"><?= __('Add Project Details') ?></legend>

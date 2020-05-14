@@ -44,7 +44,7 @@ $this->end();
             <?= $this->Html->link('Partners', ['controller' => 'projectDetails', 'action' => 'partners', $id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Gantt Charts', ['action' => 'gantt_chart', $id], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
+            <?= $this->Html->link('Gantt Charts', ['controller' => 'projects','action' => 'gantt_chart', $id], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
         </li>
         <li class="nav-item">
             <?= $this->Html->link('Documents', [ 'action' => 'documents', $id], ['id' => 'transmit', 'class' => 'nav-link ']) ?>
@@ -79,8 +79,8 @@ $this->end();
                         <div id="container3">
                             <div id="ganttcontainer2" style="height: 500px; width: 100%">
                                 <script>
-                                < ? php $obj_array = json_encode($ganttDetails) ? >
-                                    var array_code2 = < ? php echo $obj_array; ? > ;
+                                <?php $obj_array = json_encode($ganttDetails) ?>
+                                    var array_code2 = <?php echo $obj_array; ?> ;
                                 ganttProject2(array_code2);
                                 // console.log(array_code2)
                                 </script>
