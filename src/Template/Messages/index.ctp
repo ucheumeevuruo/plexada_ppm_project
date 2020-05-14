@@ -19,7 +19,17 @@ $this->end();
         <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
     </ul>
 </nav> -->
-<div class="container">
+<div class="container mt-4">
+    <!-- Breadcrumb area -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <?= $this->Html->link(__('Projects'), ['action' => 'index'])?>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Messages</li>
+        </ol>
+    </nav>
+    <!-- ./end Breadcrumb -->
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card shadow mb-5">
@@ -29,11 +39,11 @@ $this->end();
                     </div>
                         <div class="row p-4">
                             <div class="col-3">
-                                <div class="col mb-4">
-                                <?= $this->Html->link(__('Compose'), ['action' => 'add'], ['class' => 'btn btn-secondary overlay border-right form-control', 'title' => 'Compose', 'escape' => false]) ?>
+                                <div class="col-md-6 mb-4">
+                                <?= $this->Html->link(__('Compose'), ['action' => 'add'], ['class' => 'btn btn-secondary btn-sm overlay border-right form-control', 'title' => 'Compose', 'escape' => false]) ?>
                                 </div>
 
-                                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <div class="nav flex-column nav-pills col-md-6" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                     <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Inbox</a>
                                     <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Outbox</a>
                                     <!-- <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Draft</a>

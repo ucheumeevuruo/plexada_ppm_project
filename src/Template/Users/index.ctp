@@ -10,7 +10,18 @@ $this->start('navbar');
 echo $this->element('navbar/default');
 $this->end();
 ?>
-<div class="users container">
+<div class="users container mt-4">
+    <!-- Breadcrumb area -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <?= $this->Html->link(__('Projects'), ['action' => 'index'])?>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Users</li>
+        </ol>
+    </nav>
+    <!-- ./end Breadcrumb -->
+
         <div class="py-3 pl-3 bg-primary br-t">
                 <h3 class="m-0 text-white"><?= __('All Users') ?>
                     <div class="btn-group" role="group" aria-label="Basic example">
@@ -63,3 +74,47 @@ $this->end();
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
 </div>
+
+
+    <!-- overlayed element -->
+    <div id="dialogModal" class="bg-primary">
+        <!-- the external content is loaded inside this tag -->
+        <div id="contentWrap">
+            <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-md']) ?>
+            <?= $this->Modal->body()// No header ?>
+            <?= $this->Modal->footer()// Footer with close button (default) ?>
+            <?= $this->Modal->end() ?>
+        </div>
+        <div id="uploadContent">
+            <?= $this->Modal->create(['id' => 'upload', 'size' => 'modal-sm']) ?>
+            <?= $this->Modal->body('
+                <form>
+                  <div class="form-group">
+                    <label for="exampleFormControlFile1">Import file</label>
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                  </div>
+                </form>
+            ')// No header ?>
+            <?= $this->Modal->footer()// Footer with close button (default) ?>
+            <?= $this->Modal->end() ?>
+        </div>
+    </div>
+<script>
+        $(document).ready(function() {
+            //respond to click event on anything with 'overlay' class
+            $(".overlay").click(function(event){
+                event.preventDefault();
+                //load content from href of link
+                $('#contentWrap .modal-body').load($(this).attr("href"), function(){
+                    $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content').removeClass()
+                    $('#MyModal4').modal('show')
+                });
+            });
+
+            $(".upload").click(function (event) {
+                event.preventDefault();
+                $("#upload").modal('show')
+            })
+            $('.dataTable').DataTable();
+        });
+    </script>
