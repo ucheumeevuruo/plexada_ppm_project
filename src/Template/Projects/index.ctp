@@ -92,7 +92,8 @@ $this->Paginator->setTemplates([
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                         <?= $project->name ?>
                                     </div>
-                                    <div class="h6 mb-0 font-weight-bold text-gray-800"><?= $this->NumberFormat->format($project->cost, ['before' => '₦']) ?></div>
+                                    <div class="h6 mb-0 font-weight-bold text-gray-800"><?= $project->has('project_detail') ? $this->NumberFormat->format(
+                                            $project->project_detail->budget, ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : ''])  : ''?></div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-check-circle fa-2x text-gray-300"></i>

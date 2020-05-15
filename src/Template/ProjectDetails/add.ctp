@@ -107,7 +107,7 @@ $this->end();
 
 <!-- <?= $this->Form->control('risks'); ?> -->
 <!-- <?= $this->Form->control('components'); ?> -->
-<!-- <?= $this->Form->control('price ', ['options' => $prices]); ?> -->
+<!-- <?= $this->Form->control('price', ['options' => $prices]); ?> -->
 <!-- <label class="control-label" for="price">Cost(USD)</label>
             <div class="input-group"><input type="text" name="price" value="" class="form-control addon-right" empty="1"
                     id="price"> -->

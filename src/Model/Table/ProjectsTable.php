@@ -124,9 +124,9 @@ class ProjectsTable extends Table
             ->requirePresence('location', 'create')
             ->notEmptyString('location');
 
-        $validator
-            ->requirePresence('cost', 'create')
-            ->notEmptyString('cost');
+//        $validator
+//            ->requirePresence('cost', 'create')
+//            ->notEmptyString('cost');
 
         return $validator;
     }

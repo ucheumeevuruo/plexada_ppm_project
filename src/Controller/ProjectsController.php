@@ -166,19 +166,27 @@ class ProjectsController extends AppController
         $project = $this->Projects->newEntity();
         if ($this->request->is('post')) {
             $project = $this->Projects->patchEntity($project, $this->request->getData());
+//            debug($project);die();
             if ($this->Projects->save($project)) {
                 $this->Flash->success(__('The project has been saved.'));
-                $id = $project->id;
+                $projectDetailsId = $project->project_detail->id;
+
+                if(isset($projectDetailsId))
+                {
+                    return $this->redirect(['controller' => 'projectDetails', 'action' => 'edit', $projectDetailsId]);
+                }else{
+                    return $this->redirect(['controller' => 'projectDetails', 'action' => 'add', $project->id]);
+                }
                 // $this->addPad($id);
 
-                return $this->redirect(['controller' => 'projectDetails', 'action' => 'add', $id]);
             }
             $this->Flash->error(__('The project could not be saved. Please, try again.'));
         }
         $pims = $this->Projects->Pims->find('list', ['limit' => 200]);
         $projectDetails = $this->Projects->ProjectDetails->find('list', ['limit' => 200]);
         $projectFundings = $this->Projects->ProjectFundings->find('list', ['limit' => 200]);
-        $this->set(compact('project', 'pims', 'projectFundings', 'projectDetails', 'status'));
+        $currencies = $this->Projects->ProjectDetails->Currencies->find('list', ['limit' => 200]);
+        $this->set(compact('project', 'pims', 'projectFundings', 'projectDetails', 'status', 'currencies'));
     }
 
 
@@ -205,8 +213,10 @@ class ProjectsController extends AppController
             $this->Flash->error(__('The project could not be saved. Please, try again.'));
         }
         $pims = $this->Projects->Pims->find('list', ['limit' => 200]);
+        $statuses = $this->Projects->ProjectDetails->Statuses->find('list', ['limit' => 200]);
+        $currencies = $this->Projects->ProjectDetails->Currencies->find('list', ['limit' => 200]);
         $projectFundings = $this->Projects->ProjectFundings->find('list', ['limit' => 200]);
-        $this->set(compact('project', 'pims', 'projectFundings'));
+        $this->set(compact('project', 'pims', 'projectFundings', 'currencies', 'statuses'));
     }
 
     /**
