@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\ProjectDetail $projectDetail
@@ -10,10 +11,28 @@ $this->start('navbar');
 echo $this->element('navbar/default');
 $this->end();
 ?>
-<div class="projectDetails form large-9 medium-8 columns content">
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<div class="projectDetails container-fluid mb-4 mt-4">
+    <!-- Breadcrumb area -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <?= $this->Html->link(__('Projects'), ['action' => 'index']) ?>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">PAD</li>
+        </ol>
+    </nav>
+    <!-- ./end Breadcrumb -->
+
+
     <?= $this->Form->create($projectDetail) ?>
-    <fieldset>
-        <legend class="text-primary"><?= __('Edit Project Detail') ?></legend>
+    <h3 class="text-center">Edit Project Details</h3>
+
+    <fieldset class="col-md-6 float-left mb-3" style="border: #464751 1px solid;">
+        <legend>Project Definition</legend>
+
         <div class="col-sm-6 float-left">
             <div class="mb-3">
                 <!-- <?= $this->Html->link(__('Add Objectives'), ['controller' => 'objectives', 'action' => 'add', $project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?> -->
@@ -45,6 +64,7 @@ $this->end();
     </fieldset>
     <?= $this->Form->button(__('Submit'), ['class' => 'bg-primary']) ?>
     <?= $this->Form->end() ?>
+</div>
 </div>
 
 <script>

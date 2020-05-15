@@ -12,6 +12,8 @@ echo $this->element('navbar/default');
 $this->end();
 ?>
 
+<?php echo $this->Html->css('report'); ?>
+
 
 <div class="container-fluid  mt-4">
 
