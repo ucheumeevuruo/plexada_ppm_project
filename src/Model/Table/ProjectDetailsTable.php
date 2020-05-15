@@ -109,9 +109,6 @@ class ProjectDetailsTable extends Table
         $this->hasMany('Sponsors', [
             'foreignKey' => 'id',
         ]);
-        $this->hasMany('Currencies', [
-            'foreignKey' => 'id',
-        ]);
     }
 
     /**
