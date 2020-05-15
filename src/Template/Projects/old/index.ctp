@@ -88,12 +88,11 @@ $this->Paginator->setTemplates([
                     <div class="card <?= $this->Indicator->status($project->project_detail->has('status')?$project->project_detail->status->lov_value:'') ?> shadow h-100 py-0">
                         <div class="card-body py-2 px-2">
                             <div class="row no-gutters align-items-center">
-                                <div class="col mr-2" id="clickable-card" data-attr="<?= $this->Url->build(['action' => 'report', $project->id]) ?>">
+                                <div class="col mr-2" id="clickable-card" data-attr="<?= $this->Url->build(['action' => 'milestones', $project->id]) ?>">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                         <?= $project->name ?>
                                     </div>
-                                    <div class="h6 mb-0 font-weight-bold text-gray-800"><?= $project->has('project_detail') ? $this->NumberFormat->format(
-                                            $project->project_detail->budget, ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : ''])  : '0.00'?></div>
+                                    <div class="h6 mb-0 font-weight-bold text-gray-800"><?= $this->NumberFormat->format($project->cost, ['before' => '₦']) ?></div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-check-circle fa-2x text-gray-300"></i>
@@ -105,9 +104,6 @@ $this->Paginator->setTemplates([
 								<div class="col-auto">
 									<?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['action' => 'edit', $project->id], ['class' => 'overlay', 'escape' => false])?>
 								</div>
-                                <div class="col-auto border-left">
-                                    <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id), 'escape' => false]) ?>
-                                </div>
                                 <div class="col-auto border-left">
                                     <i class="fas fa-clock fa-1x text-gray-300"></i>
                                 </div>
@@ -140,15 +136,14 @@ $this->Paginator->setTemplates([
 	<script>
     $(document).ready(function() {
         //respond to click event on anything with 'overlay' class
-        $(".overlay").click(function (event) {
+        $(".overlay").click(function(event) {
             event.preventDefault();
             //load content from href of link
-            $('#contentWrap .modal-body').load($(this).attr("href"), function () {
+            $('#contentWrap .modal-body').load($(this).attr("href"), function() {
                 $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content')
                     .removeClass()
                 $('#MyModal4').modal('show')
             });
         });
-    });
 	</script>
 

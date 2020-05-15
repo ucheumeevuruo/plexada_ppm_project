@@ -28,6 +28,8 @@ $cakeDescription = 'Ogun State Project';
 
     <?= $this->Html->css('fontawesome-free/css/all.min.css') ?>
     <?= $this->Html->css('sb-admin-2.min.css') ?>
+    <?= $this->Html->css('bootstrap-datepicker.min.css') ?>
+    <?= $this->Html->css('dataTables.bootstrap4.min.css') ?>
     <?= $this->Html->css('custom-style.css') ?>
 
     <?= $this->Html->script('vendor/jquery/jquery.min.js') ?>
@@ -81,14 +83,14 @@ $cakeDescription = 'Ogun State Project';
                 complete: function(){
                     $('#loader').hide();
                 },
-                error: function(){
+                error: function(jqXHR, testStatus, error){
                     alert("Page " + href + " cannot open.");
                     $('#loader').hide();
                 },
-                timeout: 3000
+                // timeout: 5000
             })
         }
-        $('.unclickable').click(function(){
+        $('.unclickable').click(function(event){
             $('#loader').hide();
             event.preventDefault();
             return false;

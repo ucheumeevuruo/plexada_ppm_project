@@ -20,9 +20,21 @@ class ActivitiesController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['ProjectDetails', 'Staff', 'Lov', 'Users'],
+        $q = $this->request->getQuery('q');
+
+        $customFinderOptions = [
+            'name' => $q
         ];
+        $this->paginate = [
+            'contain' => [
+                'ProjectDetails', 'Staff', 'Lov', 'Users'
+            ],
+            'maxLimit' => 8,
+            'finder' => [
+                'byProjectName' => $customFinderOptions
+            ]
+        ];
+
         $activities = $this->paginate($this->Activities);
 
         $this->set(compact('activities'));
@@ -38,7 +50,7 @@ class ActivitiesController extends AppController
     public function view($id = null)
     {
         $activity = $this->Activities->get($id, [
-            'contain' => ['ProjectDetails', 'Staff', 'Statuses', 'Users', 'Priorities'],
+            'contain' => ['Projects', 'Milestones', 'Staff', 'Statuses', 'Users', 'Priorities', 'Tasks'],
         ]);
 
         $this->set('activity', $activity);
@@ -77,15 +89,18 @@ class ActivitiesController extends AppController
 
             //            return $this->redirect(['controller' => 'ProjectDetails', 'action' => 'view', $project_id]);
 
-            return $this->redirect($this->referer());
+//            return $this->redirect($this->referer());
         }
         $projectDetails = $this->Activities->ProjectDetails->find('list', ['limit' => 200]);
+        $currency = $this->Activities->Projects->get($project_id, [
+            'contain' => ['ProjectDetails.Currencies']
+        ]);
         $staff = $this->Activities->Staff->find('list', ['limit' => 200]);
         $priority = $this->Activities->Priorities->find('list', ['limit' => 200]);
         $status = $this->Activities->Statuses->find('list', ['limit' => 200]);
         $users = $this->Activities->Users->find('list', ['limit' => 200]);
-        $milestone_info = $this->Milestones->find('list', ['limit' => 200, 'conditions' => ['project_id' => $project_id]]);
-        $this->set(compact('activity', 'projectDetails', 'staff', 'priority', 'status', 'users', 'project_id', 'milestone_info'));
+        $milestones = $this->Activities->Milestones->find('list', ['limit' => 200, 'conditions' => ['project_id' => $project_id]]);
+        $this->set(compact('activity', 'projectDetails', 'staff', 'priority', 'status', 'users', 'project_id', 'milestones', 'currency'));
     }
 
     /**

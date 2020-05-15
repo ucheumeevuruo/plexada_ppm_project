@@ -19,9 +19,7 @@ $this->end();
             echo $this->Form->control('name');
             echo $this->Form->control('introduction');
             echo $this->Form->control('location');
-//            echo $this->Form->control('project_detail.status_id', ['options' => $statuses, 'empty' => true]);
-//            echo $this->Form->control('project_detail.currency_id', ['options' => $currencies, 'empty' => true]);
-//            echo $this->Form->control('project_detail.budget');
+            echo $this->Form->control('cost');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit'), ['class' => "bg-primary"]) ?>

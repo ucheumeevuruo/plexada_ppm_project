@@ -15,6 +15,11 @@ $this->end();
     <fieldset>
         <legend class="text-primary"><?= __('Edit Project Detail') ?></legend>
         <div class="col-sm-6 float-left">
+            <?php
+                echo $this->Form->control('name');
+                echo $this->Form->control('description', ['label' => 'Brief']);
+                echo $this->Form->control('location');
+            ?>
             <div class="mb-3">
                 <!-- <?= $this->Html->link(__('Add Objectives'), ['controller' => 'objectives', 'action' => 'add', $project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?> -->
             </div>
@@ -50,7 +55,7 @@ $this->end();
 <script>
 // ////Date picker
 $(function() {
-    $('#waiting_since, #start_date, #end_date').datepicker({
+    $('#waiting_since, #start_dt, #end_dt').datepicker({
         inline: true,
         "format": "dd/mm/yyyy",
         startDate: "0d",

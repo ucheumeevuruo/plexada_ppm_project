@@ -136,9 +136,6 @@ $this->Paginator->setTemplates([
                         <div class="col-auto">
                             <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['controller' => 'activities', 'action' => 'edit', $activity->activity_id], ['class' => 'overlay', 'escape' => false])?>
                         </div>
-                        <div class="col-auto border-left">
-                            <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['controller' => 'activities', 'action' => 'delete', $activity->activity_id], ['confirm' => __('Are you sure you want to delete # {0}?', $activity->id), 'escape' => false]) ?>
-                        </div>
                         <div class="col-auto dropdown no-arrow border-left">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

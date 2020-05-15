@@ -34,7 +34,7 @@ class TasksTable extends Table
 
         $this->setTable('tasks');
         $this->setDisplayField('Description'); # What field do you want as the default field?description
-        $this->setPrimaryKey('task_id'); // THIS IS THE PRIMARY KEY THE TABLE IS USING. You should define task_id as the primary key in your table ok thanks 
+        $this->setPrimaryKey('id'); // THIS IS THE PRIMARY KEY THE TABLE IS USING. You should define task_id as the primary key in your table ok thanks
 
         $this->belongsTo('Activities', [
             'foreignKey' => 'activity_id',
@@ -43,10 +43,10 @@ class TasksTable extends Table
         // $this->setPrimaryKey('id'); I commented this out as this is not the primary key the table is using
 
 
-        $this->belongsTo('Projects', [
-            'foreignKey' => 'project_id',
-            'joinType' => 'INNER',
-        ]);
+//        $this->belongsTo('Projects', [
+//            'foreignKey' => 'project_id',
+//            'joinType' => 'INNER',
+//        ]);
 
         $this->addBehavior('Timestamp');
     }
@@ -94,9 +94,7 @@ class TasksTable extends Table
     public function identify($formData)
     {
         $formData['Start_date'] = !empty($formData['Start_date']) ?
-            DateTime::createFromFormat('d/m/Y', $formData['Start_date']) : $formData['Start_date'];
-        $formData['Expected_end_date'] = !empty($formData['Expected_end_date']) ?
-            DateTime::createFromFormat('d/m/Y', $formData['Expected_end_date']) : $formData['Expected_end_date'];            
+            DateTime::createFromFormat('d/m/Y', $formData['Start_date'])->format('Y-m-d') : $formData['Start_date'];
         return $formData;
     }
     /**

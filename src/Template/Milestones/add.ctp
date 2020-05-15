@@ -14,27 +14,22 @@ $this->end();
 <div class="milestones container">
     <?= $this->Form->create($milestone) ?>
     <fieldset>
-        <legend class="text-primary text-center"><?= __('Add Indicator') ?></legend>
-        <?php
-            // echo $this->Form->control('record_number');
-            echo $this->Form->control('project_id', ['options' => $projects, 'text'=>'hidden']);
-            echo $this->Form->control('amount',['label' => 'Amount (USD)']);
-            echo $this->Form->control('payment',['options'=>['N','Y'],'empty' => true]);
-            echo $this->Form->control('status_id', ['options' => $lov]);
-        ?>
-            <div class="form-group text"><label class="control-label" for="description">Description</label>
-            <textarea type="text" name="description" class="form-control" id="description"></textarea>
+        <legend class="text-primary text-left"><?= __('Add Indicator') ?></legend>
+        <div class="row">
+            <div class="col-md-6">
+                <?php if(is_null($id)) echo $this->Form->control('project_id', ['options' => $projects, 'empty' => true]); else ?>
+                <?= $this->Form->hidden('project_id', ['value' => $id]); ?>
+                <?= $this->Form->control('name', ['autocomplete' => 'off']); ?>
+                <?= $this->Form->control('description', ['type' => 'textarea']); ?>
+                <?= $this->Form->hidden('status_id', ['value' => 1]); ?>
             </div>
-
-        <?php
-            // echo $this->Form->control('description');
-            echo $this->Form->control('achievement');
-            echo $this->Form->control('trigger_id', ['options' => $triggers, 'empty' => true, 'type'=>'hidden']);
-            // echo $this->Form->control('completed_date', ['empty' => true,'id'=>'completed_date']);
-            echo $this->Form->control('completed_date', ['empty' => true, 'class' => 'addon-right', 'label' => 'Start Date', 'id' => 'completed_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);
-            echo $this->Form->control('expected_completion_date', ['empty' => true, 'class' => 'addon-right', 'label' => 'Expected Completion Date', 'id' => 'expected_completion_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);
-                 // echo $this->Form->control('expected_completion_date', ['empty' => true]);
-        ?>
+            <div class="col-md-6">
+                <?= $this->Form->hidden('trigger_id', ['options' => $triggers, 'empty' => true]); ?>
+                <?= $this->Form->control('amount', ['autocomplete' => 'off']); ?>
+                <?= $this->Form->control('start_date', ['autocomplete' => 'off', 'id' => 'start_date', 'type' => 'text']); ?>
+                <?= $this->Form->control('end_date', ['autocomplete' => 'off', 'id' => 'end_date', 'type' => 'text']); ?>
+            </div>
+        </div>
     </fieldset>
     <?= $this->Form->button(__('Submit'), ['class' => 'btn-primary']) ?>
     <?= $this->Form->end() ?>
@@ -42,10 +37,19 @@ $this->end();
 
 <script>
 $(function() {
-    $('#completed_date, #expected_completion_date').datepicker({
+    $('#start_date, #end_date').datepicker({
         inline: true,
         "format": "dd/mm/yyyy",
-        startDate: "0d",
+        startDate: "0d"
+    }).on('changeDate', function(selected){
+            let date = new Date(selected);
+            date.setDate(date.getDate() + 1);
+            // $('#end_date').datepicker({inline: true,startDate : date});
+    })
+    $('#end_date').datepicker({
+        inline: true,
+        "format": "dd/mm/yyyy",
+        // startDate: "0d",
         // "endDate": "09-15-2017",
         "keyboardNavigation": false
     });

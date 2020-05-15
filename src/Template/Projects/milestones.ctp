@@ -79,7 +79,7 @@ $this->Paginator->setTemplates([
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <div class="mr-auto mt-2 mt-lg-0">
-                <?= $this->Html->link(__('Create'), ['controller' => 'milestones', 'action' => 'add'], ['class' => 'btn btn-info rounded-0 overlay', 'title' => 'Add', 'escape' => false]) ?>
+                <?= $this->Html->link(__('Create'), ['controller' => 'milestones', 'action' => 'add', $project_id], ['class' => 'btn btn-info rounded-0 overlay', 'title' => 'Add', 'escape' => false]) ?>
             </div>
             <!-- Search Form -->
             <form class="form-inline my-2 my-lg-0" method="get" id="searchable">
@@ -111,43 +111,54 @@ $this->Paginator->setTemplates([
     </nav>
     <!-- .\end Menu Area -->
 
-    <div class="row pt-4" style="height:24em">
-        <?php foreach ($milestones as $milestone): ?>
-        <div class="col-xl-3 col-md-6 mb-4" data-attr="<?= $this->Url->build(['action' => 'view', $project_id]) ?>">
-            <div class="card shadow py-0">
-                <div class="card-body py-2 px-2">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                <?= $milestone->record_number ?>
+    <div class="grey-bg vh-4 py-4">
+        <div class="row mx-0">
+            <?php foreach ($milestones as $milestone): ?>
+            <div class="col-xl-3 col-md-6 mb-4" data-attr="<?= $this->Url->build(['action' => 'view', $project_id]) ?>">
+                <div class="card <?= $this->Indicator->status($milestone->has('lov')? $milestone->lov->lov_value : '') ?> shadow py-0">
+                    <div class="card-body py-2 px-2">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    <?= $milestone->name ?>
+                                </div>
+                                <div class="h6 mb-0 font-weight-bold text-gray-800">
+                                    <?= $this->NumberFormat->format($milestone->amount, ['before' => $milestone->project->project_detail->has('currency') ? $milestone->project->project_detail->currency->symbol : '']) ?></div>
                             </div>
-                            <div class="h6 mb-0 font-weight-bold text-gray-800">
-                                <?= $this->NumberFormat->format($milestone->amount, ['before' => '₦']) ?></div>
-                        </div>
-                        <!--                            <div class="col-auto">-->
-                        <!--                                <i class="fas fa-calendar fa-2x text-gray-300"></i>-->
-                        <!--                            </div>-->
-                    </div>
-                </div>
-                <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-                    <div class="row">
-                        <div class="col-auto dropdown no-arrow">
-                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                <i class="fas fa-info-circle fa-1x text-gray-300"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in"
-                                aria-labelledby="dropdownMenuLink">
-                                <div class="dropdown-header"><?= $milestone->lov->lov_value ?></div>
-                            </div>
-                            <!--                                <i class="fas fa-info-circle fa-1x text-gray-300"></i>-->
+                            <!--                            <div class="col-auto">-->
+                            <!--                                <i class="fas fa-calendar fa-2x text-gray-300"></i>-->
+                            <!--                            </div>-->
                         </div>
                     </div>
-                </div>
+                    <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
+                        <div class="row">
+							<div class="col-auto">
+								<?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['controller' => 'milestones', 'action' => 'edit', $milestone->id], ['class' => 'overlay', 'escape' => false])?>
+							</div>
+                            <div class="col-auto border-left">
+                                <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['controller' => 'milestones', 'action' => 'delete', $milestone->id], ['confirm' => __('Are you sure you want to delete # {0}?', $milestone->id), 'escape' => false]) ?>
+                            </div>
+                            <div class="col-auto dropdown no-arrow border-left">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <i class="fas fa-info-circle fa-1x text-gray-300"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in"
+                                    aria-labelledby="dropdownMenuLink">
+                                    <div class="dropdown-item text-gray-900">Status: 
+                                    <?= $milestone->has('lov') ? $milestone->lov->lov_value : 'Not Defined' ?></div>
+                                    <div class="dropdown-item text-gray-900">Start Date: <?= $milestone->start_date ?></div>
+                                    <div class="dropdown-item text-gray-900">End Date: <?= $milestone->end_date ?></div>
+                                </div>
+                                <!--                                <i class="fas fa-info-circle fa-1x text-gray-300"></i>-->
+                            </div>
+                        </div>
+                    </div>
 
+                </div>
             </div>
+            <?php endforeach; ?>
         </div>
-        <?php endforeach; ?>
     </div>
     <div class="row border-top">
 

@@ -117,6 +117,10 @@
             ['controller' => 'Lov', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
     </li>
     <li class="nav-item">
+        <?= $this->Html->link(__('<i class="fa fa-list fa-lg"></i> &nbsp;Currencies'),
+            ['controller' => 'Currencies', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
+    </li>
+    <li class="nav-item">
         <?= $this->Html->link(__('<i class="fa fa-user-circle fa-lg"></i> &nbsp;Donors'),
             ['controller' => 'Vendors', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
     </li>

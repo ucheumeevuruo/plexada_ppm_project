@@ -105,7 +105,6 @@ class ProjectDetailsTable extends Table
             'className' => 'lov',
             'foreignKey' => 'status_id',
             'joinType' => 'INNER',
-            'conditions' => ['Statuses.lov_type' => 'project_status']
         ]);
         $this->hasMany('Sponsors', [
             'foreignKey' => 'id',

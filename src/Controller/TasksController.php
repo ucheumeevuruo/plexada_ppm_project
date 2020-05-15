@@ -46,18 +46,17 @@ class TasksController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add($id=null)
+    public function add($id = null)
     {
-        $this->loadModel('Projects');
-        $this->loadModel('Activities');
-        $project_info = $this->Projects->get($id);
-        // $activities_info = $this->Activities->find('list', ['limit' => 200, 'conditions'=>['project_id'=>$id]]);
+//        $project_info = $this->Projects->get($id);
+
+
         $task = $this->Tasks->newEntity();
         if ($this->request->is('post')) {
             // $task = $this->Tasks->patchEntity($task, $this->request->getData());
             $task = $this->Tasks->patchEntity($task, $this->Tasks->identify($this->request->getData()));
-            // debug($task);
-            // die();
+//             debug($task);
+//             die();
             if ($this->Tasks->save($task)) {
                 $this->Flash->success(__('The task has been saved.'));
 
@@ -71,12 +70,11 @@ class TasksController extends AppController
             // die();
             return $this->redirect($this->referer());
         }
-        $projects = $this->Tasks->Projects->find('list', ['limit' => 200, 'conditions'=>['id'=>$id]]);
-        $activities_info = $this->Activities->find('list', ['limit' => 200, 'conditions'=>['project_id'=>$id]]);
+        $activities = $this->Tasks->Activities->find('list', ['limit' => 200]);
             // sql($activities_info);
             // die();
             // echo $activities_info;
-        $this->set(compact('task','projects','activities_info'));
+        $this->set(compact('task','activities', 'id'));
     }
 
     /**
@@ -92,11 +90,11 @@ class TasksController extends AppController
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $task = $this->Tasks->patchEntity($task, $this->request->getData());
+            $task = $this->Tasks->patchEntity($task, $this->Tasks->identify($this->request->getData()));
             if ($this->Tasks->save($task)) {
                 $this->Flash->success(__('The task has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The task could not be saved. Please, try again.'));
         }
@@ -121,6 +119,6 @@ class TasksController extends AppController
             $this->Flash->error(__('The task could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
 }

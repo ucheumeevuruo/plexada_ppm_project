@@ -49,6 +49,9 @@ class ActivitiesTable extends Table
         $this->belongsTo('ProjectDetails', [
             'foreignKey' => 'project_id',
         ]);
+        $this->belongsTo('Projects', [
+            'foreignKey' => 'project_id',
+        ]);
         $this->belongsTo('Staff', [
             'foreignKey' => 'assigned_to_id',
         ]);
@@ -67,11 +70,14 @@ class ActivitiesTable extends Table
             'joinType' => 'LEFT',
             'conditions' => ['Statuses.lov_type' => 'project_status']
         ]);
+        $this->belongsTo('Milestones', [
+            'foreignKey' => 'milestone_id'
+        ]);
         $this->belongsTo('Users', [
             'foreignKey' => 'system_user_id',
         ]);
         $this->hasMany('Tasks', [
-            'foreignKey' => 'Task_name',
+            'foreignKey' => 'activity_id',
         ]);
     }
 
@@ -86,6 +92,11 @@ class ActivitiesTable extends Table
         $validator
             ->nonNegativeInteger('activity_id')
             ->allowEmptyString('activity_id', null, 'create');
+
+        $validator
+            ->scalar('name')
+            ->requirePresence('name', 'create')
+            ->notEmptyString('name');
 
         $validator
             ->scalar('current_activity')
@@ -110,9 +121,9 @@ class ActivitiesTable extends Table
             ->notEmptyString('priority_id');
 
         $validator
-            ->integer('percentage_completion')
-            ->requirePresence('percentage_completion', 'create')
-            ->notEmptyString('percentage_completion');
+            ->integer('percentage_completion');
+//            ->requirePresence('percentage_completion', 'create')
+//            ->notEmptyString('percentage_completion');
 
         $validator
             ->scalar('description')
@@ -167,6 +178,19 @@ class ActivitiesTable extends Table
         
     //     return $formData;
     // }
+
+    public function findByProjectName($query, $options)
+    {
+        $name = $options['id'];
+
+        if(!is_null($id))
+        {
+            $query->where(function ($exp, Query $q) use ($name){
+                return $exp->like('Activities.name', "%$name%");
+            });
+        }
+        return $query;
+    }
 
     public function identify($formData)
     {

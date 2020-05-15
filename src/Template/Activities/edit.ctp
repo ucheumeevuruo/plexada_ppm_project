@@ -15,18 +15,21 @@ $this->end();
             <div class="col-md-6">
                 <?php
                 echo $this->Form->hidden('project_id', ['options' => $projectDetails, 'empty' => true]);
-                echo $this->Form->control('next_activity', ['label' => 'Step']);
+                echo $this->Form->control('name', ['autocomplete' => 'off']);
+                echo $this->Form->control('description', ['type' => 'textarea']);
                 echo $this->Form->control('assigned_to_id', ['options' => $staff, 'empty' => true]);
+                echo $this->Form->hidden('activity_type_id', ['value' => 12]);
                 echo $this->Form->control('status_id', ['options' => $status]);
-                echo $this->Form->control('start_date', ['empty' => true, 'class' => 'addon-right', 'label' => 'Start Date', 'id' => 'start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);
-                echo $this->Form->control('end_date', ['empty' => true, 'class' => 'addon-right', 'label' => 'End Date', 'id' => 'end_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);
                 ?>
             </div>
             <div class="col-md-6">
                 <?php
-                echo $this->Form->control('priority_id', ['options' => $priority]);
-                echo $this->Form->control('description', ['type' => 'textarea']);
-                echo $this->Form->control('percentage_completion', ['type' => 'number', 'min' => 0, 'max' => 100, 'class' => 'addon-right', 'append' => '<i class="addon-right">%</i>']);
+                echo $this->Form->control('priority_id', ['options' => $priority, 'empty' => true]);
+                echo $this->Form->hidden('currency_id', ['value' => '1']);
+                echo $this->Form->control('start_date', ['empty' => true, 'class' => 'addon-right', 'label' => 'Start Date', 'id' => 'start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);
+                echo $this->Form->control('end_date', ['empty' => true, 'class' => 'addon-right', 'label' => 'End Date', 'id' => 'end_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);
+                echo $this->Form->control('cost', ['autocomplete' => 'off']);
+
                 ?>
             </div>
         </div>
