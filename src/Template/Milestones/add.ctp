@@ -22,7 +22,6 @@ $this->end();
                 <?= $this->Form->control('name', ['autocomplete' => 'off']); ?>
                 <?= $this->Form->control('description', ['type' => 'textarea']); ?>
                 <?= $this->Form->hidden('status_id', ['value' => 1]); ?>
-                <?= $this->Form->control('status_id', ['options' => $lov]); ?>
             </div>
             <div class="col-md-6">
                 <?= $this->Form->hidden('trigger_id', ['options' => $triggers, 'empty' => true]); ?>
@@ -45,14 +44,14 @@ $(function() {
     }).on('changeDate', function(selected){
             let date = new Date(selected);
             date.setDate(date.getDate() + 1);
-            $('#end_date').datepicker({inline: true,startDate : date});
+            // $('#end_date').datepicker({inline: true,startDate : date});
     })
-    // $('#end_date').datepicker({
-    //     inline: true,
-    //     "format": "dd/mm/yyyy",
-    //     // startDate: "0d",
-    //     // "endDate": "09-15-2017",
-    //     "keyboardNavigation": false
-    // });
+    $('#end_date').datepicker({
+        inline: true,
+        "format": "dd/mm/yyyy",
+        // startDate: "0d",
+        // "endDate": "09-15-2017",
+        "keyboardNavigation": false
+    });
 });
 </script>

@@ -33,7 +33,7 @@ $this->Paginator->setTemplates([
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <?= $this->Html->link(__('Projects'), ['action' => 'index'])?>
+                <?= $this->Html->link(__('Projects'), ['action' => 'index']) ?>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Indicator</li>
         </ol>
@@ -90,7 +90,7 @@ $this->Paginator->setTemplates([
 
             <!-- Pagination -->
             <span class="navbar-text ml-3 pl-4 border-left">
-                <?= $this->Paginator->counter(['format' => __('{{page}}/{{count}}  of {{pages}}')]) ?>
+                <?= $this->Paginator->counter(['format' => __('{{count}}  of {{pages}}')]) ?>
             </span>
             <!-- ./end pagination -->
 
@@ -99,12 +99,12 @@ $this->Paginator->setTemplates([
                     <?= $this->Paginator->prev(__('<i class="fas fa-less-than fa-1x"></i>'), ['class' => 'test', 'escape' => false]) ?>
 
                     <?= $this->Paginator->next(__('<i class="fas fa-greater-than fa-1x"></i>'), ['escape' => false]) ?>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#"><i class="fas fa-th-large fa-1x"></i></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="fas fa-list fa-1x text-gray-300"></i></a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
@@ -113,9 +113,10 @@ $this->Paginator->setTemplates([
 
     <div class="grey-bg vh-4 py-4">
         <div class="row mx-0">
-            <?php foreach ($milestones as $milestone): ?>
+            <?php foreach ($milestones as $milestone) : ?>
             <div class="col-xl-3 col-md-6 mb-4" data-attr="<?= $this->Url->build(['action' => 'view', $project_id]) ?>">
-                <div class="card shadow py-0">
+                <div
+                    class="card <?= $this->Indicator->status($milestone->has('lov') ? $milestone->lov->lov_value : '') ?> shadow py-0">
                     <div class="card-body py-2 px-2">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -123,7 +124,8 @@ $this->Paginator->setTemplates([
                                     <?= $milestone->name ?>
                                 </div>
                                 <div class="h6 mb-0 font-weight-bold text-gray-800">
-                                    <?= $this->NumberFormat->format($milestone->amount, ['before' => '₦']) ?></div>
+                                    <?= $this->NumberFormat->format($milestone->amount, ['before' => $milestone->project->project_detail->has('currency') ? $milestone->project->project_detail->currency->symbol : '']) ?>
+                                </div>
                             </div>
                             <!--                            <div class="col-auto">-->
                             <!--                                <i class="fas fa-calendar fa-2x text-gray-300"></i>-->
@@ -132,9 +134,9 @@ $this->Paginator->setTemplates([
                     </div>
                     <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
                         <div class="row">
-							<div class="col-auto">
-								<?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['action' => 'edit', $milestone->activity_id], ['class' => 'overlay', 'escape' => false])?>
-							</div>
+                            <div class="col-auto">
+                                <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['controller' => 'milestones', 'action' => 'edit', $milestone->id], ['class' => 'overlay', 'escape' => false]) ?>
+                            </div>
                             <div class="col-auto border-left">
                                 <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['controller' => 'milestones', 'action' => 'delete', $milestone->id], ['confirm' => __('Are you sure you want to delete # {0}?', $milestone->id), 'escape' => false]) ?>
                             </div>
@@ -145,7 +147,11 @@ $this->Paginator->setTemplates([
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in"
                                     aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-header"><?= $milestone->lov->lov_value ?></div>
+                                    <div class="dropdown-item text-gray-900">Status:
+                                        <?= $milestone->has('lov') ? $milestone->lov->lov_value : 'Not Defined' ?></div>
+                                    <div class="dropdown-item text-gray-900">Start Date: <?= $milestone->start_date ?>
+                                    </div>
+                                    <div class="dropdown-item text-gray-900">End Date: <?= $milestone->end_date ?></div>
                                 </div>
                                 <!--                                <i class="fas fa-info-circle fa-1x text-gray-300"></i>-->
                             </div>

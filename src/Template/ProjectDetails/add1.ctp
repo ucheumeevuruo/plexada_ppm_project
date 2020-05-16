@@ -86,7 +86,6 @@ $this->end();
         <legend>Project Funding</legend>
         <?= $this->Form->control('currency_id', ['options' => $currencies, 'empty' => true]); ?>
 
-        <?= $this->Form->control('budget', ['placeholder' => '0.00']); ?>
 
         <?= $this->Form->control('expenses', ['placeholder' => '0.00']); ?>
     </fieldset>
@@ -107,7 +106,7 @@ $this->end();
 
 <!-- <?= $this->Form->control('risks'); ?> -->
 <!-- <?= $this->Form->control('components'); ?> -->
-<!-- <?= $this->Form->control('price', ['options' => $prices]); ?> -->
+<!-- <?= $this->Form->control('price ', ['options' => $prices]); ?> -->
 <!-- <label class="control-label" for="price">Cost(USD)</label>
             <div class="input-group"><input type="text" name="price" value="" class="form-control addon-right" empty="1"
                     id="price"> -->
@@ -200,15 +199,6 @@ $(document).on('click', '#removeObj', function() {
 
 
 // ////Date picker
-$(function() {
-    $('#waiting_since, #start_dt, #end_dt').datepicker({
-        inline: true,
-        "format": "dd/mm/yyyy",
-        startDate: "0d",
-        // "endDate": "09-15-2017",
-        "keyboardNavigation": false
-    });
-});
 
 
 $(document).ready(function() {
@@ -221,6 +211,14 @@ $(document).ready(function() {
                 .removeClass()
             $('#MyModal4').modal('show')
         });
+    });
+    
+    $('#waiting_since, #start_date, #end_date').datepicker({
+        inline: true,
+        "format": "dd/mm/yyyy",
+        startDate: "0d",
+        // "endDate": "09-15-2017",
+        "keyboardNavigation": false
     });
 
     $(".upload").click(function(event) {

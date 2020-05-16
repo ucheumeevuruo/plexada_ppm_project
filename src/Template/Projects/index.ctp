@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\ProjectDetailOld[]|\Cake\Collection\CollectionInterface $projectDetails
@@ -32,7 +33,8 @@ $this->Paginator->setTemplates([
     <!-- I was supposed to put this section in the element template but will do that soon. -->
     <nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
         <a class="navbar-brand" href="#">Projects</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -49,7 +51,7 @@ $this->Paginator->setTemplates([
 
             <!-- Pagination -->
             <span class="navbar-text ml-3 pl-4 border-left">
-                    <?= $this->Paginator->counter(['format' => __('{{page}}/{{pages}}  of {{count}}')]) ?>
+                <?= $this->Paginator->counter(['format' => __('{{count}}  of {{pages}}')]) ?>
             </span>
             <!-- ./end pagination -->
 
@@ -58,12 +60,12 @@ $this->Paginator->setTemplates([
                     <?= $this->Paginator->prev(__('<i class="fas fa-less-than fa-1x"></i>'), ['class' => 'test', 'escape' => false]) ?>
 
                     <?= $this->Paginator->next(__('<i class="fas fa-greater-than fa-1x"></i>'), ['escape' => false]) ?>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#"><i class="fas fa-th-large fa-1x"></i></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="fas fa-list fa-1x text-gray-300"></i></a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
@@ -83,16 +85,50 @@ $this->Paginator->setTemplates([
         <div class="grey-bg vh-5 py-4">
 
             <div class="row mx-0">
-            <?php foreach ($projects as $project): ?>
+                <?php foreach ($projects as $project) : ?>
+                <?php $count = 0; ?>
+                <?php $close = 0; ?>
+                <?php foreach ($milestones as $milestone) : ?>
+                <?php if ($milestone->project_id == $project->id) {
+                            $count++;
+                        } ?>
+                <?php if ($milestone->project_id == $project->id && $milestone->status_id == 3) {
+                            $close++;
+                        } ?>
+                <?php endforeach; ?>
+
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card <?= $this->Indicator->status($project->project_detail->has('status')?$project->project_detail->status->lov_value:'') ?> shadow h-100 py-0">
+                    <div class="card  shadow h-100 py-0">
                         <div class="card-body py-2 px-2">
                             <div class="row no-gutters align-items-center">
-                                <div class="col mr-2" id="clickable-card" data-attr="<?= $this->Url->build(['action' => 'report', $project->id]) ?>">
+                                <div class="col mr-2" id="clickable-card"
+                                    data-attr="<?= $this->Url->build(['action' => 'report', $project->id]) ?>">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                         <?= $project->name ?>
-                                    </div>
-                                    <div class="h6 mb-0 font-weight-bold text-gray-800"><?= $this->NumberFormat->format($project->cost, ['before' => '₦']) ?></div>
+
+                                        <?php if ($count == 0) {
+                                                $color = 'white';
+                                                echo $color;
+                                            } elseif (($close / $count * 100) < 40) {
+                                                $color = 'red';
+                                                echo $color;
+                                            } elseif ((($close / $count * 100) >= 40) && (($close / $count * 100) < 60)) {
+                                                $color = 'yellow';
+                                                echo $color;
+                                            } elseif ((($close / $count * 100) >= 60) && (($close / $count * 100) < 80)) {
+                                                $color = 'yellow';
+                                                echo $color;
+                                            } elseif ((($close / $count * 100) > 80) && (($close / $count * 100) < 100)) {
+                                                $color = 'green';
+                                                echo $color;
+                                            } elseif (($close / $count * 100) == 100) {
+                                                $color = 'black';
+                                                echo $color;
+                                            } ?> </div>
+                                    <div class="h6 mb-0 font-weight-bold text-gray-800"><?= $project->has('project_detail') ? $this->NumberFormat->format(
+                                                                                                $project->project_detail->budget,
+                                                                                                ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']
+                                                                                            )  : '0.00' ?></div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-check-circle fa-2x text-gray-300"></i>
@@ -101,9 +137,9 @@ $this->Paginator->setTemplates([
                         </div>
                         <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
                             <div class="row">
-								<div class="col-auto">
-									<?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['action' => 'edit', $project->id], ['class' => 'overlay', 'escape' => false])?>
-								</div>
+                                <div class="col-auto">
+                                    <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['action' => 'edit', $project->id], ['class' => 'overlay', 'escape' => false]) ?>
+                                </div>
                                 <div class="col-auto border-left">
                                     <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id), 'escape' => false]) ?>
                                 </div>
@@ -117,37 +153,38 @@ $this->Paginator->setTemplates([
                         </div>
                     </div>
                 </div>
-            <?php endforeach; ?>
-        </div>
+                <?php endforeach; ?>
+            </div>
 
         </div>
     </div>
 </section>
+
+
 <!-- MODAL ELEMENTS -->
 
-    <div id="dialogModal" class="bg-primary">
-        <!-- the external content is loaded inside this tag -->
-        <div id="contentWrap">
-            <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-lg']) ?>
-            <?= $this->Modal->body() // No header
-            ?>
-            <?= $this->Modal->footer() // Footer with close button (default)
-            ?>
-            <?= $this->Modal->end() ?>
-        </div>
+<div id="dialogModal" class="bg-primary">
+    <!-- the external content is loaded inside this tag -->
+    <div id="contentWrap">
+        <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-lg']) ?>
+        <?= $this->Modal->body() // No header
+        ?>
+        <?= $this->Modal->footer() // Footer with close button (default)
+        ?>
+        <?= $this->Modal->end() ?>
     </div>
-	<script>
-    $(document).ready(function() {
-        //respond to click event on anything with 'overlay' class
-        $(".overlay").click(function (event) {
-            event.preventDefault();
-            //load content from href of link
-            $('#contentWrap .modal-body').load($(this).attr("href"), function () {
-                $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content')
-                    .removeClass()
-                $('#MyModal4').modal('show')
-            });
+</div>
+<script>
+$(document).ready(function() {
+    //respond to click event on anything with 'overlay' class
+    $(".overlay").click(function(event) {
+        event.preventDefault();
+        //load content from href of link
+        $('#contentWrap .modal-body').load($(this).attr("href"), function() {
+            $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content')
+                .removeClass()
+            $('#MyModal4').modal('show')
         });
     });
-	</script>
-
+});
+</script>

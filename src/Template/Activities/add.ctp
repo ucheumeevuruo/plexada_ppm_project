@@ -28,8 +28,8 @@ $this->end();
             </div>
             <div class="col-md-6">
                 <?php
-                    echo $this->Form->control('priority_id', ['options' => $priority, 'empty' => true]);
-                    echo $this->Form->hidden('currency_id', ['value' => '1']);
+                    echo $this->Form->hidden('priority_id', ['value' => 5]);
+                    echo $this->Form->hidden('currency_id', ['value' => $currency->project_detail->currency->id]);
                     echo $this->Form->control('start_date', ['empty' => true, 'class' => 'addon-right', 'label' => 'Start Date', 'id' => 'start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);
                     echo $this->Form->control('end_date', ['empty' => true, 'class' => 'addon-right', 'label' => 'End Date', 'id' => 'end_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']);
                     echo $this->Form->control('cost', ['autocomplete' => 'off']);

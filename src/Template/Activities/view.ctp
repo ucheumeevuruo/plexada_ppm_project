@@ -18,8 +18,13 @@ $this->end();
         <div class="col">
             <table class="table table-borderless" style="font-size:14px">
                 <tr>
-                    <th scope="row"><?= __('Project Detail') ?></th>
-                    <td><?= $activity->has('project_detail') ? $this->Html->link($activity->project_detail->name, ['controller' => 'ProjectDetailsOld', 'action' => 'view', $activity->project_detail->id]) : '' ?>
+                    <th scope="row"><?= __('Projects') ?></th>
+                    <td><?= $activity->has('project') ? $this->Html->link($activity->project->name, ['controller' => 'Projects', 'action' => 'report', $activity->project->id]) : '' ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><?= __('Milestones') ?></th>
+                    <td><?= $activity->has('milestone') ? h($activity->milestone->name) : '' ?>
                     </td>
                 </tr>
                 <tr>
@@ -29,12 +34,6 @@ $this->end();
                 <tr>
                     <th scope="row"><?= __('Assigned To') ?></th>
                     <td><?= $activity->has('staff') ? $this->Html->link($activity->staff->full_name, ['controller' => 'Staff', 'action' => 'view', $activity->staff->id]) : '' ?>
-                </tr>
-
-                <tr>
-                    <th scope="row"><?= __('Priority') ?></th>
-                    <td><?= $activity->has('priority') ? $this->Html->link($activity->priority->lov_value, ['controller' => 'Lov', 'action' => 'view', $activity->priority->id]) : '' ?>
-                    </td>
                 </tr>
                 <tr>
                     <th scope="row"><?= __('Status') ?></th>

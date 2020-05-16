@@ -31,7 +31,7 @@ class ProjectsController extends AppController
 
         $this->paginate = [
             'contain' => [
-                'ProjectDetails', 'ProjectDetails.Statuses', 'ProjectDetails.Currencies'
+                'ProjectDetails.Statuses', 'ProjectDetails.Currencies'
             ],
             //            'maxLimit' => 3
             'finder' => [
@@ -41,13 +41,7 @@ class ProjectsController extends AppController
 
         $projects = $this->paginate($this->Projects);
 
-        $this->loadModel('Milestones');
-        $milestones =  $this->Milestones->find('all');
-
-        // debug($projects);
-        // die();
-
-        $this->set(compact('projects', 'milestones'));
+        $this->set(compact('projects'));
     }
 
     /**
@@ -75,13 +69,8 @@ class ProjectsController extends AppController
         ]);
 
         $proDetail = $this->ProjectDetails->find('all')->contain(['Currencies'])->where(['project_id' => $id]);
-        $this->set('project', $project, 'proDetail');
+        $this->set('project', $project,'proDetail');
 
-
-        $this->loadModel('ProjectDetails');
-        $projectDet = $this->ProjectDetails->find('all')->contain(['Sponsors'])->where(['project_id' => $id]);
-        $this->loadModel('Sponsors');
-        $spons = $this->Sponsors->find('all')->contain(['ProjectDetails']);
 
         $this->loadModel('Milestones');
         $milestone_list =  $this->Milestones->find('all');
@@ -90,16 +79,18 @@ class ProjectsController extends AppController
 
         // debug($project);
         // die();
-        $this->set(compact('project', 'milestones', 'milestone_list', 'projectDet', 'spons'));
+        $this->set(compact('project', 'milestones', 'milestone_list'));
+
     }
+
 
     public function milestones($project_id = null)
     {
         $q = $this->request->getQuery('q');
 
         $milestones = $this->Projects->Milestones->find()
-            ->contain(['Lov', 'Projects.ProjectDetails.Currencies'])
-            ->where(['Milestones.project_id' => $project_id]);
+            ->contain(['Lov'])
+            ->where(['project_id' => $project_id]);
 
         $milestones = $this->paginate($milestones);
 
@@ -115,7 +106,7 @@ class ProjectsController extends AppController
 
         $activities->contain(['Statuses', 'Priorities', 'Currencies']);
 
-        $activities->where(['Activities.project_id' => $project_id]);
+        $activities->where(['project_id' => $project_id]);
 
         if (!is_null($q)) {
             $activities->andWhere(function ($exp, $query) use ($q) {
@@ -175,26 +166,20 @@ class ProjectsController extends AppController
         $project = $this->Projects->newEntity();
         if ($this->request->is('post')) {
             $project = $this->Projects->patchEntity($project, $this->request->getData());
-            //            debug($project);die();
+            // debug($project);die();
             if ($this->Projects->save($project)) {
                 $this->Flash->success(__('The project has been saved.'));
-                $projectDetailsId = $project->project_detail->id;
-
-                if (isset($projectDetailsId)) {
-                    return $this->redirect(['controller' => 'projectDetails', 'action' => 'edit', $projectDetailsId]);
-                } else {
-                    return $this->redirect(['controller' => 'projectDetails', 'action' => 'add', $project->id]);
-                }
+                $id = $project->id;
                 // $this->addPad($id);
 
+                return $this->redirect(['controller' => 'projectDetails', 'action' => 'add', $id]);
             }
             $this->Flash->error(__('The project could not be saved. Please, try again.'));
         }
         $pims = $this->Projects->Pims->find('list', ['limit' => 200]);
         $projectDetails = $this->Projects->ProjectDetails->find('list', ['limit' => 200]);
         $projectFundings = $this->Projects->ProjectFundings->find('list', ['limit' => 200]);
-        $currencies = $this->Projects->ProjectDetails->Currencies->find('list', ['limit' => 200]);
-        $this->set(compact('project', 'pims', 'projectFundings', 'projectDetails', 'status', 'currencies'));
+        $this->set(compact('project', 'pims', 'projectFundings', 'projectDetails', 'status'));
     }
 
 
@@ -221,10 +206,8 @@ class ProjectsController extends AppController
             $this->Flash->error(__('The project could not be saved. Please, try again.'));
         }
         $pims = $this->Projects->Pims->find('list', ['limit' => 200]);
-        $statuses = $this->Projects->ProjectDetails->Statuses->find('list', ['limit' => 200]);
-        $currencies = $this->Projects->ProjectDetails->Currencies->find('list', ['limit' => 200]);
         $projectFundings = $this->Projects->ProjectFundings->find('list', ['limit' => 200]);
-        $this->set(compact('project', 'pims', 'projectFundings', 'currencies', 'statuses'));
+        $this->set(compact('project', 'pims', 'projectFundings'));
     }
 
     /**
