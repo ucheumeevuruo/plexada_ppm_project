@@ -106,6 +106,7 @@ $this->Paginator->setTemplates([
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                         <?= $project->name ?>
 
+
                                         <?php if ($count == 0) {
                                                 $color = 'white';
                                                 echo $color;
@@ -129,6 +130,7 @@ $this->Paginator->setTemplates([
                                                                                                 $project->project_detail->budget,
                                                                                                 ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']
                                                                                             )  : '0.00' ?></div>
+
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-check-circle fa-2x text-gray-300"></i>

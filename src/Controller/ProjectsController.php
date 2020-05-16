@@ -175,14 +175,17 @@ class ProjectsController extends AppController
         $project = $this->Projects->newEntity();
         if ($this->request->is('post')) {
             $project = $this->Projects->patchEntity($project, $this->request->getData());
-            //            debug($project);die();
+
             if ($this->Projects->save($project)) {
                 $this->Flash->success(__('The project has been saved.'));
                 $projectDetailsId = $project->project_detail->id;
 
-                if (isset($projectDetailsId)) {
+
+                if(isset($projectDetailsId))
+                {
                     return $this->redirect(['controller' => 'projectDetails', 'action' => 'edit', $projectDetailsId]);
-                } else {
+                }else{
+
                     return $this->redirect(['controller' => 'projectDetails', 'action' => 'add', $project->id]);
                 }
                 // $this->addPad($id);
