@@ -50,7 +50,7 @@ class ActivitiesController extends AppController
     public function view($id = null)
     {
         $activity = $this->Activities->get($id, [
-            'contain' => ['ProjectDetails', 'Staff', 'Statuses', 'Users', 'Priorities', 'Tasks'],
+            'contain' => ['Projects', 'Milestones', 'Staff', 'Statuses', 'Users', 'Priorities', 'Tasks'],
         ]);
 
         $this->set('activity', $activity);
@@ -92,12 +92,15 @@ class ActivitiesController extends AppController
 //            return $this->redirect($this->referer());
         }
         $projectDetails = $this->Activities->ProjectDetails->find('list', ['limit' => 200]);
+        $currency = $this->Activities->Projects->get($project_id, [
+            'contain' => ['ProjectDetails.Currencies']
+        ]);
         $staff = $this->Activities->Staff->find('list', ['limit' => 200]);
         $priority = $this->Activities->Priorities->find('list', ['limit' => 200]);
         $status = $this->Activities->Statuses->find('list', ['limit' => 200]);
         $users = $this->Activities->Users->find('list', ['limit' => 200]);
         $milestones = $this->Activities->Milestones->find('list', ['limit' => 200, 'conditions' => ['project_id' => $project_id]]);
-        $this->set(compact('activity', 'projectDetails', 'staff', 'priority', 'status', 'users', 'project_id', 'milestones'));
+        $this->set(compact('activity', 'projectDetails', 'staff', 'priority', 'status', 'users', 'project_id', 'milestones', 'currency'));
     }
 
     /**

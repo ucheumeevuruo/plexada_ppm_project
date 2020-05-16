@@ -30,18 +30,21 @@ $this->end();
     <?= $this->Form->create($milestone) ?>
     <fieldset>
         <legend class="text-primary text-center"><?= __('Edit Indicator') ?></legend>
-        <?php
-            echo $this->Form->control('record_number');
-            echo $this->Form->control('project_id', ['options' => $projects]);
-            echo $this->Form->control('amount');
-            echo $this->Form->control('payment',['options' => ['N','Y']]);
-            echo $this->Form->control('status_id', ['options' => $lov]);
-            echo $this->Form->control('description',['type'=>'textarea']);
-            echo $this->Form->control('achievement');
-            echo $this->Form->control('trigger_id', ['options' => $triggers, 'empty' => true , 'type'=>'hidden']);
-            echo $this->Form->control('completed_date', ['empty' => true,'type'=>'text','class'=>'form-control-sm col-md-6', 'id'=>'completed_date']);
-            echo $this->Form->input('expected_completion_date', ['empty' => true, 'type'=>'text', 'id'=>'expected_completion_date' ,'class'=>'form-control-sm col-md-6']);
-        ?>
+        <div class="row">
+            <div class="col-md-6">
+                <?= $this->Form->control('project_id', ['options' => $projects, 'readonly' => true]); ?>
+                <?= $this->Form->control('name', ['autocomplete' => 'off']); ?>
+                <?= $this->Form->control('description', ['type' => 'textarea']); ?>
+                <?= $this->Form->hidden('status_id', ['value' => 1]); ?>
+            </div>
+            <div class="col-md-6">
+                <?= $this->Form->control('status_id', ['options' => $lov]); ?>
+                <?= $this->Form->hidden('trigger_id', ['options' => $triggers, 'empty' => true]); ?>
+                <?= $this->Form->control('amount', ['autocomplete' => 'off']); ?>
+                <?= $this->Form->control('start_date', ['autocomplete' => 'off', 'id' => 'start_date', 'type' => 'text']); ?>
+                <?= $this->Form->control('end_date', ['autocomplete' => 'off', 'id' => 'end_date', 'type' => 'text']); ?>
+            </div>
+        </div>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
@@ -50,7 +53,7 @@ $this->end();
 
 <script>
 $(function() {
-    $('#completed_date, #expected_completion_date').datepicker({
+    $('#start_date, #end_date').datepicker({
         inline: true,
         "format": "dd/mm/yyyy",
         startDate: "0d",

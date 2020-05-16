@@ -55,8 +55,8 @@ class MilestonesController extends AppController
         if ($this->request->is('post')) {
             //  $milestone = $this->Milestones->patchEntity($milestone, $this->request->getData());
            $milestone = $this->Milestones->patchEntity($milestone, $this->Milestones->identify($this->request->getData()));
-//             debug($milestone);
-//             die();
+            // debug($milestone);
+            // die();
             if ($this->Milestones->save($milestone)) {
                 $this->Flash->success(__('Indicator saved successfully.'));
                 return $this->redirect($this->referer());
@@ -70,7 +70,7 @@ class MilestonesController extends AppController
 //        $triggers = $this->Milestones->Triggers->find('list', ['limit' => 200]);
         $triggers = [];
 
-        $this->set(compact('milestone', 'projects', 'lov', 'triggers', 'id'));
+        $this->set(compact('milestone', 'projects', 'lov', 'triggers', 'id', 'projectDetails'));
     }
 
     /**

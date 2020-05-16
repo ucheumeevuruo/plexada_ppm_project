@@ -52,6 +52,7 @@ class MilestonesTable extends Table
         ]);
         $this->belongsTo('Lov', [
             'foreignKey' => 'status_id',
+            'conditions' => ['Lov.lov_type' => 'project_status']
         ]);
         $this->belongsTo('Triggers', [
             'className' => 'Lov',

@@ -49,6 +49,9 @@ class ActivitiesTable extends Table
         $this->belongsTo('ProjectDetails', [
             'foreignKey' => 'project_id',
         ]);
+        $this->belongsTo('Projects', [
+            'foreignKey' => 'project_id',
+        ]);
         $this->belongsTo('Staff', [
             'foreignKey' => 'assigned_to_id',
         ]);
