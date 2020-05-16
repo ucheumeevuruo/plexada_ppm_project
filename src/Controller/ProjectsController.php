@@ -129,9 +129,12 @@ class ProjectsController extends AppController
 
         $activities = $this->paginate($activities);
 
-        // debug($activities);
+        $project = $this->Projects->get($project_id, [
+            'contain' => ['ProjectDetails'],
+        ]);
+        // debug($project);
         // die();
-        $this->set(compact('activities', 'project_id'));
+        $this->set(compact('activities', 'project_id', 'project'));
     }
 
     public function partners($id = null)
@@ -181,10 +184,9 @@ class ProjectsController extends AppController
                 $projectDetailsId = $project->project_detail->id;
 
 
-                if(isset($projectDetailsId))
-                {
+                if (isset($projectDetailsId)) {
                     return $this->redirect(['controller' => 'projectDetails', 'action' => 'edit', $projectDetailsId]);
-                }else{
+                } else {
 
                     return $this->redirect(['controller' => 'projectDetails', 'action' => 'add', $project->id]);
                 }
@@ -273,7 +275,12 @@ class ProjectsController extends AppController
         }
         $ganttDetails = $array_gantt;
 
-        $this->set(compact('ganttDetails', 'id'));
+
+        $project = $this->Projects->get($id, [
+            'contain' => ['ProjectDetails'],
+        ]);
+
+        $this->set(compact('ganttDetails', 'id', 'project'));
     }
 
     public function milestoneRecords($projectID, $num)

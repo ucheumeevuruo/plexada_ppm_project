@@ -96,70 +96,72 @@ $this->Paginator->setTemplates([
                             $close++;
                         } ?>
                 <?php endforeach; ?>
-
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card  shadow h-100 py-0">
-                        <div class="card-body py-2 px-2">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2" id="clickable-card"
-                                    data-attr="<?= $this->Url->build(['action' => 'report', $project->id]) ?>">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        <?= $project->name ?>
 
+                    <?php if ($count == 0) : { ?>
+                    <div class="card shadow h-100 py-0 border border-left-primary rounded-lg">
 
-                                        <?php if ($count == 0) {
-                                                $color = 'white';
-                                                echo $color;
-                                            } elseif (($close / $count * 100) < 40) {
-                                                $color = 'red';
-                                                echo $color;
-                                            } elseif ((($close / $count * 100) >= 40) && (($close / $count * 100) < 60)) {
-                                                $color = 'yellow';
-                                                echo $color;
-                                            } elseif ((($close / $count * 100) >= 60) && (($close / $count * 100) < 80)) {
-                                                $color = 'yellow';
-                                                echo $color;
-                                            } elseif ((($close / $count * 100) > 80) && (($close / $count * 100) < 100)) {
-                                                $color = 'green';
-                                                echo $color;
-                                            } elseif (($close / $count * 100) == 100) {
-                                                $color = 'black';
-                                                echo $color;
-                                            } ?> </div>
-                                    <div class="h6 mb-0 font-weight-bold text-gray-800"><?= $project->has('project_detail') ? $this->NumberFormat->format(
-                                                                                                $project->project_detail->budget,
-                                                                                                ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']
-                                                                                            )  : '0.00' ?></div>
+                        <?php } elseif (($close / $count * 100) < 40) : { ?>
+                        <div class="card shadow h-100 py-0 border border-left-danger rounded-lg">
 
+                            <?php } elseif ((($close / $count * 100) >= 40) && (($close / $count * 100) < 60)) : { ?>
+                            <div class="card shadow h-100 py-0 border border-left-warning rounded-lg">
+
+                                <?php } elseif ((($close / $count * 100) >= 60) && (($close / $count * 100) < 80)) : { ?>
+                                <div class="card shadow h-100 py-0 border border-left-warning rounded-lg">
+
+                                    <?php } elseif ((($close / $count * 100) > 80) && (($close / $count * 100) < 100)) : { ?>
+                                    <div class="card shadow h-100 py-0 border border-left-success rounded-lg">
+
+                                        <?php } elseif (($close / $count * 100) == 100) : { ?>
+                                        <div class="card shadow h-100 py-0 border border-left-dark rounded-lg">
+
+                                            <?php  } ?>
+                                            <?php endif; ?>
+
+                                            <div class="card-body py-2 px-2">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2" id="clickable-card"
+                                                        data-attr="<?= $this->Url->build(['action' => 'report', $project->id]) ?>">
+                                                        <div
+                                                            class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                            <?= $project->name ?>
+                                                        </div>
+                                                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                                                            <?= $project->has('project_detail') ? $this->NumberFormat->format(
+                                                                    $project->project_detail->budget,
+                                                                    ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']
+                                                                )  : '0.00' ?></div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer no-gutters align-items-center py-0"
+                                                style="background:#fff">
+                                                <div class="row">
+                                                    <div class="col-auto">
+                                                        <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['action' => 'edit', $project->id], ['class' => 'overlay', 'escape' => false]) ?>
+                                                    </div>
+                                                    <div class="col-auto border-left">
+                                                        <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id), 'escape' => false]) ?>
+                                                    </div>
+                                                    <div class="col-auto border-left">
+                                                        <i class="fas fa-clock fa-1x text-gray-300"></i>
+                                                    </div>
+                                                    <div class="col border-left ">
+                                                        <i class="fas fa-book fa-1x text-gray-300"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php endforeach; ?>
                                 </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-check-circle fa-2x text-gray-300"></i>
-                                </div>
+
                             </div>
                         </div>
-                        <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-                            <div class="row">
-                                <div class="col-auto">
-                                    <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['action' => 'edit', $project->id], ['class' => 'overlay', 'escape' => false]) ?>
-                                </div>
-                                <div class="col-auto border-left">
-                                    <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id), 'escape' => false]) ?>
-                                </div>
-                                <div class="col-auto border-left">
-                                    <i class="fas fa-clock fa-1x text-gray-300"></i>
-                                </div>
-                                <div class="col border-left ">
-                                    <i class="fas fa-book fa-1x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <?php endforeach; ?>
-            </div>
-
-        </div>
-    </div>
 </section>
 
 

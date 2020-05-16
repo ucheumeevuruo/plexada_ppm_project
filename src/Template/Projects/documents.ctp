@@ -22,7 +22,7 @@ $this->end();
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <?= $this->Html->link(__('Projects'), ['action' => 'index'])?>
+                <?= $this->Html->link(__('Projects'), ['action' => 'index']) ?>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Documents</li>
         </ol>
@@ -41,16 +41,13 @@ $this->end();
             <?= $this->Html->link('Activities', ['controller' => 'projects', 'action' => 'activities', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Resources', [], ['id' => 'transmit', 'class' => 'nav-link']) ?>
-        </li>
-        <li class="nav-item">
             <?= $this->Html->link('Partners', ['controller' => 'projectDetails', 'action' => 'partners', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
             <?= $this->Html->link('Gantt Charts', ['action' => 'gantt_chart', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Documents', [ 'action' => 'documents', $project->id], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
+            <?= $this->Html->link('Documents', ['action' => 'documents', $project->id], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
         </li>
     </ul>
     <!-- ./end Navigation area -->
@@ -117,9 +114,9 @@ $this->end();
     <div id="contentWrap">
         <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-lg']) ?>
         <?= $this->Modal->body() // No header
-            ?>
+        ?>
         <?= $this->Modal->footer() // Footer with close button (default)
-            ?>
+        ?>
         <?= $this->Modal->end() ?>
     </div>
 </div>

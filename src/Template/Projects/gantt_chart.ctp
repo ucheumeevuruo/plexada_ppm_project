@@ -19,7 +19,7 @@ $this->end();
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <?= $this->Html->link(__('Projects'), ['action' => 'index'])?>
+                <?= $this->Html->link(__('Projects'), ['action' => 'index']) ?>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Gantt Charts</li>
         </ol>
@@ -38,16 +38,13 @@ $this->end();
             <?= $this->Html->link('Activities', ['controller' => 'projects', 'action' => 'activities', $id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Resources', [], ['id' => 'transmit', 'class' => 'nav-link']) ?>
-        </li>
-        <li class="nav-item">
             <?= $this->Html->link('Partners', ['controller' => 'projectDetails', 'action' => 'partners', $id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Gantt Charts', ['controller' => 'projects','action' => 'gantt_chart', $id], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
+            <?= $this->Html->link('Gantt Charts', ['controller' => 'projects', 'action' => 'gantt_chart', $id], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Documents', [ 'action' => 'documents', $id], ['id' => 'transmit', 'class' => 'nav-link ']) ?>
+            <?= $this->Html->link('Documents', ['action' => 'documents', $id], ['id' => 'transmit', 'class' => 'nav-link ']) ?>
         </li>
     </ul>
     <!-- ./end Navigation area -->
@@ -61,7 +58,8 @@ $this->end();
             <span class="navbar-toggler-icon"></span>
         </button>
     </nav>
-
+    <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($project->name) ?>
+    </h2>
 
 
     <?= $this->Html->script('Chart.min.js') ?>
@@ -79,8 +77,8 @@ $this->end();
                         <div id="container3">
                             <div id="ganttcontainer2" style="height: 500px; width: 100%">
                                 <script>
-                                <?php $obj_array = json_encode($ganttDetails) ?>
-                                    var array_code2 = <?php echo $obj_array; ?> ;
+                                < ? php $obj_array = json_encode($ganttDetails) ? >
+                                    var array_code2 = < ? php echo $obj_array; ? > ;
                                 ganttProject2(array_code2);
                                 // console.log(array_code2)
                                 </script>
