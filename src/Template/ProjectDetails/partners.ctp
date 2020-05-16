@@ -21,7 +21,7 @@ $this->end();
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <?= $this->Html->link(__('Projects'), ['action' => 'index'])?>
+                <?= $this->Html->link(__('Projects'), ['action' => 'index']) ?>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Partners</li>
         </ol>
@@ -38,9 +38,6 @@ $this->end();
         </li>
         <li class="nav-item">
             <?= $this->Html->link('Activities', ['controller' => 'projects', 'action' => 'activities', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
-        </li>
-        <li class="nav-item">
-            <?= $this->Html->link('Resources', [], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
             <?= $this->Html->link('Partners', [], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
@@ -64,9 +61,14 @@ $this->end();
         </button>
     </nav>
 
+
+    <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($projectDetails->project->name) ?> </h2>
+
+
     <div class="row m-3">
         <?php $num = 0; ?>
         <?php foreach ($projectDetails->sponsors as $sponsor) : ?>
+
         <?php $num++; ?>
 
         <div class="col-xl-4 col-md-6 mb-4">
@@ -75,10 +77,15 @@ $this->end();
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2" id="clickable-card" data-attr="">
                             <div class="h6 mb-0 font-weight-bold text-gray-800 p-3">
-                                <div class="mb-3"><i class="fa fa-user-shield"></i><span class="ml-2 text-primary"><?= h($sponsor->last_name) . ' ' .h($sponsor->first_name) ?></span></div>
-                                <div class="mb-3"><i class="fa fa-envelope-open-text"> </i><span class="ml-2 text-primary"><?= h($sponsor->email) ?></span></div>
-                                <div class="mb-3"><i class="fa fa-phone-alt"></i><span class="ml-2 text-primary"><?= h($sponsor->phone_no) ?></span></div>
-                                <div><i class="fa fa-map-marker-alt"></i><span class="ml-2 text-primary"><?= h($sponsor->address) ?></span></div>
+                                <div class="mb-3"><i class="fa fa-user-shield"></i><span
+                                        class="ml-2 text-primary"><?= h($sponsor->last_name) . ' ' . h($sponsor->first_name) ?></span>
+                                </div>
+                                <div class="mb-3"><i class="fa fa-envelope-open-text"> </i><span
+                                        class="ml-2 text-primary"><?= h($sponsor->email) ?></span></div>
+                                <div class="mb-3"><i class="fa fa-phone-alt"></i><span
+                                        class="ml-2 text-primary"><?= h($sponsor->phone_no) ?></span></div>
+                                <div><i class="fa fa-map-marker-alt"></i><span
+                                        class="ml-2 text-primary"><?= h($sponsor->address) ?></span></div>
                             </div>
                         </div>
                     </div>

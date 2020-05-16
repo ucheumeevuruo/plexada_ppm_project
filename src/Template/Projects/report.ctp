@@ -38,9 +38,6 @@ $this->end();
             <?= $this->Html->link('Activities', ['controller' => 'projects', 'action' => 'activities', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Resources', [], ['id' => 'transmit', 'class' => 'nav-link']) ?>
-        </li>
-        <li class="nav-item">
             <?= $this->Html->link('Partners', ['controller' => 'projectDetails', 'action' => 'partners', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">

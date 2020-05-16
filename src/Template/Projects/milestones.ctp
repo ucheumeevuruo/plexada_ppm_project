@@ -53,9 +53,6 @@ $this->Paginator->setTemplates([
             <?= $this->Html->link('Activities', ['action' => 'activities', $project_id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Resources', [], ['id' => 'transmit', 'class' => 'nav-link']) ?>
-        </li>
-        <li class="nav-item">
             <?= $this->Html->link('Partners', ['controller' => 'projectDetails', 'action' => 'partners', $project_id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
@@ -110,6 +107,10 @@ $this->Paginator->setTemplates([
         </div>
     </nav>
     <!-- .\end Menu Area -->
+    <?php foreach ($milestones as $milestone) : ?>
+    <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($milestone->project->name) ?> </h2>
+    <?php break; ?>
+    <?php endforeach; ?>
 
     <div class="grey-bg vh-4 py-4">
         <div class="row mx-0">
