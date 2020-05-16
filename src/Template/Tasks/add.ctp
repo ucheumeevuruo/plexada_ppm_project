@@ -19,8 +19,17 @@ $this->end();
                 <?= $this->Form->control('Task_name', ['label'=>'Task Name','id' => 'Task_name', ]) ?>
                 <?= $this->Form->control('Description', ['type'=>'textarea']) ?>
             </div>
+
             <div class="col">
-                <?= $this->Form->control('Predecessor') ?>
+            <label class="control-label" for="Predecessor">Predecessor</label>  
+            <select name="Predecessor" class="form-control" id="predecessor">
+            <option value=""></option>
+            <?php foreach ($oldTasks as $tasklist):?>
+            <option value="<?php echo $tasklist ?>"><?php echo $tasklist ?></option>
+            <?php endforeach ?>
+            </select>
+                  
+                <!-- <?= $this->Form->control('Predecessor',['options'=> $oldTasks, 'value'=>$oldTasks, 'empty'=>true,'multiple' => false,]) ?> -->
                 <?= $this->Form->control('Successor') ?>
                 <?= $this->Form->control('Start_date', [
                         'empty' => true, 'class' => 'addon-right', 'label' => 'Start Date', 'id' => 'Start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off'

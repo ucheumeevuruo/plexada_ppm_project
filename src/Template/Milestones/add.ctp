@@ -25,9 +25,10 @@ $this->end();
             </div>
             <div class="col-md-6">
                 <?= $this->Form->hidden('trigger_id', ['options' => $triggers, 'empty' => true]); ?>
-                <?= $this->Form->control('amount', ['autocomplete' => 'off']); ?>
+                <?= $this->Form->control('amount', ['autocomplete' => 'off', 'max'=> $result]); ?>
                 <?= $this->Form->control('start_date', ['autocomplete' => 'off', 'id' => 'start_date', 'type' => 'text']); ?>
                 <?= $this->Form->control('end_date', ['autocomplete' => 'off', 'id' => 'end_date', 'type' => 'text']); ?>
+                <?= $this->Form->control('Indicator_type', ['options' => ['critical','non-critical','PPA','intermediary'], 'empty' => true]); ?>
             </div>
         </div>
     </fieldset>

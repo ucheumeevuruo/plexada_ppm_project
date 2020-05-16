@@ -302,8 +302,13 @@ class ProjectDetailsController extends AppController
      */
     public function edit($id = null)
     {
-
+        $this->loadModel('Projects');
+        
         $projectDetail = $this->ProjectDetails->get($id);
+
+        $project_info = $this->Projects->get($projectDetail->project_id);
+        // debug($project_info->name);
+        // die();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $projectDetail = $this->ProjectDetails->patchEntity(
                 $projectDetail,
@@ -361,7 +366,7 @@ class ProjectDetailsController extends AppController
 
         $users = $this->ProjectDetails->Users->find('list', ['limit' => 200]);
         $userid = $id;
-        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'donors', 'mdas', 'lov', 'users', 'subStatus', 'users', 'currencies'));
+        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'donors', 'mdas', 'lov', 'users', 'subStatus', 'users', 'currencies','project_info'));
     }
     /**
      * Delete method

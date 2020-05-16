@@ -50,7 +50,8 @@ class MilestonesController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add($id = null)
-    {
+    {   $this->loadModel('ProjectDetails');
+
         $milestone = $this->Milestones->newEntity();
         if ($this->request->is('post')) {
             //  $milestone = $this->Milestones->patchEntity($milestone, $this->request->getData());
@@ -66,11 +67,17 @@ class MilestonesController extends AppController
         }
         $projects = $this->Milestones->Projects->find('list', ['limit' => 200]);
 
+        // $ddi = $this->ProjectDetails->find('all')->where(['project_id'=> $projects->id]);
+        
+        $ddi  = $this->ProjectDetails->find('all',['conditions'=>['project_id'=>$id]]);
+        foreach ($ddi as $a);
+        $result = $a->budget;
+
         $lov = $this->Milestones->Lov->find('list', ['limit' => 200])->where(['lov_type'=>'project_status']);
 //        $triggers = $this->Milestones->Triggers->find('list', ['limit' => 200]);
         $triggers = [];
 
-        $this->set(compact('milestone', 'projects', 'lov', 'triggers', 'id', 'projectDetails'));
+        $this->set(compact('milestone', 'projects', 'lov', 'triggers', 'id', 'projectDetails','result'));
     }
 
     /**
