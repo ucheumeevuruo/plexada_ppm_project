@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\ProjectDetail $projectDetail
@@ -13,6 +12,17 @@ $this->end();
 ?>
 <div class="projectDetails form large-9 medium-8 columns content">
     <?= $this->Form->create($projectDetail) ?>
+
+        <input type="hidden" name="name" id="name" value="<?= $project_info->name ?>"
+                class="form-control addon-right" empty="1" id="description" autocomplete="off">
+        <input type="hidden" name="project_id" id="project_id" value="<?= $project_info->id ?>" />
+
+                <input type="hidden" name="description" value="<?= $project_info->introduction ?>"
+                class="form-control addon-right" empty="1" id="description" autocomplete="off">
+
+                <input type="hidden" name="location" value="<?= $project_info->location ?>"
+                class="form-control addon-right" empty="1" id="location" autocomplete="off">
+
     <fieldset>
         <legend class="text-primary"><?= __('Edit Project Detail') ?></legend>
         <div class="col-sm-6 float-left">
@@ -20,11 +30,11 @@ $this->end();
                 <!-- <?= $this->Html->link(__('Add Objectives'), ['controller' => 'objectives', 'action' => 'add', $project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 overlay']) ?> -->
             </div>
             <?php
-            echo $this->Form->control('manager_id', ['options' => $staff, 'empty' => true]);
-            echo $this->Form->control('sponsor_id', ['options' => $sponsors, 'empty' => true, 'label' => 'Project Sponsor']);
-            echo $this->Form->control('donor_id', ['options' => $donors, 'empty' => true]);
-            echo $this->Form->control('mda_id', ['options' => $mdas, 'empty' => true]);
-            echo $this->Form->control('DLI');
+                echo $this->Form->control('manager_id', ['options' => $staff, 'empty' => true]);
+                echo $this->Form->control('sponsor_id', ['options' => $sponsors, 'empty' => true,'label'=>'Project Sponsor']);
+                echo $this->Form->control('donor_id', ['options' => $donors, 'empty' => true]);
+                echo $this->Form->control('mda_id', ['options' => $mdas, 'empty' => true, 'label'=>'M D A']);
+                echo $this->Form->control('DLI');
 
             ?>
         </div>

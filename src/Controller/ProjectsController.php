@@ -178,14 +178,16 @@ class ProjectsController extends AppController
         $project = $this->Projects->newEntity();
         if ($this->request->is('post')) {
             $project = $this->Projects->patchEntity($project, $this->request->getData());
-            //            debug($project);die();
+
             if ($this->Projects->save($project)) {
                 $this->Flash->success(__('The project has been saved.'));
                 $projectDetailsId = $project->project_detail->id;
 
+
                 if (isset($projectDetailsId)) {
                     return $this->redirect(['controller' => 'projectDetails', 'action' => 'edit', $projectDetailsId]);
                 } else {
+
                     return $this->redirect(['controller' => 'projectDetails', 'action' => 'add', $project->id]);
                 }
                 // $this->addPad($id);
@@ -332,7 +334,7 @@ class ProjectsController extends AppController
             $mileConnector = "$num _ $num_mile2";
             $object_activity = new \stdClass();
             $object_activity->id = $mileID;
-            $object_activity->name = $activity['next_activity'];
+            $object_activity->name = $activity['name'];
             $object_activity->actualStart = $activity['created'];
             $object_activity->actualEnd = $activity['last_updated'];
             $object_activity->connectTo = $mileConnector;
@@ -349,7 +351,7 @@ class ProjectsController extends AppController
     {
         $conn = ConnectionManager::get('default');
         $array_task_child = array();
-        $qrytasks = $conn->execute("SELECT *  FROM tasks where activities_id = $activityID");
+        $qrytasks = $conn->execute("SELECT *  FROM tasks where activity_id = $activityID");
         $num_mile = 1;
         foreach ($qrytasks as $task) {
             $num_mile2 = $num_mile + 1;
@@ -363,7 +365,7 @@ class ProjectsController extends AppController
             $object_tasks->actualEnd = strtotime($task['Start_date'] . ' + 5 days');
             $object_tasks->connectTo = $mileConnector;
             $object_tasks->connectorType = "finish-start";
-            $object_tasks->progressValue = $task['percentage_completion'];
+            $object_tasks->progressValue = "0%";
             array_push($array_task_child, $object_tasks);
             $num_mile++;
         }

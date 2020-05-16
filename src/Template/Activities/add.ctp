@@ -18,7 +18,7 @@ $this->end();
                         echo $this->Form->control('project_id', ['options' => $projectDetails, 'empty' => true]);
                     else
                         echo $this->Form->hidden('project_id', ['value' => $project_id, 'empty' => false]);
-                    echo $this->Form->control('milestone_id', ['options' => $milestones]);
+                    echo $this->Form->control('milestone_id', ['options' => $milestones, 'label'=>'Indicator']);
                     echo $this->Form->control('name', ['autocomplete' => 'off']);
                     echo $this->Form->control('description', ['type' => 'textarea']);
                     echo $this->Form->control('assigned_to_id', ['options' => $staff, 'empty' => true]);
@@ -59,10 +59,14 @@ $this->end();
 </div>
 
 <script>
-$(function() {
+<?php $code_array = json_encode($startDate) ?>
+var array_code = <?php echo $code_array; ?>; 
+$(function($array_code) {
     $('#start_date, #end_date').datepicker({
         inline: true,
-        "format": "dd/mm/yyyy",
+        "format": "dd/mm/yyyy",   
+        startDate: <?php echo $code_array; ?>,
+        // endDate: "09-15-2017",
         // "endDate": "09-15-2017",
         "keyboardNavigation": false
     });

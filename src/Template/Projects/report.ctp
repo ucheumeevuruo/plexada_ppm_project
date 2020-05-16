@@ -12,6 +12,12 @@ echo $this->element('navbar/default');
 $this->end();
 ?>
 
+<style>
+.drilldown {
+    max-height: 150px;
+    overflow-y: scroll;
+}
+</style>
 
 <div class="container-fluid  mt-4">
 
@@ -221,10 +227,10 @@ $this->end();
                     <div class=" font-weight-bold mb-4 mt- 2 text-primary text-uppercase mb-1">
                         <?= h('Completed Indicators') ?>
                     </div>
-                    <div class="h6 mb-0 text-gray-800">
+                    <div class="h6 mb-0 text-gray-800 drilldown">
                         <?php foreach ($project->milestones as $milestones) : ?>
                         <p class="card-text text-gray-800">
-                            <?= $this->Html->link($milestones->description, ['controller' => 'milestones', 'action' => 'view', $milestones->id], ['class' => 'nav-col']) ?>
+                            <?= $this->Html->link($milestones->description, ['controller' => 'milestones', 'action' => 'view', $milestones->id], ['class' => 'nav-col text-gray-800']) ?>
                         </p>
                         <?php endforeach; ?>
                     </div>
