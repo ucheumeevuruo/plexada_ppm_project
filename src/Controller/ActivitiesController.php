@@ -100,7 +100,13 @@ class ActivitiesController extends AppController
         $status = $this->Activities->Statuses->find('list', ['limit' => 200]);
         $users = $this->Activities->Users->find('list', ['limit' => 200]);
         $milestones = $this->Activities->Milestones->find('list', ['limit' => 200, 'conditions' => ['project_id' => $project_id]]);
-        $this->set(compact('activity', 'projectDetails', 'staff', 'priority', 'status', 'users', 'project_id', 'milestones', 'currency'));
+
+        $milestones2 = $this->Milestones->find('all', ['limit' => 200, 'conditions' => ['project_id' => $project_id]])->first();
+        $startDate = ($milestones2->start_date)->format("d-M-Y");
+        // debug($startDate);
+        // die();
+        $endDate = $milestones2->end_date;
+        $this->set(compact('activity', 'projectDetails', 'staff', 'priority', 'status', 'users', 'project_id', 'milestones', 'currency','startDate'));
     }
 
     /**

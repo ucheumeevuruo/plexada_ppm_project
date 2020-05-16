@@ -211,7 +211,13 @@ $this->end();
                                                 'title' => $achievement
                                             )); ?></td>
                                         <td><?= $mlcount ?> </td>
-                                        <td><?= $completeddays ?>%</td>
+                                        <td><?php if ($completeddays>100){
+                                            echo 100;
+                                        }else{
+                                            echo $completeddays;
+                                        }
+                                        
+                                        ?>%</td>
                                     </tr>
 
                                 <?php endforeach; ?>

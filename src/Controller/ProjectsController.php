@@ -327,7 +327,7 @@ class ProjectsController extends AppController
             $mileConnector = "$num _ $num_mile2";
             $object_activity = new \stdClass();
             $object_activity->id = $mileID;
-            $object_activity->name = $activity['next_activity'];
+            $object_activity->name = $activity['name'];
             $object_activity->actualStart = $activity['created'];
             $object_activity->actualEnd = $activity['last_updated'];
             $object_activity->connectTo = $mileConnector;
@@ -344,7 +344,7 @@ class ProjectsController extends AppController
     {
         $conn = ConnectionManager::get('default');
         $array_task_child = array();
-        $qrytasks = $conn->execute("SELECT *  FROM tasks where activities_id = $activityID");
+        $qrytasks = $conn->execute("SELECT *  FROM tasks where activity_id = $activityID");
         $num_mile = 1;
         foreach ($qrytasks as $task) {
             $num_mile2 = $num_mile + 1;
@@ -358,7 +358,7 @@ class ProjectsController extends AppController
             $object_tasks->actualEnd = strtotime($task['Start_date'] . ' + 5 days');
             $object_tasks->connectTo = $mileConnector;
             $object_tasks->connectorType = "finish-start";
-            $object_tasks->progressValue = $task['percentage_completion'];
+            $object_tasks->progressValue = "0%";
             array_push($array_task_child, $object_tasks);
             $num_mile++;
         }

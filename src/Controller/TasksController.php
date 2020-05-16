@@ -74,7 +74,10 @@ class TasksController extends AppController
             // sql($activities_info);
             // die();
             // echo $activities_info;
-        $this->set(compact('task','activities', 'id'));
+        $oldTasks = $this->Tasks->find('list')->where(['activity_id'=>$id]);
+        // debug($oldTasks);
+        // die();
+        $this->set(compact('task','activities', 'id','oldTasks'));
     }
 
     /**
