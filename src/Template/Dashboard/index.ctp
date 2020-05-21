@@ -1,4 +1,4 @@
-<?php //$pieChart->printScripts(); 
+<?php //$pieChart->printScripts();
 ?>
 <!---->
 <?php
@@ -43,7 +43,7 @@ $this->end();
             overflow-x: scroll;
             /* width: 900px; */
             height: 300px;
-        }        
+        }
     </style>
     <?php
     $arrcompleted = [];
@@ -99,7 +99,7 @@ $this->end();
                                         <th></th>
                                         <th></th>
                                         <th>Tasks</th>
-                                        <th>Progress</th>
+                                        <th>Indicator Progress</th>
                                     </tr>
                                 </thead>
                                 <?php foreach ($project_list as $project) : ?>
@@ -216,7 +216,7 @@ $this->end();
                                         }else{
                                             echo $completeddays;
                                         }
-                                        
+
                                         ?>%</td>
                                     </tr>
 
@@ -225,7 +225,7 @@ $this->end();
                             </table>
                         </div>
                         <!-- <div class="col-md-6">
-                                
+
                                 </div> -->
 
                     </div>
@@ -235,7 +235,7 @@ $this->end();
         </div>
     </div>
     <!-- End of health chart  -->
-    
+
     <!-- start of progress chart -->
     <!-- <div class="md-4 mb-5">
         <div class="card h-100 br-m">
@@ -425,7 +425,7 @@ $this->end();
     <!-- <div class="row">
         <div class="col">
             <div class="card shadow mb-5">
-                
+
                 <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
                     <h4 class="m-0 text-white">Doughnut chart</h4>
                     <div class="dropdown no-arrow">
@@ -442,10 +442,10 @@ $this->end();
                     </div>
                 </div>
 
-                
+
                 <div class="card-body">
                     <div id="container">
-                        
+
                         <canvas id="myChart3" width="200" height="50" style="height:400px"></canvas>
                         <script>
                             <?php $code_array = json_encode($allprojects) ?>
@@ -479,7 +479,7 @@ $this->end();
                     </div>
                 </div>
 
-                
+
                 <div class="card-body">
                     <div id="container2">
                         <div id="ganttcontainer" style="height: 500px; width: 100%"></div>
@@ -502,13 +502,13 @@ $this->end();
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                        <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Dropdown Header:</div>
                             <a class="dropdown-item" href="#">Action</a>
                             <a class="dropdown-item" href="#">Another action</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
