@@ -85,21 +85,20 @@ $this->Paginator->setTemplates([
 
                 <!-- Pagination -->
                 <span class="navbar-text ml-3 pl-4 border-left">
-                    <?= $this->Paginator->counter(['format' => __('{{page}}/{{pages}}  of {{count}}')]) ?>
+                    <?= $this->Paginator->counter(['format' => __('{{count}} of {{pages}}')]) ?>
                 </span>
                 <!-- ./end pagination -->
 
                 <div class="mt-2 mt-lg-0">
                     <ul class="navbar-nav">
                         <?= $this->Paginator->prev(__('<i class="fas fa-less-than fa-1x"></i>'), ['class' => 'test', 'escape' => false]) ?>
-
                         <?= $this->Paginator->next(__('<i class="fas fa-greater-than fa-1x"></i>'), ['escape' => false]) ?>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link" href="#"><i class="fas fa-th-large fa-1x"></i></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"><i class="fas fa-list fa-1x text-gray-300"></i></a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
@@ -120,9 +119,13 @@ $this->Paginator->setTemplates([
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2" id="clickable-sub-applet"
                                     data-attr="<?= $this->Url->build(['controller' => 'activities', 'action' => 'view', $activity->activity_id]) ?>">
+                                    <?php foreach ($milestones as $milestone) : ?>
+                                    <?php if ($activity->milestone_id == $milestone->id) : ?>
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        <?= $activity->name ?>
+                                        <?= $milestone->name ?> / <?= $activity->name ?>
                                     </div>
+                                    <?php endif; ?>
+                                    <?php endforeach; ?>
                                     <div class="h6 mb-0 font-weight-bold text-gray-800">
                                         <?= $this->NumberFormat->format($activity->cost, ['before' => $activity->currency->symbol]) ?>
                                     </div>

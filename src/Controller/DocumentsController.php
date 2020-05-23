@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -57,12 +58,15 @@ class DocumentsController extends AppController
             if ($this->Documents->save($document)) {
                 $this->Flash->success(__('The document has been saved.'));
 
-                return $this->redirect(['controller' => 'Projects' , 'action' => 'documents', $id]);
-
+                return $this->redirect(['controller' => 'Projects', 'action' => 'documents', $id]);
             }
             $this->Flash->error(__('The document could not be saved. Please, try again.'));
         }
-        $projects = $this->Documents->Projects->find('list', ['limit' => 200]);
+
+        $projects = $this->Documents->Projects->find('list', ['limit' => 200])->where(['id' => $id]);
+
+        // debug($projects);
+        // die();
         $this->set(compact('document', 'projects', 'id'));
     }
 
@@ -83,7 +87,7 @@ class DocumentsController extends AppController
             if ($this->Documents->save($document)) {
                 $this->Flash->success(__('The document has been saved.'));
 
-                return $this->redirect(['controller' => 'Projects' , 'action' => 'documents', $id]);
+                return $this->redirect(['controller' => 'Projects', 'action' => 'documents', $id]);
             }
             $this->Flash->error(__('The document could not be saved. Please, try again.'));
         }

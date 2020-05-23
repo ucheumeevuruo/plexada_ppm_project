@@ -15,17 +15,21 @@ $this->end();
 <div class="container-fluid py-4 border-top white-bg">
     <h3><?= h($activity->subject) ?></h3>
     <div class="row">
-        <div class="col">
+        <div class="col" style="max-width: 550px">
             <table class="table table-borderless" style="font-size:14px">
                 <tr>
-                    <th scope="row"><?= __('Projects') ?></th>
+                    <th scope="row"><?= __('Project Name') ?></th>
                     <td><?= $activity->has('project') ? $this->Html->link($activity->project->name, ['controller' => 'Projects', 'action' => 'report', $activity->project->id]) : '' ?>
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><?= __('Milestones') ?></th>
+                    <th scope="row"><?= __('Milestone Name') ?></th>
                     <td><?= $activity->has('milestone') ? h($activity->milestone->name) : '' ?>
                     </td>
+                </tr>
+                <tr>
+                    <th scope="row"><?= __('Activity Name') ?></th>
+                    <td><?= h($activity->name) ?></td>
                 </tr>
                 <tr>
                     <th scope="row"><?= __('Description') ?></th>
@@ -37,7 +41,8 @@ $this->end();
                 </tr>
                 <tr>
                     <th scope="row"><?= __('Status') ?></th>
-                    <td><?= $activity->has('status') ? $this->Html->link($activity->status->lov_value, ['controller' => 'Lov', 'action' => 'view', $activity->status->id]) : '' ?>
+                    <td><?= $activity->has('status') ?  h($activity->status->lov_value) : '' ?>
+                        <!-- <td><?= $activity->has('status') ? $this->Html->link($activity->status->lov_value, ['controller' => 'Lov', 'action' => 'view', $activity->status->id]) : '' ?> -->
                 </tr>
                 <tr>
                     <th scope="row"><?= __('Start Date') ?></th>
@@ -55,11 +60,12 @@ $this->end();
             </div>
 
             <table class="table table-striped table-responsive table-sm dataTable" role="grid"
-                   aria-describedby="dataTable_info">
+                aria-describedby="dataTable_info">
                 <thead>
                     <tr>
                         <th scope="col"><?= __('Task Name') ?></th>
                         <th scope="col"><?= __('Start Date') ?></th>
+                        <th scope="col"><?= __('End Date') ?></th>
                         <th scope="col"><?= __('Description') ?></th>
                         <th scope="col"><?= __('Predecessor') ?></th>
                         <th scope="col"><?= __('Successor') ?></th>
@@ -68,18 +74,18 @@ $this->end();
                 </thead>
                 <tbody>
                     <?php foreach ($activity->tasks as $task) : ?>
-                        <tr>
-                            <td><?= h($task->Task_name) ?></td>
-                            <td><?= h($task->Start_date) ?></td>
-                            <td><?= h($task->Description) ?></td>
-                            <td><?= h($task->Predecessor) ?></td>
-                            <td><?= h($task->Successor) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-sm"></i>'), ['controller' => 'tasks', 'action' => 'edit', $task->id], ['class' => 'btn btn-outline-warning btn-sm overlay', 'title' => 'Edit', 'escape' => false]) ?>
-
-                                <?= $this->Form->postLink(__("<i class='fas fa-trash fa-sm'></i>"), ['controller' => 'tasks', 'action' => 'delete', $task->id], ['confirm' => __('Are you sure you want to delete # {0}?', $task->Task_name), 'escape' => false, 'class' => 'btn btn-outline-danger btn-sm']) ?>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td><?= h($task->Task_name) ?></td>
+                        <td><?= h($task->Start_date) ?></td>
+                        <td><?= h($task->end_date) ?></td>
+                        <td><?= h($task->Description) ?></td>
+                        <td><?= h($task->Predecessor) ?></td>
+                        <td><?= h($task->Successor) ?></td>
+                        <td class="actions">
+                            <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-sm"></i>'), ['controller' => 'tasks', 'action' => 'edit', $task->id], ['class' => 'btn btn-outline-warning btn-sm overlay', 'title' => 'Edit', 'escape' => false]) ?>
+                            <?= $this->Form->postLink(__("<i class='fas fa-trash fa-sm'></i>"), ['controller' => 'tasks', 'action' => 'delete', $task->id], ['confirm' => __('Are you sure you want to delete # {0}?', $task->Task_name), 'escape' => false, 'class' => 'btn btn-outline-danger btn-sm']) ?>
+                        </td>
+                    </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
@@ -101,17 +107,17 @@ $this->end();
 
 
 <script>
-    $(document).ready(function() {
-        $(".overlay").click(function(event) {
-            event.preventDefault();
-            //load content from href of link
-            $('#contentWrap .modal-body').load($(this).attr("href"), function() {
-                $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content')
-                    .removeClass()
-                $('#MyModal4').modal('show')
-            });
+$(document).ready(function() {
+    $(".overlay").click(function(event) {
+        event.preventDefault();
+        //load content from href of link
+        $('#contentWrap .modal-body').load($(this).attr("href"), function() {
+            $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content')
+                .removeClass()
+            $('#MyModal4').modal('show')
         });
-        $('.dataTable').DataTable();
     });
+    $('.dataTable').DataTable();
+});
 </script>
 <?= $this->Html->script('jquery.dataTables.min.js') ?>

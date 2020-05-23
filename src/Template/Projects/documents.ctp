@@ -60,16 +60,17 @@ $this->end();
             aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <?= $this->Html->link('<i class="fa fa-upload fa-lg"></i>', ['controller' => 'documents', 'action' => 'add', $project->id], ['id' => 'transmit', 'class' => 'nav-col', 'class' => 'btn btn-light overlay ml-2', 'title' => 'Add', 'escape' => false]) ?>
+
+        </div>
     </nav>
 
 
     <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($project->name) ?> </h2>
 </div>
 <div class="ml-4">
-    <div class="btn-group" role="group" aria-label="Basic example">
-        <?= $this->Html->link('<i class="fa fa-plus fa-lg"></i>', ['controller' => 'documents', 'action' => 'add', $project->id], ['id' => 'transmit', 'class' => 'nav-col', 'class' => 'btn btn-light overlay ml-2', 'title' => 'Add', 'escape' => false]) ?>
 
-    </div>
 </div>
 <div class="row m-3">
     <?php $num = 0; ?>
@@ -84,10 +85,13 @@ $this->end();
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2" id="clickable-card" data-attr="">
                         <div class="h6 mb-0 font-weight-bold text-gray-800">
-                            <p><i style="color: blue;">Title: </i><?= $this->Html->link($trimfile[0], []) ?></p>
-                            <p><i style="color: blue;">Date: </i><?= h($document->date_uploaded) ?></p>
-                            <p><i style="color: blue;">ID: </i><?= h($document->document_no) ?></p>
-                            <p><i style="color: blue;">Type: </i><?= h($document->document_type) ?></p>
+                            <!-- <p><i style="color: blue;">Title: </i><?= $this->Html->link($trimfile[0], []) ?></p> -->
+                            <p><i class="fa fa-tags"> &nbsp;
+                                </i><?= $this->Html->link($document->file_uploaded, []) ?>
+                            </p>
+                            <p><i class="fa fa-clock"> &nbsp; </i><?= h($document->date_uploaded) ?></p>
+                            <p><i class="fa fa-id-card"> &nbsp; </i><?= h($document->document_no) ?></p>
+                            <p><i class="fa fa-sort"> &nbsp; </i><?= h($document->document_type) ?></p>
                         </div>
                     </div>
                 </div>
@@ -95,7 +99,9 @@ $this->end();
             <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
                 <div class="row">
                     <div class="col border-left ">
-                        <i class="fas fa-book fa-1x text-gray-300"></i>
+                        <!-- <i class="fas fa-pencil-alt fa-1x text-gray-300"></i> -->
+                        <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['controller' => 'Documents', 'action' => 'edit', $document->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Edit Document']) ?>
+
                     </div>
                 </div>
             </div>
@@ -120,3 +126,18 @@ $this->end();
         <?= $this->Modal->end() ?>
     </div>
 </div>
+
+<script>
+$(document).ready(function() {
+    //respond to click event on anything with 'overlay' class
+    $(".overlay").click(function(event) {
+        event.preventDefault();
+        //load content from href of link
+        $('#contentWrap .modal-body').load($(this).attr("href"), function() {
+            $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content')
+                .removeClass()
+            $('#MyModal4').modal('show')
+        });
+    });
+});
+</script>

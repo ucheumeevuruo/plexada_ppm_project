@@ -32,6 +32,10 @@ $this->end();
                             <td><?= h($task->Start_date) ?></td>
                         </tr>
                         <tr>
+                            <th scope="row"><?= __('end Date') ?></th>
+                            <td><?= h($task->end_date) ?></td>
+                        </tr>
+                        <tr>
                             <th scope="row"><?= __('Description') ?></th>
                             <td><?= h($task->Description) ?></td>
                         </tr>
