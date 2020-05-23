@@ -25,7 +25,7 @@ class TasksTable extends Table
     /**
      * Initialize method
      *
-     * @param array $config The configuration for the Table.
+     * @param  array $config The configuration for the Table.
      * @return void
      */
     public function initialize(array $config)
@@ -33,20 +33,22 @@ class TasksTable extends Table
         parent::initialize($config);
 
         $this->setTable('tasks');
-        $this->setDisplayField('Description'); # What field do you want as the default field?description
+        $this->setDisplayField('Description'); // What field do you want as the default field?description
         $this->setPrimaryKey('id'); // THIS IS THE PRIMARY KEY THE TABLE IS USING. You should define task_id as the primary key in your table ok thanks
 
-        $this->belongsTo('Activities', [
+        $this->belongsTo(
+            'Activities', [
             'foreignKey' => 'activity_id',
-        ]);
+            ]
+        );
         // $this->setDisplayField('description');
         // $this->setPrimaryKey('id'); I commented this out as this is not the primary key the table is using
 
 
-//        $this->belongsTo('Projects', [
-//            'foreignKey' => 'project_id',
-//            'joinType' => 'INNER',
-//        ]);
+        //        $this->belongsTo('Projects', [
+        //            'foreignKey' => 'project_id',
+        //            'joinType' => 'INNER',
+        //        ]);
 
         $this->addBehavior('Timestamp');
     }
@@ -54,7 +56,7 @@ class TasksTable extends Table
     /**
      * Default validation rules.
      *
-     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @param  \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
     public function validationDefault(Validator $validator)
@@ -62,18 +64,25 @@ class TasksTable extends Table
         $validator
             ->scalar('Task_name')
             ->maxLength('Task_name', 255)
-            ->requirePresence('Task_name', 'create')
+            // ->requirePresence('Task_name', 'create')
             ->notEmptyString('Task_name');
 
         $validator
             ->date('Start_date')
-            ->requirePresence('Start_date', 'create')
+            // ->requirePresence('Start_date', 'create')
             ->notEmptyDate('Start_date');
+
+        $validator
+            ->date('end_date')
+            // ->requirePresence('end_date', 'create')
+            // ->notEmptyDate('end_date');
+            ->notEmptyDate('end_date');
+
 
         $validator
             ->scalar('Description')
             ->maxLength('Description', 255)
-            ->requirePresence('Description', 'create')
+            // ->requirePresence('Description', 'create')
             ->notEmptyString('Description');
 
         // $validator
@@ -95,13 +104,15 @@ class TasksTable extends Table
     {
         $formData['Start_date'] = !empty($formData['Start_date']) ?
             DateTime::createFromFormat('d/m/Y', $formData['Start_date'])->format('Y-m-d') : $formData['Start_date'];
+        $formData['end_date'] = !empty($formData['end_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['end_date'])->format('Y-m-d') : $formData['end_date'];
         return $formData;
     }
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
      *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @param  \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
     public function buildRules(RulesChecker $rules)

@@ -40,7 +40,10 @@ $this->Paginator->setTemplates([
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <div class="mr-auto mt-2 mt-lg-0">
-                <?= $this->Html->link(__('Create'), ['action' => 'add'], ['class' => 'btn btn-info rounded-0 navigator', 'title' => 'Add', 'escape' => false]) ?>
+                <!-- <?= $this->Html->link(__('Create'), ['action' => 'add'], ['class' => 'btn btn-info rounded-0 navigator', 'title' => 'Add', 'escape' => false]) ?> -->
+                <?= $this->Html->link(__('Create'), ['action' => 'add'], ['class' => 'overlay btn btn-info', 'escape' => false]) ?>
+            </div>
+            <div class="col-auto">
             </div>
             <!-- Search Form -->
             <form class="form-inline my-2 my-lg-0" method="get" id="searchable">
@@ -99,7 +102,7 @@ $this->Paginator->setTemplates([
                 <div class="col-xl-3 col-md-6 mb-4">
 
                     <?php if ($count == 0) : { ?>
-                    <div class="card shadow h-100 py-0 border border-left-primary rounded-lg">
+                    <div class="card shadow h-100 py-0 border border-left-light rounded-lg">
 
                         <?php } elseif (($close / $count * 100) < 40) : { ?>
                         <div class="card shadow h-100 py-0 border border-left-danger rounded-lg">
@@ -110,7 +113,7 @@ $this->Paginator->setTemplates([
                                 <?php } elseif ((($close / $count * 100) >= 60) && (($close / $count * 100) < 80)) : { ?>
                                 <div class="card shadow h-100 py-0 border border-left-warning rounded-lg">
 
-                                    <?php } elseif ((($close / $count * 100) > 80) && (($close / $count * 100) < 100)) : { ?>
+                                    <?php } elseif ((($close / $count * 100) >= 80) && (($close / $count * 100) < 100)) : { ?>
                                     <div class="card shadow h-100 py-0 border border-left-success rounded-lg">
 
                                         <?php } elseif (($close / $count * 100) == 100) : { ?>
@@ -142,11 +145,26 @@ $this->Paginator->setTemplates([
                                                 style="background:#fff">
                                                 <div class="row">
                                                     <div class="col-auto">
-                                                        <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['action' => 'edit', $project->id], ['class' => 'overlay', 'escape' => false]) ?>
+                                                        <?php foreach ($projectDetails as $projectD) : ?>
+                                                        <?php if (isset($projectD->name) && $projectD->project_id == $project->id) : ?>
+                                                        <?= $this->Html->link(__('<i class="fas fa-edit fa-1x text-gray-300"></i>'), ['controller' => 'projectDetails', 'action' => 'edit', $project->project_detail->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Edit Project Details']) ?>
+                                                        <?php endif; ?>
+                                                        <?php if (!isset($projectD->name) && $projectD->project_id == $project->id) : ?>
+                                                        <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'), ['controller' => 'projectDetails', 'action' => 'edit', $project->project_detail->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Project Details']) ?>
+                                                        <?php endif; ?>
+                                                        <?php endforeach; ?>
+
+                                                    </div>
+
+                                                    <div class="col-auto">
+                                                        <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['action' => 'edit', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Edit Project']) ?>
                                                     </div>
                                                     <div class="col-auto border-left">
-                                                        <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id), 'escape' => false]) ?>
+                                                        <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id), 'escape' => false, 'title' => 'Delete Project']) ?>
                                                     </div>
+                                                    <!-- <div class="col-auto border-left">
+                                                        <?= $this->Form->postlink(__("<i class='fas fa-book></i>"), ['action' => 'add'], []) ?>
+                                                    </div> -->
                                                     <div class="col-auto border-left">
                                                         <i class="fas fa-clock fa-1x text-gray-300"></i>
                                                     </div>

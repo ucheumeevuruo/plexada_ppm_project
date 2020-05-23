@@ -25,7 +25,7 @@ $this->end();
     </nav>
     <!-- ./end Breadcrumb -->
     <?= $this->Form->create($projectDetail) ?>
-    <h3 class="text-center">Add Project Details</h3>
+    <h3 class="text-center">Project Design</h3>
     <fieldset class="col-md-6 float-left mb-3" style="border: #464751 1px solid;">
         <legend>Project Definition</legend>
 
@@ -48,10 +48,11 @@ $this->end();
 
     <fieldset class="col-md-6 float-right mb-3" style="border: #464751 1px solid;">
         <legend>Project Stakeholders</legend>
+        <?= $this->Form->control('beneficiary', ['empty' => true,]); ?>
         <?= $this->Form->control('manager_id', ['options' => $staff, 'empty' => true]); ?>
         <?= $this->Form->control('sponsor_id', ['options' => $sponsors, 'empty' => true]); ?>
 
-        <?= $this->Form->control('donor_id', ['options' => $donors, 'empty' => true]); ?>
+        <?= $this->Form->control('donor_id', ['options' => $donors, 'empty' => true, 'label' => 'Source of Funds']); ?>
         <?= $this->Form->control('mda_id', ['options' => $mdas, 'empty' => true, 'label' => 'MDA']); ?>
     </fieldset>
 
@@ -92,10 +93,21 @@ $this->end();
     </fieldset>
     <fieldset class="col-md-6 float-right mb-3" style="border: #464751 1px solid;">
         <legend>Project Duration</legend>
-        <?= $this->Form->control('start_dt', ['empty' => true, 'class' => 'addon-right', 'label' => 'Start Date', 'id' => 'start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']); ?>
+        <?= $this->Form->control('start_dt', ['empty' => true, 'class' => 'addon-right', 'label' => 'Start Date', 'id' => 'start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']); ?>
         <?= $this->Form->control('end_dt', ['empty' => true, 'class' => 'addon-right', 'label' => 'End Date', 'id' => 'end_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']); ?>
-    </fieldset>
 
+    </fieldset>
+    <fieldset style="border: #464751 1px solid;">
+
+        <?= $this->Form->control('financing_agreement', ['options' => [
+            'None' => 'None', 'Multilateral' => 'Multilateral',
+            'Bilateral' => 'Bilateral', 'Others' => 'Others'
+        ], 'empty' => true]); ?>
+        <?= $this->Form->control('funding_type', ['options' => [
+            'None' => 'None', 'Donor' => 'Donor', 'PPP' => 'PPP',
+            'Grant' => 'Grant', 'Loan' => 'Loan', 'Grant' => 'Grant', 'Others' => 'Others'
+        ], 'empty' => true]); ?>
+    </fieldset>
 
     <?= $this->Form->control('risk_and_issues'); ?>
 

@@ -83,16 +83,6 @@ $this->end();
                 </div>
 
             </div>
-            <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-                <div class="row">
-                    <div class="col-auto">
-                        <i class="fas fa-clock fa-1x text-gray-300"></i>
-                    </div>
-                    <div class="col border-left ">
-                        <i class="fas fa-book fa-1x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <div class="col-xl-3 col-md-6 mb-4">
@@ -104,16 +94,6 @@ $this->end();
                             <?= h('Objectives') ?>
                         </div>
                         <div class="h6 mb-0 text-gray-800"><?= h($project->introduction) ?></div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-                <div class="row">
-                    <div class="col-auto">
-                        <i class="fas fa-clock fa-1x text-gray-300"></i>
-                    </div>
-                    <div class="col border-left ">
-                        <i class="fas fa-book fa-1x text-gray-300"></i>
                     </div>
                 </div>
             </div>
@@ -132,23 +112,22 @@ $this->end();
                             <?php foreach ($projectDet as $prodet) : ?>
                             <?php foreach ($spons as $spon) : ?>
                             <?php if ($prodet->sponsor_id == $spon->id) : ?>
-
-                            <?= h($spon->first_name) ?>
-                            <?= h($spon->last_name) ?>
+                            <p>
+                                <?= h($spon->first_name) ?>
+                                <?= h($spon->last_name) ?>
+                                <strong>(Sponsor)</strong>
+                            </p>
+                            <?php endif; ?>
+                            <?php if ($prodet->donor_id == $spon->id) : ?>
+                            <p>
+                                <?= h($spon->first_name) ?>
+                                <?= h($spon->last_name) ?>
+                                <strong>(Donor)</strong>
+                            </p>
                             <?php endif; ?>
                             <?php endforeach; ?>
                             <?php endforeach; ?>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-                <div class="row">
-                    <div class="col-auto">
-                        <i class="fas fa-clock fa-1x text-gray-300"></i>
-                    </div>
-                    <div class="col border-left ">
-                        <i class="fas fa-book fa-1x text-gray-300"></i>
                     </div>
                 </div>
             </div>
@@ -175,7 +154,7 @@ $this->end();
                     </div>
                 </div>
             </div>
-            <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
+            <!-- <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
                 <div class="row">
                     <div class="col-auto">
                         <i class="fas fa-clock fa-1x text-gray-300"></i>
@@ -184,7 +163,7 @@ $this->end();
                         <i class="fas fa-book fa-1x text-gray-300"></i>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="col-xl-3 col-md-6 mb-4">
@@ -201,19 +180,9 @@ $this->end();
                         </div>
                         <?php } ?>
                         <?php if (!isset($project->pim->mda)) { ?>
-                        <p class="card-text"><?= h('Ogun State Ministry') ?></p>
+                        <p class="card-text"><?= h('Ogun State Government') ?></p>
                     </div>
                     <?php } ?>
-                </div>
-            </div>
-        </div>
-        <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-            <div class="row">
-                <div class="col-auto">
-                    <i class="fas fa-clock fa-1x text-gray-300"></i>
-                </div>
-                <div class="col border-left ">
-                    <i class="fas fa-book fa-1x text-gray-300"></i>
                 </div>
             </div>
         </div>
@@ -238,17 +207,6 @@ $this->end();
                 </div>
             </div>
         </div>
-
-        <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-            <div class="row">
-                <div class="col-auto">
-                    <i class="fas fa-clock fa-1x text-gray-300"></i>
-                </div>
-                <div class="col border-left ">
-                    <i class="fas fa-book fa-1x text-gray-300"></i>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 <div class="col-xl-3 col-md-6 mb-4">
@@ -261,16 +219,6 @@ $this->end();
                     </div>
                     <div class="h6 mb-0 text-gray-800">
                         <?= h($project->project_detail->risk_and_issues) ?></div>
-                </div>
-            </div>
-        </div>
-        <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-            <div class="row">
-                <div class="col-auto">
-                    <i class="fas fa-clock fa-1x text-gray-300"></i>
-                </div>
-                <div class="col border-left ">
-                    <i class="fas fa-book fa-1x text-gray-300"></i>
                 </div>
             </div>
         </div>
@@ -293,16 +241,6 @@ $this->end();
                 </div>
             </div>
 
-        </div>
-    </div>
-    <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-        <div class="row">
-            <div class="col-auto">
-                <i class="fas fa-clock fa-1x text-gray-300"></i>
-            </div>
-            <div class="col border-left ">
-                <i class="fas fa-book fa-1x text-gray-300"></i>
-            </div>
         </div>
     </div>
 </div>

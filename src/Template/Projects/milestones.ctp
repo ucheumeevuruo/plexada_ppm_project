@@ -11,6 +11,8 @@ $this->start('navbar');
 echo $this->element('navbar/default');
 $this->end();
 
+echo $this->Html->css('mandatory');
+
 /**
  *
  * This section is used to customize the pagination area.
@@ -115,7 +117,8 @@ $this->Paginator->setTemplates([
     <div class="grey-bg vh-4 py-4">
         <div class="row mx-0">
             <?php foreach ($milestones as $milestone) : ?>
-            <div class="col-xl-3 col-md-6 mb-4" data-attr="<?= $this->Url->build(['action' => 'view', $project_id]) ?>">
+            <div class="col-xl-3 col-md-6 mb-4"
+                data-attr="<?= $this->Url->build(['controller' => 'milestones', 'action' => 'view', $project_id]) ?>">
                 <div
                     class="card <?= $this->Indicator->status($milestone->has('lov') ? $milestone->lov->lov_value : '') ?> shadow py-0">
                     <div class="card-body py-2 px-2">

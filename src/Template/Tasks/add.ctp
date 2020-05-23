@@ -8,36 +8,55 @@ $this->start('sidebar');
 echo $this->element('sidebar/default');
 $this->end();
 ?>
+
+<?php echo $this->Html->css('mandatory'); ?>
+
 <div class="container content">
     <?= $this->Form->create($task) ?>
     <fieldset>
-        <legend><?= __('Add Task') ?></legend>
+        <legend class="text-center font-weight-bolder text-primary"><?= __('Add Task') ?></legend>
         <div class="row">
             <div class="col">
-                <?php if(is_null($id)) echo $this->Form->control('activity_id', ['options' => $activities]); else ?>
+                <?php if (is_null($id)) echo $this->Form->control('activity_id', ['options' => $activities]);
+                else ?>
                 <?= $this->Form->hidden('activity_id', ['value' => $id]) ?>
-                <?= $this->Form->control('Task_name', ['label'=>'Task Name','id' => 'Task_name', ]) ?>
-                <?= $this->Form->control('Description', ['type'=>'textarea']) ?>
+
+                <label class="control-label font-weight-bolder mandatory text-success" for="Task_name">Task Name</label>
+                <?= $this->Form->control('Task_name', ['label' => false, 'id' => 'Task_name',]) ?>
+
+                <label class="control-label font-weight-bolder mandatory text-success"
+                    for="Description">Description</label>
+                <?= $this->Form->control('Description', ['type' => 'textarea', 'label' => false]) ?>
             </div>
 
             <div class="col">
-            <label class="control-label" for="Predecessor">Predecessor</label>  
-            <select name="Predecessor" class="form-control" id="predecessor">
-            <option value=""></option>
-            <?php foreach ($oldTasks as $tasklist):?>
-            <option value="<?php echo $tasklist ?>"><?php echo $tasklist ?></option>
-            <?php endforeach ?>
-            </select>
-                  
-                <!-- <?= $this->Form->control('Predecessor',['options'=> $oldTasks, 'value'=>$oldTasks, 'empty'=>true,'multiple' => false,]) ?> -->
-                <?= $this->Form->control('Successor') ?>
+                <label class="control-label font-weight-bolder text-success" for="Predecessor">Predecessor</label>
+                <select name="Predecessor" class="form-control" id="predecessor">
+                    <option value=""></option>
+                    <?php foreach ($oldTasks as $tasklist) : ?>
+                    <option value="<?php echo $tasklist ?>"><?php echo $tasklist ?></option>
+                    <?php endforeach ?>
+                </select>
+
+                <!-- <?= $this->Form->control('Predecessor', ['options' => $oldTasks, 'value' => $oldTasks, 'empty' => true, 'multiple' => false,]) ?> -->
+                <label class="control-label font-weight-bolder text-success" for="Successor">Successor</label>
+                <?= $this->Form->control('Successor', ['label' => false]) ?>
+
+                <label class="control-label font-weight-bolder mandatory text-success" for="Start_date">Start
+                    Date</label>
                 <?= $this->Form->control('Start_date', [
-                        'empty' => true, 'class' => 'addon-right', 'label' => 'Start Date', 'id' => 'Start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off'
+                    'empty' => true, 'class' => 'addon-right', 'label' => false, 'id' => 'Start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off'
                 ]) ?>
+
+                <label class="control-label font-weight-bolder mandatory text-success" for="end_date">End Date</label>
+                <?= $this->Form->control('end_date', [
+                    'empty' => true, 'class' => 'addon-right', 'label' => false, 'id' => 'Start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off'
+                ]) ?>
+
             </div>
         </div>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('Submit'), ['class' => 'bg-primary']) ?>
     <?= $this->Form->end() ?>
 </div>
 

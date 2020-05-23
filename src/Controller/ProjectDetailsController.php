@@ -18,7 +18,6 @@ use DateTime;
  * @method \App\Model\Entity\ProjectDetail[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class ProjectDetailsController extends AppController
-
 {
 
 
@@ -52,42 +51,50 @@ class ProjectDetailsController extends AppController
     /**
      * View method
      *
-     * @param string|null $id Project Detail id.
+     * @param  string|null $id Project Detail id.
      * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $projectDetail = $this->ProjectDetails->get($id, [
+        $projectDetail = $this->ProjectDetails->get(
+            $id, [
             'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Activities.Priorities', 'Lov', 'Activities.Statuses', 'Users', 'Activities', 'Activities.Staff', 'SubStatuses', 'Priorities'],
 
-        ]);
+            ]
+        );
     }
 
     public function activities($id = null)
     {
-        $projectDetail = $this->ProjectDetails->get($id, [
+        $projectDetail = $this->ProjectDetails->get(
+            $id, [
             'contain' => ['Activities', 'Activities.Priorities', 'Lov', 'Activities.Statuses']
-        ]);
+            ]
+        );
 
         $this->set('projectDetail', $projectDetail);
     }
 
     public function milestones($id = null)
     {
-        $projectDetail = $this->ProjectDetails->get($id, [
+        $projectDetail = $this->ProjectDetails->get(
+            $id, [
             // 'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'Milestones', 'Milestones.Lov', 'Milestones.Triggers', 'Priorities', 'Prices', 'Prices.Currencies'],
             'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'Milestones', 'Milestones.Lov', 'Milestones.Triggers', 'Priorities', 'Prices'],
-        ]);
+            ]
+        );
 
         $this->set('projectDetail', $projectDetail);
     }
 
     public function riskIssues($id = null)
     {
-        $projectDetail = $this->ProjectDetails->get($id, [
+        $projectDetail = $this->ProjectDetails->get(
+            $id, [
             'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'RiskIssues', 'RiskIssues.Lov', 'RiskIssues.Impact', 'RiskIssues.Staff', 'Priorities', 'Prices'],
-        ]);
+            ]
+        );
 
         $this->set('projectDetail', $projectDetail);
     }
@@ -157,9 +164,11 @@ class ProjectDetailsController extends AppController
 
     public function printable($id = null)
     {
-        $projectDetails = $this->ProjectDetails->get($id, [
+        $projectDetails = $this->ProjectDetails->get(
+            $id, [
             'contain' => [],
-        ]);
+            ]
+        );
 
         $this->set('projectDetails', $projectDetails);
     }
@@ -173,9 +182,11 @@ class ProjectDetailsController extends AppController
 
         $milestone_list =  $this->Milestones->find('all');
 
-        $projectDetails = $this->ProjectDetails->get($id, [
+        $projectDetails = $this->ProjectDetails->get(
+            $id, [
             'contain' => [],
-        ]);
+            ]
+        );
 
         $this->set('projectDetails', $projectDetails);
     }
@@ -186,9 +197,11 @@ class ProjectDetailsController extends AppController
 
 
         // $projectDetails = $this->ProjectDetails->find('all', ['contain' => ['Sponsors']]);
-        $projectDetails = $this->ProjectDetails->get($id, [
+        $projectDetails = $this->ProjectDetails->get(
+            $id, [
             'contain' => ['Sponsors', 'Projects'],
-        ]);
+            ]
+        );
 
 
 
@@ -249,43 +262,57 @@ class ProjectDetailsController extends AppController
         $projects = $this->ProjectDetails->Projects->find('list', ['limit' => 200]);
         $vendors = $this->ProjectDetails->Vendors->find('list', ['limit' => 200]);
         $staff = $this->ProjectDetails->Staff->find('list', ['limit' => 200]);
-        $lov = $this->ProjectDetails->Lov->find('list', [
+        $lov = $this->ProjectDetails->Lov->find(
+            'list', [
             'conditions' => ['Lov.lov_type' => 'project_status'],
             'limit' => 200
-        ]);
+            ]
+        );
 
-        $sponsors = $this->ProjectDetails->Sponsors->find('list', [
+        $sponsors = $this->ProjectDetails->Sponsors->find(
+            'list', [
             'contain' => ['SponsorTypes'],
             'conditions' => ['SponsorTypes.lov_value' => 'sponsor'],
             'limit' => 200
-        ]);
+            ]
+        );
 
 
-        $donors = $this->ProjectDetails->Sponsors->find('list', [
+        $donors = $this->ProjectDetails->Sponsors->find(
+            'list', [
             'contain' => ['SponsorTypes'],
             'conditions' => ['SponsorTypes.lov_value' => 'donor'],
             'limit' => 200
-        ]);
+            ]
+        );
 
-        $mdas = $this->ProjectDetails->Sponsors->find('list', [
+        $mdas = $this->ProjectDetails->Sponsors->find(
+            'list', [
             'contain' => ['SponsorTypes'],
             'conditions' => ['SponsorTypes.lov_value' => 'mda'],
             'limit' => 200
-        ]);
+            ]
+        );
 
 
-        $priority = $this->ProjectDetails->Lov->find('list', [
+        $priority = $this->ProjectDetails->Lov->find(
+            'list', [
             'conditions' => ['Lov.lov_type' => 'priority'],
             'limit' => 200
-        ]);
-        $subStatus = $this->ProjectDetails->SubStatuses->find('list', [
+            ]
+        );
+        $subStatus = $this->ProjectDetails->SubStatuses->find(
+            'list', [
             'conditions' => ['SubStatuses.lov_type' => 'project_sub_status'],
             'limit' => 200
-        ]);
+            ]
+        );
         $authUser = $this->Auth->User();
-        $currencies = $this->ProjectDetails->Currencies->find('list', [
+        $currencies = $this->ProjectDetails->Currencies->find(
+            'list', [
             'limit' => 200
-        ]);
+            ]
+        );
         $users = $this->ProjectDetails->Users->find('list', ['limit' => 200]);
         $annotations = $this->ProjectDetails->Annotations->find('list', ['limit' => 200]);
         $prices = $this->ProjectDetails->Prices->find('list', ['limit' => 200]);
@@ -296,18 +323,20 @@ class ProjectDetailsController extends AppController
     /**
      * Edit method
      *
-     * @param string|null $id Project Detail id.
+     * @param  string|null $id Project Detail id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit($id = null)
     {
         $this->loadModel('Projects');
-        
+
         $projectDetail = $this->ProjectDetails->get($id);
+        // $project_info = $this->Projects->get($id);
+
 
         $project_info = $this->Projects->get($projectDetail->project_id);
-        // debug($project_info->name);
+        // debug($projectDetail);
         // die();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $projectDetail = $this->ProjectDetails->patchEntity(
@@ -329,49 +358,63 @@ class ProjectDetailsController extends AppController
         $vendors = $this->ProjectDetails->Vendors->find('list', ['limit' => 200]);
 
         $staff = $this->ProjectDetails->Staff->find('list', ['limit' => 200]);
-        $lov = $this->ProjectDetails->Lov->find('list', [
+        $lov = $this->ProjectDetails->Lov->find(
+            'list', [
             'conditions' => ['Lov.lov_type' => 'project_status'],
             'limit' => 200
-        ]);
+            ]
+        );
 
-        $sponsors = $this->ProjectDetails->Sponsors->find('list', [
+        $sponsors = $this->ProjectDetails->Sponsors->find(
+            'list', [
             'contain' => ['SponsorTypes'],
             'conditions' => ['SponsorTypes.lov_value' => 'sponsor'],
             'limit' => 200
-        ]);
+            ]
+        );
 
-        $donors = $this->ProjectDetails->Sponsors->find('list', [
+        $donors = $this->ProjectDetails->Sponsors->find(
+            'list', [
             'contain' => ['SponsorTypes'],
             'conditions' => ['SponsorTypes.lov_value' => 'donor'],
             'limit' => 200
-        ]);
+            ]
+        );
 
-        $mdas = $this->ProjectDetails->Sponsors->find('list', [
+        $mdas = $this->ProjectDetails->Sponsors->find(
+            'list', [
             'contain' => ['SponsorTypes'],
             'conditions' => ['SponsorTypes.lov_value' => 'mda'],
             'limit' => 200
-        ]);
+            ]
+        );
 
-        $priority = $this->ProjectDetails->Lov->find('list', [
+        $priority = $this->ProjectDetails->Lov->find(
+            'list', [
             'conditions' => ['Lov.lov_type' => 'priority'],
             'limit' => 200
-        ]);
-        $currencies = $this->ProjectDetails->Currencies->find('list', [
+            ]
+        );
+        $currencies = $this->ProjectDetails->Currencies->find(
+            'list', [
             'limit' => 200
-        ]);
-        $subStatus = $this->ProjectDetails->SubStatuses->find('list', [
+            ]
+        );
+        $subStatus = $this->ProjectDetails->SubStatuses->find(
+            'list', [
             'conditions' => ['SubStatuses.lov_type' => 'project_sub_status'],
             'limit' => 200
-        ]);
+            ]
+        );
 
         $users = $this->ProjectDetails->Users->find('list', ['limit' => 200]);
         $userid = $id;
-        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'donors', 'mdas', 'lov', 'users', 'subStatus', 'users', 'currencies','project_info'));
+        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'donors', 'mdas', 'lov', 'users', 'subStatus', 'users', 'currencies', 'project_info'));
     }
     /**
      * Delete method
      *
-     * @param string|null $id Project Detail id.
+     * @param  string|null $id Project Detail id.
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
@@ -432,8 +475,12 @@ class ProjectDetailsController extends AppController
                 } else {
                     $error = $excel->__extract_error($upload_errors);
                     $this->log(__($error['error']), 'error', ['scope' => ['import']]);
-                    $this->Flash->error(__(count($upload_errors) .
-                        " record(s) could not be saved. Please, try again or check the log for more information."));
+                    $this->Flash->error(
+                        __(
+                            count($upload_errors) .
+                            " record(s) could not be saved. Please, try again or check the log for more information."
+                        )
+                    );
                     return $this->redirect($this->referer());
                 }
             } catch (ExcelDocumentException $e) {
