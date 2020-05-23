@@ -1,4 +1,4 @@
-<?php //$pieChart->printScripts(); 
+<?php //$pieChart->printScripts();
 ?>
 <!---->
 <?php
@@ -16,35 +16,34 @@ $this->end();
 <div class="container-fluid">
 
     <style>
-    #container {
-        overflow-y: scroll;
-        overflow-x: scroll;
-        /* width: 900px; */
-        height: 300px;
-    }
+        #container {
+            overflow-y: scroll;
+            overflow-x: scroll;
+            /* width: 900px; */
+            height: 300px;
+        }
 
-    .table-container {
-        overflow-y: scroll;
-        overflow-x: scroll;
-        /* width: 900px; */
-        height: 300px;
-    }
+        .table-container {
+            overflow-y: scroll;
+            overflow-x: scroll;
+            /* width: 900px; */
+            height: 300px;
+        }
 
-    #container2 {
-        /* position: absolute; */
-        overflow-y: scroll;
-        overflow-x: scroll;
-        /* width: 900px; */
-        height: 300px;
-    }
-
-    #container3 {
-        /* position: absolute; */
-        overflow-y: scroll;
-        overflow-x: scroll;
-        /* width: 900px; */
-        height: 300px;
-    }
+        #container2 {
+            /* position: absolute; */
+            overflow-y: scroll;
+            overflow-x: scroll;
+            /* width: 900px; */
+            height: 300px;
+        }
+        #container3 {
+            /* position: absolute; */
+            overflow-y: scroll;
+            overflow-x: scroll;
+            /* width: 900px; */
+            height: 300px;
+        }
     </style>
     <?php
     $arrcompleted = [];
@@ -102,7 +101,7 @@ $this->end();
                                         <th></th>
                                         <th></th>
                                         <th>Tasks</th>
-                                        <th>Progress</th>
+                                        <th>Indicator Progress</th>
                                     </tr>
                                 </thead>
                                 <?php foreach ($project_list as $project) : ?>
@@ -231,7 +230,7 @@ $this->end();
                             </table>
                         </div>
                         <!-- <div class="col-md-6">
-                                
+
                                 </div> -->
 
                     </div>
@@ -437,7 +436,7 @@ $this->end();
     <!-- <div class="row">
         <div class="col">
             <div class="card shadow mb-5">
-                
+
                 <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
                     <h4 class="m-0 text-white">Doughnut chart</h4>
                     <div class="dropdown no-arrow">
@@ -454,10 +453,10 @@ $this->end();
                     </div>
                 </div>
 
-                
+
                 <div class="card-body">
                     <div id="container">
-                        
+
                         <canvas id="myChart3" width="200" height="50" style="height:400px"></canvas>
                         <script>
                             <?php $code_array = json_encode($allprojects) ?>
@@ -491,7 +490,7 @@ $this->end();
                     </div>
                 </div>
 
-                
+
                 <div class="card-body">
                     <div id="container2">
                         <div id="ganttcontainer" style="height: 500px; width: 100%"></div>
@@ -522,7 +521,7 @@ $this->end();
                             <a class="dropdown-item" href="#">Another action</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 

@@ -14,6 +14,8 @@ use Cake\ORM\Entity;
  * @property int|null $vendor_id
  * @property int|null $manager_id
  * @property int|null $sponsor_id
+ * @property int|null $donor_id
+ * @property int|null $mda_id
  * @property \Cake\I18n\FrozenDate $waiting_since
  * @property int|null $waiting_on_id
  * @property int $status_id
@@ -92,6 +94,7 @@ class ProjectDetail extends Entity
         'project' => true,
         'price' => true,
         'sub_status' => true,
+<<<<<<< Updated upstream
         'donor_id' => true,
         'mda_id' => true,
         'DLI' => true,
@@ -102,5 +105,8 @@ class ProjectDetail extends Entity
         'financing_agreement' => true,
         'funding_type' => true,
         'beneficiary' => true,
+=======
+        'pim' => true,
+>>>>>>> Stashed changes
     ];
 }

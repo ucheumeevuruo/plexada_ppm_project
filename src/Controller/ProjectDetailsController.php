@@ -239,10 +239,10 @@ class ProjectDetailsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add($id = null)
+    public function add()
     {
-        $this->loadModel('Projects');
-        $project_info = $this->Projects->get($id);
+        // $this->loadModel('Projects');
+        // $project_info = $this->Projects->get($id);
 
         $projectDetail = $this->ProjectDetails->newEntity();
         if ($this->request->is('post')) {
@@ -344,10 +344,16 @@ class ProjectDetailsController extends AppController
                 $this->ProjectDetails->identify($this->request->getData())
             );
             if ($this->ProjectDetails->save($projectDetail)) {
+                debug($donors);
+                die();
                 $this->Flash->success(__('The project detail has been saved.'));
+<<<<<<< Updated upstream
 
                 // return $this->redirect($this->referer());
                 return $this->redirect(['controller' => 'projects', 'action' => 'index']);
+=======
+                return $this->redirect($this->referer());
+>>>>>>> Stashed changes
             }
             $this->Flash->error(__('The project detail could not be saved. Please, try again.'));
 
