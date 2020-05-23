@@ -85,12 +85,32 @@ class ProjectsController extends AppController
 
         $this->loadModel('Milestones');
         $milestone_list =  $this->Milestones->find('all');
+        $closedCount =  $this->Milestones->find('all',['conditions'=>['project_id' => $id,'status_id' => 3]])->count();
+        $allCount =  $this->Milestones->find('all',['conditions'=>['project_id' => $id]])->count();
+        if  ($allCount === 0){
+            $colorCode = 'primary';
+        }else{
+            $percent = $closedCount/$allCount ;
+            if ($percent <= 0.4){
+                $colorCode = 'danger';
+            }else if($percent >= 0.4 && $percent < 0.6){
+                $colorCode = 'warning';
+            }else if($percent >= 0.6 && $percent < 0.8){
+                $colorCode = 'warning';
+            }else if($percent >= 0.8 && $percent < 1){
+                $colorCode = 'success';
+            }else if($percent === 1 ){
+                $colorCode = 'black';
+            }
+        }
+        // debug($allCount);
+        // die();
 
         $milestones = $this->Projects->Milestones->find()->contain(['Activities']);
 
         // debug($project);
         // die();
-        $this->set(compact('project', 'milestones', 'milestone_list', 'projectDet', 'spons'));
+        $this->set(compact('project', 'milestones', 'milestone_list', 'projectDet', 'spons', 'colorCode'));
     }
 
     public function milestones($project_id = null)
