@@ -71,7 +71,7 @@ $this->end();
 <div class="row m-3">
 
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card  shadow h-100 py-0">
+        <div class="card  shadow h-100 py-0 border border-left-<?= $colorCode ?> rounded-lg">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2" id="clickable-card" data-attr="">
@@ -82,16 +82,6 @@ $this->end();
                     </div>
                 </div>
 
-            </div>
-            <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-                <div class="row">
-                    <div class="col-auto">
-                        <i class="fas fa-clock fa-1x text-gray-300"></i>
-                    </div>
-                    <div class="col border-left ">
-                        <i class="fas fa-book fa-1x text-gray-300"></i>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -107,13 +97,37 @@ $this->end();
                     </div>
                 </div>
             </div>
-            <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-                <div class="row">
-                    <div class="col-auto">
-                        <i class="fas fa-clock fa-1x text-gray-300"></i>
-                    </div>
-                    <div class="col border-left ">
-                        <i class="fas fa-book fa-1x text-gray-300"></i>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card  shadow h-100 py-0">
+            <div class="card-body py-2 px-2">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2" id="clickable-card" data-attr="">
+                        <div class=" font-weight-bold mb-4 mt- 2 text-primary text-uppercase mb-1">
+                            <?= h('Sponsors') ?>
+                        </div>
+                        <div class="h6 mb-0 text-gray-800">
+
+                            <?php foreach ($projectDet as $prodet) : ?>
+                            <?php foreach ($spons as $spon) : ?>
+                            <?php if ($prodet->sponsor_id == $spon->id) : ?>
+                            <p>
+                                <?= h($spon->first_name) ?>
+                                <?= h($spon->last_name) ?>
+                                <strong>(Sponsor)</strong>
+                            </p>
+                            <?php endif; ?>
+                            <?php if ($prodet->donor_id == $spon->id) : ?>
+                            <p>
+                                <?= h($spon->first_name) ?>
+                                <?= h($spon->last_name) ?>
+                                <strong>(Donor)</strong>
+                            </p>
+                            <?php endif; ?>
+                            <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -125,7 +139,7 @@ $this->end();
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2" id="clickable-card" data-attr="">
                         <div class=" font-weight-bold mb-4 mt- 2 text-primary text-uppercase mb-1">
-                            <?= h('Sponsors & Donors') ?>
+                            <?= h('Donors') ?>
                         </div>
                         <div class="h6 mb-0 text-gray-800">
 
@@ -153,7 +167,7 @@ $this->end();
                 </div>
             </div>
         </div>
-    </div>
+    </div>    
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">
@@ -175,7 +189,7 @@ $this->end();
                     </div>
                 </div>
             </div>
-            <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
+            <!-- <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
                 <div class="row">
                     <div class="col-auto">
                         <i class="fas fa-clock fa-1x text-gray-300"></i>
@@ -184,7 +198,7 @@ $this->end();
                         <i class="fas fa-book fa-1x text-gray-300"></i>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="col-xl-3 col-md-6 mb-4">
@@ -201,19 +215,9 @@ $this->end();
                         </div>
                         <?php } ?>
                         <?php if (!isset($project->pim->mda)) { ?>
-                        <p class="card-text"><?= h('Ogun State Ministry') ?></p>
+                        <p class="card-text"><?= h('Ogun State Government') ?></p>
                     </div>
                     <?php } ?>
-                </div>
-            </div>
-        </div>
-        <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-            <div class="row">
-                <div class="col-auto">
-                    <i class="fas fa-clock fa-1x text-gray-300"></i>
-                </div>
-                <div class="col border-left ">
-                    <i class="fas fa-book fa-1x text-gray-300"></i>
                 </div>
             </div>
         </div>
@@ -238,17 +242,6 @@ $this->end();
                 </div>
             </div>
         </div>
-
-        <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-            <div class="row">
-                <div class="col-auto">
-                    <i class="fas fa-clock fa-1x text-gray-300"></i>
-                </div>
-                <div class="col border-left ">
-                    <i class="fas fa-book fa-1x text-gray-300"></i>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 <div class="col-xl-3 col-md-6 mb-4">
@@ -261,16 +254,6 @@ $this->end();
                     </div>
                     <div class="h6 mb-0 text-gray-800">
                         <?= h($project->project_detail->risk_and_issues) ?></div>
-                </div>
-            </div>
-        </div>
-        <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-            <div class="row">
-                <div class="col-auto">
-                    <i class="fas fa-clock fa-1x text-gray-300"></i>
-                </div>
-                <div class="col border-left ">
-                    <i class="fas fa-book fa-1x text-gray-300"></i>
                 </div>
             </div>
         </div>
@@ -293,16 +276,6 @@ $this->end();
                 </div>
             </div>
 
-        </div>
-    </div>
-    <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-        <div class="row">
-            <div class="col-auto">
-                <i class="fas fa-clock fa-1x text-gray-300"></i>
-            </div>
-            <div class="col border-left ">
-                <i class="fas fa-book fa-1x text-gray-300"></i>
-            </div>
         </div>
     </div>
 </div>

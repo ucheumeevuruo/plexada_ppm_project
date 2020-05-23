@@ -125,17 +125,17 @@ class ProjectDetailsTable extends Table
             ->allowEmptyString('id', null, 'create');
 
 
-//        $validator
-//            ->scalar('description')
-//            ->maxLength('description', 600)
-//            ->requirePresence('description', 'create')
-//            ->notEmptyString('description');
+        //        $validator
+        //            ->scalar('description')
+        //            ->maxLength('description', 600)
+        //            ->requirePresence('description', 'create')
+        //            ->notEmptyString('description');
 
         $validator
             ->scalar('location')
             ->maxLength('location', 150);
-//            ->requirePresence('location', 'create')
-//            ->notEmptyString('location');
+        //            ->requirePresence('location', 'create')
+        //            ->notEmptyString('location');
 
         $validator
             ->date('waiting_since')
@@ -145,12 +145,16 @@ class ProjectDetailsTable extends Table
         $validator
             ->date('start_dt')
             // ->requirePresence('start_dt', 'create')
-            ->notEmptyDate('start_dt');
+            // ->notEmptyDate('start_dt');
+            ->allowEmptyString('start_dt');
+
 
         $validator
             ->date('end_dt')
             // ->requirePresence('end_dt', 'create')
-            ->notEmptyDate('end_dt');
+            // ->notEmptyDate('end_dt');
+            ->allowEmptyString('end_dt');
+
 
         $validator
             ->dateTime('last_updated')
@@ -158,9 +162,11 @@ class ProjectDetailsTable extends Table
 
         $validator
             ->scalar('environmental_factors')
-            ->maxLength('environmental_factors', 500);
-//            ->requirePresence('environmental_factors', 'create')
-//            ->notEmptyString('environmental_factors');
+            ->maxLength('environmental_factors', 500)
+            //            ->requirePresence('environmental_factors', 'create')
+            //            ->notEmptyString('environmental_factors');
+            ->allowEmptyString('environmental_factors');
+
 
         $validator
             ->scalar('partners')

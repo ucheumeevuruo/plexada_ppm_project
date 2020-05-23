@@ -35,6 +35,7 @@ $this->end();
                         <tr>
                             <th scope="col" class="text-white"><?= __('Task Name') ?></th>
                             <th scope="col" class="text-white"><?= __('Start_date') ?></th>
+                            <th scope="col" class="text-white"><?= __('end_date') ?></th>
                             <th scope="col" class="text-white"><?= __('Description') ?></th>
                             <th scope="col" class="text-white"><?= __('Predecessor') ?></th>
                             <th scope="col" class="text-white"><?= __('Successor') ?></th>
@@ -46,6 +47,7 @@ $this->end();
                         <tr>
                             <td><?= h($task->Task_name) ?></td>
                             <td><?= h($task->Start_date) ?></td>
+                            <td><?= h($task->end_date) ?></td>
                             <td><?= h($task->Description) ?></td>
                             <td><?= h($task->Predecessor) ?></td>
                             <td><?= h($task->Successor) ?></td>

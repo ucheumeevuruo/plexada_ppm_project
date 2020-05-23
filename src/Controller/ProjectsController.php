@@ -44,24 +44,30 @@ class ProjectsController extends AppController
         $this->loadModel('Milestones');
         $milestones =  $this->Milestones->find('all');
 
-        // debug($projects);
+        $this->loadModel('ProjectDetails');
+        $projectDetails =  $this->ProjectDetails->find('all');
+
+        // debug($projectDetails);
         // die();
 
-        $this->set(compact('projects', 'milestones'));
+        $this->set(compact('projects', 'milestones', 'projectDetails'));
     }
 
     /**
      * View method
      *
-     * @param string|null $id Project id.
+     * @param  string|null $id Project id.
      * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $project = $this->Projects->get($id, [
-            'contain' => ['Pims', 'ProjectFundings', 'ProjectDetails', 'Activities', 'Annotations', 'Milestones', 'Objectives', 'Prices', 'RiskIssues'],
-        ]);
+        $project = $this->Projects->get(
+            $id,
+            [
+                'contain' => ['Pims', 'ProjectFundings', 'ProjectDetails', 'Activities', 'Annotations', 'Milestones', 'Objectives', 'Prices', 'RiskIssues'],
+            ]
+        );
 
         $this->set('project', $project);
     }
@@ -70,9 +76,12 @@ class ProjectsController extends AppController
 
     public function report($id = null)
     {
-        $project = $this->Projects->get($id, [
-            'contain' => ['Pims', 'ProjectFundings', 'ProjectDetails', 'Activities', 'Annotations', 'Milestones', 'Objectives', 'Prices', 'RiskIssues', 'Sponsors', 'Pads', 'ProjectDetails.Currencies'],
-        ]);
+        $project = $this->Projects->get(
+            $id,
+            [
+                'contain' => ['Pims', 'ProjectFundings', 'ProjectDetails', 'Activities', 'Annotations', 'Milestones', 'Objectives', 'Prices', 'RiskIssues', 'Sponsors', 'Pads', 'ProjectDetails.Currencies'],
+            ]
+        );
 
         $proDetail = $this->ProjectDetails->find('all')->contain(['Currencies'])->where(['project_id' => $id]);
         $this->set('project', $project, 'proDetail');
@@ -85,12 +94,32 @@ class ProjectsController extends AppController
 
         $this->loadModel('Milestones');
         $milestone_list =  $this->Milestones->find('all');
+        $closedCount =  $this->Milestones->find('all',['conditions'=>['project_id' => $id,'status_id' => 3]])->count();
+        $allCount =  $this->Milestones->find('all',['conditions'=>['project_id' => $id]])->count();
+        if  ($allCount === 0){
+            $colorCode = 'primary';
+        }else{
+            $percent = $closedCount/$allCount ;
+            if ($percent <= 0.4){
+                $colorCode = 'danger';
+            }else if($percent >= 0.4 && $percent < 0.6){
+                $colorCode = 'warning';
+            }else if($percent >= 0.6 && $percent < 0.8){
+                $colorCode = 'warning';
+            }else if($percent >= 0.8 && $percent < 1){
+                $colorCode = 'success';
+            }else if($percent === 1 ){
+                $colorCode = 'black';
+            }
+        }
+        // debug($allCount);
+        // die();
 
         $milestones = $this->Projects->Milestones->find()->contain(['Activities']);
 
         // debug($project);
         // die();
-        $this->set(compact('project', 'milestones', 'milestone_list', 'projectDet', 'spons'));
+        $this->set(compact('project', 'milestones', 'milestone_list', 'projectDet', 'spons', 'colorCode'));
     }
 
     public function milestones($project_id = null)
@@ -118,9 +147,11 @@ class ProjectsController extends AppController
         $activities->where(['Activities.project_id' => $project_id]);
 
         if (!is_null($q)) {
-            $activities->andWhere(function ($exp, $query) use ($q) {
-                return $exp->like('Activities.name', "%$q%");
-            });
+            $activities->andWhere(
+                function ($exp, $query) use ($q) {
+                    return $exp->like('Activities.name', "%$q%");
+                }
+            );
         }
 
         $this->paginate = [
@@ -129,28 +160,40 @@ class ProjectsController extends AppController
 
         $activities = $this->paginate($activities);
 
-        $project = $this->Projects->get($project_id, [
-            'contain' => ['ProjectDetails'],
-        ]);
-        // debug($project);
+        $project = $this->Projects->get(
+            $project_id,
+            [
+                'contain' => ['ProjectDetails'],
+            ]
+        );
+        $this->loadModel('Milestones');
+        $milestones = $this->Milestones->find('all')->where(['project_id' => $project_id]);;
+
+        // debug($activities);
         // die();
-        $this->set(compact('activities', 'project_id', 'project'));
+        $this->set(compact('activities', 'project_id', 'project', 'milestones'));
     }
 
     public function partners($id = null)
     {
-        $project = $this->Projects->get($id, [
-            'contain' => ['Sponsors', 'ProjectDetails'],
-        ]);
+        $project = $this->Projects->get(
+            $id,
+            [
+                'contain' => ['Sponsors', 'ProjectDetails'],
+            ]
+        );
 
         $this->set('project', $project);
     }
 
     public function riskIssues($id = null)
     {
-        $project = $this->Projects->get($id, [
-            'contain' => ['RiskIssues', 'ProjectDetails'],
-        ]);
+        $project = $this->Projects->get(
+            $id,
+            [
+                'contain' => ['RiskIssues', 'ProjectDetails'],
+            ]
+        );
 
         // debug($project);
         // die();
@@ -159,9 +202,12 @@ class ProjectsController extends AppController
 
     public function documents($id = null)
     {
-        $project = $this->Projects->get($id, [
-            'contain' => ['Pads', 'Pims', 'Documents'],
-        ]);
+        $project = $this->Projects->get(
+            $id,
+            [
+                'contain' => ['Pads', 'Pims', 'Documents'],
+            ]
+        );
         // debug($project);
         // die();
 
@@ -181,17 +227,8 @@ class ProjectsController extends AppController
 
             if ($this->Projects->save($project)) {
                 $this->Flash->success(__('The project has been saved.'));
-                $projectDetailsId = $project->project_detail->id;
 
-
-                if (isset($projectDetailsId)) {
-                    return $this->redirect(['controller' => 'projectDetails', 'action' => 'edit', $projectDetailsId]);
-                } else {
-
-                    return $this->redirect(['controller' => 'projectDetails', 'action' => 'add', $project->id]);
-                }
-                // $this->addPad($id);
-
+                return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The project could not be saved. Please, try again.'));
         }
@@ -199,7 +236,7 @@ class ProjectsController extends AppController
         $projectDetails = $this->Projects->ProjectDetails->find('list', ['limit' => 200]);
         $projectFundings = $this->Projects->ProjectFundings->find('list', ['limit' => 200]);
         $currencies = $this->Projects->ProjectDetails->Currencies->find('list', ['limit' => 200]);
-        $this->set(compact('project', 'pims', 'projectFundings', 'projectDetails', 'status', 'currencies'));
+        $this->set(compact('project', 'pims', 'projectFundings', 'projectDetails', 'currencies'));
     }
 
 
@@ -207,15 +244,18 @@ class ProjectsController extends AppController
     /**
      * Edit method
      *
-     * @param string|null $id Project id.
+     * @param  string|null $id Project id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit($id = null)
     {
-        $project = $this->Projects->get($id, [
-            'contain' => [],
-        ]);
+        $project = $this->Projects->get(
+            $id,
+            [
+                'contain' => [],
+            ]
+        );
         if ($this->request->is(['patch', 'post', 'put'])) {
             $project = $this->Projects->patchEntity($project, $this->request->getData());
             if ($this->Projects->save($project)) {
@@ -235,7 +275,7 @@ class ProjectsController extends AppController
     /**
      * Delete method
      *
-     * @param string|null $id Project id.
+     * @param  string|null $id Project id.
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
@@ -276,9 +316,12 @@ class ProjectsController extends AppController
         $ganttDetails = $array_gantt;
 
 
-        $project = $this->Projects->get($id, [
-            'contain' => ['ProjectDetails'],
-        ]);
+        $project = $this->Projects->get(
+            $id,
+            [
+                'contain' => ['ProjectDetails'],
+            ]
+        );
 
         $this->set(compact('ganttDetails', 'id', 'project'));
     }

@@ -50,7 +50,7 @@ $this->end();
     $arropen = [];
     ?>
     <?php foreach ($project_list as $project) : ?>
-        <?php
+    <?php
         $conn = ConnectionManager::get('default');
         $prjid = $project->project_id;
         $completed = $conn->execute("SELECT count(*) as T FROM milestones where project_id ='" . $prjid . "' and status_id ='3' ");
@@ -63,8 +63,8 @@ $this->end();
         ?>
     <?php endforeach; ?>
     <?php
-        // debug($arropen);
-        // die();
+    // debug($arropen);
+    // die();
     ?>
     <!-- start of health chart  -->
     <div class="row">
@@ -74,10 +74,12 @@ $this->end();
                 <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
                     <h4 class="m-0 text-white">Health</h4>
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Dropdown Header:</div>
                             <a class="dropdown-item" href="#">Action</a>
                             <a class="dropdown-item" href="#">Another action</a>
@@ -104,7 +106,7 @@ $this->end();
                                 </thead>
                                 <?php foreach ($project_list as $project) : ?>
 
-                                    <?php
+                                <?php
                                     // debug($project) ;
                                     // die();
                                     $sdate = $project->has('start_dt') ? $project->start_dt->format("Y-m-d H:i:s") : '';
@@ -114,7 +116,7 @@ $this->end();
                                     $projectdatediff = date_diff(new DateTime($sdate), new DateTime($edate));
                                     $result = intval($projectdatediff->format('%R%a'));
                                     $expectedprojectdays = intval(date_diff(new DateTime($sdate), new DateTime($today))->format('%R%a'));
-                                    if ($result == 0){
+                                    if ($result == 0) {
                                         $result = 1;
                                     };
                                     $result2 = ($expectedprojectdays * 100) / $result;
@@ -185,15 +187,18 @@ $this->end();
                                     }
                                     ?>
 
-                                    <tr>
-                                        <td><a href="#" class="text-decoration-none"><?= $project->name ?></a></td>
-                                        <!-- <td><?= $ptocomplete ?></td> -->
-                                        <td>
-                                            <div class="progress " style="width:80px;">
-                                                <div class="progress-bar <?= $color ?> progress-bar-striped active" title="<?= $title ?>" data-toggle="tooltip" data-placement="right" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </td>
-                                        <td><?php echo $this->Form->button('<i class="fa fa-exclamation-triangle"></i>', array(
+                                <tr>
+                                    <td><a href="#" class="text-decoration-none"><?= $project->name ?></a></td>
+                                    <!-- <td><?= $ptocomplete ?></td> -->
+                                    <td>
+                                        <div class="progress " style="width:80px;">
+                                            <div class="progress-bar <?= $color ?> progress-bar-striped active"
+                                                title="<?= $title ?>" data-toggle="tooltip" data-placement="right"
+                                                role="progressbar" style="width: 100%;" aria-valuenow="100"
+                                                aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </td>
+                                    <td><?php echo $this->Form->button('<i class="fa fa-exclamation-triangle"></i>', array(
                                                 'type' => 'button',
                                                 'class' => 'btn btn-warning',
                                                 'escape' => false,
@@ -202,7 +207,7 @@ $this->end();
                                                 'title' => $achievement
                                             )); ?></td>
 
-                                        <td><?php echo $this->Form->button('<i class="fa fa-trophy"></i>', array(
+                                    <td><?php echo $this->Form->button('<i class="fa fa-trophy"></i>', array(
                                                 'type' => 'button',
                                                 'class' => 'btn ',
                                                 'escape' => false,
@@ -210,15 +215,15 @@ $this->end();
                                                 'data-placement' => 'top',
                                                 'title' => $achievement
                                             )); ?></td>
-                                        <td><?= $mlcount ?> </td>
-                                        <td><?php if ($completeddays>100){
-                                            echo 100;
-                                        }else{
-                                            echo $completeddays;
-                                        }
+                                    <td><?= $mlcount ?> </td>
+                                    <td><?php if ($completeddays > 100) {
+                                                echo 100;
+                                            } else {
+                                                echo $completeddays;
+                                            }
 
-                                        ?>%</td>
-                                    </tr>
+                                            ?>%</td>
+                                </tr>
 
                                 <?php endforeach; ?>
 
@@ -281,12 +286,12 @@ $this->end();
                                 $results = $stmt->fetchAll('assoc');
                                 if (isset($results[0])) {
                                     $freshdate = $results[0]['completed_date'];
-                                    $lastcloseddatediff = intval(date_diff(new DateTime($sdate),new DateTime($freshdate))->format('%R%a'));
-                                    if ($lastcloseddatediff > 0){
+                                    $lastcloseddatediff = intval(date_diff(new DateTime($sdate), new DateTime($freshdate))->format('%R%a'));
+                                    if ($lastcloseddatediff > 0) {
                                         // echo $lastcloseddatediff;
-                                        $result3 = ($lastcloseddatediff * 100)/$result;
-                                        $completeddays =  round(number_format($result3,2),2);
-                                    }else{
+                                        $result3 = ($lastcloseddatediff * 100) / $result;
+                                        $completeddays =  round(number_format($result3, 2), 2);
+                                    } else {
                                         $completeddays = 0;
                                     }
                                 } else {
@@ -337,7 +342,7 @@ $this->end();
     <?= $this->Html->script('mychart.js') ?>
 
 
-
+    <canvas id="fundingType"></canvas>
 
     <div class="row">
         <div class="col">
@@ -346,10 +351,12 @@ $this->end();
                 <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
                     <h4 class="m-0 text-white">Milestones</h4>
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Dropdown Header:</div>
                             <a class="dropdown-item" href="#">Action</a>
                             <a class="dropdown-item" href="#">Another action</a>
@@ -365,14 +372,14 @@ $this->end();
                         <!-- <canvas id="myPieChart"></canvas> -->
                         <canvas id="myChart" width="200" height="50" style="height:400px"></canvas>
                         <script>
-                            <?php $code_array = json_encode($allprojects);
-                            $comp  = json_encode($arrcompleted);
-                            $op  = json_encode($arropen);
-                            ?>
-                            var array_code = <?php echo $code_array; ?>;
-                            var array_complete = <?php echo $comp; ?>;
-                            var array_open = <?php echo $op; ?>;
-                            doBarChart(array_code, array_complete, array_open);
+                        < ? php $code_array = json_encode($allprojects);
+                        $comp = json_encode($arrcompleted);
+                        $op = json_encode($arropen); ?
+                        >
+                        var array_code = < ? php echo $code_array; ? > ;
+                        var array_complete = < ? php echo $comp; ? > ;
+                        var array_open = < ? php echo $op; ? > ;
+                        doBarChart(array_code, array_complete, array_open);
                         </script>
                     </div>
                     <div class="mt-4 text-center small status"></div>
@@ -388,10 +395,12 @@ $this->end();
                 <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
                     <h4 class="m-0 text-white">Cost : Budget vs Spent</h4>
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Dropdown Header:</div>
                             <a class="dropdown-item" href="#">Action</a>
                             <a class="dropdown-item" href="#">Another action</a>
@@ -407,13 +416,15 @@ $this->end();
                         <!-- <canvas id="myPieChart"></canvas> -->
                         <canvas id="myChart2" width="200" height="50" style="height:400px"></canvas>
                         <script>
-                            <?php $code_array = json_encode($allprojects) ?>
-                            <?php $budget_array = json_encode($allBudgetList) ?>
-                            <?php $expense_array = json_encode($allExpenseList) ?>
-                            var array_code = <?php echo $code_array; ?>;
-                            var array_budget = <?php echo $budget_array; ?>;
-                            var array_expense = <?php echo $expense_array; ?>;
-                            doBarChart2(array_code, array_budget,array_expense);
+                        < ? php $code_array = json_encode($allprojects) ? >
+                            <
+                            ? php $budget_array = json_encode($allBudgetList) ? >
+                            <
+                            ? php $expense_array = json_encode($allExpenseList) ? >
+                            var array_code = < ? php echo $code_array; ? > ;
+                        var array_budget = < ? php echo $budget_array; ? > ;
+                        var array_expense = < ? php echo $expense_array; ? > ;
+                        doBarChart2(array_code, array_budget, array_expense);
                         </script>
                     </div>
                     <div class="mt-4 text-center small status"></div>
@@ -499,10 +510,12 @@ $this->end();
                 <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
                     <h4 class="m-0 text-white">Gantt Chart</h4>
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
-                        <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Dropdown Header:</div>
                             <a class="dropdown-item" href="#">Action</a>
                             <a class="dropdown-item" href="#">Another action</a>
@@ -516,12 +529,12 @@ $this->end();
                 <div class="card-body">
                     <div id="container3">
                         <div id="ganttcontainer2" style="height: 500px; width: 100%">
-                        <script>
-                            <?php $obj_array = json_encode($ganttDetails) ?>
-                            var array_code2 = <?php echo $obj_array; ?>;
+                            <script>
+                            < ? php $obj_array = json_encode($ganttDetails) ? >
+                                var array_code2 = < ? php echo $obj_array; ? > ;
                             ganttProject2(array_code2);
                             // console.log(array_code2)
-                        </script>
+                            </script>
                         </div>
                     </div>
 
@@ -532,9 +545,41 @@ $this->end();
     </div>
 
 </div>
+<div>
+
+</div>
 <script>
-    $(function() {
-        $('[data-toggle="tooltip"]').tooltip()
-    });
+$(function() {
+    $('[data-toggle="tooltip"]').tooltip()
+});
 </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+var ctx = document.getElementById('fundingType').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'pie',
+
+    // The data for our dataset
+    data: {
+        labels: ['Loan', 'Grant', 'PPP', 'None', 'Others', 'Donor'],
+        datasets: [{
+            label: 'Funding Type',
+            backgroundColor: ["#0074D9", "#FF851B", "#B10DC9", "#FFDC00", "#39CCCC", "#85144b",
+                "#F012BE"
+            ],
+            borderWidth: 2,
+            hoverBorderWidth: 4,
+            cutoutPercentage: 5,
+            data: ["<?php echo $loan; ?>", "<?php echo $grant; ?>", "<?php echo $ppp; ?>",
+                "<?php echo $none; ?>", "<?php echo $others; ?>", "<?php echo $donor; ?>",
+            ]
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+</script>
+
 </div>
