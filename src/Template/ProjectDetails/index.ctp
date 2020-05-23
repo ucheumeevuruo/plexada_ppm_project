@@ -13,9 +13,14 @@ $this->end();
 ?>
 
 <div class="projectDetails container-fluid">
+    <h2 class="text-center text-primary font-weight-bold"><?= __('Projects Details') ?></h2>
     <div class="shadow mb-4 br-m">
         <div class="py-3 pl-3 bg-primary br-t">
-            <h2 class="text-center text-light font-weight-bold"><?= __('Project Details') ?></h2>
+            <h3 class="m-0 text-white"><?= __('Project') ?>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <?= $this->Html->link(__('<i class="fa fa-plus fa-lg"></i>'), ['action' => 'add'], ['class' => 'btn btn-light overlay ml-2', 'title' => 'Add', 'escape' => false]) ?>
+                </div>
+            </h3>
         </div>
 
 
@@ -119,6 +124,7 @@ $this->end();
             <?= $this->Modal->end() ?>
         </div>
     </div>
+
 
 
     <script>

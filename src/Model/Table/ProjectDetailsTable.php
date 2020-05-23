@@ -61,6 +61,12 @@ class ProjectDetailsTable extends Table
         $this->belongsTo('Sponsors', [
             'foreignKey' => 'sponsor_id'
         ]);
+        $this->belongsTo('Donors', [
+            'foreignKey' => 'donor_id'
+        ]);
+        $this->belongsTo('mdas', [
+            'foreignKey' => 'mda_id'
+        ]);
         $this->belongsTo('Staff', [
             'foreignKey' => 'waiting_on_id',
         ]);
@@ -82,6 +88,10 @@ class ProjectDetailsTable extends Table
         ]);
         $this->belongsTo('Annotations', [
             'foreignKey' => 'annotation_id',
+        ]);
+        $this->belongsTo('Projects', [
+            'foreignKey' => 'id',
+            'joinType' => 'INNER',
         ]);
         $this->hasOne('Projects', [
             'foreignKey' => 'id',
@@ -236,6 +246,7 @@ class ProjectDetailsTable extends Table
         $rules->add($rules->existsIn(['sub_status_id'], 'SubStatuses'));
         $rules->add($rules->existsIn(['currency_id'], 'SubStatuses'));
 
-        return $rules;
+
+       return $rules;
     }
 }

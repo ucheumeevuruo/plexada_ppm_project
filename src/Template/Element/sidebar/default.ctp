@@ -62,7 +62,7 @@
     <?= $this->Html->link(__('<i class="fa fa-archive fa-lg "></i> &nbsp;Monitoring'),
         [], ['escape' => false, 'class' => 'nav-link collapsed dark']) ?>
     <?= $this->Html->link(__('<i class="fa fa-archive fa-lg "></i> &nbsp;Disbursement'),
-        [], ['escape' => false, 'class' => 'nav-link collapsed dark']) ?>                
+        [], ['escape' => false, 'class' => 'nav-link collapsed dark']) ?>
   </div>
 </div>
     </li>
@@ -96,7 +96,7 @@
   <?= $this->Html->link(__('<i class="fa fa-desktop fa-lg"></i> &nbsp;Progress Report'),
             ['controller' => 'ProjectDetails', 'action' => 'evaluation'], ['escape' => false, 'class' => 'nav-link collapsed dark']) ?>
     <?= $this->Html->link(__('<i class="fa fa-archive fa-lg "></i> &nbsp;Consolidated Report'),
-        ['controller' => 'ProjectDetails', 'action' => 'consolidated'], ['escape' => false, 'class' => 'nav-link collapsed dark']) ?>            
+        ['controller' => 'ProjectDetails', 'action' => 'consolidated'], ['escape' => false, 'class' => 'nav-link collapsed dark']) ?>
   </div>
 </div>
     </li>
