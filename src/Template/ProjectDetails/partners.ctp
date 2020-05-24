@@ -79,12 +79,15 @@ $this->end();
                         <td><?= h($sponsor->address) ?></td>
                         <!-- <td><?= h($projectDetails->sponsor_id) ?></td> -->
 
+                        <div class="row m-3">
+                            <?php foreach ($projectDetails->sponsors as $sponsor) : ?>
+                            <?php if (isset($sponsor)) : ?>
 
-                    </tr>
-                    <?php endforeach; ?>
 
                 </tbody>
             </table>
         </div>
+        <?php endif; ?>
+        <?php endforeach; ?>
     </div>
 </div>

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -46,57 +47,61 @@ use Cake\ORM\Entity;
  */
 class ProjectDetail extends Entity
 {
-    /**
-     * Fields that can be mass assigned using newEntity() or patchEntity().
-     *
-     * Note that when '*' is set to true, this allows all unspecified fields to
-     * be mass assigned. For security purposes, it is advised to set '*' to false
-     * (or remove it), and explicitly make individual fields accessible as needed.
-     *
-     * @var array
-     */
-    protected $_accessible = [
-        'name' => true,
-        'description' => true,
-        'location' => true,
-        'vendor_id' => true,
-        'manager_id' => true,
-        'sponsor_id' => true,
-        'waiting_since' => true,
-        'waiting_on_id' => true,
-        'status_id' => true,
-        'priority_id' => true,
-        'start_dt' => true,
-        'end_dt' => true,
-        'created' => true,
-        'last_updated' => true,
-        'system_user_id' => true,
-        'annotation_id' => true,
-        'project_id' => true,
-        'environmental_factors' => true,
-        'partners' => true,
-        'funding' => true,
-        'approvals' => true,
-        // 'risks' => true,
-        // 'components' => true,
-        'price_id' => true,
-        'sub_status_id' => true,
-        'vendor' => true,
-        'staff' => true,
-        'sponsor' => true,
-        'lov' => true,
-        'priority' => true,
-        'user' => true,
-        'annotation' => true,
-        'project' => true,
-        'price' => true,
-        'sub_status' => true,
-        'donor_id'=>true,
-        'mda_id' => true,
-        'DLI'=>true,
-        'risk_and_issues'=>true,
-        'currency'=>true,
-        'budget'=>true,
-        'expenses '=>true
-    ];
+        /**
+         * Fields that can be mass assigned using newEntity() or patchEntity().
+         *
+         * Note that when '*' is set to true, this allows all unspecified fields to
+         * be mass assigned. For security purposes, it is advised to set '*' to false
+         * (or remove it), and explicitly make individual fields accessible as needed.
+         *
+         * @var array
+         */
+        protected $_accessible = [
+                'name' => true,
+                'description' => true,
+                'location' => true,
+                'vendor_id' => true,
+                'manager_id' => true,
+                'sponsor_id' => true,
+                'currency_id' => true,
+                'waiting_since' => true,
+                'waiting_on_id' => true,
+                'status_id' => true,
+                'priority_id' => true,
+                'start_dt' => true,
+                'end_dt' => true,
+                'created' => true,
+                'last_updated' => true,
+                'system_user_id' => true,
+                'annotation_id' => true,
+                'project_id' => true,
+                'environmental_factors' => true,
+                'completed_percent' => true,
+                'partners' => true,
+                'funding' => true,
+                'approvals' => true,
+                'price_id' => true,
+                'sub_status_id' => true,
+                'vendor' => true,
+                'staff' => true,
+                'sponsor' => true,
+                'lov' => true,
+                'priority' => true,
+                'user' => true,
+                'annotation' => true,
+                'project' => true,
+                'price' => true,
+                'sub_status' => true,
+                'donor_id' => true,
+                'mda_id' => true,
+                'DLI' => true,
+                'risk_and_issues' => true,
+                'currency' => true,
+                'budget' => true,
+                'expenses' => true,
+                'financing_agreement' => true,
+                'funding_type' => true,
+                'beneficiary' => true,
+                'pim' => true,
+        ];
 }
