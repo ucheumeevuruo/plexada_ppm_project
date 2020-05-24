@@ -42,8 +42,9 @@ $this->end();
         <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav"
             style=" font-size: 20px;">Gantt
             Charts</span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav"
-            style=" font-size: 20px;">Documents</span>
+        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav" style=" font-size: 20px;">
+            <?= $this->Html->link('Documents', ['controller' => 'projects', 'action' => 'documents', $project->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
+        </span>
 
 
     </div>
@@ -55,6 +56,15 @@ $this->end();
 
         <div class="mb-4 br-m shad">
             <div class="py-3 pl-3 bg-default br-t">
+                <div class="card card-outline shadow mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold text-primary"> Risks & Issues
+                        </h5>
+                        <p class="card-text">
+                            <?= h($project->project_detail->risk_and_issues) ?>
+
+                    </div>
+                </div>
                 <div class="card-deck mb-3">
                     <?php $num = 0; ?>
                     <?php foreach ($project->risk_issues as $riskissue) : ?>
@@ -64,15 +74,15 @@ $this->end();
                     <span aria-hidden="true" class="indicator"></span>
                     <div class="card card-outline shadow">
                         <div class="card-body">
-                            <h5 class="card-title font-weight-bold text-primary"> Risks & Issues <?= h($num) ?></h5>
+                            <h5 class="card-title font-weight-bold text-primary"> Risks & Issues </h5>
                             <p class="card-text">
                                 <?= $this->Html->link($riskissue->description, ['controller' => 'riskIssues', 'action' => 'view', $riskissue->id]) ?>
                             </p>
+
+                            <?php endforeach; ?>
                         </div>
                     </div>
-                    <?php endforeach; ?>
                 </div>
+
             </div>
         </div>
-    </div>
-</div>

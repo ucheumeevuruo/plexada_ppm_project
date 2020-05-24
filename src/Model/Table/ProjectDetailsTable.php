@@ -61,8 +61,18 @@ class ProjectDetailsTable extends Table
         $this->belongsTo('Sponsors', [
             'foreignKey' => 'sponsor_id'
         ]);
+        $this->belongsTo('Donors', [
+            'foreignKey' => 'donor_id'
+        ]);
+        $this->belongsTo('mdas', [
+            'foreignKey' => 'mda_id'
+        ]);
         $this->belongsTo('Staff', [
             'foreignKey' => 'waiting_on_id',
+        ]);
+        $this->belongsTo('Currencies', [
+            'foreignKey' => 'currency_id',
+            'joinType' => 'INNER',
         ]);
         $this->belongsTo('Lov', [
             'foreignKey' => 'status_id',
@@ -78,6 +88,10 @@ class ProjectDetailsTable extends Table
         ]);
         $this->belongsTo('Annotations', [
             'foreignKey' => 'annotation_id',
+        ]);
+        $this->belongsTo('Projects', [
+            'foreignKey' => 'id',
+            'joinType' => 'INNER',
         ]);
         $this->hasOne('Projects', [
             'foreignKey' => 'id',
@@ -101,6 +115,7 @@ class ProjectDetailsTable extends Table
             'className' => 'lov',
             'foreignKey' => 'status_id',
             'joinType' => 'INNER',
+            'conditions' => ['Statuses.lov_type' => 'project_status']
         ]);
         $this->hasMany('Sponsors', [
             'foreignKey' => 'id',
@@ -120,17 +135,17 @@ class ProjectDetailsTable extends Table
             ->allowEmptyString('id', null, 'create');
 
 
-        $validator
-            ->scalar('description')
-            ->maxLength('description', 600)
-            ->requirePresence('description', 'create')
-            ->notEmptyString('description');
+        //        $validator
+        //            ->scalar('description')
+        //            ->maxLength('description', 600)
+        //            ->requirePresence('description', 'create')
+        //            ->notEmptyString('description');
 
         $validator
             ->scalar('location')
-            ->maxLength('location', 150)
-            ->requirePresence('location', 'create')
-            ->notEmptyString('location');
+            ->maxLength('location', 150);
+        //            ->requirePresence('location', 'create')
+        //            ->notEmptyString('location');
 
         $validator
             ->date('waiting_since')
@@ -140,12 +155,16 @@ class ProjectDetailsTable extends Table
         $validator
             ->date('start_dt')
             // ->requirePresence('start_dt', 'create')
-            ->notEmptyDate('start_dt');
+            // ->notEmptyDate('start_dt');
+            ->allowEmptyString('start_dt');
+
 
         $validator
             ->date('end_dt')
             // ->requirePresence('end_dt', 'create')
-            ->notEmptyDate('end_dt');
+            // ->notEmptyDate('end_dt');
+            ->allowEmptyString('end_dt');
+
 
         $validator
             ->dateTime('last_updated')
@@ -154,8 +173,10 @@ class ProjectDetailsTable extends Table
         $validator
             ->scalar('environmental_factors')
             ->maxLength('environmental_factors', 500)
-            ->requirePresence('environmental_factors', 'create')
-            ->notEmptyString('environmental_factors');
+            //            ->requirePresence('environmental_factors', 'create')
+            //            ->notEmptyString('environmental_factors');
+            ->allowEmptyString('environmental_factors');
+
 
         $validator
             ->scalar('partners')
@@ -223,7 +244,9 @@ class ProjectDetailsTable extends Table
         $rules->add($rules->existsIn(['project_id'], 'Projects'));
         $rules->add($rules->existsIn(['price_id'], 'Prices'));
         $rules->add($rules->existsIn(['sub_status_id'], 'SubStatuses'));
+        $rules->add($rules->existsIn(['currency_id'], 'SubStatuses'));
 
-        return $rules;
+
+       return $rules;
     }
 }

@@ -30,7 +30,7 @@ class Lov extends Entity
         'lov_type' => true,
         'lov_value' => true,
         'created' => true,
-        'last_updated' => true,
+        // 'last_updated' => true,
         'system_user_id' => true,
         'system_user' => true,
     ];

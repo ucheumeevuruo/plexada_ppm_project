@@ -69,7 +69,7 @@ data: {
 
     ]
     // datasets: [{
-        
+
     //     label: 'Milestones',
     //     data: [ 12, 19, 3, 5, 2, 3],
     //     backgroundColor: [
@@ -118,7 +118,7 @@ options:{
 //     xAxes: [{stacked: true}],
 //     }
 // }
-}); 
+});
 
 }
 
@@ -143,15 +143,9 @@ data: {
             // data: [2000000, 4000000, 1000000, 2000000, 1000000, 2000000],
             backgroundColor: '#dc3912'
          },
-         {
-            label: 'Cost',
-            data: [2000000, 4400000, 10000000, 2000000, 1000000, 2000000],
-            backgroundColor: '#ffbf00'
-         },
-
     ]
     // datasets: [{
-        
+
     //     label: 'Milestones',
     //     data: [ 12, 19, 3, 5, 2, 3],
     //     backgroundColor: [
@@ -188,12 +182,12 @@ options:{
                     valuez = fnum(value);
                     // value = value.toString();
                     // value = value.split(/(?=(?:...)*$)/);
-        
+
                     // // Convert the array to a string and format the output
                     // value = value.join('.');
                     return '$' + valuez;
                 }
-                
+
             },
              display: true
         }],
@@ -215,7 +209,7 @@ options:{
 //     xAxes: [{stacked: true}],
 //     }
 // }
-}); 
+});
 
 }
 
@@ -327,7 +321,7 @@ function ganttProject2 (array_code2) {
 	// 	name: "Dredging of the River Niger",
 	// 	actualStart: Date.UTC(2020, 01, 02),
 	// 	actualEnd: Date.UTC(2020, 06, 15),
-	
+
     // }];
     var data = array_code2
 	// create a data tree
@@ -338,7 +332,7 @@ function ganttProject2 (array_code2) {
 	// create a chart
 	var chart = anychart.ganttProject();
 
-    // title 
+    // title
     var title = chart.title();
     title.enabled(true);
     title.text("Timelines");
@@ -349,7 +343,7 @@ function ganttProject2 (array_code2) {
     // set the minimum and maximum values of the scale
     chart.getTimeline().scale().minimum("2020-01-01");
     chart.getTimeline().scale().maximum("2030-12-31");
-    
+
 	// set the data
     chart.data(treeData);
     // set background color
@@ -362,5 +356,6 @@ function ganttProject2 (array_code2) {
 	chart.draw();
 	// fit elements to the width of the timeline
     chart.fitAll();
+    chart.splitterPosition("14%")
     chart.collapseAll();
 };

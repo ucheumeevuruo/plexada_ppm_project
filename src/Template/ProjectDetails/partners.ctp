@@ -12,82 +12,86 @@ echo $this->element('navbar/default');
 $this->end();
 ?>
 
-<?php echo $this->Html->css('report'); ?>
-
-<div class="container-fluid">
-
-    <div class="card-deck">
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav"
-            style=" font-size: 20px;">
-            <?= $this->Html->link('Summary', ['controller' => 'projects', 'action' => 'report', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-        </span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav"
-            style=" font-size: 20px;">
-            <?= $this->Html->link('Indicators', ['controller' => 'projects', 'action' => 'milestones', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-        </span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav"
-            style=" font-size: 20px;">
-            <?= $this->Html->link('Activities', ['controller' => 'projects', 'action' => 'activities', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-        </span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav"
-            style=" font-size: 20px;">Resources</span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav active"
-            style=" font-size: 20px;">Partners</span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav"
-            style=" font-size: 20px;">
-            <?= $this->Html->link('Risks & Issues', ['controller' => 'projects', 'action' => 'riskIssues', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-col']) ?>
-        </span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold font nav"
-            style=" font-size: 20px;">Gantt
-            Charts</span>
-        <span class="border border-white p-2 pt-4  pb-4 card mx-auto font-weight-bold  nav"
-            style=" font-size: 20px;">Documents</span>
+<!-- <?php echo $this->Html->css('report'); ?> -->
 
 
-    </div>
-    <!-- <?= h($projectDetails->projects->id) ?> -->
-    <div class="card-body">
+<div class="container-fluid  mt-4">
 
-        <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($projectDetails->name) ?> Partners
-        </h2>
+    <!-- Breadcrumb area -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <?= $this->Html->link(__('Projects'), ['action' => 'index']) ?>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Partners</li>
+        </ol>
+    </nav>
+    <!-- ./end Breadcrumb -->
 
-        <div class="table-responsive">
-            <table cellpadding="0" cellspacing="0" class="table table-bordered  table-hover table-primary br-m"
-                role="grid" aria-describedby="dataTable_info">
-                <thead class="bg-primary br-t">
-                    <tr>
-                        <th scope="col" width="3%"><?= __('S/N') ?></th>
-                        <th scope="col" width="15%"><?= __('Last Name') ?></th>
-                        <th scope="col" width="15%"><?= __('First Name') ?></th>
-                        <th scope="col" width="20%"><?= __('Email') ?></th>
-                        <th scope="col" width="12%"><?= __('Phone Number') ?></th>
-                        <th scope="col" width="20%"><?= __('Address') ?></th>
-                        <!-- <th scope="col" width="10%"><?= __('Amount Committed') ?></th> -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $num = 0; ?>
-                    <?php foreach ($projectDetails->sponsors as $sponsor) : ?>
-                    <?php $num++; ?>
+    <!-- Navigation area -->
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <?= $this->Html->link('Summary', ['controller' => 'projects', 'action' => 'report', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Indicators', ['controller' => 'projects', 'action' => 'milestones', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Activities', ['controller' => 'projects', 'action' => 'activities', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Partners', [], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Gantt Charts', ['controller' => 'projects', 'action' => 'gantt_chart', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Documents', ['controller' => 'projects', 'action' => 'documents', $projectDetails->id], ['id' => 'transmit', 'class' => 'nav-link ']) ?>
+        </li>
+    </ul>
+    <!-- ./end Navigation area -->
 
-                    <tr>
-                        <td><?= h($num) ?></td>
-                        <td><?= h($sponsor->last_name) ?></td>
-                        <td><?= h($sponsor->first_name) ?></td>
-                        <td><?= h($sponsor->email) ?></td>
-                        <td><?= h($sponsor->phone_no) ?></td>
-                        <td><?= h($sponsor->address) ?></td>
-                        <!-- <td><?= h($projectDetails->sponsor_id) ?></td> -->
-
-                        <div class="row m-3">
-                            <?php foreach ($projectDetails->sponsors as $sponsor) : ?>
-                            <?php if (isset($sponsor)) : ?>
+    <!-- Menu area [Search, pagination] -->
+    <!-- I was supposed to put this section in the element template but will do that soon. -->
+    <nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
+        <a class="navbar-brand" href="#">Partners</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
 
 
-                </tbody>
-            </table>
+    <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($projectDetails->project->name) ?> </h2>
+
+
+    <div class="row m-3">
+        <?php $num = 0; ?>
+        <?php foreach ($projectDetails->sponsors as $sponsor) : ?>
+
+        <?php $num++; ?>
+
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card  shadow h-100 py-0">
+                <div class="card-body py-2 px-2">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2" id="clickable-card" data-attr="">
+                            <div class="h6 mb-0 font-weight-bold text-gray-800 p-3">
+                                <div class="mb-3"><i class="fa fa-user-shield"></i><span
+                                        class="ml-2 text-primary"><?= h($sponsor->last_name) . ' ' . h($sponsor->first_name) ?></span>
+                                </div>
+                                <div class="mb-3"><i class="fa fa-envelope-open-text"> </i><span
+                                        class="ml-2 text-primary"><?= h($sponsor->email) ?></span></div>
+                                <div class="mb-3"><i class="fa fa-phone-alt"></i><span
+                                        class="ml-2 text-primary"><?= h($sponsor->phone_no) ?></span></div>
+                                <div><i class="fa fa-map-marker-alt"></i><span
+                                        class="ml-2 text-primary"><?= h($sponsor->address) ?></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <?php endif; ?>
         <?php endforeach; ?>
     </div>
 </div>

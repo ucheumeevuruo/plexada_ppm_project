@@ -54,11 +54,12 @@ class ProjectsTable extends Table
         ]);
         $this->hasMany('Milestones', [
             'foreignKey' => 'project_id',
+            'joinType' => 'LEFT'
         ]);
         $this->hasMany('Objectives', [
             'foreignKey' => 'project_id',
         ]);
-        $this->hasMany('Prices', [
+        $this->hasOne('Prices', [
             'foreignKey' => 'project_id',
         ]);
         $this->hasOne('ProjectDetails', [
@@ -82,8 +83,14 @@ class ProjectsTable extends Table
         $this->hasMany('Sponsors', [
             'foreignKey' => 'last_name',
         ]);
+        $this->hasMany('Documents', [
+            'foreignKey' => 'project_id',
+        ]);
         $this->hasMany('Tasks', [
             'foreignKey' => 'Task_name',
+        ]);
+        $this->hasOne('Pads', [
+            'foreignKey' => 'project_id',
         ]);
     }
 
@@ -117,10 +124,23 @@ class ProjectsTable extends Table
             ->requirePresence('location', 'create')
             ->notEmptyString('location');
 
-        $validator
-            ->requirePresence('cost', 'create')
-            ->notEmptyString('cost');
+//        $validator
+//            ->requirePresence('cost', 'create')
+//            ->notEmptyString('cost');
 
         return $validator;
+    }
+
+    public function findByProjectName(Query $query, $options)
+    {
+        $id = $options['id'];
+
+        if(!is_null($id))
+        {
+            $query->where(function ($exp, Query $q) use ($id){
+                return $exp->like('Projects.name', "%$id%");
+            });
+        }
+        return $query;
     }
 }

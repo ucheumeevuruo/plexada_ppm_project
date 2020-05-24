@@ -42,6 +42,16 @@ $this->end();
 </style>
 
 <div class="container-fluid">
+    <!-- Breadcrumb area -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <?= $this->Html->link(__('Projects'), ['action' => 'index'])?>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">PIM</li>
+        </ol>
+    </nav>
+    <!-- ./end Breadcrumb -->
     <?= $this->Form->create($pim) ?>
     <fieldset>
     <!-- <div class="text-center mb-3">a</div> -->
@@ -75,6 +85,7 @@ $this->end();
                     <input type="text" class="form-control" id="oversight_agency_mda" name="oversight_agency_mda" required="required">
                 </div>
             </div>
+
             <div class="col-md-5 col-sm-12 card tab">
             <legend class="text-primary">Project Components</legend>
                 <div class="mb-3">
@@ -194,22 +205,13 @@ $this->end();
                     <label for="targets">Targets</label>
                     <input type="text" class="form-control" id="targets" name = "targets" required = "required">
                 </div>
-                <!-- <legend class="text-primary">Milestone</legend>
-                <div class="form-group">
-                    <label for="task">Task</label>
-                    <input type="text" class="form-control" id="task" name="task" required = "required">
-                </div> -->
-                <!-- <div class="form-group">
-                    <label for="OversightAgencyMDA">Oversight Agency / MDA</label>
-                    <input type="text" class="form-control" id="OversightAgencyMDA">
-                </div>     -->
             </div>
     </div>
 <!-- 1st Row End -->
 <!-- Second row  -->
-<div class="row justify-content-around">
+    <div class="row justify-content-around">
             <div class="col-md-5 col-sm-12 card bat">
-            <legend class="text-primary">Project Action Plan</legend>
+                <legend class="text-primary">Project Action Plan</legend>
                     <div class="form-group">
                             <label for="activities">Activities</label>
                             <textarea class="form-control" id="activities" name="activities" required="required"></textarea>
@@ -253,18 +255,16 @@ $this->end();
                             <label for="owner">Owner</label>
                             <input type="text" class="form-control" id="owner" name = "owner" required="required">
                         </div>
-                    <!-- <div class="form-group">
-                        <label for="currency">Currency</label>
-                        <input type="text" class="form-control" id="currency" name = "currency" required="required">
-                    </div> -->
 
-                    <label for="cars">Currency</label>
-                    <select id="cars" name="currency" class="mb-3">
+
+                    <label for="currencies">Currency</label>
+                    <select id="currencies" name="currency" class="mb-3">
                         <option value="naira">NGN</option>
                         <option value="dollar">USD</option>
                         <option value="euro">EU</option>
                         <option value="pound">GBP</option>
                     </select>
+
                     <div class="form-group">
                         <label for="disbursed_amount">Disbursed Amount</label>
                         <div class="input-group mb-3">
@@ -286,120 +286,27 @@ $this->end();
                 </div>
             </div>
     </div>
-<!-- Second Row End  -->
-<!-- third row  -->
-<div class="row justify-content-around">
-            <!-- <div class="col-md-5 col-sm-12 card tab"> -->
-                <!-- <legend class="text-primary">Progress Report</legend> -->
-                    <!-- <div class="form-group">
-                            <label for="progress_category">Category</label>
-                            <input type="text" class="form-control" id="progress_category" name="progress_category" required="required">
-                    </div> -->
-                    <!-- <div class="form-group">
-                            <label for="progress_currency">Currency</label>
-                            <input type="text" class="form-control" id="progress_currency" name="progress_currency" required="required">
-                    </div> -->
-                    <!-- <div class="form-group"> -->
-                    <!-- <label for="amount_credit_allocation">Amount of Credit Allocation</label>
-                        <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">&#8358;</span>
-                        </div>
-                            <input type="number" class="form-control" id="amount_credit_allocation" name="amount_credit_allocation" required="required" >
-                            <div class="input-group-append">
-                            <span class="input-group-text">.00</span>
-                            </div>
-                            </div>
-                        </div>
-                    <div class="form-group">
-                            <label for="disbursed_current_semester">Disbursed in current semester</label>
-                            <input type="text" class="form-control" id="disbursed_current_semester" name="disbursed_current_semester" required="required">
-                    </div> -->
-                    <!-- <div class="form-group text">
-                        <label class="control-label" for="date_disbursement">Date of disbursement</label>
-                        <div class="input-group"><input type="text" name="date_disbursement" class="form-control addon-right" empty="1" id="date_disbursement" autocomplete="off">
-                        <span class="input-group-addon"><i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i></span>
-                    </div> -->
-                    <!-- <div class="form-group">
-                            <label for="cumulated_disbursment">Cumulated disbursement</label>
-                            <input type="text" class="form-control" id="cumulated_disbursment" name="cumulated_disbursment" required="required">
-                    </div> -->
-                </div>
-            <!-- <div class="col-md-5 col-sm-12 bat">
 
-                </div> -->
-            <!-- </div> -->
-    </div>
-<!-- third Row End  -->
-<!-- fourth Row  -->
     <div class="row">
         <div class="col p-3">
             <div>
-                    <div class=" row text-center justify-content-center">
+                <div class=" row text-center justify-content-center">
                     <div class="col-md-2"><button class="btn btn-primary form-control" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button></div>
                     <div class="col-md-2"><button class="btn btn-primary form-control" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button></div>
-                    </div>
-                    <div style="text-align:center;margin-top:40px;">
-                        <span class="step"></span>
-                        <span class="step"></span>
-                        <span class="step"></span>
-                        <!-- <span class="step"></span> -->
-                    </div>
+                </div>
+                <div style="text-align:center;margin-top:40px;">
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                </div>
             </div>
         </div>
     </div>
-<!-- fourth Row End  -->
-        <!-- my code  -->
-
-        <!-- <?php
-
-            echo $this->Form->control('date');
-            echo $this->Form->control('brief');
-            // echo $this->Form->control('funding_agency');
-            echo $this->Form->control('activities_achievement');
-            echo $this->Form->control('risks_mitigation');
-            echo $this->Form->control('activity_next_semester');
-            echo $this->Form->control('total_expenditure');
-            echo $this->Form->control('oversight_level');
-            echo $this->Form->control('oversight_agency_mda');
-            echo $this->Form->control('mda');
-            echo $this->Form->control('rev_commitee_rep_information');
-            echo $this->Form->control('approvers_agency');
-            echo $this->Form->control('approvers_rep_information');
-            echo $this->Form->control('approvers_date');
-            echo $this->Form->control('signed_mou');
-            echo $this->Form->control('adopted_minutes');
-            echo $this->Form->control('financial_management');
-            echo $this->Form->control('financial_template');
-            echo $this->Form->control('parties');
-            echo $this->Form->control('responsibilities');
-            echo $this->Form->control('start_date');
-            echo $this->Form->control('end_date');
-            echo $this->Form->control('financial_cost');
-            echo $this->Form->control('targets');
-            // echo $this->Form->control('activities');
-            echo $this->Form->control('action');
-            echo $this->Form->control('responsible_party');
-            echo $this->Form->control('plan_start_date');
-            echo $this->Form->control('plan_end_date');
-            echo $this->Form->control('dependency');
-            echo $this->Form->control('category');
-            echo $this->Form->control('owner');
-            echo $this->Form->control('currency');
-            echo $this->Form->control('disbursed_amount');
-            echo $this->Form->control('exp_output_date');
-            echo $this->Form->control('task');
-            echo $this->Form->control('progress_category');
-            echo $this->Form->control('progress_currency');
-            echo $this->Form->control('amount_credit_allocation');
-            echo $this->Form->control('disbursed_current_semester');
-            echo $this->Form->control('date_disbursement');
-            echo $this->Form->control('cumulated_disbursment');
-        ?> -->
     </fieldset>
     <div class="row justify-content-center mb-5">
         <div class="col-md-5">
-        <?= $this->Form->button(__('Submit'),['id' => 'ssubmit','class'=>'form-control']) ?>
+            <?= $this->Form->button(__('Submit'),['id' => 'ssubmit','class'=>'form-control']) ?>
         </div>
     </div>
 
@@ -531,8 +438,6 @@ $this->end();
         $('#date, #approvers_date, #start_date, #end_date, #plan_start_date, #plan_end_date, #start_date, #exp_output_date, #date_disbursement').datepicker({
             inline: true,
             "format": "dd/mm/yyyy",
-            // startDate: "0d",
-            // "endDate": "09-15-2017",
             "keyboardNavigation": false
         });
     });

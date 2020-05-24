@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\I18n\Time;
@@ -6,6 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use DateTime;
 
 /**
  * Activities Model
@@ -47,8 +49,14 @@ class ActivitiesTable extends Table
         $this->belongsTo('ProjectDetails', [
             'foreignKey' => 'project_id',
         ]);
+        $this->belongsTo('Projects', [
+            'foreignKey' => 'project_id',
+        ]);
         $this->belongsTo('Staff', [
             'foreignKey' => 'assigned_to_id',
+        ]);
+        $this->belongsTo('Currencies', [
+           'foreignKey' => 'currency_id'
         ]);
         $this->belongsTo('Priorities', [
             'className' => 'Lov',
@@ -62,8 +70,14 @@ class ActivitiesTable extends Table
             'joinType' => 'LEFT',
             'conditions' => ['Statuses.lov_type' => 'project_status']
         ]);
+        $this->belongsTo('Milestones', [
+            'foreignKey' => 'milestone_id'
+        ]);
         $this->belongsTo('Users', [
             'foreignKey' => 'system_user_id',
+        ]);
+        $this->hasMany('Tasks', [
+            'foreignKey' => 'activity_id',
         ]);
     }
 
@@ -78,6 +92,11 @@ class ActivitiesTable extends Table
         $validator
             ->nonNegativeInteger('activity_id')
             ->allowEmptyString('activity_id', null, 'create');
+
+        $validator
+            ->scalar('name')
+            ->requirePresence('name', 'create')
+            ->notEmptyString('name');
 
         $validator
             ->scalar('current_activity')
@@ -102,14 +121,14 @@ class ActivitiesTable extends Table
             ->notEmptyString('priority_id');
 
         $validator
-            ->integer('percentage_completion')
-            ->requirePresence('percentage_completion', 'create')
-            ->notEmptyString('percentage_completion');
+            ->integer('percentage_completion');
+//            ->requirePresence('percentage_completion', 'create')
+//            ->notEmptyString('percentage_completion');
 
         $validator
             ->scalar('description')
             ->maxLength('description', 300)
-//            ->requirePresence('Description', 'create')
+            //            ->requirePresence('Description', 'create')
             ->notEmptyString('Description');
 
         $validator
@@ -141,18 +160,54 @@ class ActivitiesTable extends Table
         return $rules;
     }
 
-    public function identify($formData) {
-        if(isset($formData['status_id']))
+    // public function identify($formData)
+    // {
+    //     if (isset($formData['status_id'])) {
+
+    //         $status = $this->Statuses->find()
+    //             ->where(['id' => $formData['status_id']])
+    //             ->first();
+    //         if (strtolower($status->lov_value) == 'closed') {
+    //             $formData['completion_date'] = Time::now();
+    //         }
+    //     }
+    //     $formData['start_date'] = !empty($formData['start_date']) ?
+    //     DateTime::createFromFormat('d/m/Y', $formData['start_date']) : $formData['start_date'];
+    //     $formData['end_date'] = !empty($formData['end_date']) ?
+    //     DateTime::createFromFormat('d/m/Y', $formData['end_date']) : $formData['end_date'];
+        
+    //     return $formData;
+    // }
+
+    public function findByProjectName($query, $options)
+    {
+        $name = $options['id'];
+
+        if(!is_null($id))
         {
+            $query->where(function ($exp, Query $q) use ($name){
+                return $exp->like('Activities.name', "%$name%");
+            });
+        }
+        return $query;
+    }
+
+    public function identify($formData)
+    {
+                if (isset($formData['status_id'])) {
 
             $status = $this->Statuses->find()
-            ->where(['id' => $formData['status_id']])
-            ->first();
-            if(strtolower($status->lov_value) == 'closed')
-            {
+                ->where(['id' => $formData['status_id']])
+                ->first();
+            if (strtolower($status->lov_value) == 'closed') {
                 $formData['completion_date'] = Time::now();
             }
         }
+        $formData['start_date'] = !empty($formData['start_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['start_date']) : $formData['start_date'];
+        $formData['end_date'] = !empty($formData['end_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['end_date']) : $formData['end_date'];
+
         return $formData;
     }
 }

@@ -107,18 +107,6 @@ $this->end();
                     ?>
                 <p class="card-text">
                 </p>
-                <tr>
-                    <td><?= h($num) ?></td>
-                    <td>
-                        <?= $this->Html->link($activity->description, ['controller' => 'activities', 'action' => 'view', $activity->activity_id],) ?>
-                    </td>
-                    <td style="max-width: 50vw;"><?= h($activity->created,) ?> </td>
-                    <td><?= h($milestone->expected_completion_date) ?></td>
-                    <td>
-                        <?= h($status) ?>
-
-                    </td>
-                </tr>
                 <?php endforeach; ?>
 
             </tbody>

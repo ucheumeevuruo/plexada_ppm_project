@@ -8,6 +8,7 @@ use Cake\ORM\Entity;
  *
  * @property string $Task_name
  * @property \Cake\I18n\FrozenDate $Start_date
+ * @property \Cake\I18n\FrozenDate $end_date
  * @property string $Description
  * @property string $Predecessor
  * @property string $Successor
@@ -27,11 +28,10 @@ class Task extends Entity
     protected $_accessible = [
         'Task_name' => true,
         'Start_date' => true,
+        'end_date' => true,
         'Description' => true,
         'Predecessor' => true,
         'Successor' => true,
-        'activities_id' => true,
-        'status' => true,
-        'percentage_completion' => true,
+        'activity_id' => true,
     ];
 }

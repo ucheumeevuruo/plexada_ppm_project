@@ -26,20 +26,17 @@ $cakeDescription = 'Ogun State Project';
     </title>
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('bootstrap.min.css') ?>
-    <?= $this->Html->css('bootstrap-datepicker.min.css') ?>
-    <?= $this->Html->css('font-awesome.min.css') ?>
+    <?= $this->Html->css('fontawesome-free/css/all.min.css') ?>
     <?= $this->Html->css('sb-admin-2.min.css') ?>
+    <?= $this->Html->css('bootstrap-datepicker.min.css') ?>
     <?= $this->Html->css('dataTables.bootstrap4.min.css') ?>
     <?= $this->Html->css('custom-style.css') ?>
-    <?= $this->Html->script('jquery-1.9.1.js') ?>
-    <?= $this->Html->script('jquery-ui.min.js') ?>
+
+    <?= $this->Html->script('vendor/jquery/jquery.min.js') ?>
+    <?= $this->Html->script('vendor/bootstrap/js/bootstrap.bundle.min.js') ?>
+    <?= $this->Html->script('vendor/jquery-easing/jquery.easing.min.js') ?>
+    <?= $this->Html->script('sb-admin-2.min.js') ?>
     <?= $this->Html->script('popper.min.js') ?>
-    <?= $this->Html->script('bootstrap.min.js') ?>
-    <?= $this->Html->script('jquery.dataTables.min.js') ?>
-    <?= $this->Html->script('dataTables.bootstrap4.min.js') ?>
-    <?= $this->Html->script('fontawesome.min.js') ?>
     <?= $this->Html->script('moment-with-locales.min.js') ?>
     <?= $this->Html->script('bootstrap-datepicker.min.js') ?>
     <?= $this->Html->script('anychart-core.min.js') ?>
@@ -48,8 +45,6 @@ $cakeDescription = 'Ogun State Project';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
-    <!-- <script src="https://cdn.anychart.com/releases/8.6.0/js/anychart-core.min.js"> </script> 
-    <script src ="https://cdn.anychart.com/releases/8.6.0/js/anychart-gantt.min.js"></script> -->
 </head>
 <body id="page-top">
     <?= $this->Flash->render() ?>
@@ -57,7 +52,7 @@ $cakeDescription = 'Ogun State Project';
         <?= $this->fetch('sidebar') ?>
 <!--        <div class="">-->
         <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
+            <div id="content" class="white-bg">
                 <?= $this->fetch('navbar') ?>
                 <?= $this->fetch('content') ?>
             </div>
@@ -65,6 +60,71 @@ $cakeDescription = 'Ogun State Project';
         </div>
     </div>
     <footer>
+        <!-- Image loader -->
+        <div id='loader' class="loader" style='display: none;'>
+            <i class="fas fa-circle-notch fa-spin fa-7x"></i>
+        </div>
     </footer>
 </body>
+<script>
+    $(document).ready(function() {
+        function openUrl(href){
+            $.ajax({
+                url: href,
+                // contentType: "application/json",
+                // dataType: 'json',
+                beforeSend: function(){
+                    $('#loader').show();
+                },
+                success: function(result){
+                    $('#flyby').html(result);
+                    // history.pushState(null, null, href);
+                },
+                complete: function(){
+                    $('#loader').hide();
+                },
+                error: function(jqXHR, testStatus, error){
+                    alert("Page " + href + " cannot open.");
+                    $('#loader').hide();
+                },
+                // timeout: 5000
+            })
+        }
+        $('.unclickable').click(function(event){
+            $('#loader').hide();
+            event.preventDefault();
+            return false;
+        })
+        //respond to click event on anything with 'overlay' class
+        $(document).on('click', 'a.navigator', function(event){
+            event.preventDefault();
+            //load content from href of link
+            let href = $(this).attr("href");
+            openUrl(href);
+
+            window.history.pushState({href: href}, '', href);
+        });
+        $(window).bind("popstate", function (event) {
+            console.log(event);
+            let href = location.href;
+            // if(state.navigation.type == 2)
+            openUrl(href);
+        });
+
+        $(document).on('click', '#clickable-card', function(event){
+            event.preventDefault();
+            let href = $(this).attr('data-attr');
+            openUrl(href);
+
+            window.history.pushState({href: href}, '', href);
+        })
+        //$('#searchable').submit(function(){
+        //    event.preventDefault();
+        //
+        //    let href = '<?//= $this->Url->build(['action' => 'index']); ?>///?' + $(this).serialize();
+        //    openUrl(href);
+        //    window.history.pushState({href: href}, '', href);
+        //})
+    });
+</script>
 </html>

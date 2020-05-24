@@ -9,12 +9,15 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string|null $record_number
  * @property int $project_id
+ * @property string $name
  * @property int $amount
  * @property string|null $payment
  * @property int|null $status_id
  * @property string|null $description
  * @property string|null $achievement
  * @property int|null $trigger_id
+ * @property \Cake\I18n\FrozenTime|null $start_date
+ * @property \Cake\I18n\FrozenTime|null $end_date
  * @property \Cake\I18n\FrozenDate|null $completed_date
  * @property \Cake\I18n\FrozenDate|null $expected_completion_date
  * @property \Cake\I18n\FrozenTime $created
@@ -22,6 +25,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Project $project
  * @property \App\Model\Entity\Lov $lov
+ * @property \App\Model\Entity\Lov $trigger
  * @property \App\Model\Entity\Activity[] $activities
  * @property \App\Model\Entity\ProjectFunding[] $project_fundings
  */
@@ -39,18 +43,22 @@ class Milestone extends Entity
     protected $_accessible = [
         'record_number' => true,
         'project_id' => true,
+        'name' => true,
         'amount' => true,
         'payment' => true,
         'status_id' => true,
         'description' => true,
         'achievement' => true,
         'trigger_id' => true,
+        'start_date' => true,
+        'end_date' => true,
         'completed_date' => true,
         'expected_completion_date' => true,
         'created' => true,
         'modified' => true,
         'project' => true,
         'lov' => true,
+        'trigger' => true,
         'activities' => true,
         'project_fundings' => true,
     ];

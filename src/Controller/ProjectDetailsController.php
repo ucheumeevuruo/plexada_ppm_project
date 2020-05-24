@@ -18,7 +18,6 @@ use DateTime;
  * @method \App\Model\Entity\ProjectDetail[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class ProjectDetailsController extends AppController
-
 {
 
 
@@ -52,7 +51,7 @@ class ProjectDetailsController extends AppController
     /**
      * View method
      *
-     * @param string|null $id Project Detail id.
+     * @param  string|null $id Project Detail id.
      * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
@@ -214,7 +213,8 @@ class ProjectDetailsController extends AppController
 
 
         // $projectDetails = $this->ProjectDetails->find('all')->contain(['sponsors'])->where(['project_id' => 1]);
-
+        // debug($projectDetails);
+        // die();
 
         // sql($projectDetails);
         // die();
@@ -246,10 +246,10 @@ class ProjectDetailsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add($id = null)
+    public function add()
     {
-        $this->loadModel('Projects');
-        $project_info = $this->Projects->get($id);
+        // $this->loadModel('Projects');
+        // $project_info = $this->Projects->get($id);
 
         $projectDetail = $this->ProjectDetails->newEntity();
         if ($this->request->is('post')) {
@@ -259,11 +259,12 @@ class ProjectDetailsController extends AppController
                 $this->Flash->success(__('The project detail has been saved.'));
 
                 return $this->redirect(['controller' => 'projects', 'action' => 'index']);
+                // return $this->redirect(['controller' => 'pims', 'action' => 'add', $id]);
             }
             $this->Flash->error(__('The project detail could not be saved. Please, try again.'));
             // debug($projectDetail);
             // die();
-            return $this->redirect(['controller' => 'projects', 'action' => 'index']);
+            //            return $this->redirect(['controller' => 'projects', 'action' => 'index']);
         }
         $projects = $this->ProjectDetails->Projects->find('list', ['limit' => 200]);
         $vendors = $this->ProjectDetails->Vendors->find('list', ['limit' => 200]);
@@ -330,28 +331,37 @@ class ProjectDetailsController extends AppController
         $annotations = $this->ProjectDetails->Annotations->find('list', ['limit' => 200]);
         $prices = $this->ProjectDetails->Prices->find('list', ['limit' => 200]);
         $projects_info = $this->Projects->find('list', ['limit' => 200, 'conditions' => ['id' => $id]]);
-        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'donors', 'mdas', 'lov', 'users', 'annotations', 'prices', 'projects', 'subStatus', 'users', 'authUser', 'project_info', 'projects_info'));
+        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'donors', 'mdas', 'priority', 'lov', 'users', 'annotations', 'prices', 'projects', 'subStatus', 'users', 'authUser', 'project_info', 'projects_info', 'currencies'));
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Project Detail id.
+     * @param  string|null $id Project Detail id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit($id = null)
     {
+        $this->loadModel('Projects');
 
         $projectDetail = $this->ProjectDetails->get($id);
+        // $project_info = $this->Projects->get($id);
+
+
+        $project_info = $this->Projects->get($projectDetail->project_id);
+        // debug($projectDetail);
+        // die();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $projectDetail = $this->ProjectDetails->patchEntity(
                 $projectDetail,
                 $this->ProjectDetails->identify($this->request->getData())
             );
             if ($this->ProjectDetails->save($projectDetail)) {
+
                 // debug($donors);
                 // die();
+
                 $this->Flash->success(__('The project detail has been saved.'));
                 return $this->redirect($this->referer());
             }
@@ -422,12 +432,12 @@ class ProjectDetailsController extends AppController
 
         $users = $this->ProjectDetails->Users->find('list', ['limit' => 200]);
         $userid = $id;
-        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'donors', 'mdas', 'lov', 'users', 'subStatus', 'users'));
+        $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'donors', 'mdas', 'lov', 'users', 'subStatus', 'users', 'currencies', 'project_info'));
     }
     /**
      * Delete method
      *
-     * @param string|null $id Project Detail id.
+     * @param  string|null $id Project Detail id.
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */

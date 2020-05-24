@@ -40,14 +40,17 @@ class Activity extends Entity
         'project_id' => true,
         'current_activity' => true,
         'waiting_on' => true,
+        'name' => true,
         'waiting_since' => true,
         'next_activity' => true,
+        'activity_type_id' => true,
         'assigned_to_id' => true,
         'percentage_completion' => true,
         'description' => true,
         'priority_id' => true,
         'status_id' => true,
         'completion_date' => true,
+        'currency_id' => true,
         'cost' => true,
         'created' => true,
         'last_updated' => true,
@@ -57,6 +60,8 @@ class Activity extends Entity
         'priority' => true,
         'status' => true,
         'user' => true,
-        'milestone_id'=>true
+        'milestone_id'=>true,
+        'start_date'=>true,
+        'end_date'=>true
     ];
 }

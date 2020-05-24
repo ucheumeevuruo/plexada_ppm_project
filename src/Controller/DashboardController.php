@@ -250,7 +250,7 @@ class DashboardController extends AppController
         //         }
         //     }
         // }
-        
+
         $project_list2 = $this->ProjectDetails->find('all');
 
         $project_list = $this->ProjectDetails->find('all');
@@ -258,19 +258,19 @@ class DashboardController extends AppController
         // sending projects as array
         $allprojects = $project_list2
 
-        ->select(['name']);
+            ->select(['name']);
         $allprojects = $allprojects
             ->extract('name')
             ->toArray();
 
         $allBudgetList = $project_list2
-        ->select(['budget']);
+            ->select(['budget']);
         $allBudgetList = $allBudgetList
             ->extract('budget')
             ->toArray();
 
         $allExpenseList = $project_list2
-        ->select(['expenses']);
+            ->select(['expenses']);
         $allExpenseList = $allExpenseList
             ->extract('expenses')
             ->toArray();
@@ -289,20 +289,71 @@ class DashboardController extends AppController
         // $qryallprojects = $conn->execute("SELECT * , projects.id as pid  FROM projects inner join project_details on projects.id = project_details.project_id where projects.id=19");
         $mlcount = $qryallprojects->fetch('assoc');
         $num = 1;
-        foreach ($qryallprojects as $projects){
+        foreach ($qryallprojects as $projects) {
             $projectID = $projects['pid'];
             $object = new \stdClass();
             $object->id = $num;
             $object->name = $projects['name'];
             $object->actualStart = $projects['start_dt'];
-            $object->actualEnd= $projects['end_dt'];
+            $object->actualEnd = $projects['end_dt'];
             $object->children = $this->milestoneRecords($projectID, $num);
-            array_push($array_gantt,$object);
-        $num ++;
+            array_push($array_gantt, $object);
+            $num++;
         }
         $ganttDetails = $array_gantt;
 
-        $this->set(compact('project_list', 'milestone_list', 'allprojects', 'ganttDetails','allBudgetList', 'allExpenseList'));
+        $this->set(compact('project_list', 'milestone_list', 'allprojects', 'ganttDetails', 'allBudgetList', 'allExpenseList'));
+
+
+        $this->loadModel('ProjectDetails');
+
+
+        $fundingType = $this->ProjectDetails->find('all');
+        $loan = 0;
+        $grant = 0;
+        $donor = 0;
+        $ppp = 0;
+        $none = 0;
+        $others = 0;
+        foreach ($fundingType as $fund) {
+            if ($fund->funding_type == 'Loan') {
+                $loan++;
+            } elseif ($fund->funding_type == 'Grant') {
+                $grant++;
+            } elseif ($fund->funding_type == 'Donor') {
+                $donor++;
+            } elseif ($fund->funding_type == 'PPP') {
+                $ppp++;
+            } elseif ($fund->funding_type == 'None') {
+                $none++;
+            } else {
+                $others++;
+            }
+        }
+
+
+        // $incomes = $this->ProjectDetails->find(
+        //     'list',
+        //     [
+        //         'keyField' => 'month',
+        //         'valueField' => 'amount',
+        //         'fields' => [
+        //             'month' => 'MONTHNAME(created)',
+        //             'amount' => 'SUM(budget)'
+        //         ],
+        //         'group' => ['month'],
+        //         'order' => ['MONTH(created)' => 'ASC'],
+        //     ]
+        // )->toArray();
+
+        // $months = json_encode(array_keys($incomes));
+        // $amounts = json_encode(array_values($incomes));
+        // $this->set('months', $months);
+        // $this->set('amounts', $amounts);
+
+        // debug($incomes);
+        // die();
+        $this->set(compact('loan', 'grant', 'donor', 'ppp', 'none', 'others'));
     }
 
     public function beforeRender(Event $event)
@@ -403,20 +454,32 @@ class DashboardController extends AppController
         $this->set('projectDetail', $projectDetail);
     }
 
-    public function ganttChart(){
+    public function ganttChart($id = null)
+    {
+        $array_gantt = array();
+        $array_gantt_child = array();
         $conn = ConnectionManager::get('default');
-        $qryallprojects = $conn->execute("SELECT *  FROM projects inner join project_details on projects.id = project_details.project_id");
+        $qryallprojects = $conn->execute("SELECT * , projects.id as pid  FROM projects inner join project_details on projects.id = project_details.project_id where projects.id= $id");
         $mlcount = $qryallprojects->fetch('assoc');
-        $object = new \stdClass();
-        $object->id = 1;
-        $object->name = "Solar Street Light";
-		$object->actualStart = date('Y-m-d H:i:s');
-		$object->actualEnd= date('Y-m-d H:i:s');
-        return [($object)];
-        
+        $num = 1;
+        foreach ($qryallprojects as $projects) {
+            $projectID = $projects['pid'];
+            $object = new \stdClass();
+            $object->id = $num;
+            $object->name = $projects['name'];
+            $object->actualStart = $projects['start_dt'];
+            $object->actualEnd = $projects['end_dt'];
+            $object->children = $this->milestoneRecords($projectID, $num);
+            array_push($array_gantt, $object);
+            $num++;
+        }
+        $ganttDetails = $array_gantt;
+
+        $this->set(compact('ganttDetails'));
     }
 
-    public function milestoneRecords($projectID, $num){
+    public function milestoneRecords($projectID, $num)
+    {
         $conn = ConnectionManager::get('default');
         $array_gantt_child = array();
         $qrymilestone = $conn->execute("SELECT *  FROM milestones where project_id = $projectID");
@@ -425,79 +488,81 @@ class DashboardController extends AppController
         $complete = $completed->fetch('assoc');
         $totalprojects = $allproject->fetch('assoc');
         $progress = 0;
-        if  ($totalprojects['S'] == 0){
+        if ($totalprojects['S'] == 0) {
 
             $progress = 0;
-        }else{
-            $result =  ($complete['T']/$totalprojects['S']) * 100;
-            $progress= round(number_format($result,2),2);
+        } else {
+            $result =  ($complete['T'] / $totalprojects['S']) * 100;
+            $progress = round(number_format($result, 2), 2);
         };
-        $num_mile = 1 ;
-        foreach ($qrymilestone as $milestone){
+        $num_mile = 1;
+        foreach ($qrymilestone as $milestone) {
             $milestone_id = $milestone['id'];
             $num_mile2 = $num_mile + 1;
-            $mileID = "$num _ $num_mile" ;
-            $mileConnector = "$num _ $num_mile2" ;
+            $mileID = "$num _ $num_mile";
+            $mileConnector = "$num _ $num_mile2";
             $object_milestone = new \stdClass();
             $object_milestone->id = $mileID;
             $object_milestone->name = $milestone['description'];
             $object_milestone->actualStart = $milestone['completed_date'];
-            $object_milestone->actualEnd= $milestone['expected_completion_date'];
-            $object_milestone->connectTo= $mileConnector;
-            $object_milestone->connectorType= "finish-start";
-            $object_milestone->progressValue= "$progress%";
+            $object_milestone->actualEnd = $milestone['expected_completion_date'];
+            $object_milestone->connectTo = $mileConnector;
+            $object_milestone->connectorType = "finish-start";
+            $object_milestone->progressValue = "$progress%";
             $object_milestone->children = $this->activityRecords($milestone_id, $num);
-            array_push($array_gantt_child,$object_milestone);
-            $num_mile ++;
+            array_push($array_gantt_child, $object_milestone);
+            $num_mile++;
         }
         return $array_gantt_child;
     }
 
-    public function activityRecords($milestone_id, $num){
+    public function activityRecords($milestone_id, $num)
+    {
         $conn = ConnectionManager::get('default');
         $array_activity_child = array();
         $qryactivity = $conn->execute("SELECT *  FROM activities where milestone_id = $milestone_id");
-        $num_mile = 1 ;
-        foreach ($qryactivity as $activity){
+        $num_mile = 1;
+        foreach ($qryactivity as $activity) {
             $activityID = $activity['activity_id'];
             $num_mile2 = $num_mile + 1;
-            $mileID = "$num _ $num_mile" ;
-            $mileConnector = "$num _ $num_mile2" ;
+            $mileID = "$num _ $num_mile";
+            $mileConnector = "$num _ $num_mile2";
             $object_activity = new \stdClass();
             $object_activity->id = $mileID;
-            $object_activity->name = $activity['next_activity'];
+            $object_activity->name = $activity['name'];
             $object_activity->actualStart = $activity['created'];
-            $object_activity->actualEnd= $activity['last_updated'];
-            $object_activity->connectTo= $mileConnector;
-            $object_activity->connectorType= "finish-start";
-            $object_activity->progressValue= $activity['percentage_completion']. "%";
+            $object_activity->actualEnd = $activity['last_updated'];
+            $object_activity->connectTo = $mileConnector;
+            $object_activity->connectorType = "finish-start";
+            $object_activity->progressValue = $activity['percentage_completion'] . "%";
             $object_activity->children = $this->tasksRecords($activityID, $num);
-            array_push($array_activity_child,$object_activity);
-            $num_mile ++;
+            array_push($array_activity_child, $object_activity);
+            $num_mile++;
         }
         return $array_activity_child;
     }
 
-    public function tasksRecords($activityID, $num){
+    public function tasksRecords($activityID, $num)
+    {
         $conn = ConnectionManager::get('default');
         $array_task_child = array();
-        $qrytasks = $conn->execute("SELECT *  FROM tasks where activities_id = $activityID");
-        $num_mile = 1 ;
-        foreach ($qrytasks as $task){
+        $qrytasks = $conn->execute("SELECT *  FROM tasks where activity_id = $activityID");
+        $num_mile = 1;
+        foreach ($qrytasks as $task) {
             $num_mile2 = $num_mile + 1;
-            $mileID = "$num _ $num_mile" ;
-            $mileConnector = "$num _ $num_mile2" ;
+            $mileID = "$num _ $num_mile";
+            $mileConnector = "$num _ $num_mile2";
             $object_tasks = new \stdClass();
             $object_tasks->id = $mileID;
             $object_tasks->name = $task['Task_name'];
             $object_tasks->actualStart = $task['Start_date'];
             // echo date('Y-m-d', strtotime($date. ' + 5 days'));
-            $object_tasks->actualEnd= strtotime($task['Start_date']. ' + 5 days');
-            $object_tasks->connectTo= $mileConnector;
-            $object_tasks->connectorType= "finish-start";
-            $object_tasks->progressValue= $task['percentage_completion'];
-            array_push($array_task_child,$object_tasks);
-            $num_mile ++;
+            $object_tasks->actualEnd = strtotime($task['Start_date'] . ' + 5 days');
+            $object_tasks->connectTo = $mileConnector;
+            $object_tasks->connectorType = "finish-start";
+            $object_tasks->progressValue = "0%";
+            array_push($array_task_child, $object_tasks);
+            $num_mile++;
         }
         return $array_task_child;
     }

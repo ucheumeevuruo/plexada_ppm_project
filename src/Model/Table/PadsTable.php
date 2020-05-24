@@ -34,6 +34,11 @@ class PadsTable extends Table
         $this->setTable('pads');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->belongsTo('Projects', [
+            'foreignKey' => 'project_id',
+            'joinType' => 'INNER',
+        ]);
     }
 
     /**
