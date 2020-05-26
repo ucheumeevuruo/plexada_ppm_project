@@ -347,13 +347,7 @@ class ProjectDetailsController extends AppController
                 debug($donors);
                 die();
                 $this->Flash->success(__('The project detail has been saved.'));
-<<<<<<< Updated upstream
-
-                // return $this->redirect($this->referer());
-                return $this->redirect(['controller' => 'projects', 'action' => 'index']);
-=======
                 return $this->redirect($this->referer());
->>>>>>> Stashed changes
             }
             $this->Flash->error(__('The project detail could not be saved. Please, try again.'));
 
