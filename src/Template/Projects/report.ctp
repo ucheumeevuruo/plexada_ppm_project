@@ -105,7 +105,7 @@ $this->end();
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2" id="clickable-card" data-attr="">
                         <div class=" font-weight-bold mb-4 mt- 2 text-primary text-uppercase mb-1">
-                            <?= h('Sponsors') ?>
+                            <?= h('Sponsors & Donors') ?>
                         </div>
                         <div class="h6 mb-0 text-gray-800">
 
@@ -133,7 +133,7 @@ $this->end();
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 mb-4">
+    <!-- <div class="col-xl-3 col-md-6 mb-4">
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
@@ -167,7 +167,7 @@ $this->end();
                 </div>
             </div>
         </div>
-    </div>    
+    </div>     -->
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">

@@ -60,88 +60,6 @@ $this->end();
 
         <!-- row 2/ pim starts -->
 
-<<<<<<< Updated upstream
-    <!-- <?= $this->Form->control('DLI', ['label' => 'DLI']); ?> -->
-    <!-- <?= $this->Form->control('priority_id', ['options' => $priority]); ?> -->
-    <!-- <?= $this->Form->hidden('completed_percent', ['value' => 0]); ?> -->
-
-
-
-    <div>
-
-        <?= $this->Html->link(__('Add Indicator'), ['controller' => 'milestones', 'action' => 'add', $project_info->id], ['class' => 'btn btn-primary btn-sm mr-2 mt-5 mb-3 overlay hidden', 'style' => "display: none"]) ?>
-
-        <!--            <div id="inputEnv">-->
-        <!--                <div class="input-group mb-3">-->
-        <!--                    <input type="text" name="environmental_factors" class="form-control m-input"-->
-        <!--                        placeholder="Environmental factor" autocomplete="off">-->
-        <!--                    <div class="input-group-append">-->
-        <!--                        <button id="removeEnv" type="button" class="btn btn-danger">Remove</button>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!-- <?= $this->Form->control('environmental_factors'); ?> -->
-        <div id="newEnv"></div>
-        <button id="addEnv" type="button" class="btn btn-primary mb-3" style="display: none">Add Environmental
-            Factor</button>
-    </div>
-    <fieldset class="col-md-6 float-left mb-3" style="border: #494B55 1px solid;">
-        <legend>Project Funding</legend>
-        <?= $this->Form->control('currency_id', ['options' => $currencies, 'empty' => true]); ?>
-
-        <?= $this->Form->control('budget', ['placeholder' => '0.00']); ?>
-
-        <?= $this->Form->control('expenses', ['placeholder' => '0.00']); ?>
-    </fieldset>
-    <fieldset class="col-md-6 float-right mb-3" style="border: #464751 1px solid;">
-        <legend>Project Duration</legend>
-        <?= $this->Form->control('start_dt', ['empty' => true, 'class' => 'addon-right', 'label' => 'Start Date', 'id' => 'start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']); ?>
-        <?= $this->Form->control('end_dt', ['empty' => true, 'class' => 'addon-right', 'label' => 'End Date', 'id' => 'end_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']); ?>
-
-    </fieldset>
-    <fieldset style="border: #464751 1px solid;">
-
-        <?= $this->Form->control('financing_agreement', ['options' => [
-            'None' => 'None', 'Multilateral' => 'Multilateral',
-            'Bilateral' => 'Bilateral', 'Others' => 'Others'
-        ], 'empty' => true]); ?>
-        <?= $this->Form->control('funding_type', ['options' => [
-            'None' => 'None', 'Donor' => 'Donor', 'PPP' => 'PPP',
-            'Grant' => 'Grant', 'Loan' => 'Loan', 'Grant' => 'Grant', 'Others' => 'Others'
-        ], 'empty' => true]); ?>
-    </fieldset>
-
-    <?= $this->Form->control('risk_and_issues'); ?>
-
-    <div class=" col-md-12 float-md-none">
-        <?= $this->Form->button(__('Submit'), ['class' => 'btn-primary']) ?>
-        <?= $this->Form->end() ?>
-    </div>
-</div>
-
-<!-- <?= $this->Form->control('risks'); ?> -->
-<!-- <?= $this->Form->control('components'); ?> -->
-<!-- <?= $this->Form->control('price', ['options' => $prices]); ?> -->
-<!-- <label class="control-label" for="price">Cost(USD)</label>
-            <div class="input-group"><input type="text" name="price" value="" class="form-control addon-right" empty="1"
-                    id="price"> -->
-<!-- <?= $this->Form->control('project_id', ['options' => $projects]); ?> -->
-<!-- <?= $this->Form->control('name'); ?> -->
-<!-- <?= $this->Form->control('description'); ?> -->
-<!-- <?= $this->Form->control('location'); ?> -->
-<!-- <?= $this->Form->control('vendor_id', ['options' => $vendors, 'empty' => true]); ?> -->
-
-<!-- <?= $this->Form->control('waiting_since', ['empty' => true]); ?> -->
-<!-- <?= $this->Form->control('start_dt', ['empty' => true]); ?> -->
-<!-- <?= $this->Form->control('end_dt', ['empty' => true]); ?> -->
-<!-- <?= $this->Form->control('last_updated'); ?> -->
-<!-- <?= $this->Form->control('priority_id', ['options' => $lov]); ?> -->
-<!-- <?= $this->Form->control('status_id', ['options' => $lov]); ?> -->
-<!-- <?= $this->Form->control('sub_status_id', ['options' => $lov]); ?> -->
-<!-- <?= $this->Form->control('system_user_id', ['options' => $users]); ?> -->
-<!-- <?= $this->Form->control('annotation_id', ['options' => $annotations, 'empty' => true]); ?> -->
-
-=======
         <div class="row justify-content-around">
             <div class="col-md-5 col-sm-12 card bat">
                 <legend class="text-primary">Main</legend>
@@ -387,7 +305,6 @@ $this->end();
             <?= $this->Form->button(__('Submit'),['id' => 'ssubmit','class'=>'form-control btn btn-primary']) ?>
         </div>
     </div>
->>>>>>> Stashed changes
 
     <?= $this->Form->end() ?>
 </div>
@@ -561,27 +478,6 @@ $this->end();
         });
     });
 
-<<<<<<< Updated upstream
-$(document).ready(function() {
-    //respond to click event on anything with 'overlay' class
-    $(".overlay").click(function(event) {
-        event.preventDefault();
-        //load content from href of link
-        $('#contentWrap .modal-body').load($(this).attr("href"), function() {
-            $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content')
-                .removeClass()
-            $('#MyModal4').modal('show')
-        });
-    });
-
-    $(".upload").click(function(event) {
-        event.preventDefault();
-        $("#upload").modal('show')
-    })
-    $('.dataTable').DataTable();
-});
-</script>
-=======
     $(document).ready(function() {
             //respond to click event on anything with 'overlay' class
             $(".overlay").click(function(event){
@@ -631,4 +527,3 @@ $(document).ready(function() {
                 $('.dataTable').DataTable();
     });
 </script>
->>>>>>> Stashed changes
