@@ -91,7 +91,7 @@ class DocumentsController extends AppController
             }
             $this->Flash->error(__('The document could not be saved. Please, try again.'));
         }
-        $projects = $this->Documents->Projects->find('list', ['limit' => 200]);
+        $projects = $this->Documents->Projects->find('list', ['limit' => 200])->where(['id' => $id]);
         $this->set(compact('document', 'projects'));
     }
 
@@ -112,6 +112,7 @@ class DocumentsController extends AppController
             $this->Flash->error(__('The document could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
+        // return $this->redirect(['action' => 'index']);
     }
 }

@@ -42,7 +42,7 @@ $this->end();
             ],
             ['empty' => 'Select Document Type', 'label' => false, 'class' => 'mb-3']
         );
-        echo $this->Form->hidden('date_uploaded'); ?>
+        echo $this->Form->control('date_uploaded'); ?>
 
         <label class="control-label font-weight-bolder mandatory text-success" for="document_no">Document
             Uploaded</label>

@@ -30,31 +30,31 @@ $this->end();
 <div class="conatiner">
     <?= $this->Form->create($milestone) ?>
     <fieldset>
-        <legend class="text-primary font-weight-bolder text-center"><?= __('Edit Indicator') ?></legend>
+        <legend class="font-weight-bolder text-center"><?= __('Edit Indicator') ?></legend>
         <div class="row">
             <div class="col-md-6">
-                <label class="control-label font-weight-bolder text-success" for="project_id">Project Name</label>
+                <label class="control-label font-weight-bolder" for="project_id">Project Name</label>
                 <?= $this->Form->control('project_id', ['options' => $projects, 'readonly' => true, 'label' => false]); ?>
 
-                <label class="control-label font-weight-bolder text-success" for="name">Indicator Name</label>
+                <label class="control-label font-weight-bolder" for="name">Indicator Name</label>
                 <?= $this->Form->control('name', ['autocomplete' => 'off', 'label' => false]); ?>
 
-                <label class="control-label font-weight-bolder text-success" for="description">Description</label>
+                <label class="control-label font-weight-bolder" for="description">Description</label>
                 <?= $this->Form->control('description', ['type' => 'textarea', 'label' => false]); ?>
                 <?= $this->Form->hidden('status_id', ['value' => 1]); ?>
             </div>
             <div class="col-md-6">
-                <label class="control-label font-weight-bolder text-success" for="status_id">Status</label>
+                <label class="control-label font-weight-bolder" for="status_id">Status</label>
                 <?= $this->Form->control('status_id', ['options' => $lov, 'label' => false]); ?>
                 <?= $this->Form->hidden('trigger_id', ['options' => $triggers, 'empty' => true]); ?>
 
-                <label class="control-label font-weight-bolder text-success" for="amount">Amount</label>
+                <label class="control-label font-weight-bolder" for="amount">Amount</label>
                 <?= $this->Form->control('amount', ['autocomplete' => 'off', 'label' => false]); ?>
 
-                <label class="control-label font-weight-bolder text-success" for="start_date">Start Date</label>
+                <label class="control-label font-weight-bolder" for="start_date">Start Date</label>
                 <?= $this->Form->control('start_date', ['autocomplete' => 'off', 'id' => 'start_date', 'type' => 'text', 'label' => false, 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>',]); ?>
 
-                <label class="control-label font-weight-bolder text-success" for="end_date">End Date</label>
+                <label class="control-label font-weight-bolder" for="end_date">End Date</label>
                 <?= $this->Form->control('end_date', ['autocomplete' => 'off', 'id' => 'end_date', 'type' => 'text', 'label' => false, 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>',]); ?>
             </div>
         </div>

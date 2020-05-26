@@ -100,9 +100,12 @@ $this->end();
                 <div class="row">
                     <div class="col border-left ">
                         <!-- <i class="fas fa-pencil-alt fa-1x text-gray-300"></i> -->
-                        <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['controller' => 'Documents', 'action' => 'edit', $document->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Edit Document']) ?>
+                        <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['controller' => 'Documents', 'action' => 'edit', $project->documents[0]->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Edit Document']) ?>
+                        &nbsp;
+                        <?= $this->Form->postLink(__('<i class="fas fa-trash fa-1x text-gray-300"></i>'), ['controller' => 'Documents', 'action' => 'delete', $document->id], ['confirm' => __('Are you sure you want to delete Document ?', $document->id), 'class' => 'overlay', 'escape' => false, 'title' => 'Delete Document']) ?>
 
                     </div>
+
                 </div>
             </div>
         </div>

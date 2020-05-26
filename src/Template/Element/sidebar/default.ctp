@@ -5,9 +5,9 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon rotate-n-15">
-<!--            <i class="fas fa-laugh-wink"></i>-->
+            <!--            <i class="fas fa-laugh-wink"></i>-->
         </div>
-<!--                <div class="sidebar-brand-text mx-3">Project Management <sup>2</sup></div>-->
+        <!--                <div class="sidebar-brand-text mx-3">Project Management <sup>2</sup></div>-->
     </a>
 
     <!-- Divider -->
@@ -35,8 +35,11 @@
         <!--            <i class="fas fa-fw fa-cog"></i>-->
         <!--            <span>Components</span>-->
         <!--        </a>-->
-        <?= $this->Html->link(__('<i class="fa fa-archive fa-lg"></i> &nbsp;Projects'),
-            ['controller' => 'Projects', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
+        <?= $this->Html->link(
+            __('<i class="fa fa-archive fa-lg"></i> &nbsp;Projects'),
+            ['controller' => 'Projects', 'action' => 'index'],
+            ['escape' => false, 'class' => 'nav-link collapsed']
+        ) ?>
         <!--        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">-->
         <!--            <div class="bg-white py-2 collapse-inner rounded">-->
         <!--                <h6 class="collapse-header">Custom Components:</h6>-->
@@ -50,29 +53,40 @@
         <!--            <i class="fas fa-fw fa-cog"></i>-->
         <!--            <span>Components</span>-->
         <!--        </a>-->
-        <a href="#collapseExample1" class="nav-link collapsed"
-        data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample1"
-        >
-        <i class="fa fa-archive fa-lg"></i> &nbsp;M & E</a>
+        <a href="#collapseExample1" class="nav-link collapsed" data-toggle="collapse" role="button"
+            aria-expanded="false" aria-controls="collapseExample1">
+            <i class="fa fa-archive fa-lg"></i> &nbsp;M & E</a>
 
-<div class="collapse" id="collapseExample1">
-  <div class="">
-  <?= $this->Html->link(__('<i class="fa fa-archive fa-lg "></i> &nbsp;Planning'),
-            [], ['escape' => false, 'class' => 'nav-link collapsed dark']) ?>
-    <?= $this->Html->link(__('<i class="fa fa-archive fa-lg "></i> &nbsp;Monitoring'),
-        [], ['escape' => false, 'class' => 'nav-link collapsed dark']) ?>
-    <?= $this->Html->link(__('<i class="fa fa-archive fa-lg "></i> &nbsp;Disbursement'),
-        [], ['escape' => false, 'class' => 'nav-link collapsed dark']) ?>
-  </div>
-</div>
+        <div class="collapse" id="collapseExample1">
+            <div class="">
+                <?= $this->Html->link(
+                    __('<i class="fa fa-archive fa-lg "></i> &nbsp;Planning'),
+                    ['controller' => 'Projects', 'action' => 'planning'],
+                    ['escape' => false, 'class' => 'nav-link collapsed dark']
+                ) ?>
+                <?= $this->Html->link(
+                    __('<i class="fa fa-archive fa-lg "></i> &nbsp;Monitoring'),
+                    [],
+                    ['escape' => false, 'class' => 'nav-link collapsed dark']
+                ) ?>
+                <?= $this->Html->link(
+                    __('<i class="fa fa-archive fa-lg "></i> &nbsp;Disbursement'),
+                    [],
+                    ['escape' => false, 'class' => 'nav-link collapsed dark']
+                ) ?>
+            </div>
+        </div>
     </li>
     <li class="nav-item">
         <!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">-->
         <!--            <i class="fas fa-fw fa-cog"></i>-->
         <!--            <span>Components</span>-->
         <!--        </a>-->
-        <?= $this->Html->link(__('<i class="fa fa-archive fa-lg"></i> &nbsp;DPPC'),
-            [], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
+        <?= $this->Html->link(
+            __('<i class="fa fa-archive fa-lg"></i> &nbsp;DPPC'),
+            [],
+            ['escape' => false, 'class' => 'nav-link collapsed']
+        ) ?>
         <!--        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">-->
         <!--            <div class="bg-white py-2 collapse-inner rounded">-->
         <!--                <h6 class="collapse-header">Custom Components:</h6>-->
@@ -86,19 +100,24 @@
         <!--            <i class="fas fa-fw fa-cog"></i>-->
         <!--            <span>Components</span>-->
         <!--        </a>-->
-        <a href="#collapseExample" class="nav-link collapsed"
-        data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample"
-        >
-        <i class="fa fa-archive fa-lg"></i> &nbsp;Reports</a>
+        <a href="#collapseExample" class="nav-link collapsed" data-toggle="collapse" role="button" aria-expanded="false"
+            aria-controls="collapseExample">
+            <i class="fa fa-archive fa-lg"></i> &nbsp;Reports</a>
 
-<div class="collapse" id="collapseExample">
-  <div class="">
-  <?= $this->Html->link(__('<i class="fa fa-desktop fa-lg"></i> &nbsp;Progress Report'),
-            ['controller' => 'ProjectDetails', 'action' => 'evaluation'], ['escape' => false, 'class' => 'nav-link collapsed dark']) ?>
-    <?= $this->Html->link(__('<i class="fa fa-archive fa-lg "></i> &nbsp;Consolidated Report'),
-        ['controller' => 'ProjectDetails', 'action' => 'consolidated'], ['escape' => false, 'class' => 'nav-link collapsed dark']) ?>
-  </div>
-</div>
+        <div class="collapse" id="collapseExample">
+            <div class="">
+                <?= $this->Html->link(
+                    __('<i class="fa fa-desktop fa-lg"></i> &nbsp;Progress Report'),
+                    ['controller' => 'ProjectDetails', 'action' => 'evaluation'],
+                    ['escape' => false, 'class' => 'nav-link collapsed dark']
+                ) ?>
+                <?= $this->Html->link(
+                    __('<i class="fa fa-archive fa-lg "></i> &nbsp;Consolidated Report'),
+                    ['controller' => 'ProjectDetails', 'action' => 'consolidated'],
+                    ['escape' => false, 'class' => 'nav-link collapsed dark']
+                ) ?>
+            </div>
+        </div>
     </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->
@@ -133,9 +152,12 @@
         <!--            <i class="fas fa-fw fa-folder"></i>-->
         <!--            <span>Pages</span>-->
         <!--        </a>-->
-        <?= $this->Html->link(__('<i class="fa fa-user fa-lg"></i> &nbsp;Personnel'),
-            ['controller' => 'Staff', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
-               <!-- <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">-->
+        <?= $this->Html->link(
+            __('<i class="fa fa-user fa-lg"></i> &nbsp;Personnel'),
+            ['controller' => 'Staff', 'action' => 'index'],
+            ['escape' => false, 'class' => 'nav-link collapsed']
+        ) ?>
+        <!-- <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">-->
         <!--            <div class="bg-white py-2 collapse-inner rounded">-->
         <!--                <h6 class="collapse-header">Login Screens:</h6>-->
         <!--                <a class="collapse-item" href="login.html">Login</a>-->
@@ -149,28 +171,46 @@
         <!--        </div> -->
     </li>
     <li class="nav-item">
-        <?= $this->Html->link(__('<i class="fa fa-list fa-lg"></i> &nbsp;List of Values'),
-            ['controller' => 'Lov', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
+        <?= $this->Html->link(
+            __('<i class="fa fa-list fa-lg"></i> &nbsp;List of Values'),
+            ['controller' => 'Lov', 'action' => 'index'],
+            ['escape' => false, 'class' => 'nav-link collapsed']
+        ) ?>
     </li>
     <li class="nav-item">
-        <?= $this->Html->link(__('<i class="fa fa-list fa-lg"></i> &nbsp;Currencies'),
-            ['controller' => 'Currencies', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
+        <?= $this->Html->link(
+            __('<i class="fa fa-list fa-lg"></i> &nbsp;Currencies'),
+            ['controller' => 'Currencies', 'action' => 'index'],
+            ['escape' => false, 'class' => 'nav-link collapsed']
+        ) ?>
     </li>
     <li class="nav-item">
-        <?= $this->Html->link(__('<i class="fa fa-user-circle fa-lg"></i> &nbsp;Donors'),
-            ['controller' => 'Vendors', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
+        <?= $this->Html->link(
+            __('<i class="fa fa-user-circle fa-lg"></i> &nbsp;Donors'),
+            ['controller' => 'Vendors', 'action' => 'index'],
+            ['escape' => false, 'class' => 'nav-link collapsed']
+        ) ?>
     </li>
     <li class="nav-item">
-        <?= $this->Html->link(__('<i class="fa fa-user fa-lg"></i> &nbsp;Sponsors'),
-            ['controller' => 'Sponsors', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
+        <?= $this->Html->link(
+            __('<i class="fa fa-user fa-lg"></i> &nbsp;Sponsors'),
+            ['controller' => 'Sponsors', 'action' => 'index'],
+            ['escape' => false, 'class' => 'nav-link collapsed']
+        ) ?>
     </li>
     <li class="nav-item">
-        <?= $this->Html->link(__('<i class="fa fa-cube fa-lg"></i> &nbsp;Roles'),
-            ['controller' => 'Roles', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
+        <?= $this->Html->link(
+            __('<i class="fa fa-cube fa-lg"></i> &nbsp;Roles'),
+            ['controller' => 'Roles', 'action' => 'index'],
+            ['escape' => false, 'class' => 'nav-link collapsed']
+        ) ?>
     </li>
     <li class="nav-item">
-        <?= $this->Html->link(__('<i class="fa fa-user fa-lg"></i> &nbsp;Users'),
-            ['controller' => 'Users', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
+        <?= $this->Html->link(
+            __('<i class="fa fa-user fa-lg"></i> &nbsp;Users'),
+            ['controller' => 'Users', 'action' => 'index'],
+            ['escape' => false, 'class' => 'nav-link collapsed']
+        ) ?>
     </li>
     <!-- Nav Item - Charts -->
     <!--    <li class="nav-item">-->

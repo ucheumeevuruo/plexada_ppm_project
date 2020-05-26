@@ -315,21 +315,34 @@ class DashboardController extends AppController
         $ppp = 0;
         $none = 0;
         $others = 0;
+        $total = 0;
         foreach ($fundingType as $fund) {
             if ($fund->funding_type == 'Loan') {
                 $loan++;
+                $total++;
             } elseif ($fund->funding_type == 'Grant') {
                 $grant++;
+                $total++;
             } elseif ($fund->funding_type == 'Donor') {
                 $donor++;
+                $total++;
             } elseif ($fund->funding_type == 'PPP') {
                 $ppp++;
+                $total++;
             } elseif ($fund->funding_type == 'None') {
                 $none++;
+                $total++;
             } else {
                 $others++;
+                $total++;
             }
         }
+        $loanPercent = round(($loan / $total * 100), 1);
+        $grantPercent = round(($grant / $total * 100), 1);
+        $donorPercent = round(($donor / $total * 100), 1);
+        $pppPercent = round(($ppp / $total * 100), 1);
+        $nonePercent = round(($none / $total * 100), 1);
+        $othersPercent = round(($others / $total * 100), 1);
 
 
         // $incomes = $this->ProjectDetails->find(
@@ -353,7 +366,8 @@ class DashboardController extends AppController
 
         // debug($incomes);
         // die();
-        $this->set(compact('loan', 'grant', 'donor', 'ppp', 'none', 'others'));
+        $this->set(compact('loan', 'grant', 'donor', 'ppp', 'none', 'others', 'total', 'loanPercent'));
+        $this->set(compact('loanPercent', 'grantPercent', 'donorPercent', 'pppPercent', 'nonePercent', 'othersPercent', 'total'));
     }
 
     public function beforeRender(Event $event)

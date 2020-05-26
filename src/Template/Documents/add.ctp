@@ -16,7 +16,7 @@ $this->end();
 
 
 <div class="container-fluid ml-3">
-    <h3 class="text-center text-primary font-weight-bolder">Add Document</h3>
+    <h3 class="text-center font-weight-bolder">Add Document</h3>
 
     <div class="col-xl-8 col-md-6 mb-4">
         <div class="documents form large-9 medium-8 columns content">
@@ -24,17 +24,17 @@ $this->end();
             <fieldset>
                 <!-- <legend><?= __('Add Document') ?></legend> -->
 
-                <label class="control-label font-weight-bolder mandatory text-success" for="project_id">Project
+                <label class="control-label font-weight-bolder mandatory" for="project_id">Project
                     Name</label>
                 <?php echo $this->Form->control('project_id', ['options' => $projects, 'label' => false]); ?>
 
-                <label class="control-label font-weight-bolder mandatory text-success" for="document_no">Document
+                <label class="control-label font-weight-bolder mandatory" for="document_no">Document
                     ID</label>
                 <div class="input-group mb-3"><input type="text" name="document_no" id="document_no"
                         class="form-control" autocomplete="off">
                 </div>
 
-                <label class="control-label font-weight-bolder mandatory text-success" for="document_type">Document
+                <label class="control-label font-weight-bolder mandatory" for="document_type">Document
                     Type</label>
                 <?php
                 // echo $this->Form->control('document_no');
@@ -55,7 +55,7 @@ $this->end();
                     ['empty' => 'Select Document Type', 'class' => 'mb-4', 'label' => false]
                 ); ?>
 
-                <label class="control-label font-weight-bolder mandatory text-success" for="document_type">Click to
+                <label class="control-label font-weight-bolder mandatory" for="document_type">Click to
                     select a file to upload</label>
                 <?php
                 // echo $this->Form->control('date_uploaded');
