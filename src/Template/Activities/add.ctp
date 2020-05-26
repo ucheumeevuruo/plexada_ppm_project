@@ -13,7 +13,7 @@ echo $this->Html->css('mandatory');
 <div class="activities container-fluid">
     <?= $this->Form->create($activity) ?>
     <fieldset>
-        <legend class="text-primary font-weight-bolder text-center"><?= __('Add Activities') ?></legend>
+        <legend class="font-weight-bolder text-center"><?= __('Add Activities') ?></legend>
         <div class="row">
             <div class="col-md-6">
                 <?php
@@ -22,13 +22,13 @@ echo $this->Html->css('mandatory');
                 else
                     echo $this->Form->hidden('project_id', ['value' => $project_id, 'empty' => false]);
                 ?>
-                <label class="control-label mandatory font-weight-bolder text-success" for="milestone_id">Indicator</label>
+                <label class="control-label mandatory font-weight-bolder " for="milestone_id">Indicator</label>
                 <?php echo $this->Form->control('milestone_id', ['options' => $milestones, 'label' => false]); ?>
 
-                <label class="control-label mandatory font-weight-bolder text-success" for="name">Activity Name</label>
+                <label class="control-label mandatory font-weight-bolder " for="name">Activity Name</label>
                 <?php echo $this->Form->control('name', ['autocomplete' => 'off', 'label' => false]); ?>
 
-                <label class="control-label mandatory font-weight-bolder text-success" for="description">Description</label>
+                <label class="control-label mandatory font-weight-bolder " for="description">Description</label>
                 <?php
                 echo $this->Form->control('description', ['type' => 'textarea', 'label' => false]);
                 echo $this->Form->hidden('activity_type_id', ['value' => 12]);
@@ -37,19 +37,19 @@ echo $this->Html->css('mandatory');
             </div>
 
             <div class="col-md-6">
-                <label class="control-label font-weight-bolder text-success" for="assigned_to_id">Assigned To</label>
+                <label class="control-label font-weight-bolder " for="assigned_to_id">Assigned To</label>
                 <?php
                 echo $this->Form->control('assigned_to_id', ['options' => $staff, 'empty' => true, 'label' => false]);
                 echo $this->Form->hidden('priority_id', ['value' => 5]);
                 echo $this->Form->hidden('currency_id', ['value' => $currency->project_detail->currency->id]);
                 ?>
-                <label class="control-label font-weight-bolder text-success" for="start_date">Start Date</label>
+                <label class="control-label font-weight-bolder " for="start_date">Start Date</label>
                 <?php echo $this->Form->control('start_date', ['empty' => true, 'class' => 'addon-right', 'label' => false, 'id' => 'start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']); ?>
 
-                <label class="control-label font-weight-bolder text-success" for="end_date">End Date</label>
+                <label class="control-label font-weight-bolder " for="end_date">End Date</label>
                 <?php echo $this->Form->control('end_date', ['empty' => true, 'class' => 'addon-right', 'label' => false, 'id' => 'end_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']); ?>
 
-                <label class="control-label font-weight-bolder text-success" for="cost">Cost</label>
+                <label class="control-label font-weight-bolder " for="cost">Cost</label>
                 <?php echo $this->Form->control('cost', ['autocomplete' => 'off', 'label' => false]); ?>
             </div>
         </div>
@@ -76,16 +76,16 @@ echo $this->Html->css('mandatory');
 </div>
 
 <script>
-    <?php $code_array = json_encode($startDate) ?>
-    var array_code = <?php echo $code_array; ?>;
-    $(function($array_code) {
-        $('#start_date, #end_date').datepicker({
-            inline: true,
-            "format": "dd/mm/yyyy",
-            startDate: <?php echo $code_array; ?>,
-            // endDate: "09-15-2017",
-            // "endDate": "09-15-2017",
-            "keyboardNavigation": false
-        });
+< ? php $code_array = json_encode($startDate) ? >
+    var array_code = < ? php echo $code_array; ? > ;
+$(function($array_code) {
+    $('#start_date, #end_date').datepicker({
+        inline: true,
+        "format": "dd/mm/yyyy",
+        startDate: < ? php echo $code_array; ? > ,
+        // endDate: "09-15-2017",
+        // "endDate": "09-15-2017",
+        "keyboardNavigation" : false
     });
+});
 </script>

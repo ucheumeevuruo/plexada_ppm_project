@@ -15,17 +15,17 @@ $this->end();
 
 
 <div class="projects w-75 mx-auto">
-    <h3 class="text-center text-primary font-weight-bolder">Edit Project</h3>
+    <h3 class="text-center font-weight-bolder">Edit Project</h3>
 
     <?= $this->Form->create($project) ?>
     <fieldset>
-        <label class="control-label mandatory font-weight-bolder text-success" for="name">Project Name</label>
+        <label class="control-label mandatory font-weight-bolder" for="name">Project Name</label>
         <?php echo $this->Form->control('name', ['label' => false]); ?>
 
-        <label class="control-label mandatory font-weight-bolder text-success" for="introduction">Introduction</label>
+        <label class="control-label mandatory font-weight-bolder" for="introduction">Introduction</label>
         <?php echo $this->Form->control('introduction', ['label' => false]); ?>
 
-        <label class="control-label mandatory font-weight-bolder text-success" for="location">Location</label>
+        <label class="control-label mandatory font-weight-bolder" for="location">Location</label>
         <?php echo $this->Form->control('location', ['label' => false]);
         //            echo $this->Form->control('project_detail.status_id', ['options' => $statuses, 'empty' => true]);
         //            echo $this->Form->control('project_detail.currency_id', ['options' => $currencies, 'empty' => true]);

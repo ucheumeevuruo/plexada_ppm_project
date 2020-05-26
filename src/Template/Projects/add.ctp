@@ -31,13 +31,13 @@ $this->end();
             <?= $this->Form->create($project) ?>
             <fieldset class="col-md-6 float-left mb-4">
                 <!-- <legend class="text-primary">Project Information</legend> -->
-                <label class="control-label mandatory font-weight-bolder text-success" for="project">Project
+                <label class="control-label mandatory font-weight-bolder" for="project">Project
                     Name</label>
                 <div class="input-group mb-3"><input type="text" name="name" id="name" class="form-control" empty="1"
                         autocomplete="off">
                 </div>
 
-                <label class="control-label mandatory font-weight-bolder text-success" for="description">Brief</label>
+                <label class="control-label mandatory font-weight-bolder" for="description">Brief</label>
                 <div class="input-group mb-3">
                     <textarea name="introduction" class="form-control" empty="1" id="introduction"
                         autocomplete="off"> </textarea>
@@ -45,7 +45,7 @@ $this->end();
 
             </fieldset>
             <fieldset class="col-md-6 float-right mb-4">
-                <label class="control-label mandatory font-weight-bolder text-success" for="location">Location</label>
+                <label class="control-label mandatory font-weight-bolder" for="location">Location</label>
                 <div class="input-group mb-3"><input type="text" name="location" class="form-control" empty="1"
                         id="location" autocomplete="off">
                 </div>
@@ -57,12 +57,12 @@ $this->end();
                 echo $this->Form->hidden('project_detail.status_id', ['value' => 1]);
                 // echo $this->Form->control('location');
                 ?>
-                <label class="control-label mandatory font-weight-bolder text-success"
+                <label class="control-label mandatory font-weight-bolder"
                     for="project_detail.currency_id">Currency</label>
                 <?php
                 echo $this->Form->control('project_detail.currency_id', ['options' => $currencies, 'empty' => true, 'label' => false, 'class' => 'mb-0']);
                 ?>
-                <label class="control-label mandatory font-weight-bolder text-success"
+                <label class="control-label mandatory font-weight-bolder"
                     for="project_detail.currency_id">Budget</label>
                 <?php
                 echo $this->Form->control('project_detail.budget', ['label' => false, 'class' => 'mb-0']);

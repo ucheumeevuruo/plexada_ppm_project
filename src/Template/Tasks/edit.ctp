@@ -15,27 +15,26 @@ $this->end();
         <div class="row">
             <div class="col">
                 <?= $this->Form->hidden('activity_id') ?>
-                <label class="control-label font-weight-bolder mandatory text-success" for="Task_name">Task Name</label>
+                <label class="control-label font-weight-bolder mandatory" for="Task_name">Task Name</label>
                 <?= $this->Form->control('Task_name', ['label' => false, 'id' => 'Task_name',]) ?>
 
-                <label class="control-label font-weight-bolder mandatory text-success"
-                    for="Description">Description</label>
+                <label class="control-label font-weight-bolder mandatory" for="Description">Description</label>
                 <?= $this->Form->control('Description', ['type' => 'textarea', 'label' => false]) ?>
             </div>
             <div class="col">
-                <label class="control-label font-weight-bolder text-success" for="Predecessor">Predecessor</label>
+                <label class="control-label font-weight-bolder" for="Predecessor">Predecessor</label>
                 <?= $this->Form->control('Predecessor', ['label' => false]) ?>
 
-                <label class="control-label font-weight-bolder text-success" for="Successor">Successor</label>
+                <label class="control-label font-weight-bolder" for="Successor">Successor</label>
                 <?= $this->Form->control('Successor', ['label' => false]) ?>
 
-                <label class="control-label font-weight-bolder mandatory text-success" for="Start_date">Start
+                <label class="control-label font-weight-bolder mandatory" for="Start_date">Start
                     Date</label>
                 <?= $this->Form->control('Start_date', [
                     'empty' => true, 'class' => 'addon-right', 'label' => false, 'id' => 'Start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off'
                 ]) ?>
 
-                <label class="control-label font-weight-bolder mandatory text-success" for="end_date">End Date</label>
+                <label class="control-label font-weight-bolder mandatory" for="end_date">End Date</label>
                 <?= $this->Form->control('end_date', [
                     'empty' => true, 'class' => 'addon-right', 'label' => false, 'id' => 'Start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off'
                 ]) ?>

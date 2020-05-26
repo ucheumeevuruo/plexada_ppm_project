@@ -1,4 +1,4 @@
-<?php //$pieChart->printScripts();
+<?php //$pieChart->printScripts(); 
 ?>
 <!---->
 <?php
@@ -16,34 +16,35 @@ $this->end();
 <div class="container-fluid">
 
     <style>
-        #container {
-            overflow-y: scroll;
-            overflow-x: scroll;
-            /* width: 900px; */
-            height: 300px;
-        }
+    #container {
+        overflow-y: scroll;
+        overflow-x: scroll;
+        /* width: 900px; */
+        height: 300px;
+    }
 
-        .table-container {
-            overflow-y: scroll;
-            overflow-x: scroll;
-            /* width: 900px; */
-            height: 300px;
-        }
+    .table-container {
+        overflow-y: scroll;
+        overflow-x: scroll;
+        /* width: 900px; */
+        height: 300px;
+    }
 
-        #container2 {
-            /* position: absolute; */
-            overflow-y: scroll;
-            overflow-x: scroll;
-            /* width: 900px; */
-            height: 300px;
-        }
-        #container3 {
-            /* position: absolute; */
-            overflow-y: scroll;
-            overflow-x: scroll;
-            /* width: 900px; */
-            height: 300px;
-        }
+    #container2 {
+        /* position: absolute; */
+        overflow-y: scroll;
+        overflow-x: scroll;
+        /* width: 900px; */
+        height: 300px;
+    }
+
+    #container3 {
+        /* position: absolute; */
+        overflow-y: scroll;
+        overflow-x: scroll;
+        /* width: 900px; */
+        height: 300px;
+    }
     </style>
     <?php
     $arrcompleted = [];
@@ -101,7 +102,7 @@ $this->end();
                                         <th></th>
                                         <th></th>
                                         <th>Tasks</th>
-                                        <th>Indicator Progress</th>
+                                        <th>Progress</th>
                                     </tr>
                                 </thead>
                                 <?php foreach ($project_list as $project) : ?>
@@ -230,7 +231,7 @@ $this->end();
                             </table>
                         </div>
                         <!-- <div class="col-md-6">
-
+                                
                                 </div> -->
 
                     </div>
@@ -436,7 +437,7 @@ $this->end();
     <!-- <div class="row">
         <div class="col">
             <div class="card shadow mb-5">
-
+                
                 <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
                     <h4 class="m-0 text-white">Doughnut chart</h4>
                     <div class="dropdown no-arrow">
@@ -453,10 +454,10 @@ $this->end();
                     </div>
                 </div>
 
-
+                
                 <div class="card-body">
                     <div id="container">
-
+                        
                         <canvas id="myChart3" width="200" height="50" style="height:400px"></canvas>
                         <script>
                             <?php $code_array = json_encode($allprojects) ?>
@@ -490,7 +491,7 @@ $this->end();
                     </div>
                 </div>
 
-
+                
                 <div class="card-body">
                     <div id="container2">
                         <div id="ganttcontainer" style="height: 500px; width: 100%"></div>
@@ -521,7 +522,7 @@ $this->end();
                             <a class="dropdown-item" href="#">Another action</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Something else here</a>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
 
@@ -553,22 +554,51 @@ $(function() {
     $('[data-toggle="tooltip"]').tooltip()
 });
 </script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+<script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.4.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
 var ctx = document.getElementById('fundingType').getContext('2d');
+// var options = {
+//     tooltips: {
+//         enabled: false
+//     },
+//     plugins: {
+//         datalabels: {
+//             formatter: (value, ctx) => {
+//                 let datasets = ctx.chart.data.datasets;
+//                 if (datasets.indexOf(ctx.datasets) === datasets.length - 1) {
+//                     let sum = datasets[0].data.reduce((a, b) => a + b, 0);
+//                     let percentage = Math.round((value / sum) * 100) + '%';
+//                     return percentage;
+//                 } else {
+//                     return 10;
+//                 }
+//             },
+//             color: '#fff',
+//         }
+//     }
+// };
+
 var chart = new Chart(ctx, {
     // The type of chart we want to create
+
     type: 'pie',
 
     // The data for our dataset
     data: {
-        labels: ['Loan', 'Grant', 'PPP', 'None', 'Others', 'Donor'],
+        labels: ['Loan <?= h($loanPercent); ?>%', 'Grant <?= h($grantPercent); ?>%',
+            'PPP <?= h($pppPercent); ?>%', 'None <?= h($nonePercent); ?>%',
+            'Others <?= h($othersPercent); ?>%', 'Donor <?= h($donorPercent); ?>%'
+        ],
         datasets: [{
             label: 'Funding Type',
             backgroundColor: ["#0074D9", "#FF851B", "#B10DC9", "#FFDC00", "#39CCCC", "#85144b",
                 "#F012BE"
             ],
-            borderWidth: 2,
+            borderWidth: 1,
             hoverBorderWidth: 4,
             cutoutPercentage: 5,
             data: ["<?php echo $loan; ?>", "<?php echo $grant; ?>", "<?php echo $ppp; ?>",
@@ -576,6 +606,7 @@ var chart = new Chart(ctx, {
             ]
         }]
     },
+
 
     // Configuration options go here
     options: {}

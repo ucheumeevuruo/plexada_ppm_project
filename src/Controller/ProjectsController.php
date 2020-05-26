@@ -94,21 +94,21 @@ class ProjectsController extends AppController
 
         $this->loadModel('Milestones');
         $milestone_list =  $this->Milestones->find('all');
-        $closedCount =  $this->Milestones->find('all',['conditions'=>['project_id' => $id,'status_id' => 3]])->count();
-        $allCount =  $this->Milestones->find('all',['conditions'=>['project_id' => $id]])->count();
-        if  ($allCount === 0){
+        $closedCount =  $this->Milestones->find('all', ['conditions' => ['project_id' => $id, 'status_id' => 3]])->count();
+        $allCount =  $this->Milestones->find('all', ['conditions' => ['project_id' => $id]])->count();
+        if ($allCount === 0) {
             $colorCode = 'primary';
-        }else{
-            $percent = $closedCount/$allCount ;
-            if ($percent <= 0.4){
+        } else {
+            $percent = $closedCount / $allCount;
+            if ($percent <= 0.4) {
                 $colorCode = 'danger';
-            }else if($percent >= 0.4 && $percent < 0.6){
+            } else if ($percent >= 0.4 && $percent < 0.6) {
                 $colorCode = 'warning';
-            }else if($percent >= 0.6 && $percent < 0.8){
+            } else if ($percent >= 0.6 && $percent < 0.8) {
                 $colorCode = 'warning';
-            }else if($percent >= 0.8 && $percent < 1){
+            } else if ($percent >= 0.8 && $percent < 1) {
                 $colorCode = 'success';
-            }else if($percent === 1 ){
+            } else if ($percent === 1) {
                 $colorCode = 'black';
             }
         }
@@ -213,6 +213,37 @@ class ProjectsController extends AppController
 
         $this->set('project', $project);
     }
+
+
+    public function planning()
+    {
+
+        $this->paginate = [
+            'contain' => ['ProjectDetails'],
+        ];
+        $projects = $this->paginate($this->Projects);
+        // debug($projects);
+        // die();
+
+        $this->set('projects', $projects);
+    }
+
+    public function plan($id = null)
+    {
+
+
+        $plans = $this->Projects->Activities->find();
+
+        $this->loadModel('Plans');
+        $activePlan = $this->Plans->find('all');
+
+        // debug($plans);
+        // die();
+
+        $this->set('plans', $plans);
+        $this->set('activePlan', $activePlan);
+    }
+
 
     /**
      * Add method

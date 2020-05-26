@@ -115,14 +115,6 @@ $this->end();
                             <p>
                                 <?= h($spon->first_name) ?>
                                 <?= h($spon->last_name) ?>
-                                <strong>(Sponsor)</strong>
-                            </p>
-                            <?php endif; ?>
-                            <?php if ($prodet->donor_id == $spon->id) : ?>
-                            <p>
-                                <?= h($spon->first_name) ?>
-                                <?= h($spon->last_name) ?>
-                                <strong>(Donor)</strong>
                             </p>
                             <?php endif; ?>
                             <?php endforeach; ?>
@@ -145,7 +137,7 @@ $this->end();
 
                             <?php foreach ($projectDet as $prodet) : ?>
                             <?php foreach ($spons as $spon) : ?>
-                            <?php if ($prodet->sponsor_id == $spon->id) : ?>
+                            <?php if ($prodet->donor_id == $spon->id) : ?>
 
                             <?= h($spon->first_name) ?>
                             <?= h($spon->last_name) ?>
@@ -156,18 +148,8 @@ $this->end();
                     </div>
                 </div>
             </div>
-            <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-                <div class="row">
-                    <div class="col-auto">
-                        <i class="fas fa-clock fa-1x text-gray-300"></i>
-                    </div>
-                    <div class="col border-left ">
-                        <i class="fas fa-book fa-1x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
         </div>
-    </div>    
+    </div>
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">
