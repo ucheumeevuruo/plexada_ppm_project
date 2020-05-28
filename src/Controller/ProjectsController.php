@@ -180,7 +180,7 @@ class ProjectsController extends AppController
             ]
         );
         $this->loadModel('Milestones');
-        $milestones = $this->Milestones->find('all')->where(['project_id' => $project_id]);;
+        $milestones = $this->Milestones->find('all')->where(['project_id' => $project_id]);
 
         // debug($activities);
         // die();
@@ -231,14 +231,34 @@ class ProjectsController extends AppController
     public function planning()
     {
 
-        $this->paginate = [
-            'contain' => ['ProjectDetails'],
+        $q = $this->request->getQuery('q');
+
+        $customFinderOptions = [
+            'id' => $q
         ];
+
+
+        $this->paginate = [
+            'contain' => [
+                'ProjectDetails', 'ProjectDetails.Statuses', 'ProjectDetails.Currencies'
+            ],
+            //            'maxLimit' => 3
+            'finder' => [
+                'byProjectName' => $customFinderOptions
+            ]
+        ];
+
         $projects = $this->paginate($this->Projects);
         // debug($projects);
         // die();
 
-        $this->set('projects', $projects);
+        $this->loadModel('Milestones');
+        $milestones =  $this->Milestones->find('all');
+
+        $this->loadModel('ProjectDetails');
+        $projectDetails =  $this->ProjectDetails->find('all');
+
+        $this->set(compact('projects', 'milestones', 'projectDetails'));
     }
 
     public function plan($id = null)
@@ -539,5 +559,40 @@ class ProjectsController extends AppController
             $num_mile++;
         }
         return $array_task_child;
+    }
+    public function planIndicators($project_id = null)
+    {
+        $q = $this->request->getQuery('q');
+
+        $milestones = $this->Projects->Milestones->find()
+            ->contain(['Lov', 'Projects.ProjectDetails.Currencies'])
+            ->where(['Milestones.project_id' => $project_id]);
+
+        $milestones = $this->paginate($milestones);
+
+        // debug($milestones);
+        // die();
+
+        $this->set(compact('milestones', 'project_id'));
+    }
+
+    public function planActivities($project_id = null)
+    {
+        $q = $this->request->getQuery('q');
+
+        $activities = $this->Projects->Activities->find()->where(['milestone_id' => $project_id]);;
+
+
+        $activities = $this->paginate($activities);
+
+
+        $this->loadModel('Plans');
+        $plans =  $this->Plans->find('all');
+
+
+
+        // debug($plans);
+        // die();
+        $this->set(compact('activities', 'project_id', 'plans'));
     }
 }

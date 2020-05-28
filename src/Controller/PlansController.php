@@ -51,7 +51,7 @@ class PlansController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = null)
     {
         $plan = $this->Plans->newEntity();
         if ($this->request->is('post')) {
@@ -64,7 +64,17 @@ class PlansController extends AppController
             $this->Flash->error(__('The plan could not be saved. Please, try again.'));
         }
         $activities = $this->Plans->Activities->find('list', ['limit' => 200]);
-        $this->set(compact('plan', 'activities'));
+        // $activities = $this->Plans->Activities->find('all', ['limit' => 200]);
+        // $activities = $this->Plans->Activities->find()->combine('id', 'name');
+
+
+        $staff = $this->Plans->Staff->find('list', ['limit' => 200]);
+        $user = $this->Plans->Users->find('list', ['limit' => 200]);
+
+        // debug($id);
+        // die();
+
+        $this->set(compact('plan', 'activities', 'staff', 'user'));
     }
 
     /**

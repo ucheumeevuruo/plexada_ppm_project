@@ -2,7 +2,7 @@
 
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\ProjectDetailOld[]|\Cake\Collection\CollectionInterface $projectDetails
+ * @var \App\Model\Entity\ProjectDetailOld $projectDetail
  */
 $this->start('sidebar');
 echo $this->element('sidebar/default');
@@ -10,6 +10,8 @@ $this->end();
 $this->start('navbar');
 echo $this->element('navbar/default');
 $this->end();
+
+echo $this->Html->css('mandatory');
 
 /**
  *
@@ -27,12 +29,13 @@ $this->Paginator->setTemplates([
     'last' => ''
 ]);
 ?>
-<!-- section area. This is where the ajax call places the element on -->
+
 <section id="flyby">
+
     <!-- Menu area [Search, pagination] -->
     <!-- I was supposed to put this section in the element template but will do that soon. -->
     <nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
-        <a class="navbar-brand" href="#">Projects</a>
+        <a class="navbar-brand" href="#">Activities</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -79,45 +82,51 @@ $this->Paginator->setTemplates([
                 <li class="breadcrumb-item">
                     <?= $this->Html->link(__('Projects'), ['action' => 'index']) ?>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Planning</li>
+                <li>
+                    &nbsp; /
+                    <?= $this->Html->link(__('Planning'), ['action' => 'planning']) ?>
+                </li>
+                <li>
+                    &nbsp; /
+                    <?= $this->Html->link(__('Indicators'), ['action' => 'planning']) ?>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">&nbsp; / Activities</li>
             </ol>
         </nav>
         <!-- ./end Breadcrumb -->
 
-        <h3 class="text-primary text-left font-weight-bold mt-0">Select Project </h3>
-        <div class="grey-bg vh-5 py-4">
+        <h3 class="text-primary text-left font-weight-bold mt-0">Select Indicator </h3>
 
+        <!-- .\end Menu Area -->
+
+        <div class="grey-bg vh-4 py-4">
             <div class="row mx-0">
-                <?php foreach ($projects as $project) : ?>
-
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card shadow h-100 py-0 border border-left-light rounded-lg">
+                <?php foreach ($activities as $activity) : ?>
+                    <div class="col-xl-3 col-md-6 mb-4" data-attr="">
+                        <div class="card shadow py-0">
                             <div class="card-body py-2 px-2">
                                 <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2" id="clickable-card" data-attr="<?= $this->Url->build(['action' => 'planIndicators', $project->id]) ?>">
+                                    <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <?= $project->name ?>
+                                            <?= h($activity->name) ?>
                                         </div>
-                                        <div class="h6 mb-0 font-weight-bold text-gray-800">
-                                            <?= $project->has('project_detail') ? $this->NumberFormat->format(
-                                                $project->project_detail->budget,
-                                                ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']
-                                            )  : '0.00' ?></div>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'), ['controller' => 'Plans', 'action' => 'add', $activity->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Plan']) ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
             </div>
         </div>
-    </div>
-</section>
 
+</section>
 
 <!-- MODAL ELEMENTS -->
 
@@ -144,5 +153,32 @@ $this->Paginator->setTemplates([
                 $('#MyModal4').modal('show')
             });
         });
+        $(document).on('click', '#clickable-sub-applet', function(event) {
+            event.preventDefault();
+            let href = $(this).attr('data-attr');
+            $.ajax({
+                url: href,
+                // contentType: "application/json",
+                // dataType: 'json',
+                beforeSend: function() {
+                    $('#loader').show();
+                },
+                success: function(result) {
+                    $('#sub-applet').html(result);
+                    // history.pushState(null, null, href);
+                },
+                complete: function() {
+                    $('#loader').hide();
+                },
+                error: function(jqXHR, testStatus, error) {
+
+                    console.log(error);
+                    alert("Page " + href + " cannot open. Error:" + error);
+                    $('#loader').hide();
+                },
+                timeout: 8000
+            })
+        })
     });
 </script>
+</div>
