@@ -38,7 +38,7 @@ class ProjectsController extends AppController
                 'byProjectName' => $customFinderOptions
             ]
         ];
-
+        $this->loadModel('Projects');
         $projects = $this->paginate($this->Projects);
 
         $this->loadModel('Milestones');
@@ -123,6 +123,19 @@ class ProjectsController extends AppController
     }
 
     public function milestones($project_id = null)
+    {
+        $q = $this->request->getQuery('q');
+
+        $milestones = $this->Projects->Milestones->find()
+            ->contain(['Lov', 'Projects.ProjectDetails.Currencies'])
+            ->where(['Milestones.project_id' => $project_id]);
+
+        $milestones = $this->paginate($milestones);
+
+        $this->set(compact('milestones', 'project_id'));
+    }
+
+    public function indicators($project_id = null)
     {
         $q = $this->request->getQuery('q');
 
@@ -242,6 +255,88 @@ class ProjectsController extends AppController
 
         $this->set('plans', $plans);
         $this->set('activePlan', $activePlan);
+    }
+
+    public function disbursement()
+    {
+        $q = $this->request->getQuery('q');
+
+        $customFinderOptions = [
+            'id' => $q
+        ];
+
+
+        $this->paginate = [
+            'contain' => [
+                'ProjectDetails', 'ProjectDetails.Statuses', 'ProjectDetails.Currencies'
+            ],
+            //            'maxLimit' => 3
+            'finder' => [
+                'byProjectName' => $customFinderOptions
+            ]
+        ];
+        $this->loadModel('Projects');
+        $projects = $this->paginate($this->Projects);
+
+        $this->loadModel('Milestones');
+        $milestones =  $this->Milestones->find('all');
+
+        $this->loadModel('ProjectDetails');
+        $projectDetails =  $this->ProjectDetails->find('all');
+
+        // debug($projectDetails);
+        // die();
+
+        $this->set(compact('projects', 'milestones', 'projectDetails'));
+    }
+
+    
+    public function indicator($id = null)
+    {
+        $project = $this->Projects->get(
+            $id,
+            [
+                'contain' => ['Pims', 'ProjectFundings', 'ProjectDetails', 'Activities', 'Annotations', 'Milestones', 'Objectives', 'Prices', 'RiskIssues', 'Sponsors', 'Pads', 'ProjectDetails.Currencies'],
+            ]
+        );
+
+        $proDetail = $this->ProjectDetails->find('all')->contain(['Currencies'])->where(['project_id' => $id]);
+        $this->set('project', $project, 'proDetail');
+
+
+        $this->loadModel('ProjectDetails');
+        $projectDet = $this->ProjectDetails->find('all')->contain(['Sponsors'])->where(['project_id' => $id]);
+        $this->loadModel('Sponsors');
+        $spons = $this->Sponsors->find('all')->contain(['ProjectDetails']);
+
+        $this->loadModel('Milestones');
+        $milestone_list =  $this->Milestones->find('all');
+        $closedCount =  $this->Milestones->find('all', ['conditions' => ['project_id' => $id, 'status_id' => 3]])->count();
+        $allCount =  $this->Milestones->find('all', ['conditions' => ['project_id' => $id]])->count();
+        if ($allCount === 0) {
+            $colorCode = 'primary';
+        } else {
+            $percent = $closedCount / $allCount;
+            if ($percent <= 0.4) {
+                $colorCode = 'danger';
+            } else if ($percent >= 0.4 && $percent < 0.6) {
+                $colorCode = 'warning';
+            } else if ($percent >= 0.6 && $percent < 0.8) {
+                $colorCode = 'warning';
+            } else if ($percent >= 0.8 && $percent < 1) {
+                $colorCode = 'success';
+            } else if ($percent === 1) {
+                $colorCode = 'black';
+            }
+        }
+        // debug($allCount);
+        // die();
+
+        $milestones = $this->Projects->Milestones->find()->contain(['Activities']);
+
+        // debug($project);
+        // die();
+        $this->set(compact('project', 'milestones', 'milestone_list', 'projectDet', 'spons', 'colorCode'));
     }
 
 
