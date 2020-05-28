@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -31,5 +32,10 @@ class Plan extends Entity
         'start_date' => true,
         'end_date' => true,
         'activity' => true,
+        'assigned_to_id' => true,
+        'title' => true,
+        'comment' => true,
+        'users_id' => true,
+        'plan_type' => true,
     ];
 }

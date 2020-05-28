@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -40,6 +41,12 @@ class PlansTable extends Table
             'foreignKey' => 'activity_id',
             'joinType' => 'INNER',
         ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'users_id',
+        ]);
+        $this->belongsTo('Staff', [
+            'foreignKey' => 'assigned_to_id',
+        ]);
     }
 
     /**
@@ -59,6 +66,17 @@ class PlansTable extends Table
             ->maxLength('name', 255)
             ->requirePresence('name', 'create')
             ->notEmptyString('name');
+
+        $validator
+            ->scalar('comment')
+            ->maxLength('comment', 255)
+            ->allowEmptyString('comment');
+
+        $validator
+            ->scalar('title')
+            ->maxLength('title', 255)
+            ->allowEmptyString('title');
+
 
         $validator
             ->dateTime('start_date')
@@ -81,6 +99,9 @@ class PlansTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['activity_id'], 'Activities'));
+        $rules->add($rules->existsIn(['users_id'], 'Users'));
+        $rules->add($rules->existsIn(['assigned_to_id'], 'Staff'));
+
 
         return $rules;
     }

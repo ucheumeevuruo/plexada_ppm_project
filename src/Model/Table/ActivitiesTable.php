@@ -56,7 +56,7 @@ class ActivitiesTable extends Table
             'foreignKey' => 'assigned_to_id',
         ]);
         $this->belongsTo('Currencies', [
-           'foreignKey' => 'currency_id'
+            'foreignKey' => 'currency_id'
         ]);
         $this->belongsTo('Priorities', [
             'className' => 'Lov',
@@ -122,8 +122,8 @@ class ActivitiesTable extends Table
 
         $validator
             ->integer('percentage_completion');
-//            ->requirePresence('percentage_completion', 'create')
-//            ->notEmptyString('percentage_completion');
+        //            ->requirePresence('percentage_completion', 'create')
+        //            ->notEmptyString('percentage_completion');
 
         $validator
             ->scalar('description')
@@ -175,7 +175,7 @@ class ActivitiesTable extends Table
     //     DateTime::createFromFormat('d/m/Y', $formData['start_date']) : $formData['start_date'];
     //     $formData['end_date'] = !empty($formData['end_date']) ?
     //     DateTime::createFromFormat('d/m/Y', $formData['end_date']) : $formData['end_date'];
-        
+
     //     return $formData;
     // }
 
@@ -183,9 +183,8 @@ class ActivitiesTable extends Table
     {
         $name = $options['id'];
 
-        if(!is_null($id))
-        {
-            $query->where(function ($exp, Query $q) use ($name){
+        if (!is_null($id)) {
+            $query->where(function ($exp, Query $q) use ($name) {
                 return $exp->like('Activities.name', "%$name%");
             });
         }
@@ -194,7 +193,7 @@ class ActivitiesTable extends Table
 
     public function identify($formData)
     {
-                if (isset($formData['status_id'])) {
+        if (isset($formData['status_id'])) {
 
             $status = $this->Statuses->find()
                 ->where(['id' => $formData['status_id']])

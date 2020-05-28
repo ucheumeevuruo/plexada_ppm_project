@@ -105,7 +105,7 @@ $this->end();
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2" id="clickable-card" data-attr="">
                         <div class=" font-weight-bold mb-4 mt- 2 text-primary text-uppercase mb-1">
-                            <?= h('Sponsors & Donors') ?>
+                            <?= h('Sponsors') ?>
                         </div>
                         <div class="h6 mb-0 text-gray-800">
 
@@ -125,7 +125,7 @@ $this->end();
             </div>
         </div>
     </div>
-    <!-- <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-6 mb-4">
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
@@ -171,7 +171,7 @@ $this->end();
                     </div>
                 </div>
             </div>
-            <!-- <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
+            <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
                 <div class="row">
                     <div class="col-auto">
                         <i class="fas fa-clock fa-1x text-gray-300"></i>
@@ -180,30 +180,30 @@ $this->end();
                         <i class="fas fa-book fa-1x text-gray-300"></i>
                     </div>
                 </div>
-            </div> -->
-</div>
-</div>
-<div class="col-xl-3 col-md-6 mb-4">
-    <div class="card  shadow h-100 py-0">
-        <div class="card-body py-2 px-2">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2" id="clickable-card" data-attr="">
-                    <div class=" font-weight-bold mb-4 mt- 2 text-primary text-uppercase mb-1">
-                        <?= h('MDA') ?>
-                    </div>
-                    <div class="h6 mb-0 text-gray-800">
-                        <?php if (isset($project->pim->mda)) { ?>
-                        <p class="card-text"><?= h($project->pim->mda) ?></p>
-                    </div>
-                    <?php } ?>
-                    <?php if (!isset($project->pim->mda)) { ?>
-                    <p class="card-text"><?= h('Ogun State Government') ?></p>
-                </div>
-                <?php } ?>
             </div>
         </div>
     </div>
-</div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card  shadow h-100 py-0">
+            <div class="card-body py-2 px-2">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2" id="clickable-card" data-attr="">
+                        <div class=" font-weight-bold mb-4 mt- 2 text-primary text-uppercase mb-1">
+                            <?= h('MDA') ?>
+                        </div>
+                        <div class="h6 mb-0 text-gray-800">
+                            <?php if (isset($project->pim->mda)) { ?>
+                            <p class="card-text"><?= h($project->pim->mda) ?></p>
+                        </div>
+                        <?php } ?>
+                        <?php if (!isset($project->pim->mda)) { ?>
+                        <p class="card-text"><?= h('Ogun State Government') ?></p>
+                    </div>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="col-xl-3 col-md-6 mb-4">
     <div class="card  shadow h-100 py-0">

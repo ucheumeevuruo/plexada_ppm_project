@@ -75,17 +75,18 @@ echo $this->Html->css('mandatory');
     <?= $this->Form->end() ?>
 </div>
 
+
 <script>
-< ? php $code_array = json_encode($startDate) ? >
-    var array_code = < ? php echo $code_array; ? > ;
-$(function($array_code) {
-    $('#start_date, #end_date').datepicker({
-        inline: true,
-        "format": "dd/mm/yyyy",
-        startDate: < ? php echo $code_array; ? > ,
-        // endDate: "09-15-2017",
-        // "endDate": "09-15-2017",
-        "keyboardNavigation" : false
+    <?php $code_array = json_encode($startDate) ?>
+    var array_code = <?php echo $code_array; ?>;
+    $(function($array_code) {
+        $('#start_date, #end_date').datepicker({
+            inline: true,
+            "format": "dd/mm/yyyy",
+            startDate: <?php echo $code_array; ?>,
+            // endDate: "09-15-2017",
+            // "endDate": "09-15-2017",
+            "keyboardNavigation": false
+        });
     });
-});
 </script>
