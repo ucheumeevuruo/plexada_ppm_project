@@ -343,7 +343,40 @@ $this->end();
     <?= $this->Html->script('mychart.js') ?>
 
 
-    <canvas id="fundingType"></canvas>
+    <div class="row">
+        <div class="col">
+            <div class="card shadow mb-5">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
+                    <h4 class="m-0 text-white">Funding Type</h4>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div id="contain">
+                        <!-- <canvas id="myPieChart"></canvas> -->
+                        <canvas id="fundingType" width="200" height="50" style="height:400px"></canvas>
+
+                    </div>
+                    <div class="mt-4 text-center small status"></div>
+                </div>
+            </div>
+        </div>
+    </div>    
 
     <div class="row">
         <div class="col">
@@ -373,13 +406,12 @@ $this->end();
                         <!-- <canvas id="myPieChart"></canvas> -->
                         <canvas id="myChart" width="200" height="50" style="height:400px"></canvas>
                         <script>
-                        < ? php $code_array = json_encode($allprojects);
+                        <?php $code_array = json_encode($allprojects);
                         $comp = json_encode($arrcompleted);
-                        $op = json_encode($arropen); ?
-                        >
-                        var array_code = < ? php echo $code_array; ? > ;
-                        var array_complete = < ? php echo $comp; ? > ;
-                        var array_open = < ? php echo $op; ? > ;
+                        $op = json_encode($arropen); ?>
+                        var array_code = <?php echo $code_array; ?> ;
+                        var array_complete = <?php echo $comp; ?> ;
+                        var array_open = <?php echo $op; ?> ;
                         doBarChart(array_code, array_complete, array_open);
                         </script>
                     </div>
@@ -417,14 +449,12 @@ $this->end();
                         <!-- <canvas id="myPieChart"></canvas> -->
                         <canvas id="myChart2" width="200" height="50" style="height:400px"></canvas>
                         <script>
-                        < ? php $code_array = json_encode($allprojects) ? >
-                            <
-                            ? php $budget_array = json_encode($allBudgetList) ? >
-                            <
-                            ? php $expense_array = json_encode($allExpenseList) ? >
-                            var array_code = < ? php echo $code_array; ? > ;
-                        var array_budget = < ? php echo $budget_array; ? > ;
-                        var array_expense = < ? php echo $expense_array; ? > ;
+                        <?php $code_array = json_encode($allprojects) ?>
+                            <?php $budget_array = json_encode($allBudgetList) ?>
+                            <?php $expense_array = json_encode($allExpenseList) ?>
+                            var array_code = <?php echo $code_array; ?> ;
+                        var array_budget = <?php echo $budget_array; ?> ;
+                        var array_expense = <?php echo $expense_array; ?> ;
                         doBarChart2(array_code, array_budget, array_expense);
                         </script>
                     </div>
@@ -531,8 +561,8 @@ $this->end();
                     <div id="container3">
                         <div id="ganttcontainer2" style="height: 500px; width: 100%">
                             <script>
-                            < ? php $obj_array = json_encode($ganttDetails) ? >
-                                var array_code2 = < ? php echo $obj_array; ? > ;
+                            <?php $obj_array = json_encode($ganttDetails) ?>
+                                var array_code2 = <?php echo $obj_array; ?> ;
                             ganttProject2(array_code2);
                             // console.log(array_code2)
                             </script>

@@ -71,38 +71,22 @@
                 ) ?>
                 <?= $this->Html->link(
                     __('<i class="fa fa-archive fa-lg "></i> &nbsp;Disbursement'),
-                    [],
+                    ['controller' => 'Projects', 'action' => 'disbursement'],
                     ['escape' => false, 'class' => 'nav-link collapsed dark']
                 ) ?>
             </div>
         </div>
     </li>
     <li class="nav-item">
-        <!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">-->
-        <!--            <i class="fas fa-fw fa-cog"></i>-->
-        <!--            <span>Components</span>-->
-        <!--        </a>-->
-        <?= $this->Html->link(
-            __('<i class="fa fa-archive fa-lg"></i> &nbsp;DPPC'),
-            [],
-            ['escape' => false, 'class' => 'nav-link collapsed']
-        ) ?>
-        <!--        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">-->
-        <!--            <div class="bg-white py-2 collapse-inner rounded">-->
-        <!--                <h6 class="collapse-header">Custom Components:</h6>-->
-        <!--                <a class="collapse-item" href="buttons.html">Buttons</a>-->
-        <!--                <a class="collapse-item" href="cards.html">Cards</a>-->
-        <!--            </div>-->
-        <!--        </div>-->
-    </li>
-    <li class="nav-item">
-        <!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">-->
-        <!--            <i class="fas fa-fw fa-cog"></i>-->
-        <!--            <span>Components</span>-->
-        <!--        </a>-->
-        <a href="#collapseExample" class="nav-link collapsed" data-toggle="collapse" role="button" aria-expanded="false"
-            aria-controls="collapseExample">
-            <i class="fa fa-archive fa-lg"></i> &nbsp;Reports</a>
+    <a href="#collapseExample2" class="nav-link collapsed" data-toggle="collapse" role="button" aria-expanded="false"
+            aria-controls="collapseExample2">
+            <i class="fa fa-archive fa-lg"></i> &nbsp;DPPC</a>
+
+        <div class="collapse" id="collapseExample2">
+            <a href="#collapseExample" class="nav-link collapsed" data-toggle="collapse" role="button" aria-expanded="false"
+                aria-controls="collapseExample">
+                <i class="fa fa-archive fa-lg"></i> &nbsp;Reports</a>
+        </div>
 
         <div class="collapse" id="collapseExample">
             <div class="">
@@ -118,6 +102,13 @@
                 ) ?>
             </div>
         </div>
+    </li>
+    <li class="nav-item">
+        <!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">-->
+        <!--            <i class="fas fa-fw fa-cog"></i>-->
+        <!--            <span>Components</span>-->
+        <!--        </a>-->
+
     </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->

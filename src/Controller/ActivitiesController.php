@@ -102,7 +102,7 @@ class ActivitiesController extends AppController
         $milestones = $this->Activities->Milestones->find('list', ['limit' => 200, 'conditions' => ['project_id' => $project_id]]);
         $milestones2 = $this->Milestones->find('all', ['limit' => 200, 'conditions' => ['project_id' => $project_id]])->first();
         if ($milestones2 === null){
-            return "ff";
+            
         }else{
             $startDate = ($milestones2->start_date)->format("d-M-Y");
             $endDate = $milestones2->end_date;
