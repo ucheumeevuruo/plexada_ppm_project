@@ -338,7 +338,38 @@ $this->end();
     <?= $this->Html->script('mychart.js') ?>
 
 
-    <canvas id="fundingType"></canvas>
+    <div class="row">
+        <div class="col">
+            <div class="card shadow mb-5">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
+                    <h4 class="m-0 text-white">Funding Type</h4>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div id="contain">
+                        <!-- <canvas id="myPieChart"></canvas> -->
+                        <canvas id="fundingType" width="200" height="50" style="height:400px"></canvas>
+
+                    </div>
+                    <div class="mt-4 text-center small status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col">
@@ -367,9 +398,8 @@ $this->end();
                         <canvas id="myChart" width="200" height="50" style="height:400px"></canvas>
                         <script>
                             <?php $code_array = json_encode($allprojects);
-                            $comp  = json_encode($arrcompleted);
-                            $op  = json_encode($arropen);
-                            ?>
+                            $comp = json_encode($arrcompleted);
+                            $op = json_encode($arropen); ?>
                             var array_code = <?php echo $code_array; ?>;
                             var array_complete = <?php echo $comp; ?>;
                             var array_open = <?php echo $op; ?>;
@@ -408,7 +438,6 @@ $this->end();
                         <!-- <canvas id="myPieChart"></canvas> -->
                         <canvas id="myChart2" width="200" height="50" style="height:400px"></canvas>
                         <script>
-                            <?php $code_array = json_encode($allprojects) ?>
                             <?php $budget_array = json_encode($allBudgetList) ?>
                             <?php $expense_array = json_encode($allExpenseList) ?>
                             var array_code = <?php echo $code_array; ?>;
@@ -416,51 +445,42 @@ $this->end();
                             var array_expense = <?php echo $expense_array; ?>;
                             doBarChart2(array_code, array_budget, array_expense);
                         </script>
-                    </div>
-                    <div class="mt-4 text-center small status"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+                        <div class="card shadow mb-5">
 
-    <!-- <div class="row">
-        <div class="col">
-            <div class="card shadow mb-5">
-                
-                <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
-                    <h4 class="m-0 text-white">Doughnut chart</h4>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
+                                <h4 class="m-0 text-white">Doughnut chart</h4>
+                                <div class="dropdown no-arrow">
+                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                        <div class="dropdown-header">Dropdown Header:</div>
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="card-body">
+                                <div id="container">
+
+                                    <canvas id="myChart3" width="200" height="50" style="height:400px"></canvas>
+                                    <script>
+                                        <?php $code_array = json_encode($allprojects) ?>
+                                        var array_code = <?php echo $code_array; ?>;
+                                        donut(array_code);
+                                    </script>
+                                </div>
+                                <div class="mt-4 text-center small status"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                
-                <div class="card-body">
-                    <div id="container">
-                        
-                        <canvas id="myChart3" width="200" height="50" style="height:400px"></canvas>
-                        <script>
-                            <?php $code_array = json_encode($allprojects) ?>
-                            var array_code = <?php echo $code_array; ?>;
-                            donut(array_code);
-                        </script>
-                    </div>
-                    <div class="mt-4 text-center small status"></div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-    <!-- <div class="row">
+                <!-- <div class="row">
         <div class="col">
             <div class="card shadow mb-5">
 
@@ -493,103 +513,103 @@ $this->end();
     </div> -->
 
 
-    <div class="row">
-        <div class="col">
-            <div class="card shadow mb-5">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
-                    <h4 class="m-0 text-white">Gantt Chart</h4>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                <div class="row">
+                    <div class="col">
+                        <div class="card shadow mb-5">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
+                                <h4 class="m-0 text-white">Gantt Chart</h4>
+                                <div class="dropdown no-arrow">
+                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                        <div class="dropdown-header">Dropdown Header:</div>
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Gantt Chart -->
+                            <div class="card-body">
+                                <div id="container3">
+                                    <div id="ganttcontainer2" style="height: 500px; width: 100%">
+                                        <script>
+                                            <?php $obj_array = json_encode($ganttDetails) ?>
+                                            var array_code2 = <?php echo $obj_array; ?>;
+                                            ganttProject2(array_code2);
+                                            // console.log(array_code2)
+                                        </script>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 text-center small status"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Gantt Chart -->
-                <div class="card-body">
-                    <div id="container3">
-                        <div id="ganttcontainer2" style="height: 500px; width: 100%">
-                            <script>
-                                <?php $obj_array = json_encode($ganttDetails) ?>
-                                var array_code2 = <?php echo $obj_array; ?>;
-                                ganttProject2(array_code2);
-                                // console.log(array_code2)
-                            </script>
-                        </div>
-                    </div>
-
-                    <div class="mt-4 text-center small status"></div>
-                </div>
             </div>
+            <div>
+
+            </div>
+            <script>
+                $(function() {
+                    $('[data-toggle="tooltip"]').tooltip()
+                });
+            </script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.4.0/dist/chartjs-plugin-datalabels.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+            <script>
+                var ctx = document.getElementById('fundingType').getContext('2d');
+                // var options = {
+                //     tooltips: {
+                //         enabled: false
+                //     },
+                //     plugins: {
+                //         datalabels: {
+                //             formatter: (value, ctx) => {
+                //                 let datasets = ctx.chart.data.datasets;
+                //                 if (datasets.indexOf(ctx.datasets) === datasets.length - 1) {
+                //                     let sum = datasets[0].data.reduce((a, b) => a + b, 0);
+                //                     let percentage = Math.round((value / sum) * 100) + '%';
+                //                     return percentage;
+                //                 } else {
+                //                     return 10;
+                //                 }
+                //             },
+                //             color: '#fff',
+                //         }
+                //     }
+                // };
+
+                var chart = new Chart(ctx, {
+                    // The type of chart we want to create
+
+                    type: 'pie',
+
+                    // The data for our dataset
+                    data: {
+                        labels: ['Loan <?= h($loanPercent); ?>%', 'Grant <?= h($grantPercent); ?>%', 'PPP <?= h($pppPercent); ?>%', 'None <?= h($nonePercent); ?>%', 'Others <?= h($othersPercent); ?>%', 'Donor <?= h($donorPercent); ?>%'],
+                        datasets: [{
+                            label: 'Funding Type',
+                            backgroundColor: ["#0074D9", "#FF851B", "#B10DC9", "#FFDC00", "#39CCCC", "#85144b", "#F012BE"],
+                            borderWidth: 1,
+                            hoverBorderWidth: 4,
+                            cutoutPercentage: 5,
+                            data: ["<?php echo $loan; ?>", "<?php echo $grant; ?>", "<?php echo $ppp; ?>", "<?php echo $none; ?>", "<?php echo $others; ?>", "<?php echo $donor; ?>", ]
+                        }]
+                    },
+
+
+                    // Configuration options go here
+                    options: {}
+                });
+            </script>
+
         </div>
-    </div>
-
-</div>
-<div>
-
-</div>
-<script>
-    $(function() {
-        $('[data-toggle="tooltip"]').tooltip()
-    });
-</script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.4.0/dist/chartjs-plugin-datalabels.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script>
-    var ctx = document.getElementById('fundingType').getContext('2d');
-    // var options = {
-    //     tooltips: {
-    //         enabled: false
-    //     },
-    //     plugins: {
-    //         datalabels: {
-    //             formatter: (value, ctx) => {
-    //                 let datasets = ctx.chart.data.datasets;
-    //                 if (datasets.indexOf(ctx.datasets) === datasets.length - 1) {
-    //                     let sum = datasets[0].data.reduce((a, b) => a + b, 0);
-    //                     let percentage = Math.round((value / sum) * 100) + '%';
-    //                     return percentage;
-    //                 } else {
-    //                     return 10;
-    //                 }
-    //             },
-    //             color: '#fff',
-    //         }
-    //     }
-    // };
-
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-
-        type: 'pie',
-
-        // The data for our dataset
-        data: {
-            labels: ['Loan <?= h($loanPercent); ?>%', 'Grant <?= h($grantPercent); ?>%', 'PPP <?= h($pppPercent); ?>%', 'None <?= h($nonePercent); ?>%', 'Others <?= h($othersPercent); ?>%', 'Donor <?= h($donorPercent); ?>%'],
-            datasets: [{
-                label: 'Funding Type',
-                backgroundColor: ["#0074D9", "#FF851B", "#B10DC9", "#FFDC00", "#39CCCC", "#85144b", "#F012BE"],
-                borderWidth: 1,
-                hoverBorderWidth: 4,
-                cutoutPercentage: 5,
-                data: ["<?php echo $loan; ?>", "<?php echo $grant; ?>", "<?php echo $ppp; ?>", "<?php echo $none; ?>", "<?php echo $others; ?>", "<?php echo $donor; ?>", ]
-            }]
-        },
-
-
-        // Configuration options go here
-        options: {}
-    });
-</script>
-
-</div>

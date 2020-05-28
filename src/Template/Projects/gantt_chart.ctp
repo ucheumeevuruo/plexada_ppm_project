@@ -77,8 +77,8 @@ $this->end();
                         <div id="container3">
                             <div id="ganttcontainer2" style="height: 500px; width: 100%">
                                 <script>
-                                < ? php $obj_array = json_encode($ganttDetails) ? >
-                                    var array_code2 = < ? php echo $obj_array; ? > ;
+                                <?php $obj_array = json_encode($ganttDetails) ?>
+                                    var array_code2 = <?php echo $obj_array; ?> ;
                                 ganttProject2(array_code2);
                                 // console.log(array_code2)
                                 </script>

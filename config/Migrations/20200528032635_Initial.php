@@ -1,7 +1,7 @@
 <?php
 use Migrations\AbstractMigration;
 
-class Update extends AbstractMigration
+class Initial extends AbstractMigration
 {
 
     public $autoId = false;
@@ -24,10 +24,22 @@ class Update extends AbstractMigration
                 'null' => true,
                 'signed' => false,
             ])
-            ->addColumn('current_activity', 'string', [
+            ->addColumn('activity_type_id', 'integer', [
                 'default' => null,
-                'limit' => 300,
-                'null' => true,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('milestone_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('name', 'string', [
+                'default' => null,
+                'limit' => 30,
+                'null' => false,
             ])
             ->addColumn('waiting_on', 'string', [
                 'default' => null,
@@ -50,10 +62,16 @@ class Update extends AbstractMigration
                 'null' => true,
                 'signed' => false,
             ])
-            ->addColumn('percentage_completion', 'integer', [
+            ->addColumn('sponsor_id', 'integer', [
                 'default' => null,
-                'limit' => 4,
+                'limit' => 11,
                 'null' => true,
+                'signed' => false,
+            ])
+            ->addColumn('percentage_completion', 'integer', [
+                'default' => '0',
+                'limit' => 4,
+                'null' => false,
             ])
             ->addColumn('description', 'string', [
                 'default' => null,
@@ -72,13 +90,35 @@ class Update extends AbstractMigration
                 'null' => false,
                 'signed' => false,
             ])
+            ->addColumn('start_date', 'date', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('end_date', 'date', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('currency_id', 'integer', [
+                'default' => null,
+                'limit' => 10,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('cost', 'decimal', [
+                'default' => '0.00',
+                'null' => true,
+                'precision' => 22,
+                'scale' => 2,
+            ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
@@ -90,7 +130,17 @@ class Update extends AbstractMigration
             ])
             ->addIndex(
                 [
+                    'activity_type_id',
+                ]
+            )
+            ->addIndex(
+                [
                     'assigned_to_id',
+                ]
+            )
+            ->addIndex(
+                [
+                    'currency_id',
                 ]
             )
             ->addIndex(
@@ -101,6 +151,11 @@ class Update extends AbstractMigration
             ->addIndex(
                 [
                     'project_id',
+                ]
+            )
+            ->addIndex(
+                [
+                    'sponsor_id',
                 ]
             )
             ->addIndex(
@@ -136,12 +191,12 @@ class Update extends AbstractMigration
                 'null' => false,
             ])
             ->addColumn('created', 'datetime', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('modified', 'datetime', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
@@ -192,12 +247,12 @@ class Update extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
@@ -205,6 +260,159 @@ class Update extends AbstractMigration
                 'default' => null,
                 'limit' => 30,
                 'null' => true,
+            ])
+            ->create();
+
+        $this->table('currencies')
+            ->addColumn('id', 'integer', [
+                'autoIncrement' => true,
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addPrimaryKey(['id'])
+            ->addColumn('name', 'string', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+            ])
+            ->addColumn('symbol', 'string', [
+                'default' => null,
+                'limit' => 1,
+                'null' => false,
+            ])
+            ->addColumn('code', 'string', [
+                'default' => null,
+                'limit' => 3,
+                'null' => false,
+            ])
+            ->addColumn('created', 'datetime', [
+                'default' => 'CURRENT_TIMESTAMP',
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('modified', 'datetime', [
+                'default' => 'CURRENT_TIMESTAMP',
+                'limit' => null,
+                'null' => false,
+            ])
+            ->create();
+
+        $this->table('disbursements')
+            ->addColumn('disbursement_id', 'integer', [
+                'autoIncrement' => true,
+                'default' => null,
+                'limit' => 10,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addPrimaryKey(['disbursement_id'])
+            ->addColumn('project_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => true,
+                'signed' => false,
+            ])
+            ->addColumn('milestone_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => true,
+                'signed' => false,
+            ])
+            ->addColumn('name', 'string', [
+                'default' => null,
+                'limit' => 30,
+                'null' => false,
+            ])
+            ->addColumn('percentage_completion', 'integer', [
+                'default' => '0',
+                'limit' => 4,
+                'null' => false,
+            ])
+            ->addColumn('description', 'string', [
+                'default' => null,
+                'limit' => 300,
+                'null' => true,
+            ])
+            ->addColumn('start_date', 'date', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('end_date', 'date', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('cost', 'decimal', [
+                'default' => '0.00',
+                'null' => true,
+                'precision' => 22,
+                'scale' => 2,
+            ])
+            ->addColumn('created', 'timestamp', [
+                'default' => 'CURRENT_TIMESTAMP',
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('last_updated', 'timestamp', [
+                'default' => 'CURRENT_TIMESTAMP',
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('system_user_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => true,
+                'signed' => false,
+            ])
+            ->addIndex(
+                [
+                    'project_id',
+                ]
+            )
+            ->addIndex(
+                [
+                    'system_user_id',
+                ]
+            )
+            ->create();
+
+        $this->table('documents')
+            ->addColumn('id', 'integer', [
+                'autoIncrement' => true,
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addPrimaryKey(['id'])
+            ->addColumn('project_id', 'integer', [
+                'default' => null,
+                'limit' => 10,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('document_no', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('document_type', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('date_uploaded', 'timestamp', [
+                'default' => 'CURRENT_TIMESTAMP',
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('file_uploaded', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
             ])
             ->create();
 
@@ -228,12 +436,12 @@ class Update extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
@@ -242,6 +450,58 @@ class Update extends AbstractMigration
                 'limit' => 30,
                 'null' => true,
             ])
+            ->create();
+
+        $this->table('messages')
+            ->addColumn('id', 'integer', [
+                'autoIncrement' => true,
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+            ])
+            ->addPrimaryKey(['id'])
+            ->addColumn('sender_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('recipient_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('subject', 'string', [
+                'default' => null,
+                'limit' => 200,
+                'null' => false,
+            ])
+            ->addColumn('body', 'string', [
+                'default' => null,
+                'limit' => 2000,
+                'null' => false,
+            ])
+            ->addColumn('created', 'datetime', [
+                'default' => 'CURRENT_TIMESTAMP',
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('modified', 'datetime', [
+                'default' => 'CURRENT_TIMESTAMP',
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addIndex(
+                [
+                    'sender_id',
+                ]
+            )
+            ->addIndex(
+                [
+                    'recipient_id',
+                ]
+            )
             ->create();
 
         $this->table('milestones')
@@ -263,6 +523,11 @@ class Update extends AbstractMigration
                 'null' => false,
                 'signed' => false,
             ])
+            ->addColumn('name', 'string', [
+                'default' => null,
+                'limit' => 30,
+                'null' => false,
+            ])
             ->addColumn('amount', 'integer', [
                 'default' => null,
                 'limit' => 11,
@@ -276,12 +541,12 @@ class Update extends AbstractMigration
             ->addColumn('status_id', 'integer', [
                 'default' => null,
                 'limit' => 11,
-                'null' => false,
+                'null' => true,
                 'signed' => false,
             ])
-            ->addColumn('description', 'string', [
+            ->addColumn('description', 'text', [
                 'default' => null,
-                'limit' => 100,
+                'limit' => null,
                 'null' => true,
             ])
             ->addColumn('achievement', 'string', [
@@ -295,6 +560,16 @@ class Update extends AbstractMigration
                 'null' => true,
                 'signed' => false,
             ])
+            ->addColumn('start_date', 'date', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('end_date', 'date', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
             ->addColumn('completed_date', 'date', [
                 'default' => null,
                 'limit' => null,
@@ -306,7 +581,7 @@ class Update extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'datetime', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => false,
             ])
@@ -332,6 +607,26 @@ class Update extends AbstractMigration
             )
             ->create();
 
+        $this->table('objectives')
+            ->addColumn('id', 'integer', [
+                'autoIncrement' => true,
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+            ])
+            ->addPrimaryKey(['id'])
+            ->addColumn('project_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+            ])
+            ->addColumn('objective', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->create();
+
         $this->table('pads')
             ->addColumn('id', 'integer', [
                 'autoIncrement' => true,
@@ -340,6 +635,12 @@ class Update extends AbstractMigration
                 'null' => false,
             ])
             ->addPrimaryKey(['id'])
+            ->addColumn('project_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
             ->addColumn('date', 'date', [
                 'default' => null,
                 'limit' => null,
@@ -555,6 +856,12 @@ class Update extends AbstractMigration
                 'limit' => 225,
                 'null' => false,
             ])
+            ->addIndex(
+                [
+                    'project_id',
+                ],
+                ['unique' => true]
+            )
             ->create();
 
         $this->table('pims')
@@ -578,22 +885,22 @@ class Update extends AbstractMigration
             ->addColumn('funding_agency', 'string', [
                 'default' => null,
                 'limit' => 100,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('activities_achievement', 'string', [
                 'default' => null,
                 'limit' => 120,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('risks_mitigation', 'string', [
                 'default' => null,
                 'limit' => 120,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('activity_next_semester', 'string', [
                 'default' => null,
                 'limit' => 500,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('total_expenditure', 'biginteger', [
                 'default' => null,
@@ -603,27 +910,27 @@ class Update extends AbstractMigration
             ->addColumn('oversight_level', 'string', [
                 'default' => null,
                 'limit' => 100,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('oversight_agency_mda', 'string', [
                 'default' => null,
                 'limit' => 100,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('mda', 'string', [
                 'default' => null,
                 'limit' => 120,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('rev_commitee_rep_information', 'string', [
                 'default' => null,
                 'limit' => 500,
                 'null' => false,
             ])
-            ->addColumn('approvers_agency', 'string', [
+            ->addColumn('approvers_agency', 'text', [
                 'default' => null,
-                'limit' => 100,
-                'null' => false,
+                'limit' => 4294967295,
+                'null' => true,
             ])
             ->addColumn('approvers_rep_information', 'string', [
                 'default' => null,
@@ -655,15 +962,15 @@ class Update extends AbstractMigration
                 'limit' => 255,
                 'null' => false,
             ])
-            ->addColumn('parties', 'string', [
+            ->addColumn('parties', 'text', [
                 'default' => null,
-                'limit' => 120,
-                'null' => false,
+                'limit' => 4294967295,
+                'null' => true,
             ])
-            ->addColumn('responsibilities', 'string', [
+            ->addColumn('responsibilities', 'text', [
                 'default' => null,
-                'limit' => 500,
-                'null' => false,
+                'limit' => 4294967295,
+                'null' => true,
             ])
             ->addColumn('start_date', 'date', [
                 'default' => null,
@@ -688,7 +995,7 @@ class Update extends AbstractMigration
             ->addColumn('activities', 'string', [
                 'default' => null,
                 'limit' => 500,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('action', 'string', [
                 'default' => null,
@@ -718,7 +1025,7 @@ class Update extends AbstractMigration
             ->addColumn('category', 'string', [
                 'default' => null,
                 'limit' => 120,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('owner', 'string', [
                 'default' => null,
@@ -728,7 +1035,7 @@ class Update extends AbstractMigration
             ->addColumn('currency', 'string', [
                 'default' => null,
                 'limit' => 100,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('disbursed_amount', 'biginteger', [
                 'default' => null,
@@ -753,26 +1060,31 @@ class Update extends AbstractMigration
             ->addColumn('progress_currency', 'string', [
                 'default' => null,
                 'limit' => 100,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('amount_credit_allocation', 'biginteger', [
                 'default' => null,
                 'limit' => 20,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('disbursed_current_semester', 'string', [
                 'default' => null,
                 'limit' => 120,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('date_disbursement', 'date', [
                 'default' => null,
                 'limit' => null,
-                'null' => false,
+                'null' => true,
             ])
             ->addColumn('cumulated_disbursment', 'string', [
                 'default' => null,
                 'limit' => 120,
+                'null' => true,
+            ])
+            ->addColumn('project_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
                 'null' => false,
             ])
             ->create();
@@ -796,6 +1108,12 @@ class Update extends AbstractMigration
                 'limit' => 22,
                 'null' => true,
             ])
+            ->addColumn('currency_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
             ->addColumn('total_cost', 'decimal', [
                 'default' => '0',
                 'limit' => 22,
@@ -817,12 +1135,12 @@ class Update extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
@@ -830,6 +1148,31 @@ class Update extends AbstractMigration
                 'default' => null,
                 'limit' => 30,
                 'null' => true,
+            ])
+            ->create();
+
+        $this->table('project_components')
+            ->addColumn('id', 'integer', [
+                'autoIncrement' => true,
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+            ])
+            ->addPrimaryKey(['id'])
+            ->addColumn('component', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+            ])
+            ->addColumn('cost', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+            ])
+            ->addColumn('project_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
             ])
             ->create();
 
@@ -842,6 +1185,12 @@ class Update extends AbstractMigration
                 'signed' => false,
             ])
             ->addPrimaryKey(['id'])
+            ->addColumn('project_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => true,
+                'signed' => false,
+            ])
             ->addColumn('name', 'string', [
                 'default' => null,
                 'limit' => 150,
@@ -855,6 +1204,11 @@ class Update extends AbstractMigration
             ->addColumn('location', 'string', [
                 'default' => null,
                 'limit' => 150,
+                'null' => true,
+            ])
+            ->addColumn('completed_percent', 'integer', [
+                'default' => '0',
+                'limit' => 11,
                 'null' => true,
             ])
             ->addColumn('vendor_id', 'integer', [
@@ -875,6 +1229,22 @@ class Update extends AbstractMigration
                 'null' => true,
                 'signed' => false,
             ])
+            ->addColumn('donor_id', 'integer', [
+                'default' => '0',
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('mda_id', 'string', [
+                'default' => null,
+                'limit' => 500,
+                'null' => true,
+            ])
+            ->addColumn('DLI', 'text', [
+                'default' => null,
+                'limit' => 4294967295,
+                'null' => true,
+            ])
             ->addColumn('waiting_since', 'date', [
                 'default' => null,
                 'limit' => null,
@@ -889,19 +1259,25 @@ class Update extends AbstractMigration
             ->addColumn('status_id', 'integer', [
                 'default' => null,
                 'limit' => 11,
-                'null' => false,
+                'null' => true,
                 'signed' => false,
             ])
             ->addColumn('sub_status_id', 'integer', [
                 'default' => null,
                 'limit' => 11,
-                'null' => false,
+                'null' => true,
                 'signed' => false,
             ])
             ->addColumn('priority_id', 'integer', [
                 'default' => null,
                 'limit' => 11,
-                'null' => false,
+                'null' => true,
+                'signed' => false,
+            ])
+            ->addColumn('currency_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => true,
                 'signed' => false,
             ])
             ->addColumn('start_dt', 'date', [
@@ -914,20 +1290,35 @@ class Update extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
+            ->addColumn('risk_and_issues', 'text', [
+                'default' => null,
+                'limit' => 4294967295,
+                'null' => true,
+            ])
+            ->addColumn('budget', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => true,
+            ])
+            ->addColumn('expenses', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => true,
+            ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('system_user_id', 'integer', [
                 'default' => null,
                 'limit' => 11,
-                'null' => false,
+                'null' => true,
                 'signed' => false,
             ])
             ->addColumn('annotation_id', 'integer', [
@@ -935,6 +1326,27 @@ class Update extends AbstractMigration
                 'limit' => 11,
                 'null' => true,
                 'signed' => false,
+            ])
+            ->addColumn('price_id', 'integer', [
+                'default' => '1',
+                'limit' => 11,
+                'null' => true,
+                'signed' => false,
+            ])
+            ->addColumn('approval', 'boolean', [
+                'default' => true,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('funding_agencies', 'text', [
+                'default' => null,
+                'limit' => 4294967295,
+                'null' => true,
+            ])
+            ->addColumn('environmental_factors', 'text', [
+                'default' => null,
+                'limit' => 4294967295,
+                'null' => true,
             ])
             ->addIndex(
                 [
@@ -944,6 +1356,11 @@ class Update extends AbstractMigration
             ->addIndex(
                 [
                     'priority_id',
+                ]
+            )
+            ->addIndex(
+                [
+                    'project_id',
                 ]
             )
             ->addIndex(
@@ -976,46 +1393,104 @@ class Update extends AbstractMigration
                     'annotation_id',
                 ]
             )
+            ->addIndex(
+                [
+                    'price_id',
+                ]
+            )
             ->create();
 
-        $this->table('project_objectives')
+        $this->table('project_fundings')
             ->addColumn('id', 'integer', [
                 'autoIncrement' => true,
                 'default' => null,
-                'limit' => 10,
+                'limit' => 11,
                 'null' => false,
-                'signed' => false,
             ])
             ->addPrimaryKey(['id'])
             ->addColumn('project_id', 'integer', [
                 'default' => null,
-                'limit' => 10,
-                'null' => true,
+                'limit' => 11,
+                'null' => false,
             ])
-            ->addColumn('priority', 'string', [
+            ->addColumn('start_date', 'datetime', [
                 'default' => null,
-                'limit' => 150,
-                'null' => true,
-            ])
-            ->addColumn('impact', 'string', [
-                'default' => null,
-                'limit' => 150,
-                'null' => true,
-            ])
-            ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
                 'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+            ->addColumn('end_date', 'datetime', [
+                'default' => null,
                 'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('system_user_id', 'string', [
+            ->addColumn('currency_id', 'integer', [
                 'default' => null,
-                'limit' => 30,
-                'null' => true,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('funding', 'decimal', [
+                'default' => null,
+                'null' => false,
+                'precision' => 22,
+                'scale' => 2,
+            ])
+            ->addIndex(
+                [
+                    'currency_id',
+                ]
+            )
+            ->create();
+
+        $this->table('project_partners')
+            ->addColumn('id', 'integer', [
+                'autoIncrement' => true,
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+            ])
+            ->addPrimaryKey(['id'])
+            ->addColumn('project_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+            ])
+            ->addColumn('name', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+            ])
+            ->create();
+
+        $this->table('projects')
+            ->addColumn('id', 'integer', [
+                'autoIncrement' => true,
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addPrimaryKey(['id'])
+            ->addColumn('name', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('introduction', 'string', [
+                'default' => null,
+                'limit' => 500,
+                'null' => false,
+            ])
+            ->addColumn('location', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('cost', 'decimal', [
+                'default' => '0.00',
+                'null' => false,
+                'precision' => 22,
+                'scale' => 2,
             ])
             ->create();
 
@@ -1077,7 +1552,7 @@ class Update extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'datetime', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => false,
             ])
@@ -1122,7 +1597,7 @@ class Update extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'datetime', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => false,
             ])
@@ -1183,12 +1658,12 @@ class Update extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
@@ -1248,18 +1723,24 @@ class Update extends AbstractMigration
                 'limit' => 50,
                 'null' => false,
             ])
+            ->addColumn('sponsor_type_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
             ->addColumn('phone_no', 'string', [
                 'default' => null,
                 'limit' => 30,
                 'null' => true,
             ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
@@ -1332,12 +1813,12 @@ class Update extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
@@ -1359,37 +1840,47 @@ class Update extends AbstractMigration
             )
             ->create();
 
-        $this->table('tests')
+        $this->table('tasks')
             ->addColumn('id', 'integer', [
                 'autoIncrement' => true,
                 'default' => null,
-                'limit' => 11,
+                'limit' => 10,
                 'null' => false,
             ])
             ->addPrimaryKey(['id'])
-            ->addColumn('name', 'string', [
-                'default' => null,
-                'limit' => 100,
-                'null' => false,
-            ])
-            ->addColumn('course', 'string', [
-                'default' => null,
-                'limit' => 100,
-                'null' => false,
-            ])
-            ->addColumn('score', 'integer', [
+            ->addColumn('activity_id', 'integer', [
                 'default' => null,
                 'limit' => 11,
                 'null' => false,
             ])
-            ->addColumn('grade', 'biginteger', [
+            ->addColumn('Task_name', 'string', [
                 'default' => null,
-                'limit' => 20,
+                'limit' => 255,
                 'null' => false,
             ])
-            ->addColumn('date', 'date', [
+            ->addColumn('activities_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+            ])
+            ->addColumn('Start_date', 'date', [
                 'default' => null,
                 'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('Description', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('Predecessor', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('Successor', 'string', [
+                'default' => null,
+                'limit' => 255,
                 'null' => false,
             ])
             ->create();
@@ -1430,7 +1921,7 @@ class Update extends AbstractMigration
                 'null' => false,
             ])
             ->addColumn('created', 'datetime', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => false,
             ])
@@ -1502,12 +1993,12 @@ class Update extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('created', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('last_updated', 'timestamp', [
-                'default' => 'current_timestamp()',
+                'default' => 'CURRENT_TIMESTAMP',
                 'limit' => null,
                 'null' => true,
             ])
@@ -1526,12 +2017,30 @@ class Update extends AbstractMigration
 
         $this->table('activities')
             ->addForeignKey(
+                'activity_type_id',
+                'lov',
+                'id',
+                [
+                    'update' => 'RESTRICT',
+                    'delete' => 'RESTRICT'
+                ]
+            )
+            ->addForeignKey(
                 'assigned_to_id',
                 'staff',
                 'id',
                 [
                     'update' => 'CASCADE',
                     'delete' => 'CASCADE'
+                ]
+            )
+            ->addForeignKey(
+                'currency_id',
+                'currencies',
+                'id',
+                [
+                    'update' => 'RESTRICT',
+                    'delete' => 'RESTRICT'
                 ]
             )
             ->addForeignKey(
@@ -1545,11 +2054,20 @@ class Update extends AbstractMigration
             )
             ->addForeignKey(
                 'project_id',
-                'project_details',
+                'projects',
                 'id',
                 [
                     'update' => 'CASCADE',
                     'delete' => 'CASCADE'
+                ]
+            )
+            ->addForeignKey(
+                'sponsor_id',
+                'sponsors',
+                'id',
+                [
+                    'update' => 'RESTRICT',
+                    'delete' => 'RESTRICT'
                 ]
             )
             ->addForeignKey(
@@ -1584,10 +2102,31 @@ class Update extends AbstractMigration
             )
             ->update();
 
+        $this->table('disbursements')
+            ->addForeignKey(
+                'project_id',
+                'projects',
+                'id',
+                [
+                    'update' => 'CASCADE',
+                    'delete' => 'CASCADE'
+                ]
+            )
+            ->addForeignKey(
+                'system_user_id',
+                'users',
+                'id',
+                [
+                    'update' => 'CASCADE',
+                    'delete' => 'CASCADE'
+                ]
+            )
+            ->update();
+
         $this->table('milestones')
             ->addForeignKey(
                 'project_id',
-                'project_details',
+                'projects',
                 'id',
                 [
                     'update' => 'CASCADE',
@@ -1627,6 +2166,15 @@ class Update extends AbstractMigration
             ->addForeignKey(
                 'priority_id',
                 'lov',
+                'id',
+                [
+                    'update' => 'CASCADE',
+                    'delete' => 'CASCADE'
+                ]
+            )
+            ->addForeignKey(
+                'project_id',
+                'projects',
                 'id',
                 [
                     'update' => 'CASCADE',
@@ -1676,6 +2224,18 @@ class Update extends AbstractMigration
                 [
                     'update' => 'CASCADE',
                     'delete' => 'CASCADE'
+                ]
+            )
+            ->update();
+
+        $this->table('project_fundings')
+            ->addForeignKey(
+                'currency_id',
+                'currencies',
+                'id',
+                [
+                    'update' => 'RESTRICT',
+                    'delete' => 'RESTRICT'
                 ]
             )
             ->update();
@@ -1781,13 +2341,22 @@ class Update extends AbstractMigration
     {
         $this->table('activities')
             ->dropForeignKey(
+                'activity_type_id'
+            )
+            ->dropForeignKey(
                 'assigned_to_id'
+            )
+            ->dropForeignKey(
+                'currency_id'
             )
             ->dropForeignKey(
                 'priority_id'
             )
             ->dropForeignKey(
                 'project_id'
+            )
+            ->dropForeignKey(
+                'sponsor_id'
             )
             ->dropForeignKey(
                 'status_id'
@@ -1799,6 +2368,14 @@ class Update extends AbstractMigration
         $this->table('annotations')
             ->dropForeignKey(
                 'project_id'
+            )->save();
+
+        $this->table('disbursements')
+            ->dropForeignKey(
+                'project_id'
+            )
+            ->dropForeignKey(
+                'system_user_id'
             )->save();
 
         $this->table('milestones')
@@ -1820,6 +2397,9 @@ class Update extends AbstractMigration
                 'priority_id'
             )
             ->dropForeignKey(
+                'project_id'
+            )
+            ->dropForeignKey(
                 'sponsor_id'
             )
             ->dropForeignKey(
@@ -1833,6 +2413,11 @@ class Update extends AbstractMigration
             )
             ->dropForeignKey(
                 'waiting_on_id'
+            )->save();
+
+        $this->table('project_fundings')
+            ->dropForeignKey(
+                'currency_id'
             )->save();
 
         $this->table('risk_issues')
@@ -1875,19 +2460,27 @@ class Update extends AbstractMigration
         $this->table('activities')->drop()->save();
         $this->table('annotations')->drop()->save();
         $this->table('challenges')->drop()->save();
+        $this->table('currencies')->drop()->save();
+        $this->table('disbursements')->drop()->save();
+        $this->table('documents')->drop()->save();
         $this->table('lov')->drop()->save();
+        $this->table('messages')->drop()->save();
         $this->table('milestones')->drop()->save();
+        $this->table('objectives')->drop()->save();
         $this->table('pads')->drop()->save();
         $this->table('pims')->drop()->save();
         $this->table('prices')->drop()->save();
+        $this->table('project_components')->drop()->save();
         $this->table('project_details')->drop()->save();
-        $this->table('project_objectives')->drop()->save();
+        $this->table('project_fundings')->drop()->save();
+        $this->table('project_partners')->drop()->save();
+        $this->table('projects')->drop()->save();
         $this->table('risk_issues')->drop()->save();
         $this->table('roles')->drop()->save();
         $this->table('schedules')->drop()->save();
         $this->table('sponsors')->drop()->save();
         $this->table('staff')->drop()->save();
-        $this->table('tests')->drop()->save();
+        $this->table('tasks')->drop()->save();
         $this->table('users')->drop()->save();
         $this->table('vendors')->drop()->save();
     }
