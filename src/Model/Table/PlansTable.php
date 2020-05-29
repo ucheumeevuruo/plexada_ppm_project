@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use DateTime;
 
 /**
  * Plans Model
@@ -89,6 +90,13 @@ class PlansTable extends Table
         return $validator;
     }
 
+    public function identify($formData) {
+        $formData['start_date'] = !empty($formData['start_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['start_date']) : $formData['start_date'];           
+        $formData['end_date'] = !empty($formData['end_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['end_date']) : $formData['end_date'];                       
+        return $formData;
+    }
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
@@ -98,7 +106,7 @@ class PlansTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['activity_id'], 'Activities'));
+        // $rules->add($rules->existsIn(['activity_id'], 'Activities'));
         $rules->add($rules->existsIn(['users_id'], 'Users'));
         $rules->add($rules->existsIn(['assigned_to_id'], 'Staff'));
 

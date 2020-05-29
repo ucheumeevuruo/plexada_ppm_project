@@ -66,7 +66,7 @@
                 ) ?>
                 <?= $this->Html->link(
                     __('<i class="fa fa-archive fa-lg "></i> &nbsp;Monitoring'),
-                    [],
+                    ['controller' => 'Projects', 'action' => 'monitoring'],
                     ['escape' => false, 'class' => 'nav-link collapsed dark']
                 ) ?>
                 <?= $this->Html->link(

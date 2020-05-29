@@ -263,18 +263,55 @@ class ProjectsController extends AppController
 
     public function plan($id = null)
     {
+        $q = $this->request->getQuery('q');
+        $this->loadModel('Plans');
+        $activities = $this->Plans->find()->where(['activity_id' => $id]);
 
 
-        $plans = $this->Projects->Activities->find();
+        $activities = $this->paginate($activities);
+
 
         $this->loadModel('Plans');
-        $activePlan = $this->Plans->find('all');
+        $activePlans =  $this->Plans->find('all',['conditions'=>['activity_id'=>$id]]);
+
+
 
         // debug($plans);
         // die();
+        $this->set(compact('activePlans'));
+    }
 
-        $this->set('plans', $plans);
-        $this->set('activePlan', $activePlan);
+    public function monitoring()
+    {
+
+        $q = $this->request->getQuery('q');
+
+        $customFinderOptions = [
+            'id' => $q
+        ];
+
+
+        $this->paginate = [
+            'contain' => [
+                'ProjectDetails', 'ProjectDetails.Statuses', 'ProjectDetails.Currencies'
+            ],
+            //            'maxLimit' => 3
+            'finder' => [
+                'byProjectName' => $customFinderOptions
+            ]
+        ];
+
+        $projects = $this->paginate($this->Projects);
+        // debug($projects);
+        // die();
+
+        $this->loadModel('Milestones');
+        $milestones =  $this->Milestones->find('all');
+
+        $this->loadModel('ProjectDetails');
+        $projectDetails =  $this->ProjectDetails->find('all');
+
+        $this->set(compact('projects', 'milestones', 'projectDetails'));
     }
 
     public function disbursement()
@@ -577,6 +614,42 @@ class ProjectsController extends AppController
     }
 
     public function planActivities($project_id = null)
+    {
+        $q = $this->request->getQuery('q');
+
+        $activities = $this->Projects->Activities->find()->where(['milestone_id' => $project_id]);;
+
+
+        $activities = $this->paginate($activities);
+
+
+        $this->loadModel('Plans');
+        $plans =  $this->Plans->find('all');
+
+
+
+        // debug($plans);
+        // die();
+        $this->set(compact('activities', 'project_id', 'plans'));
+    }
+
+    public function monitorIndicators($project_id = null)
+    {
+        $q = $this->request->getQuery('q');
+
+        $milestones = $this->Projects->Milestones->find()
+            ->contain(['Lov', 'Projects.ProjectDetails.Currencies'])
+            ->where(['Milestones.project_id' => $project_id]);
+
+        $milestones = $this->paginate($milestones);
+
+        // debug($milestones);
+        // die();
+
+        $this->set(compact('milestones', 'project_id'));
+    }
+
+    public function monitorActivities($project_id = null)
     {
         $q = $this->request->getQuery('q');
 

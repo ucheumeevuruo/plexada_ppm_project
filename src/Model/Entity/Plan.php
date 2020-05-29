@@ -10,8 +10,8 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int $activity_id
  * @property string $name
- * @property \Cake\I18n\FrozenTime|null $start_date
- * @property \Cake\I18n\FrozenTime|null $end_date
+ * @property \Cake\I18n\FrozenDate|null $start_date
+ * @property \Cake\I18n\FrozenDate|null $end_date
  *
  * @property \App\Model\Entity\Activity $activity
  */
@@ -35,7 +35,9 @@ class Plan extends Entity
         'assigned_to_id' => true,
         'title' => true,
         'comment' => true,
-        'users_id' => true,
+        'user_id' => true,
         'plan_type' => true,
+        'approved'=> true,
+        'status'=> true,
     ];
 }

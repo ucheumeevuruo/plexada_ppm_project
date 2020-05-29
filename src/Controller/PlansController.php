@@ -55,15 +55,19 @@ class PlansController extends AppController
     {
         $plan = $this->Plans->newEntity();
         if ($this->request->is('post')) {
-            $plan = $this->Plans->patchEntity($plan, $this->request->getData());
+            $plan = $this->Plans->patchEntity($plan, $this->Plans->identify($this->request->getData()));
             if ($this->Plans->save($plan)) {
                 $this->Flash->success(__('The plan has been saved.'));
 
                 return $this->redirect($this->referer());
             }
+
             $this->Flash->error(__('The plan could not be saved. Please, try again.'));
+            return $this->redirect($this->referer());
         }
         $activities = $this->Plans->Activities->find('list', ['limit' => 200]);
+        $activity_id = $id;
+   
         // $activities = $this->Plans->Activities->find('all', ['limit' => 200]);
         // $activities = $this->Plans->Activities->find()->combine('id', 'name');
 
@@ -73,8 +77,9 @@ class PlansController extends AppController
 
         // debug($id);
         // die();
+        $logged_in_user = $this->Auth->user('id');
 
-        $this->set(compact('plan', 'activities', 'staff', 'user'));
+        $this->set(compact('plan', 'activities', 'staff', 'user', 'logged_in_user','id','activity_id'));
     }
 
     /**
@@ -90,16 +95,28 @@ class PlansController extends AppController
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $plan = $this->Plans->patchEntity($plan, $this->request->getData());
+            // $plan = $this->Plans->patchEntity($plan, $this->request->getData());
+            $plan = $this->Plans->patchEntity($plan, $this->Plans->identify($this->request->getData()));
             if ($this->Plans->save($plan)) {
                 $this->Flash->success(__('The plan has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->referer());
             }
+            debug($plan);
+            die();
             $this->Flash->error(__('The plan could not be saved. Please, try again.'));
+            return $this->redirect($this->referer());
         }
+        // debug($plan);
+        // die();
+        $staff = $this->Plans->Staff->find('list', ['limit' => 200]);
+        $logged_in_user = $this->Auth->user('id');
+        $activity = $this->Plans->find()->where(['id' => $id])->first();
+        $sid = $activity->activity_id;
+        // debug($activity->activity_id);
+        // die();
         $activities = $this->Plans->Activities->find('list', ['limit' => 200]);
-        $this->set(compact('plan', 'activities'));
+        $this->set(compact('plan', 'activities','logged_in_user','activity','staff','sid'));
     }
 
     /**

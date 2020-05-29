@@ -116,7 +116,7 @@ $this->Paginator->setTemplates([
                             <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
                                 <div class="row">
                                     <div class="col-auto">
-                                        <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'), ['controller' => 'Plans', 'action' => 'add', $activity->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Plan']) ?>
+                                        <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'), ['controller' => 'Plans', 'action' => 'add', $activity->activity_id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Plan']) ?>
                                     </div>
                                 </div>
                             </div>
