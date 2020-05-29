@@ -102,8 +102,8 @@ class PlansController extends AppController
 
                 return $this->redirect($this->referer());
             }
-            debug($plan);
-            die();
+            // debug($plan);
+            // die();
             $this->Flash->error(__('The plan could not be saved. Please, try again.'));
             return $this->redirect($this->referer());
         }
