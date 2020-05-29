@@ -77,9 +77,9 @@ $this->Paginator->setTemplates([
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <?= $this->Html->link(__('Projects'), ['action' => 'planning']) ?>
+                    <?= $this->Html->link(__('Projects'), ['action' => 'monitoring']) ?>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Planning</li>
+                <li class="breadcrumb-item active" aria-current="page">Monitoring</li>
             </ol>
         </nav>
         <!-- ./end Breadcrumb -->
@@ -94,7 +94,7 @@ $this->Paginator->setTemplates([
                         <div class="card shadow h-100 py-0 border border-left-light rounded-lg">
                             <div class="card-body py-2 px-2">
                                 <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2" id="clickable-card" data-attr="<?= $this->Url->build(['action' => 'planIndicators', $project->id]) ?>">
+                                    <div class="col mr-2" id="clickable-card" data-attr="<?= $this->Url->build(['action' => 'monitorIndicators', $project->id]) ?>">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             <?= $project->name ?>
                                         </div>
