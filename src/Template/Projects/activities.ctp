@@ -109,7 +109,7 @@ $this->Paginator->setTemplates([
         </h2>
 
 
-        <div class="grey-bg vh-4 py-4">
+        <div class="grey-bg py-4">
             <div class="row mx-0">
                 <?php foreach ($activities as $activity) : ?>
                 <div class="col-xl-3 col-md-6 mb-4">
