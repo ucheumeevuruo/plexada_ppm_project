@@ -95,7 +95,7 @@ $this->Paginator->setTemplates([
         </nav>
         <!-- ./end Breadcrumb -->
 
-        <h3 class="text-primary text-left font-weight-bold mt-0">Select Indicator </h3>
+        <h3 class="text-primary text-left font-weight-bold mt-0">Select Activities </h3>
 
         <!-- .\end Menu Area -->
 

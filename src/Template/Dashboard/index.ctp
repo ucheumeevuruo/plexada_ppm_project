@@ -445,9 +445,9 @@ $this->end();
                             var array_expense = <?php echo $expense_array; ?>;
                             doBarChart2(array_code, array_budget, array_expense);
                         </script>
-                        <div class="card shadow mb-5">
+                        <!-- <div class="card shadow mb-5"> -->
 
-                            <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
+                            <!-- <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
                                 <h4 class="m-0 text-white">Doughnut chart</h4>
                                 <div class="dropdown no-arrow">
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -461,10 +461,10 @@ $this->end();
                                         <a class="dropdown-item" href="#">Something else here</a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
 
-                            <div class="card-body">
+                            <!-- <div class="card-body">
                                 <div id="container">
 
                                     <canvas id="myChart3" width="200" height="50" style="height:400px"></canvas>
@@ -475,10 +475,10 @@ $this->end();
                                     </script>
                                 </div>
                                 <div class="mt-4 text-center small status"></div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
-                </div> -->
+                </div>
 
                 <!-- <div class="row">
         <div class="col">

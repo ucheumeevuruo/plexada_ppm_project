@@ -182,8 +182,7 @@ class ProjectsController extends AppController
         $this->loadModel('Milestones');
         $milestones = $this->Milestones->find('all')->where(['project_id' => $project_id]);
 
-        // debug($activities);
-        // die();
+
         $this->set(compact('activities', 'project_id', 'project', 'milestones'));
     }
 
