@@ -80,17 +80,20 @@ $this->Paginator->setTemplates([
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <?= $this->Html->link(__('Monitoring'), ['action' => 'monitoring']) ?>
-                </li>
-                <!-- <li>
-                    &nbsp; /
-                    <?= $this->Html->link(__('Indicators'), ['action' => 'monitorIndicators']) ?>
+                    <?= $this->Html->link(__('Projects'), ['action' => 'index']) ?>
                 </li>
                 <li>
                     &nbsp; /
-                    <?= $this->Html->link(__('Activities'), ['action' => 'monitorActivities']) ?>
+                    <?= $this->Html->link(__('Monitoring'), ['action' => 'monitoring']) ?>
+
+                </li>
+                <li class="breadcrumb-item " aria-current="page">&nbsp;/    Indicators</li>
+                <li class="breadcrumb-item " aria-current="page">Activities</li>
+                <!-- <li class="breadcrumb-item">
+                    <?= $this->Html->link(__('Activities'), ['action' => 'monitoring']) ?>
                 </li> -->
-                <li class="breadcrumb-item active" aria-current="page">&nbsp; Plan</li>
+
+                <li class="breadcrumb-item active" aria-current="page">Plan</li>
             </ol>
         </nav>
         <!-- ./end Breadcrumb -->

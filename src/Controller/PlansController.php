@@ -67,7 +67,7 @@ class PlansController extends AppController
         }
         $activities = $this->Plans->Activities->find('list', ['limit' => 200]);
         $activity_id = $id;
-   
+
         // $activities = $this->Plans->Activities->find('all', ['limit' => 200]);
         // $activities = $this->Plans->Activities->find()->combine('id', 'name');
 
@@ -79,7 +79,7 @@ class PlansController extends AppController
         // die();
         $logged_in_user = $this->Auth->user('id');
 
-        $this->set(compact('plan', 'activities', 'staff', 'user', 'logged_in_user','id','activity_id'));
+        $this->set(compact('plan', 'activities', 'staff', 'user', 'logged_in_user', 'id', 'activity_id'));
     }
 
     /**
@@ -116,7 +116,7 @@ class PlansController extends AppController
         // debug($activity->activity_id);
         // die();
         $activities = $this->Plans->Activities->find('list', ['limit' => 200]);
-        $this->set(compact('plan', 'activities','logged_in_user','activity','staff','sid'));
+        $this->set(compact('plan', 'activities', 'logged_in_user', 'activity', 'staff', 'sid'));
     }
 
     /**

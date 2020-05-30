@@ -89,7 +89,7 @@ class ActivitiesController extends AppController
 
             //            return $this->redirect(['controller' => 'ProjectDetails', 'action' => 'view', $project_id]);
 
-//            return $this->redirect($this->referer());
+            //            return $this->redirect($this->referer());
         }
         $projectDetails = $this->Activities->ProjectDetails->find('list', ['limit' => 200]);
         $currency = $this->Activities->Projects->get($project_id, [
@@ -101,14 +101,35 @@ class ActivitiesController extends AppController
         $users = $this->Activities->Users->find('list', ['limit' => 200]);
         $milestones = $this->Activities->Milestones->find('list', ['limit' => 200, 'conditions' => ['project_id' => $project_id]]);
         $milestones2 = $this->Milestones->find('all', ['limit' => 200, 'conditions' => ['project_id' => $project_id]])->first();
-        if ($milestones2 === null){
-            
-        }else{
+        if ($milestones2 === null) {
+        } else {
             $startDate = ($milestones2->start_date)->format("d-M-Y");
             $endDate = $milestones2->end_date;
-            $this->set(compact('activity', 'projectDetails', 'staff', 'priority', 'status', 'users', 'project_id', 'milestones', 'currency','startDate'));
+            $this->set(compact('activity', 'projectDetails', 'staff', 'priority', 'status', 'users', 'project_id', 'milestones', 'currency', 'startDate'));
         }
-    
+        // cost of project
+        $projectCost  = $this->ProjectDetails->find('all', ['conditions' => ['project_id' => $project_id]]);
+        foreach ($projectCost as $pCost);
+        $result = $pCost->budget;
+
+        // cost of indicators
+        $indicator = $this->Milestones->find('all')->where(['project_id' => $project_id]);
+        $indiTotal = 0;
+        foreach ($indicator as $ind) {
+            $indiTotal = $indiTotal + $ind->amount;
+        }
+
+        // cost of activities
+        $active = $this->Activities->find('all')->where(['project_id' => $project_id]);
+        $activityTotal = 0;
+        foreach ($active as $act) {
+            $activityTotal = $activityTotal + $act->cost;
+        }
+
+        $sumDiff = $result - $activityTotal;
+
+
+        $this->set(compact('sumDiff'));
     }
 
     /**
