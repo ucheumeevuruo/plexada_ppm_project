@@ -64,8 +64,8 @@ $(function() {
     $('#Expected_end_date, #Start_date').datepicker({
         inline: true,
         "format": "dd/mm/yyyy",
-        startDate: "0d",
-        // "endDate": "09-15-2017",
+         startDate: "<?php echo $start_date ?>",
+         endDate: "<?php echo $end_date ?>",
         "keyboardNavigation": false
     });
 });

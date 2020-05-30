@@ -60,14 +60,12 @@ echo $this->Html->css('mandatory');
 </div>
 
 <script>
-    <?php $code_array = json_encode($startDate) ?>
-    var array_code = <?php echo $code_array; ?>;
-    $(function($array_code) {
+    $(function() {
         $('#start_date, #end_date').datepicker({
             inline: true,
             "format": "dd/mm/yyyy",
-            startDate: <?php echo $code_array; ?>,
-            // endDate: "09-15-2017",
+            startDate: "<?php echo $startDate;?>",
+            endDate: "<?php echo $endDate;?>",
             // "endDate": "09-15-2017",
             "keyboardNavigation": false
         });

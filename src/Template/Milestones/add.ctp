@@ -52,22 +52,22 @@
     <?= $this->Form->end() ?>
 </div>
 <script>
-    $(function() {
-        $('#start_date, #end_date').datepicker({
-            inline: true,
-            "format": "dd/mm/yyyy",
-            startDate: "0d"
-        }).on('changeDate', function(selected) {
-            let date = new Date(selected);
-            date.setDate(date.getDate() + 1);
-            // $('#end_date').datepicker({inline: true,startDate : date});
-        })
-        $('#end_date').datepicker({
-            inline: true,
-            "format": "dd/mm/yyyy",
-            // startDate: "0d",
-            // "endDate": "09-15-2017",
-            "keyboardNavigation": false
-        });
+$(function() {
+    $('#start_date, #end_date').datepicker({
+        inline: true,
+        "format": "dd/mm/yyyy",
+        startDate: "<?php echo $start_date ?>",
+        endDate:"<?php echo $end_date ?>"
+    }).on('changeDate', function(selected) {
+        let date = new Date(selected);
+        date.setDate(date.getDate() + 1);
+        // $('#end_date').datepicker({inline: true,startDate : date});
+    })
+    $('#end_date').datepicker({
+        inline: true,
+        "format": "dd/mm/yyyy",
+        // startDate: "0d",
+        // "endDate": "01-06-2020",
+        "keyboardNavigation": false
     });
 </script>

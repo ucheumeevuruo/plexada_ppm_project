@@ -66,6 +66,13 @@ class PlansController extends AppController
             return $this->redirect($this->referer());
         }
         $activities = $this->Plans->Activities->find('list', ['limit' => 200]);
+
+        $this->loadModel('Activities');
+        $activity_details = $this->Activities->find('all', ['conditions' => ['activity_id'=>$id]])->first();
+
+        $s_date = ($activity_details->start_date)->format("d-m-Y");
+        $e_date = ($activity_details->end_date)->format("d-m-Y");
+
         $activity_id = $id;
 
         // $activities = $this->Plans->Activities->find('all', ['limit' => 200]);
@@ -75,11 +82,10 @@ class PlansController extends AppController
         $staff = $this->Plans->Staff->find('list', ['limit' => 200]);
         $user = $this->Plans->Users->find('list', ['limit' => 200]);
 
-        // debug($id);
-        // die();
+
         $logged_in_user = $this->Auth->user('id');
 
-        $this->set(compact('plan', 'activities', 'staff', 'user', 'logged_in_user', 'id', 'activity_id'));
+        $this->set(compact('plan', 'activities', 'staff', 'user', 'logged_in_user','id','activity_id','s_date','e_date'));
     }
 
     /**
@@ -102,13 +108,11 @@ class PlansController extends AppController
 
                 return $this->redirect($this->referer());
             }
-            // debug($plan);
-            // die();
+
             $this->Flash->error(__('The plan could not be saved. Please, try again.'));
             return $this->redirect($this->referer());
         }
-        // debug($plan);
-        // die();
+
         $staff = $this->Plans->Staff->find('list', ['limit' => 200]);
         $logged_in_user = $this->Auth->user('id');
         $activity = $this->Plans->find()->where(['id' => $id])->first();

@@ -72,6 +72,8 @@ class MilestonesController extends AppController
         $ddi  = $this->ProjectDetails->find('all', ['conditions' => ['project_id' => $id]]);
         foreach ($ddi as $a);
         $result = $a->budget;
+        $start_date = ($a->start_dt)->format("d-m-Y");
+        $end_date = ($a->end_dt)->format("d-m-Y");
 
         $indicator = $this->Milestones->find('all')->where(['project_id' => $id]);
 
@@ -82,13 +84,14 @@ class MilestonesController extends AppController
         $sumDiff = $result - $indiTotal;
 
         // debug($sumDiff);
+        // debug($start_date);
         // die();
 
         $lov = $this->Milestones->Lov->find('list', ['limit' => 200])->where(['lov_type' => 'project_status']);
         //        $triggers = $this->Milestones->Triggers->find('list', ['limit' => 200]);
         $triggers = [];
 
-        $this->set(compact('milestone', 'projects', 'lov', 'triggers', 'id',  'result', 'sumDiff'));
+        $this->set(compact('milestone', 'projects', 'lov', 'triggers', 'id',  'result', 'start_date','end_date', 'sumDiff' ));
     }
 
     /**
