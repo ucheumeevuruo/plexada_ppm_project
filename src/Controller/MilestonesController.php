@@ -57,8 +57,7 @@ class MilestonesController extends AppController
         if ($this->request->is('post')) {
             //  $milestone = $this->Milestones->patchEntity($milestone, $this->request->getData());
             $milestone = $this->Milestones->patchEntity($milestone, $this->Milestones->identify($this->request->getData()));
-            // debug($milestone);
-            // die();
+
             if ($this->Milestones->save($milestone)) {
                 $this->Flash->success(__('Indicator saved successfully.'));
                 return $this->redirect($this->referer());
@@ -74,14 +73,22 @@ class MilestonesController extends AppController
         foreach ($ddi as $a);
         $result = $a->budget;
 
-        // debug($result);
+        $indicator = $this->Milestones->find('all')->where(['project_id' => $id]);
+
+        $indiTotal = 0;
+        foreach ($indicator as $ind) {
+            $indiTotal = $indiTotal + $ind->amount;
+        }
+        $sumDiff = $result - $indiTotal;
+
+        // debug($sumDiff);
         // die();
 
         $lov = $this->Milestones->Lov->find('list', ['limit' => 200])->where(['lov_type' => 'project_status']);
         //        $triggers = $this->Milestones->Triggers->find('list', ['limit' => 200]);
         $triggers = [];
 
-        $this->set(compact('milestone', 'projects', 'lov', 'triggers', 'id',  'result'));
+        $this->set(compact('milestone', 'projects', 'lov', 'triggers', 'id',  'result', 'sumDiff'));
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -124,10 +125,10 @@ class StaffTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['first_name', 'middle_name', 'last_name']));
+        $rules->add($rules->isUnique(['first_name', 'last_name']));
         $rules->add($rules->isUnique(['email']));
         $rules->add($rules->existsIn(['system_user_id'], 'Users'));
-        $this->add($rules->existsIn(['role_id', 'Roles']));
+        // $this->add($rules->existsIn(['role_id'], 'Roles'));
 
         return $rules;
     }

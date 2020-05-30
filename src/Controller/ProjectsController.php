@@ -606,9 +606,6 @@ class ProjectsController extends AppController
 
         $milestones = $this->paginate($milestones);
 
-        // debug($milestones);
-        // die();
-
         $this->set(compact('milestones', 'project_id'));
     }
 
@@ -625,10 +622,6 @@ class ProjectsController extends AppController
         $this->loadModel('Plans');
         $plans =  $this->Plans->find('all');
 
-
-
-        // debug($plans);
-        // die();
         $this->set(compact('activities', 'project_id', 'plans'));
     }
 
@@ -642,9 +635,6 @@ class ProjectsController extends AppController
 
         $milestones = $this->paginate($milestones);
 
-        // debug($milestones);
-        // die();
-
         $this->set(compact('milestones', 'project_id'));
     }
 
@@ -654,17 +644,11 @@ class ProjectsController extends AppController
 
         $activities = $this->Projects->Activities->find()->where(['milestone_id' => $project_id]);;
 
-
         $activities = $this->paginate($activities);
-
 
         $this->loadModel('Plans');
         $plans =  $this->Plans->find('all');
 
-
-
-        // debug($plans);
-        // die();
         $this->set(compact('activities', 'project_id', 'plans'));
     }
 }
