@@ -116,7 +116,7 @@ $this->Paginator->setTemplates([
                                                 <div class="card shadow h-100 py-0 border border-left-success rounded-lg">
 
                                                 <?php } elseif (($close / $count * 100) == 100) : { ?>
-                                                    <div class="card shadow h-100 py-0 border border-left-dark rounded-lg">
+                                                    <div class="card shadow C">
 
                                                     <?php  } ?>
                                                 <?php endif; ?>
