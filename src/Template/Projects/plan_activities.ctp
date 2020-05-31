@@ -80,7 +80,7 @@ $this->Paginator->setTemplates([
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <?= $this->Html->link(__('Projects'), ['action' => 'index']) ?>
+                    <?= $this->Html->link(__('Projects'), ['action' => 'planning']) ?>
                 </li>
                 <li>
                     &nbsp; /

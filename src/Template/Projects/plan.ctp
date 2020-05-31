@@ -80,20 +80,25 @@ $this->Paginator->setTemplates([
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <?= $this->Html->link(__('Projects'), ['action' => 'index']) ?>
+                    <?= $this->Html->link(__('Projects'), ['action' => 'monitoring']) ?>
                 </li>
                 <li>
                     &nbsp; /
                     <?= $this->Html->link(__('Monitoring'), ['action' => 'monitoring']) ?>
 
                 </li>
-                <li class="breadcrumb-item " aria-current="page">&nbsp;/    Indicators</li>
-                <li class="breadcrumb-item " aria-current="page">Activities</li>
-                <!-- <li class="breadcrumb-item">
-                    <?= $this->Html->link(__('Activities'), ['action' => 'monitoring']) ?>
-                </li> -->
+                <li>
+                    &nbsp; /
+                    <?= $this->Html->link(__('Indicators'), ['action' => 'monitorIndicators',$project_id_]) ?>
 
-                <li class="breadcrumb-item active" aria-current="page">Plan</li>
+                </li>
+                <li>
+                    &nbsp; /
+                    <?= $this->Html->link(__('Activities'), ['action' => 'monitorActivities', $milestone_id_]) ?>
+
+                </li>                
+
+                <li class="breadcrumb-item active" aria-current="page">&nbsp; / Plan</li>
             </ol>
         </nav>
         <!-- ./end Breadcrumb -->
@@ -106,7 +111,12 @@ $this->Paginator->setTemplates([
             <div class="row mx-0">
                 <?php foreach ($activePlans as $plan) : ?>
                     <div class="col-xl-3 col-md-6 mb-4" data-attr="">
-                        <div class="card shadow py-0">
+                    <?php if ($plan->approved == 1 ){?>
+                        <div class="card shadow  h-100 py-0 border border-left-success rounded-lg">
+                        <?php }else{ ?>
+                            <div class="card shadow  h-100 py-0 border border-left-danger rounded-lg">
+                        <?php } ?>
+        
                             <div class="card-body py-2 px-2">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
