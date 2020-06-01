@@ -131,7 +131,7 @@ class ProjectsController extends AppController
             ->where(['Milestones.project_id' => $project_id]);
 
         $milestones = $this->paginate($milestones);
-
+        
         $this->set(compact('milestones', 'project_id'));
     }
 
