@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
  * Messages Model
  *
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Senders
  *
  * @method \App\Model\Entity\Message get($primaryKey, $options = [])
  * @method \App\Model\Entity\Message newEntity($data = null, array $options = [])
@@ -41,7 +41,8 @@ class MessagesTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Users', [
+        $this->belongsTo('Senders', [
+            'className' => 'Users',
             'foreignKey' => 'sender_id',
             'joinType' => 'INNER',
         ]);

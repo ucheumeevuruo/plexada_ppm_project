@@ -23,15 +23,15 @@ class ActivitiesController extends AppController
         $q = $this->request->getQuery('q');
 
         $customFinderOptions = [
-            'name' => $q
+            'id' => $q
         ];
         $this->paginate = [
             'contain' => [
-                'ProjectDetails', 'Staff', 'Lov', 'Users'
+                'ProjectDetails', 'Staff', 'Statuses', 'Users'
             ],
             'maxLimit' => 8,
             'finder' => [
-                'byProjectName' => $customFinderOptions
+                'byProjectId' => $customFinderOptions
             ]
         ];
 
@@ -91,24 +91,16 @@ class ActivitiesController extends AppController
 
 //            return $this->redirect($this->referer());
         }
-        $projectDetails = $this->Activities->ProjectDetails->find('list', ['limit' => 200]);
-        $currency = $this->Activities->Projects->get($project_id, [
-            'contain' => ['ProjectDetails.Currencies']
+        $projects = $this->Activities->Projects->find('list', ['limit' => 200]);
+        $projectDetails = $this->Activities->Projects->get($project_id, [
+            'contain' => ['ProjectDetails', 'ProjectDetails.Currencies']
         ]);
         $staff = $this->Activities->Staff->find('list', ['limit' => 200]);
         $priority = $this->Activities->Priorities->find('list', ['limit' => 200]);
         $status = $this->Activities->Statuses->find('list', ['limit' => 200]);
         $users = $this->Activities->Users->find('list', ['limit' => 200]);
         $milestones = $this->Activities->Milestones->find('list', ['limit' => 200, 'conditions' => ['project_id' => $project_id]]);
-        $milestones2 = $this->Milestones->find('all', ['limit' => 200, 'conditions' => ['project_id' => $project_id]])->first();
-        if ($milestones2 === null){
-            
-        }else{
-            $startDate = ($milestones2->start_date)->format("d-M-Y");
-            $endDate = $milestones2->end_date;
-            $this->set(compact('activity', 'projectDetails', 'staff', 'priority', 'status', 'users', 'project_id', 'milestones', 'currency','startDate'));
-        }
-    
+        $this->set(compact('activity', 'projectDetails', 'staff', 'priority', 'status', 'users', 'project_id', 'milestones', 'projects'));
     }
 
     /**

@@ -132,6 +132,14 @@ class ActivitiesTable extends Table
             ->notEmptyString('Description');
 
         $validator
+            ->date('start_date')
+            ->allowEmptyDate('start_date');
+
+        $validator
+            ->date('end_date')
+            ->allowEmptyDate('end_date');
+
+        $validator
             ->date('completion_date')
             ->allowEmptyDate('completion_date');
 
@@ -183,10 +191,20 @@ class ActivitiesTable extends Table
     {
         $name = $options['id'];
 
-        if (!is_null($id)) {
+        if (!is_null($name)) {
             $query->where(function ($exp, Query $q) use ($name) {
                 return $exp->like('Activities.name', "%$name%");
             });
+        }
+        return $query;
+    }
+
+    public function findByProjectId($query, $options)
+    {
+        $id = $options['id'];
+
+        if (!is_null($id)) {
+            $query->where(['Activities.project_id' => $id]);
         }
         return $query;
     }

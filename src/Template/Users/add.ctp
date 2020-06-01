@@ -17,7 +17,7 @@ $this->end();
         echo $this->Form->control('password');
         echo $this->Form->control('email');
         echo $this->Form->control('status_id', ['options' => $lov, 'type' => 'hidden', 'default' => 1]);
-        echo $this->Form->control('role_id', ['options' => $roles]);
+//        echo $this->Form->control('role_id', ['options' => $roles]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit'), ['class' => 'bg-primary']) ?>

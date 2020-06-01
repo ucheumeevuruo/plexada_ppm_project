@@ -31,14 +31,14 @@ class ProjectsController extends AppController
 
         $this->paginate = [
             'contain' => [
-                'ProjectDetails', 'ProjectDetails.Statuses', 'ProjectDetails.Currencies'
+                'ProjectDetails', 'ProjectDetails.Statuses', 'ProjectDetails.Currencies', 'Activities'
             ],
             //            'maxLimit' => 3
             'finder' => [
                 'byProjectName' => $customFinderOptions
             ]
         ];
-        $this->loadModel('Projects');
+//        $this->loadModel('Projects');
         $projects = $this->paginate($this->Projects);
 
         $this->loadModel('Milestones');

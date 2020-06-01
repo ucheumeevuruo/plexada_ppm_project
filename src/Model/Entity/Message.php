@@ -15,6 +15,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime $modified
  *
  * @property \App\Model\Entity\User $user
+ * @property \App\Model\Entity\User $sender
  */
 class Message extends Entity
 {
@@ -35,5 +36,6 @@ class Message extends Entity
         'created' => true,
         'modified' => true,
         'user' => true,
+        'sender' => true,
     ];
 }

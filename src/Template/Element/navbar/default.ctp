@@ -48,7 +48,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter"><?= $projectCount ?></span>
+                                <span class="badge badge-danger badge-counter">2</span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dLabel">
                                 <?php foreach ($qryproject as $message): ?>
@@ -67,15 +67,32 @@
                                 <span class="badge badge-danger badge-counter">1</span>
                             </a>
                         </li> -->
-                        
                         <li class="nav-item dropdown no-arrow mx-1">
-                        <!-- <?php foreach ($qryproject as $message): ?>
-                            <?= $message->name ?>
-                        <?php endforeach; ?> -->
-                        
-                        
-                            <?= $this->Html->link(__('<i class="fa fa-envelope fa-fw"></i><span class="badge badge-danger badge-counter">'.$this->request->session()->read('akpython').'</span>'),
-                                ['controller' => 'Messages', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link collapsed']) ?>
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-envelope fa-fw"></i>
+                                <!-- Counter - Alerts -->
+                                <span class="badge badge-danger badge-counter"><?= $this->Message->getMessageCount() ?></span>
+                            </a>
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="dLabel">
+                                <h6 class="dropdown-header">
+                                    Message Center
+                                </h6>
+                                <?php foreach ($this->Message->getMessages() as $message): ?>
+                                    <?= $this->Html->link(__('<div class="dropdown-list-image mr-3">
+                                            <div class="icon-circle bg-dark">
+                                                <i class="fas fa-user text-white"></i>
+                                                <div class="status-indicator bg-success"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="text-truncate">'. $message->subject . '</div>
+                                            <div class="small text-gray-500">'. $message->sender->username .' '. $message->created->format('d/m/yy') .'</div>
+                                        </div>'), ['controller' => 'messages', 'action' => 'view', $message->id],
+                                        ['class' => 'dropdown-item d-flex align-items-center', 'title' => 'Message', 'escape' => false])?>
+                                <?php endforeach; ?>
+                                <?= $this->Html->link(__('View All Messages'), ['controller' => 'messages', 'action' => 'index'],
+                                    ['class' => 'dropdown-item text-center small text-gray-500', 'title' => 'All', 'escape' => false])?>
+                            </div>
                         </li>
                         <!-- Nav Item - Messages -->
                         <div class="topbar-divider d-none d-sm-block"></div>

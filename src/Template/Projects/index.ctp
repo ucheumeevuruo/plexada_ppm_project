@@ -141,28 +141,33 @@ $this->Paginator->setTemplates([
                                                 <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
                                                     <div class="row">
                                                         <div class="col-auto">
-                                                            <?php foreach ($projectDetails as $projectD) : ?>
-                                                                <?php if (isset($projectD->name) && $projectD->project_id == $project->id) : ?>
-                                                                    <?= $this->Html->link(__('<i class="fas fa-edit fa-1x text-gray-300"></i>'), ['controller' => 'projectDetails', 'action' => 'edit', $project->project_detail->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Edit Project Details']) ?>
-                                                                <?php endif; ?>
-                                                                <?php if (!isset($projectD->name) && $projectD->project_id == $project->id) : ?>
-                                                                    <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'), ['controller' => 'projectDetails', 'action' => 'edit', $project->project_detail->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Project Details']) ?>
-                                                                <?php endif; ?>
-                                                            <?php endforeach; ?>
-
-                                                        </div>
-
-                                                        <div class="col-auto">
                                                             <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['action' => 'edit', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Edit Project']) ?>
                                                         </div>
                                                         <div class="col-auto border-left">
                                                             <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id), 'escape' => false, 'title' => 'Delete Project']) ?>
                                                         </div>
-                                                        <!-- <div class="col-auto border-left">
-                                                        <?= $this->Form->postlink(__("<i class='fas fa-book></i>"), ['action' => 'add'], []) ?>
-                                                    </div> -->
-                                                        <div class="col-auto border-left">
-                                                            <i class="fas fa-clock fa-1x text-gray-300"></i>
+                                                        <div class="col-auto border-left dropdown no-arrow">
+                                                            <?php if($project->has('activities') && !empty($project->activities)){ ?>
+                                                                <?= $this->Html->link(__('<i class="fas fa-clock fa-1x text-warning"></i>'),
+                                                                    ['controller' => 'api/activities', 'action' => 'index', 'q' => $project->id],
+                                                                    ['class' => 'sub-layer', 'escape' => false, 'title' => 'View Activities', 'data-attr' => $project->id]
+                                                                ) ?>
+                                                            <?php }else{ ?>
+                                                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink<?= $project->id?>"
+                                                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                                    <i class="fas fa-clock fa-1x text-gray-300"></i>
+                                                                </a>
+                                                            <?php } ?>
+                                                            <div id="dropdown-layer<?= $project->id?>" class="dropdown-menu shadow"
+                                                                 aria-labelledby="dropdownMenuLink<?= $project->id?>" style="width: 500px;font-size:.75em">
+                                                                <span role="menuitem" class="dropdown-item-text text-center o_no_activity">
+                                                                    No activities planned.
+                                                                </span>
+                                                                <div class="dropdown-divider mt-0"></div>
+                                                                <div role="menuitem" class="o_schedule_activity dropdown-header py-1 text-center">
+                                                                    <?= $this->Html->link(__('Create'), ['controller' => 'activities', 'action' => 'add', $project->id], ['class' => 'overlay btn btn-info rounded-0', 'escape' => false]) ?>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div class="col border-left ">
                                                             <i class="fas fa-book fa-1x text-gray-300"></i>
@@ -192,6 +197,78 @@ $this->Paginator->setTemplates([
     </div>
 </div>
 <script>
+    function openUrl(href, object){
+        let body = '';
+        let project_id = object.attr('data-attr')
+        $.ajax({
+            url: href,
+            // contentType: "application/json",
+            // dataType: 'json',
+            beforeSend: function(){
+                $('#dropdown-layer'+ project_id + ' .o_no_activity').html(
+                    `<div class="px-5">
+                         <i class="fas fa-spinner fa-spin fa-3x"></i>
+                     </div>`
+                )
+                $('#dropdown-layer'+project_id).addClass('show');
+                // $('#loader').show();
+                // object.after(
+                //     `<div id="dropdown-layer${project_id}" class="dropdown-menu shadow animated--fade-in show"
+                //     aria-labelledby="dropdownMenuLink${project_id}" style="width: 500px">
+                //         <div class="container-fluid activity">
+                //             <div class="px-5" style='width: 20px;'>
+                //                 <i class="fas fa-spinner fa-spin fa-3x"></i>
+                //             </div>
+                //         </div>
+                //     </div>`
+                // );
+            },
+            success: function(result){
+                $.each(result.result, function (index, activities) {
+                    // console.log(activities)
+                    $.each(activities, function (key, activity) {
+                        // console.log(activity.name)
+
+                        body += `<tr><td>${activity.name}</td>
+<!--                                <td>${activity.description}</td>-->
+                                <td>${activity.staff.last_name} ${activity.staff.first_name}</td>
+                                <td>${activity.status.lov_value}</td>
+                                <td>${activity.start_date}</td>
+                                <td>${activity.end_date}</td></tr>`
+                    })
+                })
+                object.parent().addClass('dropdown show no-arrow')
+                object.replaceWith(`<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink${project_id}"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <i class="fas fa-clock fa-1x text-warning"></i>
+                    </a>`
+                );
+                $('#dropdown-layer' + project_id + ' .o_no_activity').replaceWith(
+                    `<table class="table table-sm table-striped table-responsive">
+                        <thead>
+                            <th>Name</th>
+<!--                            <th>Description</th>-->
+                            <th>Assigned To</th>
+                            <th>Status</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                        </thead>
+                        <tbody>
+                            ${body}
+                        </tbody>
+                    </table>`
+                );
+            },
+            complete: function(){
+                $('#loader').hide();
+            },
+            error: function(jqXHR, testStatus, error){
+                alert("Page " + href + " cannot open.");
+                $('#loader').hide();
+            },
+            // timeout: 5000
+        })
+    }
     $(document).ready(function() {
         //respond to click event on anything with 'overlay' class
         $(".overlay").click(function(event) {
@@ -203,5 +280,9 @@ $this->Paginator->setTemplates([
                 $('#MyModal4').modal('show')
             });
         });
+        $(".sub-layer").click(function (event) {
+            event.preventDefault();
+            openUrl($(this).attr('href'), $(this))
+        })
     });
 </script>

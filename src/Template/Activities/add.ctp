@@ -18,7 +18,7 @@ echo $this->Html->css('mandatory');
             <div class="col-md-6">
                 <?php
                 if ($project_id == null)
-                    echo $this->Form->control('project_id', ['options' => $projectDetails, 'empty' => true]);
+                    echo $this->Form->control('project_id', ['options' => $projects, 'empty' => true]);
                 else
                     echo $this->Form->hidden('project_id', ['value' => $project_id, 'empty' => false]);
                 ?>
@@ -41,7 +41,7 @@ echo $this->Html->css('mandatory');
                 <?php
                 echo $this->Form->control('assigned_to_id', ['options' => $staff, 'empty' => true, 'label' => false]);
                 echo $this->Form->hidden('priority_id', ['value' => 5]);
-                echo $this->Form->hidden('currency_id', ['value' => $currency->project_detail->currency->id]);
+                echo $this->Form->hidden('currency_id', ['value' => $projectDetails->project_detail->currency->id]);
                 ?>
                 <label class="control-label font-weight-bolder " for="start_date">Start Date</label>
                 <?php echo $this->Form->control('start_date', ['empty' => true, 'class' => 'addon-right', 'label' => false, 'id' => 'start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']); ?>
@@ -77,15 +77,26 @@ echo $this->Html->css('mandatory');
 
 
 <script>
-    <?php $code_array = json_encode($startDate) ?>
-    var array_code = <?php echo $code_array; ?>;
-    $(function($array_code) {
-        $('#start_date, #end_date').datepicker({
+    $(function() {
+        let start_date = <?= json_encode($projectDetails->project_detail->start_dt->format('m/d/yy')); ?>;
+        let end_date = <?= json_encode($projectDetails->project_detail->end_dt->format('m/d/yy')); ?>;
+        console.log(end_date)
+        $('#start_date').datepicker({
             inline: true,
             "format": "dd/mm/yyyy",
-            startDate: <?php echo $code_array; ?>,
-            // endDate: "09-15-2017",
-            // "endDate": "09-15-2017",
+            startDate: new Date(start_date),
+            endDate: new Date(end_date)
+        }).on('changeDate', function(selected) {
+            let date = new Date(selected.date.valueOf());
+            date.setDate(date.getDate());
+            console.log('Date:' + date)
+            $('#end_date').datepicker('setStartDate', date);
+        })
+        $('#end_date').datepicker({
+            inline: true,
+            "format": "dd/mm/yyyy",
+            startDate: new Date(start_date),
+            endDate: new Date(end_date),
             "keyboardNavigation": false
         });
     });

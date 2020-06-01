@@ -322,6 +322,9 @@ textarea.form-control{
     background:#f7f8fb;
     border-color: #dddfeb #dddfeb #f8f9fc !important
 }
+.sticky-top{
+    z-index:999 !important;
+}
 .vh-4{
     min-height:60vh
 }
