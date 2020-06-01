@@ -72,8 +72,12 @@ class MilestonesController extends AppController
         $ddi  = $this->ProjectDetails->find('all', ['conditions' => ['project_id' => $id]]);
         foreach ($ddi as $a);
         $result = $a->budget;
+
         $start_date = ($a->start_dt)->format("d-m-Y");
         $end_date = ($a->end_dt)->format("d-m-Y");
+
+        // debug($end_date);
+        // die();
 
         $indicator = $this->Milestones->find('all')->where(['project_id' => $id]);
 

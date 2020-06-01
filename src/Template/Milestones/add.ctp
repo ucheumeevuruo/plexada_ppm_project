@@ -57,17 +57,11 @@ $(function() {
         inline: true,
         "format": "dd/mm/yyyy",
         startDate: "<?php echo $start_date ?>",
-        endDate:"<?php echo $end_date ?>"
+        endDate: "<?php echo $end_date ?>",
     }).on('changeDate', function(selected) {
         let date = new Date(selected);
         date.setDate(date.getDate() + 1);
         // $('#end_date').datepicker({inline: true,startDate : date});
     })
-    $('#end_date').datepicker({
-        inline: true,
-        "format": "dd/mm/yyyy",
-        // startDate: "0d",
-        // "endDate": "01-06-2020",
-        "keyboardNavigation": false
-    });
+})
 </script>
