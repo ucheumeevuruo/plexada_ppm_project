@@ -172,7 +172,16 @@ class ActivitiesController extends AppController
         );
 
         $users = $this->Activities->Users->find('list', ['limit' => 200]);
-        $this->set(compact('activity', 'projectDetails', 'staff', 'users', 'priority', 'status'));
+
+        $this->loadModel('Milestones');
+
+        $result  = $this->Milestones->find('all', ['conditions' => ['id' => $activity->milestone_id]])->first();
+
+        $budget = $result->amount;
+        $s_date = ($result->start_date)->format("d-m-Y");
+        $e_date = ($result->end_date)->format("d-m-Y");
+
+        $this->set(compact('activity', 'projectDetails', 'staff', 'users', 'priority', 'status','budget','s_date','e_date'));
     }
 
     /**

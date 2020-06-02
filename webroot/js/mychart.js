@@ -324,6 +324,7 @@ function ganttProject2 (array_code2) {
 
     // }];
     var data = array_code2
+    console.log(array_code2)
 	// create a data tree
     var treeData = anychart.data.tree(data, "as-tree");
 
