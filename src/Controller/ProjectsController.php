@@ -271,7 +271,7 @@ class ProjectsController extends AppController
 
 
         $this->loadModel('Plans');
-        $activePlans =  $this->Plans->find('all',['conditions'=>['activity_id'=>$id]]);
+        $activePlans =  $this->Plans->find('all', ['conditions' => ['activity_id' => $id]]);
 
         $this->loadModel('Activities');
         $project_details = $this->Activities->find()->where(['activity_id' => $id])->first();
@@ -279,11 +279,11 @@ class ProjectsController extends AppController
         $project_id_ = $project_details->project_id;
         $milestone_id_ = $project_details->milestone_id;
         $activity_id_ = $project_details->activity_id;
-        
+
         // debug($activity_id_ , $project_id_ , $milestone_id_);
         // die();
 
-        $this->set(compact('activePlans','activity_id_','project_id_','milestone_id_'));
+        $this->set(compact('activePlans', 'activity_id_', 'project_id_', 'milestone_id_'));
     }
 
     public function monitoring()
@@ -352,7 +352,7 @@ class ProjectsController extends AppController
         $this->set(compact('projects', 'milestones', 'projectDetails'));
     }
 
-    
+
     public function indicator($id = null)
     {
         $project = $this->Projects->get(
@@ -653,7 +653,7 @@ class ProjectsController extends AppController
 
         $activities = $this->paginate($activities);
 
-        
+
         $this->loadModel('Plans');
         $plans =  $this->Plans->find('all');
 
@@ -662,6 +662,22 @@ class ProjectsController extends AppController
         $project_id_ = $project_details->project_id;
         // debug($project_id_);
         // die();
-        $this->set(compact('activities', 'project_id', 'plans','project_id_'));
+        $this->set(compact('activities', 'project_id', 'plans', 'project_id_'));
+    }
+
+    public function viewPlans($id =  null)
+    {
+        $this->loadModel('Plans');
+        $plans =  $this->Plans->find('all');
+
+        $this->loadModel('Staff');
+        $staffs =  $this->Staff->find('all');
+
+        // $this->loadModel('User');
+        // $users =  $this->User->find('all');
+        // debug($users);
+        // die();
+
+        $this->set(compact('plans', 'id', 'staffs'));
     }
 }

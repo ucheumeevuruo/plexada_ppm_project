@@ -117,6 +117,7 @@ $this->Paginator->setTemplates([
                                 <div class="row">
                                     <div class="col-auto">
                                         <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'), ['controller' => 'Plans', 'action' => 'add', $activity->activity_id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Plan']) ?>
+                                        <?= $this->Html->link(__('<i class="fas fa-eye fa-1x text-gray-300"></i>'), ['action' => 'viewPlans', $activity->activity_id], ['class' => 'overlay', 'escape' => false, 'title' => 'View Plans']) ?>
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +134,7 @@ $this->Paginator->setTemplates([
 <div id="dialogModal" class="bg-primary">
     <!-- the external content is loaded inside this tag -->
     <div id="contentWrap">
-        <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-lg']) ?>
+        <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-xl']) ?>
         <?= $this->Modal->body() // No header
         ?>
         <?= $this->Modal->footer() // Footer with close button (default)
@@ -153,32 +154,7 @@ $this->Paginator->setTemplates([
                 $('#MyModal4').modal('show')
             });
         });
-        $(document).on('click', '#clickable-sub-applet', function(event) {
-            event.preventDefault();
-            let href = $(this).attr('data-attr');
-            $.ajax({
-                url: href,
-                // contentType: "application/json",
-                // dataType: 'json',
-                beforeSend: function() {
-                    $('#loader').show();
-                },
-                success: function(result) {
-                    $('#sub-applet').html(result);
-                    // history.pushState(null, null, href);
-                },
-                complete: function() {
-                    $('#loader').hide();
-                },
-                error: function(jqXHR, testStatus, error) {
 
-                    console.log(error);
-                    alert("Page " + href + " cannot open. Error:" + error);
-                    $('#loader').hide();
-                },
-                timeout: 8000
-            })
-        })
     });
 </script>
 </div>

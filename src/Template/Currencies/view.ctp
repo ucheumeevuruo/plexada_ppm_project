@@ -1,10 +1,17 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Currency $currency
  */
+$this->start('sidebar');
+echo $this->element('sidebar/default');
+$this->end();
+$this->start('navbar');
+echo $this->element('navbar/default');
+$this->end();
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<!-- <nav class="large-3 medium-4 columns">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Currency'), ['action' => 'edit', $currency->id]) ?> </li>
@@ -12,7 +19,7 @@
         <li><?= $this->Html->link(__('List Currencies'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Currency'), ['action' => 'add']) ?> </li>
     </ul>
-</nav>
+</nav> -->
 <div class="currencies view large-9 medium-8 columns content">
     <h3><?= h($currency->name) ?></h3>
     <table class="vertical-table">

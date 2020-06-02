@@ -105,7 +105,7 @@ class ActivitiesController extends AppController
         } else {
             $startDate = ($milestones2->start_date)->format("d-M-Y");
             $endDate = $milestones2->end_date->format("d-M-Y");
-            $this->set(compact('activity', 'projectDetails', 'staff', 'priority', 'status', 'users', 'project_id', 'milestones', 'currency', 'startDate','endDate'));
+            $this->set(compact('activity', 'projectDetails', 'staff', 'priority', 'status', 'users', 'project_id', 'milestones', 'currency', 'startDate', 'endDate'));
         }
         // cost of project
         $projectCost  = $this->ProjectDetails->find('all', ['conditions' => ['project_id' => $project_id]]);
@@ -172,6 +172,8 @@ class ActivitiesController extends AppController
         );
 
         $users = $this->Activities->Users->find('list', ['limit' => 200]);
+
+
         $this->set(compact('activity', 'projectDetails', 'staff', 'users', 'priority', 'status'));
     }
 

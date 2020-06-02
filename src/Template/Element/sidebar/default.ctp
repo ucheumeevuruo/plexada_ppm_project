@@ -53,8 +53,7 @@
         <!--            <i class="fas fa-fw fa-cog"></i>-->
         <!--            <span>Components</span>-->
         <!--        </a>-->
-        <a href="#collapseExample1" class="nav-link collapsed" data-toggle="collapse" role="button"
-            aria-expanded="false" aria-controls="collapseExample1">
+        <a href="#collapseExample1" class="nav-link collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample1">
             <i class="fa fa-archive fa-lg"></i> &nbsp;M & E</a>
 
         <div class="collapse" id="collapseExample1">
@@ -78,13 +77,11 @@
         </div>
     </li>
     <li class="nav-item">
-    <a href="#collapseExample2" class="nav-link collapsed" data-toggle="collapse" role="button" aria-expanded="false"
-            aria-controls="collapseExample2">
+        <a href="#collapseExample2" class="nav-link collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample2">
             <i class="fa fa-archive fa-lg"></i> &nbsp;DPPC</a>
 
         <div class="collapse" id="collapseExample2">
-            <a href="#collapseExample" class="nav-link collapsed" data-toggle="collapse" role="button" aria-expanded="false"
-                aria-controls="collapseExample">
+            <a href="#collapseExample" class="nav-link collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
                 <i class="fa fa-archive fa-lg"></i> &nbsp;Reports</a>
         </div>
 
@@ -161,13 +158,13 @@
         <!--            </div> -->
         <!--        </div> -->
     </li>
-    <li class="nav-item">
+    <!-- <li class="nav-item">
         <?= $this->Html->link(
             __('<i class="fa fa-list fa-lg"></i> &nbsp;List of Values'),
             ['controller' => 'Lov', 'action' => 'index'],
             ['escape' => false, 'class' => 'nav-link collapsed']
         ) ?>
-    </li>
+    </li> -->
     <li class="nav-item">
         <?= $this->Html->link(
             __('<i class="fa fa-list fa-lg"></i> &nbsp;Currencies'),
