@@ -144,6 +144,8 @@ class ProjectsController extends AppController
             ->where(['Milestones.project_id' => $project_id]);
 
         $milestones = $this->paginate($milestones);
+        // debug($milestones);
+        // die();
 
         $this->set(compact('milestones', 'project_id'));
     }
@@ -528,69 +530,84 @@ class ProjectsController extends AppController
         $num_mile = 1;
         foreach ($qrymilestone as $milestone) {
             $milestone_id = $milestone['id'];
-            $num_mile2 = $num_mile + 1;
+            $num_mile2 = $num_mile ;
             $mileID = "$num _ $num_mile";
-            $mileConnector = "$num _ $num_mile2";
+            $mileConnector = "$num _ $num_mile _ $num_mile2";
             $object_milestone = new \stdClass();
             $object_milestone->id = $mileID;
             $object_milestone->name = $milestone['description'];
-            $object_milestone->actualStart = $milestone['completed_date'];
-            $object_milestone->actualEnd = $milestone['expected_completion_date'];
+            $object_milestone->actualStart = $milestone['start_date'];
+            $object_milestone->actualEnd = $milestone['end_date'];
             $object_milestone->connectTo = $mileConnector;
             $object_milestone->connectorType = "finish-start";
             $object_milestone->progressValue = "$progress%";
-            $object_milestone->children = $this->activityRecords($milestone_id, $num);
+            $object_milestone->children = $this->activityRecords($milestone_id, $num, $num_mile);
             array_push($array_gantt_child, $object_milestone);
             $num_mile++;
         }
         return $array_gantt_child;
     }
 
-    public function activityRecords($milestone_id, $num)
+    public function activityRecords($milestone_id, $num, $num_mile)
     {
         $conn = ConnectionManager::get('default');
         $array_activity_child = array();
         $qryactivity = $conn->execute("SELECT *  FROM activities where milestone_id = $milestone_id");
+        $completed = $conn->execute("SELECT count(*) as T FROM activities where milestone_id ='" . $milestone_id . "' and status_id ='3' ");
+        $allproject = $conn->execute("SELECT count(*) as S FROM activities where milestone_id ='" . $milestone_id . "' ");
+        $complete = $completed->fetch('assoc');
+        $totalprojects = $allproject->fetch('assoc');
+        $progress = 0;        
+        if ($totalprojects['S'] == 0) {
+
+            $progress = 0;
+        } else {
+            $result =  ($complete['T'] / $totalprojects['S']) * 100;
+            $progress = round(number_format($result, 2), 2);
+        };        
         $num_mile = 1;
         foreach ($qryactivity as $activity) {
             $activityID = $activity['activity_id'];
-            $num_mile2 = $num_mile + 1;
-            $mileID = "$num _ $num_mile";
-            $mileConnector = "$num _ $num_mile2";
+            $num_mile2 = $num_mile ;
+            $mileID = "$num _ $num_mile _ $num_mile";
+            $mileConnector = "$num _ $num_mile _ $num_mile _ $num_mile2";
             $object_activity = new \stdClass();
             $object_activity->id = $mileID;
             $object_activity->name = $activity['name'];
-            $object_activity->actualStart = $activity['created'];
-            $object_activity->actualEnd = $activity['last_updated'];
+            $object_activity->actualStart = $activity['start_date'];
+            $object_activity->actualEnd = $activity['end_date'];
             $object_activity->connectTo = $mileConnector;
             $object_activity->connectorType = "finish-start";
-            $object_activity->progressValue = $activity['percentage_completion'] . "%";
-            $object_activity->children = $this->tasksRecords($activityID, $num);
+            $object_activity->progressValue = "$progress%";
+            $object_activity->children = $this->tasksRecords($activityID, $num,$num_mile);
             array_push($array_activity_child, $object_activity);
             $num_mile++;
         }
         return $array_activity_child;
     }
 
-    public function tasksRecords($activityID, $num)
+    public function tasksRecords($activityID, $num, $num_mile)
     {
         $conn = ConnectionManager::get('default');
         $array_task_child = array();
         $qrytasks = $conn->execute("SELECT *  FROM tasks where activity_id = $activityID");
         $num_mile = 1;
         foreach ($qrytasks as $task) {
-            $num_mile2 = $num_mile + 1;
-            $mileID = "$num _ $num_mile";
-            $mileConnector = "$num _ $num_mile2";
+            if( !next( $task ) ) {
+                echo 'Last Item';
+            }
+            $num_mile2 = $num_mile ;
+            $mileID = "$num _ $num_mile _ $num_mile _ $num_mile";
+            $mileConnector = "$num _ $num_mile _ $num_mile _ $num_mile _ $num_mile2";
             $object_tasks = new \stdClass();
             $object_tasks->id = $mileID;
             $object_tasks->name = $task['Task_name'];
             $object_tasks->actualStart = $task['Start_date'];
             // echo date('Y-m-d', strtotime($date. ' + 5 days'));
-            $object_tasks->actualEnd = strtotime($task['Start_date'] . ' + 5 days');
+            $object_tasks->actualEnd = $task['end_date'];
             $object_tasks->connectTo = $mileConnector;
-            $object_tasks->connectorType = "finish-start";
-            $object_tasks->progressValue = "0%";
+            $object_tasks->connectorType = "finish-finish";
+            // $object_tasks->progressValue = "0%";
             array_push($array_task_child, $object_tasks);
             $num_mile++;
         }
