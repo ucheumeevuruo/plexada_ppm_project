@@ -128,7 +128,14 @@ class UsersController extends AppController
             //            $exam = $this->Exams->find()->matching();
             if ($user) {
                 $this->Auth->setUser($user);
-
+                $this->loadModel('Roles');
+                $role_name = $this->Roles->find()->where(['id'=>$user['role_id']])->first();
+                $_SESSION['role'] = $role_name->name;
+                
+                // debug($role_name->name);
+                // die();
+                // debug($_SESSION['Auth']['Users']['role_id']);
+                // die();
                 return $this->redirect($this->Auth->redirectUrl('/Projects'));
             }
             //            $this->Flash->error(__('Invalid username or password, try again'));

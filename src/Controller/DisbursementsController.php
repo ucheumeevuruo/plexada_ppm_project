@@ -56,8 +56,8 @@ class DisbursementsController extends AppController
 
                 return $this->redirect($this->referer());
             }
-            debug($disbursement);
-            die();
+            // debug($disbursement);
+            // die();
             $this->Flash->error(__('The disbursement could not be saved. Please, try again.'));
             return $this->redirect($this->referer());
         }
@@ -66,16 +66,19 @@ class DisbursementsController extends AppController
         $query = $query->where(['milestone_id'=>$id]);
         $query = $query->select(['cost' => $query->func()->SUM('cost')])->first();
         $cummulative = $query['cost'] ? $query['cost']: 0;
+        
 
         $this->loadModel('Milestones');
         // $milestones = $this->Milestones->find('list', ['limit' => 200, 'conditions' => ['id' => $id]]);
         $projects_id = $this->Milestones->find('all', ['limit' => 200, 'conditions' => ['id' => $id]])->first();
         $projects = $projects_id->project_id;
         $milestones = $id;
+        $balance = $projects_id->amount - $cummulative;
+        
         // debug($projects);
         // die();
 
-        $this->set(compact('disbursement','milestones','projects','cummulative'));
+        $this->set(compact('disbursement','milestones','projects','cummulative','projects_id','balance'));
     }
 
     /**

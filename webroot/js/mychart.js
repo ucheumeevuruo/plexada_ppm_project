@@ -173,7 +173,7 @@ options:{
         yAxes: [{
             ticks :{
                 beginAtZero: true,
-                stepSize: 1000000,
+                stepSize: 1000000000,
 
                 // Return an empty string to draw the tick line but hide the tick label
                 // Return `null` or `undefined` to hide the tick line entirely
@@ -324,6 +324,7 @@ function ganttProject2 (array_code2) {
 
     // }];
     var data = array_code2
+    console.log(array_code2)
 	// create a data tree
     var treeData = anychart.data.tree(data, "as-tree");
 
