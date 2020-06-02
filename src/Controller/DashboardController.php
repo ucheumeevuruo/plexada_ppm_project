@@ -510,22 +510,43 @@ class DashboardController extends AppController
             $progress = round(number_format($result, 2), 2);
         };
         $num_mile = 1;
+        $len = count($qrymilestone);
+        $i  = 0;
+        // debug($len);
+        // die();
         foreach ($qrymilestone as $milestone) {
-            $milestone_id = $milestone['id'];
-            $num_mile2 = $num_mile + 1;
-            $mileID = "$num _ $num_mile";
-            $mileConnector = "$num _ $num_mile2";
-            $object_milestone = new \stdClass();
-            $object_milestone->id = $mileID;
-            $object_milestone->name = $milestone['description'];
-            $object_milestone->actualStart = $milestone['start_date'];
-            $object_milestone->actualEnd = $milestone['end_date'];
-            $object_milestone->connectTo = $mileConnector;
-            $object_milestone->connectorType = "finish-start";
-            $object_milestone->progressValue = "$progress%";
-            $object_milestone->children = $this->activityRecords($milestone_id, $num);
-            array_push($array_gantt_child, $object_milestone);
-            $num_mile++;
+            if ($i == $len-1){             
+                $milestone_id = $milestone['id'];
+                $num_mile2 = $num_mile + 1 ;
+                $mileID = "$num _ $num_mile";
+                $mileConnector = "$num _ $num_mile2";
+                $object_milestone = new \stdClass();
+                $object_milestone->id = $mileID;
+                $object_milestone->name = $milestone['description'];
+                $object_milestone->actualStart = $milestone['start_date'];
+                $object_milestone->actualEnd = $milestone['end_date'];
+                $object_milestone->progressValue = "$progress%";
+                $object_milestone->children = $this->activityRecords($milestone_id, $num, $num_mile);
+                array_push($array_gantt_child, $object_milestone);
+                $num_mile++;                
+            }else{
+                $milestone_id = $milestone['id'];
+                $num_mile2 = $num_mile + 1 ;
+                $mileID = "$num _ $num_mile";
+                $mileConnector = "$num _ $num_mile2";
+                $object_milestone = new \stdClass();
+                $object_milestone->id = $mileID;
+                $object_milestone->name = $milestone['description'];
+                $object_milestone->actualStart = $milestone['start_date'];
+                $object_milestone->actualEnd = $milestone['end_date'];
+                $object_milestone->connectTo = $mileConnector;
+                $object_milestone->connectorType = "finish-start";
+                $object_milestone->progressValue = "$progress%";
+                $object_milestone->children = $this->activityRecords($milestone_id, $num, $num_mile);
+                array_push($array_gantt_child, $object_milestone);
+                $num_mile++;
+            }
+            $i++;
         }
         return $array_gantt_child;
     }
@@ -549,22 +570,43 @@ class DashboardController extends AppController
             $progress = round(number_format($result, 2), 2);
         };
         $num_mile = 1;
+        $len = count($qryactivity);
+        $i  = 0;
         foreach ($qryactivity as $activity) {
-            $activityID = $activity['activity_id'];
-            $num_mile2 = $num_mile + 1;
-            $mileID = "$num _ $num_mile";
-            $mileConnector = "$num _ $num_mile2";
-            $object_activity = new \stdClass();
-            $object_activity->id = $mileID;
-            $object_activity->name = $activity['name'];
-            $object_activity->actualStart = $activity['start_date'];
-            $object_activity->actualEnd = $activity['end_date'];
-            $object_activity->connectTo = $mileConnector;
-            $object_activity->connectorType = "start-start";
-            $object_activity->progressValue = "$progress%";
-            $object_activity->children = $this->tasksRecords($activityID, $num);
-            array_push($array_activity_child, $object_activity);
-            $num_mile++;
+            if ($i == $len - 1){
+                $activityID = $activity['activity_id'];
+                $num_mile2 = $num_mile + 1;
+                $mileID = "$num _ $num _ $num_mile";
+                $mileConnector = "$num _ $num _ $num_mile2";
+                $object_activity = new \stdClass();
+                $object_activity->id = $mileID;
+                $object_activity->name = $activity['name'];
+                $object_activity->actualStart = $activity['start_date'];
+                $object_activity->actualEnd = $activity['end_date'];
+                $object_activity->progressValue = "$progress%";
+                $object_activity->children = $this->tasksRecords($activityID, $num,$num_mile);
+                array_push($array_activity_child, $object_activity);
+                $num_mile++;
+            }else{
+                $activityID = $activity['activity_id'];
+                $num_mile2 = $num_mile + 1;
+                $mileID = "$num _ $num _ $num_mile";
+                $mileConnector = "$num _ $num _ $num_mile2";
+                $object_activity = new \stdClass();
+                $object_activity->id = $mileID;
+                $object_activity->name = $activity['name'];
+                $object_activity->actualStart = $activity['start_date'];
+                $object_activity->actualEnd = $activity['end_date'];
+                $object_activity->connectTo = $mileConnector;
+                $object_activity->connectorType = "finish-start";
+                $object_activity->progressValue = "$progress%";
+                $object_activity->children = $this->tasksRecords($activityID, $num,$num_mile);
+                array_push($array_activity_child, $object_activity);
+                $num_mile++;
+            }
+
+
+            $i++;
         }
         return $array_activity_child;
     }
@@ -575,21 +617,37 @@ class DashboardController extends AppController
         $array_task_child = array();
         $qrytasks = $conn->execute("SELECT *  FROM tasks where activity_id = $activityID");
         $num_mile = 1;
+        $len = count($qrytasks);
+        $i  = 0;
         foreach ($qrytasks as $task) {
-            $num_mile2 = $num_mile + 1;
-            $mileID = "$num _ $num_mile";
-            $mileConnector = "$num _ $num_mile2";
-            $object_tasks = new \stdClass();
-            $object_tasks->id = $mileID;
-            $object_tasks->name = $task['Task_name'];
-            $object_tasks->actualStart = $task['Start_date'];
-            // echo date('Y-m-d', strtotime($date. ' + 5 days'));
-            $object_tasks->actualEnd = $task['end_date'];
-            $object_tasks->connectTo = $mileConnector;
-            $object_tasks->connectorType = "finish-finish";
-            // $object_tasks->progressValue = "0%";
-            array_push($array_task_child, $object_tasks);
-            $num_mile++;
+            if ($i == $len - 1){
+                $num_mile2 = $num_mile + 1;
+                $mileID = "$num _ $num _ $num _ $num_mile";
+                $mileConnector = "$num _ $num _ $num _ $num_mile2";
+                $object_tasks = new \stdClass();
+                $object_tasks->id = $mileID;
+                $object_tasks->name = $task['Task_name'];
+                $object_tasks->actualStart = $task['Start_date'];
+                $object_tasks->actualEnd = $task['end_date'];
+                array_push($array_task_child, $object_tasks);
+                $num_mile++;
+            }else{
+                $num_mile2 = $num_mile + 1;
+                $mileID = "$num _ $num _ $num _ $num_mile";
+                $mileConnector = "$num _ $num _ $num _ $num_mile2";
+                $object_tasks = new \stdClass();
+                $object_tasks->id = $mileID;
+                $object_tasks->name = $task['Task_name'];
+                $object_tasks->actualStart = $task['Start_date'];
+                $object_tasks->actualEnd = $task['end_date'];
+                $object_tasks->connectTo = $mileConnector;
+                $object_tasks->connectorType = "finish-finish";
+                array_push($array_task_child, $object_tasks);
+                $num_mile++;                
+            }
+
+
+            $i++;
         }
         return $array_task_child;
     }
