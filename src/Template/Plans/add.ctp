@@ -36,7 +36,8 @@ $(function() {
     $('#start_date, #end_date').datepicker({
         inline: true,
         "format": "dd/mm/yyyy",
-        // startDate: "0d"
+        startDate: "<?php echo $s_date ?>",
+         endDate: "<?php echo $e_date ?>",
     }).on('changeDate', function(selected) {
         let date = new Date(selected);
         date.setDate(date.getDate() + 1);

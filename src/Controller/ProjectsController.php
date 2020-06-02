@@ -131,7 +131,7 @@ class ProjectsController extends AppController
             ->where(['Milestones.project_id' => $project_id]);
 
         $milestones = $this->paginate($milestones);
-
+        
         $this->set(compact('milestones', 'project_id'));
     }
 
@@ -273,11 +273,17 @@ class ProjectsController extends AppController
         $this->loadModel('Plans');
         $activePlans =  $this->Plans->find('all',['conditions'=>['activity_id'=>$id]]);
 
+        $this->loadModel('Activities');
+        $project_details = $this->Activities->find()->where(['activity_id' => $id])->first();
 
-
-        // debug($plans);
+        $project_id_ = $project_details->project_id;
+        $milestone_id_ = $project_details->milestone_id;
+        $activity_id_ = $project_details->activity_id;
+        
+        // debug($activity_id_ , $project_id_ , $milestone_id_);
         // die();
-        $this->set(compact('activePlans'));
+
+        $this->set(compact('activePlans','activity_id_','project_id_','milestone_id_'));
     }
 
     public function monitoring()
@@ -606,9 +612,6 @@ class ProjectsController extends AppController
 
         $milestones = $this->paginate($milestones);
 
-        // debug($milestones);
-        // die();
-
         $this->set(compact('milestones', 'project_id'));
     }
 
@@ -626,9 +629,6 @@ class ProjectsController extends AppController
         $plans =  $this->Plans->find('all');
 
 
-
-        // debug($plans);
-        // die();
         $this->set(compact('activities', 'project_id', 'plans'));
     }
 
@@ -642,9 +642,6 @@ class ProjectsController extends AppController
 
         $milestones = $this->paginate($milestones);
 
-        // debug($milestones);
-        // die();
-
         $this->set(compact('milestones', 'project_id'));
     }
 
@@ -652,19 +649,19 @@ class ProjectsController extends AppController
     {
         $q = $this->request->getQuery('q');
 
-        $activities = $this->Projects->Activities->find()->where(['milestone_id' => $project_id]);;
-
+        $activities = $this->Projects->Activities->find()->where(['milestone_id' => $project_id]);
 
         $activities = $this->paginate($activities);
 
-
+        
         $this->loadModel('Plans');
         $plans =  $this->Plans->find('all');
 
-
-
-        // debug($plans);
+        $this->loadModel('Milestones');
+        $project_details = $this->Milestones->find()->where(['id' => $project_id])->first();
+        $project_id_ = $project_details->project_id;
+        // debug($project_id_);
         // die();
-        $this->set(compact('activities', 'project_id', 'plans'));
+        $this->set(compact('activities', 'project_id', 'plans','project_id_'));
     }
 }

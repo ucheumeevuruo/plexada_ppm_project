@@ -25,8 +25,7 @@
                 <?= $this->Form->hidden('project_id', ['value' => $id]); ?>
 
                 <label class="control-label mandatory font-weight-bolder" for="project">Name</label>
-                <div class="input-group mb-3"><input type="text" name="name" id="name" class="form-control"
-                        autocomplete="off" required>
+                <div class="input-group mb-3"><input type="text" name="name" id="name" class="form-control" autocomplete="off" required>
                 </div>
                 <!-- <?= $this->Form->control('name', ['autocomplete' => 'off']); ?> -->
                 <label class="control-label font-weight-bolder" for="description">Description</label>
@@ -36,7 +35,7 @@
             <div class="col-md-6">
                 <?= $this->Form->hidden('trigger_id', ['options' => $triggers, 'empty' => true]); ?>
                 <label class="control-label mandatory font-weight-bolder" for="amount">Amount</label>
-                <?= $this->Form->control('amount', ['autocomplete' => 'off', 'max' => $result, 'label' => false]); ?>
+                <?= $this->Form->control('amount', ['autocomplete' => 'off', 'max' => $result, 'label' => false, 'max' => $sumDiff, 'min' => 0]); ?>
 
                 <label class="control-label font-weight-bolder" for="start_date">Start Date</label>
                 <?= $this->Form->control('start_date', ['autocomplete' => 'off', 'id' => 'start_date', 'type' => 'text', 'label' => false, 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>',]); ?>
@@ -52,24 +51,17 @@
     <?= $this->Form->button(__('Submit'), ['class' => 'btn-primary']) ?>
     <?= $this->Form->end() ?>
 </div>
-
 <script>
 $(function() {
     $('#start_date, #end_date').datepicker({
         inline: true,
         "format": "dd/mm/yyyy",
-        startDate: "0d"
+        startDate: "<?php echo $start_date ?>",
+        endDate: "<?php echo $end_date ?>",
     }).on('changeDate', function(selected) {
         let date = new Date(selected);
         date.setDate(date.getDate() + 1);
         // $('#end_date').datepicker({inline: true,startDate : date});
     })
-    $('#end_date').datepicker({
-        inline: true,
-        "format": "dd/mm/yyyy",
-        // startDate: "0d",
-        // "endDate": "09-15-2017",
-        "keyboardNavigation": false
-    });
-});
+})
 </script>

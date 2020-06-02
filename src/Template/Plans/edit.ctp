@@ -25,7 +25,7 @@ $this->end();
         // echo $this->Form->control('user_id', ['value'=>$logged_in_user,'type'=>'hidden']);
         echo $this->Form->control('start_date', ['autocomplete' => 'off', 'id' => 'start_date', 'type' => 'hidden', 'label' => 'State date', 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>']);
         echo $this->Form->control('end_date', ['autocomplete' => 'off', 'id' => 'start_date', 'type' => 'hidden', 'label' => 'End date', 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>']);
-        echo $this->Form->control('approved', ['options' => ['Y' => 'Yes', 'N' => 'No'],'empty'=>true]);
+        echo $this->Form->control('approved', ['options' => ['1' => 'Yes', '0' => 'No'],'empty'=>true]);
         echo $this->Form->control('status', ['options' => ['completed' => 'completed', 'in-progress' => 'in-progress'],'empty'=>true]);
         ?>
 

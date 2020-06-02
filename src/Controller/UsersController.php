@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -21,7 +22,7 @@ class UsersController extends AppController
     {
         $this->loadModel('Roles');
         $this->paginate = [
-            'contain' => ['Lov','Roles'],
+            'contain' => ['Lov'],
         ];
         $users = $this->paginate($this->Users);
 
@@ -40,8 +41,8 @@ class UsersController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
-    {   
-        
+    {
+
         $user = $this->Users->get($id, [
             'contain' => ['Lov'],
         ]);
@@ -67,11 +68,10 @@ class UsersController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
-
         }
         $lov = $this->Users->Lov->find('list', ['limit' => 200]);
         $roles = $this->Roles->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'lov','roles'));
+        $this->set(compact('user', 'lov', 'roles'));
     }
 
     /**
@@ -123,23 +123,23 @@ class UsersController extends AppController
     {
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
-//            $user = $this->Users->identify($this->request->getData());
-//            $this->loadModel('Exams');
-//            $exam = $this->Exams->find()->matching();
+            //            $user = $this->Users->identify($this->request->getData());
+            //            $this->loadModel('Exams');
+            //            $exam = $this->Exams->find()->matching();
             if ($user) {
                 $this->Auth->setUser($user);
 
                 return $this->redirect($this->Auth->redirectUrl('/Projects'));
             }
-//            $this->Flash->error(__('Invalid username or password, try again'));
+            //            $this->Flash->error(__('Invalid username or password, try again'));
             $this->Flash->error(__('Login credentials failed, please try again'));
         }
-//        $this->loadModel('States');
-//        $this->loadModel('ExamTypes');
-//        $this->loadModel('ExamBatches');
-//        $state = $this->States->find('list', ['limit' => 200]);
-//        $examBatch = $this->ExamBatches->find('list', ['limit' => 200]);
-//        $examType = $this->ExamTypes->find('list', ['limit' => 200]);
+        //        $this->loadModel('States');
+        //        $this->loadModel('ExamTypes');
+        //        $this->loadModel('ExamBatches');
+        //        $state = $this->States->find('list', ['limit' => 200]);
+        //        $examBatch = $this->ExamBatches->find('list', ['limit' => 200]);
+        //        $examType = $this->ExamTypes->find('list', ['limit' => 200]);
 
         $this->set(compact('user'));
     }
@@ -161,7 +161,7 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-//        $groups = $this->Users->UserGroups->find('list', ['limit' => 200]);
+        //        $groups = $this->Users->UserGroups->find('list', ['limit' => 200]);
         $this->set(compact('user'));
     }
 }

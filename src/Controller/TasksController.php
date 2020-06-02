@@ -66,18 +66,20 @@ class TasksController extends AppController
             }
             $this->Flash->error(__('The task could not be saved. Please, try again.'));
             
-            // debug($task);
-            // die();
+
             return $this->redirect($this->referer());
         }
         $activities = $this->Tasks->Activities->find('list', ['limit' => 200]);
-            // sql($activities_info);
-            // die();
-            // echo $activities_info;
+
         $oldTasks = $this->Tasks->find('list')->where(['activity_id'=>$id]);
-        // debug($oldTasks);
+        $activity = $this->Tasks->Activities->find('all')->where(['activity_id'=>$id])->first();
+        $start_date = ($activity->start_date)->format("d-m-Y");
+        $end_date = ($activity->end_date)->format("d-m-Y");
+
+        // debug($end_date);
         // die();
-        $this->set(compact('task','activities', 'id','oldTasks'));
+
+        $this->set(compact('task','activities', 'id','oldTasks','start_date','end_date'));
     }
 
     /**

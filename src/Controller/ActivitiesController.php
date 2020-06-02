@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 namespace App\Controller;
 
@@ -89,7 +89,7 @@ class ActivitiesController extends AppController
 
             //            return $this->redirect(['controller' => 'ProjectDetails', 'action' => 'view', $project_id]);
 
-//            return $this->redirect($this->referer());
+            //            return $this->redirect($this->referer());
         }
         $projects = $this->Activities->Projects->find('list', ['limit' => 200]);
         $projectDetails = $this->Activities->Projects->get($project_id, [
