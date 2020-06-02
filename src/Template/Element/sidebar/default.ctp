@@ -3,7 +3,7 @@
 <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
         <div class="sidebar-brand-icon rotate-n-15">
             <!--            <i class="fas fa-laugh-wink"></i>-->
         </div>
@@ -12,7 +12,7 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
-
+    <?php if ($_SESSION['role'] == "Project Executive" or $_SESSION['role'] == "Administrator" ){ ?>
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
         <?= $this->Html->link(__('<i class="fa fa-line-chart fa-lg"></i> &nbsp;Dashboard'), ['controller' => 'Dashboard', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link']) ?>
@@ -20,7 +20,7 @@
         <!--            <i class="fas fa-fw fa-tachometer-alt"></i>-->
         <!--            <span>Dashboard</span></a>-->
     </li>
-
+    <?php } ?>
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -28,7 +28,7 @@
     <div class="sidebar-heading">
         User Options
     </div>
-
+    <?php if ($_SESSION['role'] == "Project Executive" or $_SESSION['role'] == "Administrator" or $_SESSION['role'] == "Project Manager"){ ?>
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">-->
@@ -48,6 +48,8 @@
         <!--            </div>-->
         <!--        </div>-->
     </li>
+    <?php } ?>
+    <?php if ($_SESSION['role'] == "Project Executive" or $_SESSION['role'] == "Administrator"){ ?>
     <li class="nav-item">
         <!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">-->
         <!--            <i class="fas fa-fw fa-cog"></i>-->
@@ -76,6 +78,8 @@
             </div>
         </div>
     </li>
+    <?php } ?>
+    <?php if ($_SESSION['role'] == "Project Executive" or $_SESSION['role'] == "Administrator" or $_SESSION['role'] == "DPPC"){ ?>
     <li class="nav-item">
         <a href="#collapseExample2" class="nav-link collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample2">
             <i class="fa fa-archive fa-lg"></i> &nbsp;DPPC</a>
@@ -100,6 +104,7 @@
             </div>
         </div>
     </li>
+    <?php } ?>
     <li class="nav-item">
         <!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">-->
         <!--            <i class="fas fa-fw fa-cog"></i>-->
@@ -128,7 +133,7 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider">
-
+    <?php if ($_SESSION['role'] == "Project Executive" or $_SESSION['role'] == "Administrator" ){ ?>
     <!-- Heading -->
     <div class="sidebar-heading">
         Administrative options
@@ -222,4 +227,5 @@
     <!--        <button class="rounded-circle border-0" id="sidebarToggle"></button>-->
     <!--    </div>-->
 
+<?php } ?> 
 </ul>

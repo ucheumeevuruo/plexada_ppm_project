@@ -72,8 +72,12 @@ class MilestonesController extends AppController
         $ddi  = $this->ProjectDetails->find('all', ['conditions' => ['project_id' => $id]]);
         foreach ($ddi as $a);
         $result = $a->budget;
+
         $start_date = ($a->start_dt)->format("d-m-Y");
         $end_date = ($a->end_dt)->format("d-m-Y");
+
+        // debug($end_date);
+        // die();
 
         $indicator = $this->Milestones->find('all')->where(['project_id' => $id]);
 
@@ -123,14 +127,17 @@ class MilestonesController extends AppController
 
         $projects = $this->Milestones->Projects->find('list', ['limit' => 200]);
 
-        // debug($projects);
-        // die();
+        $result  = $this->ProjectDetails->find('all', ['conditions' => ['project_id' => $milestone->project_id]])->first();
+        $budget = $result->budget;
+        $start_date = ($result->start_dt)->format("d-m-Y");
+        $end_date = ($result->end_dt)->format("d-m-Y");
 
-        // $projectDetails = $this->Milestones->ProjectDetails->find('list', ['limit' => 200]);
+        // debug($milestone->project_id);
+        // die();
 
         $lov = $this->Milestones->Lov->find('list', ['limit' => 200]);
         $triggers = $this->Milestones->Triggers->find('list', ['limit' => 200]);
-        $this->set(compact('milestone', 'projects', 'lov', 'triggers'));
+        $this->set(compact('milestone', 'projects', 'lov', 'triggers','budget','start_date','end_date'));
     }
 
     /**

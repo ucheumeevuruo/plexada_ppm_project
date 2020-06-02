@@ -71,7 +71,8 @@ $this->end();
         $('#start_date, #end_date').datepicker({
             inline: true,
             "format": "dd/mm/yyyy",
-            // "endDate": "09-15-2017",
+            startDate: "<?php echo $s_date; ?>",
+            endDate: "<?php echo $e_date; ?>",
             "keyboardNavigation": false
         });
     });
