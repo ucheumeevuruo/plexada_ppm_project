@@ -56,8 +56,8 @@ class DisbursementsController extends AppController
 
                 return $this->redirect($this->referer());
             }
-            debug($disbursement);
-            die();
+            // debug($disbursement);
+            // die();
             $this->Flash->error(__('The disbursement could not be saved. Please, try again.'));
             return $this->redirect($this->referer());
         }

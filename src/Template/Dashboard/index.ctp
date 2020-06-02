@@ -567,27 +567,6 @@ $this->end();
             <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
             <script>
                 var ctx = document.getElementById('fundingType').getContext('2d');
-                // var options = {
-                //     tooltips: {
-                //         enabled: false
-                //     },
-                //     plugins: {
-                //         datalabels: {
-                //             formatter: (value, ctx) => {
-                //                 let datasets = ctx.chart.data.datasets;
-                //                 if (datasets.indexOf(ctx.datasets) === datasets.length - 1) {
-                //                     let sum = datasets[0].data.reduce((a, b) => a + b, 0);
-                //                     let percentage = Math.round((value / sum) * 100) + '%';
-                //                     return percentage;
-                //                 } else {
-                //                     return 10;
-                //                 }
-                //             },
-                //             color: '#fff',
-                //         }
-                //     }
-                // };
-
                 var chart = new Chart(ctx, {
                     // The type of chart we want to create
 
