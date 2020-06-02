@@ -49,7 +49,8 @@ class Sponsor extends Entity
         'system_user_id' => true,
         'user' => true,
         'project_details' => true,
-        'sponsor_type_id' => true
+        'sponsor_type_id' => true,
+        'sponsor_type' => true
     ];
 
     protected function _getFullName(){

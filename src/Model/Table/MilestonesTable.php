@@ -12,8 +12,7 @@ use DateTime;
  * Milestones Model
  *
  * @property \App\Model\Table\ProjectsTable&\Cake\ORM\Association\BelongsTo $Projects
- * @property \App\Model\Table\LovTable&\Cake\ORM\Association\BelongsTo $Lov
- * @property \App\Model\Table\LovTable&\Cake\ORM\Association\BelongsTo $Lov
+ * @property \App\Model\Table\LovTable&\Cake\ORM\Association\BelongsTo $Statuses
  * @property \App\Model\Table\ActivitiesTable&\Cake\ORM\Association\HasMany $Activities
  * @property \App\Model\Table\ProjectFundingsTable&\Cake\ORM\Association\HasMany $ProjectFundings
  *
@@ -50,9 +49,10 @@ class MilestonesTable extends Table
             'foreignKey' => 'project_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Lov', [
+        $this->belongsTo('Statuses', [
+            'className' => 'Lov',
             'foreignKey' => 'status_id',
-            'conditions' => ['Lov.lov_type' => 'project_status']
+            'conditions' => ['Statuses.lov_type' => 'project_status']
         ]);
         $this->belongsTo('Triggers', [
             'className' => 'Lov',
@@ -148,8 +148,8 @@ class MilestonesTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['project_id'], 'Projects'));
-        $rules->add($rules->existsIn(['status_id'], 'Lov'));
-        $rules->add($rules->existsIn(['trigger_id'], 'Lov'));
+        $rules->add($rules->existsIn(['status_id'], 'Statuses'));
+//        $rules->add($rules->existsIn(['trigger_id'], 'Lov'));
 
         return $rules;
     }

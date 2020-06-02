@@ -90,7 +90,7 @@ $this->Paginator->setTemplates([
                 <?php foreach ($projects as $project) : ?>
                     <?php $count = 0; ?>
                     <?php $close = 0; ?>
-                    <?php foreach ($milestones as $milestone) : ?>
+                    <?php foreach ($project->milestones as $milestone) : ?>
                         <?php if ($milestone->project_id == $project->id) {
                             $count++;
                         } ?>
@@ -141,6 +141,17 @@ $this->Paginator->setTemplates([
                                                 <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
                                                     <div class="row">
                                                         <div class="col-auto">
+                                                            <?php if(!$project->has('project_detail')):?>
+                                                            <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'),
+                                                                ['controller' => 'project_details', 'action' => 'add'],
+                                                                ['class' => 'overlay', 'escape' => false, 'title' => 'Add Project']) ?>
+                                                            <?php else: ?>
+                                                            <?= $this->Html->link(__('<i class="fas fa-edit fa-1x text-gray-300"></i>'),
+                                                                ['controller' => 'project_details', 'action' => 'edit', $project->project_detail->id],
+                                                                ['class' => 'overlay', 'escape' => false, 'title' => 'Edit Project']) ?>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                        <div class="col-auto border-left">
                                                             <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['action' => 'edit', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Edit Project']) ?>
                                                         </div>
                                                         <div class="col-auto border-left">
@@ -189,6 +200,17 @@ $this->Paginator->setTemplates([
     <!-- the external content is loaded inside this tag -->
     <div id="contentWrap">
         <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-lg']) ?>
+        <?= $this->Modal->body() // No header
+        ?>
+        <?= $this->Modal->footer() // Footer with close button (default)
+        ?>
+        <?= $this->Modal->end() ?>
+    </div>
+</div>
+<div id="dialogModal" class="bg-primary">
+    <!-- the external content is loaded inside this tag -->
+    <div id="contentWrap2">
+        <?= $this->Modal->create(['id' => 'MyModal5', 'size' => 'modal-lg']) ?>
         <?= $this->Modal->body() // No header
         ?>
         <?= $this->Modal->footer() // Footer with close button (default)

@@ -31,7 +31,7 @@ class ProjectsController extends AppController
 
         $this->paginate = [
             'contain' => [
-                'ProjectDetails', 'ProjectDetails.Statuses', 'ProjectDetails.Currencies', 'Activities'
+                'ProjectDetails', 'ProjectDetails.Statuses', 'ProjectDetails.Currencies', 'Activities', 'Milestones'
             ],
             //            'maxLimit' => 3
             'finder' => [
@@ -41,16 +41,10 @@ class ProjectsController extends AppController
 //        $this->loadModel('Projects');
         $projects = $this->paginate($this->Projects);
 
-        $this->loadModel('Milestones');
-        $milestones =  $this->Milestones->find('all');
-
-        $this->loadModel('ProjectDetails');
-        $projectDetails =  $this->ProjectDetails->find('all');
-
         // debug($projectDetails);
         // die();
 
-        $this->set(compact('projects', 'milestones', 'projectDetails'));
+        $this->set(compact('projects'));
     }
 
     /**
@@ -79,21 +73,30 @@ class ProjectsController extends AppController
         $project = $this->Projects->get(
             $id,
             [
-                'contain' => ['Pims', 'ProjectFundings', 'ProjectDetails', 'Activities', 'Annotations', 'Milestones', 'Objectives', 'Prices', 'RiskIssues', 'Sponsors', 'Pads', 'ProjectDetails.Currencies'],
+                'contain' => [
+                    'Pims',
+                    'ProjectFundings',
+                    'ProjectDetails',
+                    'Activities',
+                    'Annotations',
+                    'Milestones',
+                    'Milestones.Statuses',
+                    'Objectives',
+                    'Prices',
+                    'RiskIssues',
+                    'ProjectDetails.Donors',
+                    'ProjectDetails.Donors.SponsorTypes',
+                    'ProjectDetails.Sponsors',
+                    'ProjectDetails.Sponsors.SponsorTypes',
+                    'Pads',
+                    'ProjectDetails.Currencies'
+                ],
             ]
         );
 
-        $proDetail = $this->ProjectDetails->find('all')->contain(['Currencies'])->where(['project_id' => $id]);
-        $this->set('project', $project, 'proDetail');
-
-
-        $this->loadModel('ProjectDetails');
-        $projectDet = $this->ProjectDetails->find('all')->contain(['Sponsors'])->where(['project_id' => $id]);
-        $this->loadModel('Sponsors');
-        $spons = $this->Sponsors->find('all')->contain(['ProjectDetails']);
+//        debug($project->milestones[0]->count());
 
         $this->loadModel('Milestones');
-        $milestone_list =  $this->Milestones->find('all');
         $closedCount =  $this->Milestones->find('all', ['conditions' => ['project_id' => $id, 'status_id' => 3]])->count();
         $allCount =  $this->Milestones->find('all', ['conditions' => ['project_id' => $id]])->count();
         if ($allCount === 0) {
@@ -112,14 +115,8 @@ class ProjectsController extends AppController
                 $colorCode = 'black';
             }
         }
-        // debug($allCount);
-        // die();
 
-        $milestones = $this->Projects->Milestones->find()->contain(['Activities']);
-
-        // debug($project);
-        // die();
-        $this->set(compact('project', 'milestones', 'milestone_list', 'projectDet', 'spons', 'colorCode'));
+        $this->set(compact('project', 'colorCode'));
     }
 
     public function milestones($project_id = null)
@@ -127,7 +124,7 @@ class ProjectsController extends AppController
         $q = $this->request->getQuery('q');
 
         $milestones = $this->Projects->Milestones->find()
-            ->contain(['Lov', 'Projects.ProjectDetails.Currencies'])
+            ->contain(['Statuses', 'Projects.ProjectDetails.Currencies'])
             ->where(['Milestones.project_id' => $project_id]);
 
         $milestones = $this->paginate($milestones);
@@ -140,7 +137,7 @@ class ProjectsController extends AppController
         $q = $this->request->getQuery('q');
 
         $milestones = $this->Projects->Milestones->find()
-            ->contain(['Lov', 'Projects.ProjectDetails.Currencies'])
+            ->contain(['Statuses', 'Projects.ProjectDetails.Currencies'])
             ->where(['Milestones.project_id' => $project_id]);
 
         $milestones = $this->paginate($milestones);

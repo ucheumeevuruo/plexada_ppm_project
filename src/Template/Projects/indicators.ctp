@@ -120,7 +120,7 @@ $this->Paginator->setTemplates([
             <div class="col-xl-3 col-md-6 mb-4"
                 data-attr="<?= $this->Url->build(['controller' => 'milestones', 'action' => 'view', $project_id]) ?>">
                 <div
-                    class="card <?= $this->Indicator->status($milestone->has('lov') ? $milestone->lov->lov_value : '') ?> shadow py-0">
+                    class="card <?= $this->Indicator->status($milestone->has('status') ? $milestone->status->lov_value : '') ?> shadow py-0">
                     <div class="card-body py-2 px-2">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -152,7 +152,7 @@ $this->Paginator->setTemplates([
                                 <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in"
                                     aria-labelledby="dropdownMenuLink">
                                     <div class="dropdown-item text-gray-900">Status:
-                                        <?= $milestone->has('lov') ? $milestone->lov->lov_value : 'Not Defined' ?></div>
+                                        <?= $milestone->has('status') ? $milestone->status->lov_value : 'Not Defined' ?></div>
                                     <div class="dropdown-item text-gray-900">Start Date: <?= $milestone->start_date ?>
                                     </div>
                                     <div class="dropdown-item text-gray-900">End Date: <?= $milestone->end_date ?></div>

@@ -1,4 +1,4 @@
- <?php
+<?php
 
 namespace App\Controller;
 
@@ -8,6 +8,9 @@ use App\Controller\AppController;
  * Activities Controller
  *
  * @property \App\Model\Table\ActivitiesTable $Activities
+ * @property \App\Model\Table\MilestonesTable $Milestones
+ * @property \App\Model\Table\ProjectDetailsTable $ProjectDetails
+ * @property \App\Model\Table\ProjectsTable $Projects
  *
  * @method \App\Model\Entity\Activity[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
@@ -75,7 +78,9 @@ class ActivitiesController extends AppController
      */
     public function add($project_id = null)
     {
-        $this->loadModel('Milestones');
+        $project = $this->Activities->Projects->get($project_id, [
+            'contain' => ['ProjectDetails', 'ProjectDetails.Currencies', 'Activities']
+        ]);
         $activity = $this->Activities->newEntity();
         if ($this->request->is('post')) {
             $activity = $this->Activities->patchEntity($activity, $this->Activities->identify($this->request->getData()));
@@ -86,21 +91,19 @@ class ActivitiesController extends AppController
                 return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The activity could not be saved. Please, try again.'));
-
-            //            return $this->redirect(['controller' => 'ProjectDetails', 'action' => 'view', $project_id]);
-
-            //            return $this->redirect($this->referer());
         }
         $projects = $this->Activities->Projects->find('list', ['limit' => 200]);
-        $projectDetails = $this->Activities->Projects->get($project_id, [
-            'contain' => ['ProjectDetails', 'ProjectDetails.Currencies']
-        ]);
         $staff = $this->Activities->Staff->find('list', ['limit' => 200]);
         $priority = $this->Activities->Priorities->find('list', ['limit' => 200]);
         $status = $this->Activities->Statuses->find('list', ['limit' => 200]);
         $users = $this->Activities->Users->find('list', ['limit' => 200]);
-        $milestones = $this->Activities->Milestones->find('list', ['limit' => 200, 'conditions' => ['project_id' => $project_id]]);
-        $this->set(compact('activity', 'projectDetails', 'staff', 'priority', 'status', 'users', 'project_id', 'milestones', 'projects'));
+        $activityTotal = 0;
+        foreach ($project->activities as $act) {
+            $activityTotal += $act->cost;
+        }
+        $sumDiff = $project->budget - $activityTotal;
+        $milestone = $this->Activities->Milestones->find('list', ['limit' => 200, 'conditions' => ['project_id' => $project_id]]);
+        $this->set(compact('activity', 'projects', 'project', 'staff', 'priority', 'sumDiff', 'status', 'users', 'milestone'));
     }
 
     /**

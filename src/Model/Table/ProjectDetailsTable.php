@@ -14,8 +14,6 @@ use DateTime;
  * @property \App\Model\Table\VendorsTable&\Cake\ORM\Association\BelongsTo $Vendors
  * @property \App\Model\Table\StaffTable&\Cake\ORM\Association\BelongsTo $Staff
  * @property \App\Model\Table\SponsorsTable&\Cake\ORM\Association\BelongsTo $Sponsors
- * @property \App\Model\Table\StaffTable&\Cake\ORM\Association\BelongsTo $Staff
- * @property \App\Model\Table\LovTable&\Cake\ORM\Association\BelongsTo $Lov
  * @property \App\Model\Table\LovTable&\Cake\ORM\Association\BelongsTo $Lov
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  * @property \App\Model\Table\AnnotationsTable&\Cake\ORM\Association\BelongsTo $Annotations
@@ -117,8 +115,19 @@ class ProjectDetailsTable extends Table
             'joinType' => 'INNER',
             'conditions' => ['Statuses.lov_type' => 'project_status']
         ]);
+//        $this->belongsTo('Donors', [
+//            'className' => 'Sponsors',
+//            'foreignKey' => 'sponsor_id',
+////            'conditions' => ['Donors.sponsor_type' => 'donor']
+//        ]);
+        $this->hasMany('Donors', [
+            'className' => 'Sponsors',
+            'foreignKey' => 'id',
+            'conditions' => ['SponsorTypes.lov_value' => 'donor']
+        ]);
         $this->hasMany('Sponsors', [
             'foreignKey' => 'id',
+            'conditions' => ['SponsorTypes.lov_value' => 'sponsor']
         ]);
     }
 
