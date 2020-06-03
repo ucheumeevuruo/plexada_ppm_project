@@ -68,9 +68,13 @@ class AppController extends Controller
         ]);
         $this->loadComponent('Flash');
         $this->loadComponent('Auth', [
+            'loginAction' => [
+                'controller' => 'Staff',
+                'action' => 'login',
+            ],
             'authenticate' => [
                 'Form' => [
-                    'userModel' => 'Users',
+                    'userModel' => 'Users'
                 ]
             ],
             'loginRedirect' => [
@@ -78,7 +82,7 @@ class AppController extends Controller
                 'action' => 'index'
             ],
             'logoutRedirect' => [
-                'controller' => 'users',
+                'controller' => 'staff',
                 'action' => 'index'
             ],
             'storage' => [
@@ -113,20 +117,20 @@ class AppController extends Controller
 
     public function beforeFilter(Event $event)
     {
-        $this->Auth->allow(['login', 'logout', 'register']);
-
-        $this->loadModel('ProjectDetails');
-        $dateDiff = 30;
-        $today = date("Y-m-d");
-        $qryproject = $this->ProjectDetails->find()->where("DATEDIFF(end_dt,'$today') <= $dateDiff ");
-        // $qryproject = $this->ProjectDetails->find('all');
-        // $diff = $qryproject->func()->dateDiff(['ProjectDetails.end_dt', $today] <= 30) ;
-        // $qryproject->select(['difference' => $diff,]);
-        // $qryproject = $this->ProjectDetails->find('all')->where(['end_dt <='=> $today]) ;
-        // debug($qryproject->all());
-        // die();
-        $projectCount = $qryproject->count();
-        $this->set(compact('qryproject','projectCount'));
+//        $this->Auth->allow(['login', 'logout', 'register']);
+//
+//        $this->loadModel('ProjectDetails');
+//        $dateDiff = 30;
+//        $today = date("Y-m-d");
+//        $qryproject = $this->ProjectDetails->find()->where("DATEDIFF(end_dt,'$today') <= $dateDiff ");
+//        // $qryproject = $this->ProjectDetails->find('all');
+//        // $diff = $qryproject->func()->dateDiff(['ProjectDetails.end_dt', $today] <= 30) ;
+//        // $qryproject->select(['difference' => $diff,]);
+//        // $qryproject = $this->ProjectDetails->find('all')->where(['end_dt <='=> $today]) ;
+//        // debug($qryproject->all());
+//        // die();
+//        $projectCount = $qryproject->count();
+//        $this->set(compact('qryproject','projectCount'));
 
     }
 }

@@ -8,19 +8,23 @@
     <?= $this->Form->create($staff) ?>
     <fieldset>
         <legend><?= __('Add Staff') ?></legend>
-        <?php
-            echo $this->Form->control('last_name');
-            echo $this->Form->control('first_name');
-            echo $this->Form->control('other_names');
-            echo $this->Form->control('role_id', ['options' => $roles, 'empty' => true, 'required' => true]);
-            echo $this->Form->control('address');
-            echo $this->Form->control('state');
-            echo $this->Form->control('country');
-            echo $this->Form->control('email');
-            echo $this->Form->control('phone_no');
-//            echo $this->Form->control('last_updated');
-//            echo $this->Form->control('system_user_id', ['options' => $users, 'empty' => true]);
-        ?>
+        <div class="row">
+            <div class="col-md-6">
+                <?= $this->Form->control('first_name'); ?>
+                <?= $this->Form->control('last_name'); ?>
+                <?= $this->Form->control('other_names'); ?>
+                <?= $this->Form->control('user.username'); ?>
+                <?= $this->Form->control('user.email'); ?>
+                <?= $this->Form->control('user.password'); ?>
+            </div>
+            <div class="col-md-6">
+                <?= $this->Form->control('role_id', ['options' => $roles, 'empty' => true, 'required' => true]); ?>
+                <?= $this->Form->control('address', ['type' => 'textarea']); ?>
+                <?= $this->Form->control('state'); ?>
+                <?= $this->Form->control('country'); ?>
+                <?= $this->Form->control('phone_no'); ?>
+            </div>
+        </div>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>

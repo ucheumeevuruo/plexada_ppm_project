@@ -24,7 +24,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime|null $modified
  *
  * @property \App\Model\Entity\Project $project
- * @property \App\Model\Entity\Lov $lov
+ * @property \App\Model\Entity\Lov $status
  * @property \App\Model\Entity\Lov $trigger
  * @property \App\Model\Entity\Activity[] $activities
  * @property \App\Model\Entity\ProjectFunding[] $project_fundings
@@ -57,7 +57,7 @@ class Milestone extends Entity
         'created' => true,
         'modified' => true,
         'project' => true,
-        'lov' => true,
+        'status' => true,
         'trigger' => true,
         'activities' => true,
         'project_fundings' => true,

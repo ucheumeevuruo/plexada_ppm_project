@@ -20,8 +20,17 @@ class StaffController extends AppController
      */
     public function index()
     {
+        $q = $this->request->getQuery('q');
+
+        $customFinderOptions = [
+            'name' => $q
+        ];
+
         $this->paginate = [
             'contain' => ['Users', 'Roles'],
+            'finder' => [
+                'byName' => $customFinderOptions
+            ]
         ];
         $staff = $this->paginate($this->Staff);
 
@@ -76,7 +85,7 @@ class StaffController extends AppController
     public function edit($id = null)
     {
         $staff = $this->Staff->get($id, [
-            'contain' => [],
+            'contain' => ['Users'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $staff = $this->Staff->patchEntity($staff, $this->request->getData());
@@ -110,5 +119,49 @@ class StaffController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function login()
+    {
+        if ($this->request->is('post')) {
+            $redirect = $this->request->getQuery('redirect');
+            $user = $this->Auth->identify();
+            if ($user) {
+                $staff = $this->Staff->find('all')
+                    ->contain(['Roles'])
+                    ->where(['system_user_id' => $user['id']])
+                    ->first();
+                $this->Auth->setUser($staff);
+                if(isset($redirect))
+                    return $this->redirect($this->Auth->redirectUrl($redirect));
+                else
+                    return $this->redirect($this->Auth->redirectUrl('/projects'));
+            }
+            $this->Flash->error(__('Login credentials failed, please try again'));
+        }
+
+        $this->set(compact('user'));
+    }
+
+    public function logout()
+    {
+        return $this->redirect($this->Auth->logout());
+    }
+
+    public function register()
+    {
+        $staff = $this->Staff->newEntity();
+        if ($this->request->is('post')) {
+            $staff = $this->Staff->patchEntity($staff, $this->request->getData());
+//            debug($staff);die();
+            if ($this->Staff->save($staff)) {
+                $this->Flash->success(__('The user has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        }
+        $role = $this->Staff->Roles->find('list', ['limit' => 200]);
+        $this->set(compact('staff', 'role'));
     }
 }

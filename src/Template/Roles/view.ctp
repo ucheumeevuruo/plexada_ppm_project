@@ -16,10 +16,6 @@ $this->end();
             <td><?= h($role->name) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($role->id) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Created') ?></th>
             <td><?= h($role->created) ?></td>
         </tr>

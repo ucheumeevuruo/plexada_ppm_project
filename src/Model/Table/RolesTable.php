@@ -44,6 +44,19 @@ class RolesTable extends Table
         ]);
     }
 
+    public function findByName(Query $query, $options)
+    {
+        $name = $options['name'];
+
+        if(!is_null($name))
+        {
+            $query->where(function ($exp, Query $q) use ($name){
+                return $exp->like('name', "%$name%");
+            });
+        }
+        return $query;
+    }
+
     /**
      * Default validation rules.
      *

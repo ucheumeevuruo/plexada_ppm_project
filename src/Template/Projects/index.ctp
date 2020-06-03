@@ -39,7 +39,7 @@ $this->Paginator->setTemplates([
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <div class="mr-auto mt-2 mt-lg-0">
-                <?= $this->Html->link(__('Create'), ['action' => 'add'], ['class' => 'overlay btn btn-info', 'escape' => false]) ?>
+                 <?= $this->Html->link(__('Create'), ['action' => 'add'], ['class' => 'btn btn-info rounded-0 overlay', 'title' => 'Add', 'escape' => false]) ?>
             </div>
             <div class="col-auto">
             </div>
@@ -364,7 +364,90 @@ $this->Paginator->setTemplates([
         <?= $this->Modal->end() ?>
     </div>
 </div>
+<div id="dialogModal" class="bg-primary">
+    <!-- the external content is loaded inside this tag -->
+    <div id="contentWrap2">
+        <?= $this->Modal->create(['id' => 'MyModal5', 'size' => 'modal-lg']) ?>
+        <?= $this->Modal->body() // No header
+        ?>
+        <?= $this->Modal->footer() // Footer with close button (default)
+        ?>
+        <?= $this->Modal->end() ?>
+    </div>
+</div>
 <script>
+    function openUrl(href, object){
+        let body = '';
+        let project_id = object.attr('data-attr')
+        $.ajax({
+            url: href,
+            // contentType: "application/json",
+            // dataType: 'json',
+            beforeSend: function(){
+                $('#dropdown-layer'+ project_id + ' .o_no_activity').html(
+                    `<div class="px-5">
+                         <i class="fas fa-spinner fa-spin fa-3x"></i>
+                     </div>`
+                )
+                $('#dropdown-layer'+project_id).addClass('show');
+                // $('#loader').show();
+                // object.after(
+                //     `<div id="dropdown-layer${project_id}" class="dropdown-menu shadow animated--fade-in show"
+                //     aria-labelledby="dropdownMenuLink${project_id}" style="width: 500px">
+                //         <div class="container-fluid activity">
+                //             <div class="px-5" style='width: 20px;'>
+                //                 <i class="fas fa-spinner fa-spin fa-3x"></i>
+                //             </div>
+                //         </div>
+                //     </div>`
+                // );
+            },
+            success: function(result){
+                $.each(result.result, function (index, activities) {
+                    // console.log(activities)
+                    $.each(activities, function (key, activity) {
+                        // console.log(activity.name)
+
+                        body += `<tr><td>${activity.name}</td>
+<!--                                <td>${activity.description}</td>-->
+                                <td>${activity.staff.last_name} ${activity.staff.first_name}</td>
+                                <td>${activity.status.lov_value}</td>
+                                <td>${activity.start_date}</td>
+                                <td>${activity.end_date}</td></tr>`
+                    })
+                })
+                object.parent().addClass('dropdown show no-arrow')
+                object.replaceWith(`<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink${project_id}"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <i class="fas fa-clock fa-1x text-warning"></i>
+                    </a>`
+                );
+                $('#dropdown-layer' + project_id + ' .o_no_activity').replaceWith(
+                    `<table class="table table-sm table-striped table-responsive">
+                        <thead>
+                            <th>Name</th>
+<!--                            <th>Description</th>-->
+                            <th>Assigned To</th>
+                            <th>Status</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                        </thead>
+                        <tbody>
+                            ${body}
+                        </tbody>
+                    </table>`
+                );
+            },
+            complete: function(){
+                $('#loader').hide();
+            },
+            error: function(jqXHR, testStatus, error){
+                alert("Page " + href + " cannot open.");
+                $('#loader').hide();
+            },
+            // timeout: 5000
+        })
+    }
     $(document).ready(function() {
         //respond to click event on anything with 'overlay' class
         $(".overlay").click(function(event) {
@@ -376,5 +459,9 @@ $this->Paginator->setTemplates([
                 $('#MyModal4').modal('show')
             });
         });
+        $(".sub-layer").click(function (event) {
+            event.preventDefault();
+            openUrl($(this).attr('href'), $(this))
+        })
     });
 </script>

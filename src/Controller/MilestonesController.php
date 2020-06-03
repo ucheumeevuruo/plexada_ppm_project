@@ -21,7 +21,7 @@ class MilestonesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Projects', 'Lov', 'Triggers'],
+            'contain' => ['Projects', 'Statuses', 'Triggers'],
         ];
         $milestones = $this->paginate($this->Milestones);
 
@@ -49,15 +49,20 @@ class MilestonesController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add($id = null)
+    public function add($project_id = null)
     {
-        $this->loadModel('ProjectDetails');
 
+//        $project_id = $this->request->getData('project_id');
+
+
+        $project = $this->Milestones->Projects->get($project_id, [
+            'contain' => ['ProjectDetails', 'Milestones'],
+            'limit' => 200
+        ]);
         $milestone = $this->Milestones->newEntity();
         if ($this->request->is('post')) {
             //  $milestone = $this->Milestones->patchEntity($milestone, $this->request->getData());
             $milestone = $this->Milestones->patchEntity($milestone, $this->Milestones->identify($this->request->getData()));
-
             if ($this->Milestones->save($milestone)) {
                 $this->Flash->success(__('Indicator saved successfully.'));
                 return $this->redirect($this->referer());
@@ -65,37 +70,25 @@ class MilestonesController extends AppController
             $this->Flash->error(__('The milestone could not be saved. Please, try again.'));
             //            return $this->redirect($this->referer());
         }
+
         $projects = $this->Milestones->Projects->find('list', ['limit' => 200]);
 
-        // $ddi = $this->ProjectDetails->find('all')->where(['project_id'=> $projects->id]);
+//        $indicator = $this->Milestones->find('all')->where(['project_id' => $id]);
 
-        $ddi  = $this->ProjectDetails->find('all', ['conditions' => ['project_id' => $id]]);
-        foreach ($ddi as $a);
-        $result = $a->budget;
-
-        $start_date = ($a->start_dt)->format("d-m-Y");
-        $end_date = ($a->end_dt)->format("d-m-Y");
-
-        // debug($end_date);
-        // die();
-
-        $indicator = $this->Milestones->find('all')->where(['project_id' => $id]);
-
-        $indiTotal = 0;
-        foreach ($indicator as $ind) {
-            $indiTotal = $indiTotal + $ind->amount;
+        $indicatorTotal = 0;
+        foreach ($project->milestones as $milestone) {
+            $indicatorTotal += $milestone->amount;
         }
-        $sumDiff = $result - $indiTotal;
+        $sumDiff = $project->budget - $indicatorTotal;
 
         // debug($sumDiff);
         // debug($start_date);
         // die();
 
-        $lov = $this->Milestones->Lov->find('list', ['limit' => 200])->where(['lov_type' => 'project_status']);
-        //        $triggers = $this->Milestones->Triggers->find('list', ['limit' => 200]);
+        $status = $this->Milestones->Statuses->find('list', ['limit' => 200])->where(['lov_type' => 'project_status']);
         $triggers = [];
 
-        $this->set(compact('milestone', 'projects', 'lov', 'triggers', 'id',  'result', 'start_date','end_date', 'sumDiff' ));
+        $this->set(compact('milestone', 'projects', 'project', 'project_id', 'status', 'triggers', 'sumDiff' ));
     }
 
     /**

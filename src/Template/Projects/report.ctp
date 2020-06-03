@@ -107,16 +107,11 @@ $this->end();
                             <?= h('Sponsors') ?>
                         </div>
                         <div class="h6 mb-0 text-gray-800">
-                            <?php foreach ($projectDet as $prodet) : ?>
-                                <?php foreach ($spons as $spon) : ?>
-                                    <?php if ($prodet->sponsor_id == $spon->id) : ?>
-                                        <p>
-                                            <?= h($spon->first_name) ?>
-                                            <?= h($spon->last_name) ?>
-                                        </p>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            <?php endforeach; ?>
+
+                            <?php foreach ($project->project_detail->sponsors as $sponsor): ?>
+
+                                <?= h($sponsor->full_name) ?>
+                            <?php endforeach;?>
                         </div>
                     </div>
                 </div>
@@ -132,16 +127,10 @@ $this->end();
                             <?= h('Donors') ?>
                         </div>
                         <div class="h6 mb-0 text-gray-800">
-                            <?php foreach ($projectDet as $prodet) : ?>
-                                <?php foreach ($spons as $spon) : ?>
-                                    <?php if ($prodet->donor_id == $spon->id) : ?>
-                                        <p>
-                                            <?= h($spon->first_name) ?>
-                                            <?= h($spon->last_name) ?>
-                                        </p>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            <?php endforeach; ?>
+                            <?php foreach ($project->project_detail->donors as $donor): ?>
+
+                                <?= h($donor->full_name) ?>
+                            <?php endforeach;?>
                         </div>
                     </div>
                 </div>
@@ -190,16 +179,10 @@ $this->end();
                             <?= h('MDA') ?>
                         </div>
                         <div class="h6 mb-0 text-gray-800 ">
-                            <?php foreach ($projectDet as $prodet) : ?>
-                                <?php foreach ($spons as $spon) : ?>
-                                    <?php if ($prodet->mda_id == $spon->id) : ?>
-                                        <p>
-                                            <?= h($spon->first_name) ?>
-                                            <?= h($spon->last_name) ?>
-                                        </p>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            <?php endforeach; ?>
+                            <?php foreach ($project->project_detail->mdas as $mda): ?>
+
+                                <?= h($mda->full_name) ?>
+                            <?php endforeach;?>
                         </div>
                     </div>
                 </div>

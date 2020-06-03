@@ -19,8 +19,17 @@ class SponsorsController extends AppController
      */
     public function index()
     {
+        $q = $this->request->getQuery('q');
+
+        $customFinderOptions = [
+            'name' => $q
+        ];
+
         $this->paginate = [
             'contain' => ['Users', 'SponsorTypes'],
+            'finder' => [
+                'byName' => $customFinderOptions
+            ]
         ];
         $sponsors = $this->paginate($this->Sponsors);
 
@@ -37,7 +46,7 @@ class SponsorsController extends AppController
     public function view($id = null)
     {
         $sponsor = $this->Sponsors->get($id, [
-            'contain' => ['Users', 'ProjectDetails'],
+            'contain' => ['Users', 'ProjectDetails', 'ProjectDetails.Projects', 'ProjectDetails.Statuses', 'ProjectDetails.Currencies'],
         ]);
 
         $this->set('sponsor', $sponsor);

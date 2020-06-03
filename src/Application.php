@@ -34,6 +34,8 @@ class Application extends BaseApplication
      */
     public function bootstrap()
     {
+        $this->addPlugin('Rest', ['bootstrap' => true]);
+
 
         //$this->addPlugin('DebugKit');
 

@@ -12,7 +12,7 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
-    <?php if ($_SESSION['role'] == "Project Executive" or $_SESSION['role'] == "Administrator") { ?>
+    <?php if ($_SESSION['Auth']['Users']->role->name == "Project Executive" or $_SESSION['Auth']['Users']->role->name == "Administrator") { ?>
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
             <?= $this->Html->link(__('<i class="fa fa-line-chart fa-lg"></i> &nbsp;Dashboard'), ['controller' => 'Dashboard', 'action' => 'index'], ['escape' => false, 'class' => 'nav-link']) ?>
@@ -28,7 +28,7 @@
     <div class="sidebar-heading">
         User Options
     </div>
-    <?php if ($_SESSION['role'] == "Project Executive" or $_SESSION['role'] == "Administrator" or $_SESSION['role'] == "Project Manager") { ?>
+    <?php if (strtolower($_SESSION['Auth']['Users']->role->name) == "project executive" or strtolower($_SESSION['Auth']['Users']->role->name) == "administrator" or strtolower($_SESSION['Auth']['Users']->role->name) == "project manager") { ?>
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">-->
@@ -49,7 +49,7 @@
             <!--        </div>-->
         </li>
     <?php } ?>
-    <?php if ($_SESSION['role'] == "Project Executive" or $_SESSION['role'] == "Administrator") { ?>
+    <?php if (strtolower($_SESSION['Auth']['Users']->role->name) == "project executive" or strtolower($_SESSION['Auth']['Users']->role->name) == "administrator") { ?>
         <li class="nav-item">
             <!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">-->
             <!--            <i class="fas fa-fw fa-cog"></i>-->
@@ -79,7 +79,7 @@
             </div>
         </li>
     <?php } ?>
-    <?php if ($_SESSION['role'] == "Project Executive" or $_SESSION['role'] == "Administrator" or $_SESSION['role'] == "DPPC") { ?>
+    <?php if (strtolower($_SESSION['Auth']['Users']->role->name) == "project executive" or strtolower($_SESSION['Auth']['Users']->role->name) == "administrator" or strtolower($_SESSION['Auth']['Users']->role->name) == "dppc") { ?>
         <li class="nav-item">
             <a href="#collapseExample2" class="nav-link collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample2">
                 <i class="fa fa-archive fa-lg"></i> &nbsp;DPPC</a>
@@ -133,7 +133,7 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider">
-    <?php if ($_SESSION['role'] == "Project Executive" or $_SESSION['role'] == "Administrator") { ?>
+    <?php if (strtolower($_SESSION['Auth']['Users']->role->name) == "project executive" or strtolower($_SESSION['Auth']['Users']->role->name) == "administrator") { ?>
         <!-- Heading -->
         <div class="sidebar-heading">
             Administrative options
@@ -179,13 +179,6 @@
         </li>
         <li class="nav-item">
             <?= $this->Html->link(
-                __('<i class="fa fa-user-circle fa-lg"></i> &nbsp;Donors'),
-                ['controller' => 'Vendors', 'action' => 'index'],
-                ['escape' => false, 'class' => 'nav-link collapsed']
-            ) ?>
-        </li>
-        <li class="nav-item">
-            <?= $this->Html->link(
                 __('<i class="fa fa-user fa-lg"></i> &nbsp;Sponsors'),
                 ['controller' => 'Sponsors', 'action' => 'index'],
                 ['escape' => false, 'class' => 'nav-link collapsed']
@@ -195,13 +188,6 @@
             <?= $this->Html->link(
                 __('<i class="fa fa-cube fa-lg"></i> &nbsp;Roles'),
                 ['controller' => 'Roles', 'action' => 'index'],
-                ['escape' => false, 'class' => 'nav-link collapsed']
-            ) ?>
-        </li>
-        <li class="nav-item">
-            <?= $this->Html->link(
-                __('<i class="fa fa-user fa-lg"></i> &nbsp;Users'),
-                ['controller' => 'Users', 'action' => 'index'],
                 ['escape' => false, 'class' => 'nav-link collapsed']
             ) ?>
         </li>

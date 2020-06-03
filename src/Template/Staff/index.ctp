@@ -9,53 +9,82 @@ $this->end();
 $this->start('navbar');
 echo $this->element('navbar/default');
 $this->end();
+$this->Paginator->setTemplates([
+    'number' => '',
+    'nextActive' => '<li class="nav-item"><a class="nav-link navigator" href="{{url}}">{{text}}</a></li>',
+    'nextDisabled' => '<li class="nav-item"><a class="nav-link text-gray-300 unclickable" href="#">{{text}}</a></li>',
+    'prevActive' => '<li class="nav-item"><a class="nav-link navigator" href="{{url}}">{{text}}</a></li>',
+    'prevDisabled' => '<li class="nav-item"><a class="nav-link text-gray-300 unclickable" href="#">{{text}}</a></li>',
+    'first' => '',
+    'last' => ''
+]);
 ?>
-<div class="container-fluid">
-<h2 class="text-center text-primary pb-2 font-weight-bold"><?= __('Personnel') ?></h2>
+<!-- Menu area [Search, pagination] -->
+<!-- I was supposed to put this section in the element template but will do that soon. -->
+<nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
+    <a class="navbar-brand" href="#">Personnel</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <div class="shadow mb-4">
-        <div class="py-3 bg-primary br-t">
-            <h3 class="m-0 pl-3 text-white"><?= __('Add') ?>
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <?= $this->Html->link(__('<i class="fa fa-plus fa-lg"></i>'), ['action' => 'add'], ['class' => 'btn btn-light overlay ml-2', 'title' => 'Add', 'escape' => false]) ?>
-
-                </div>
-            </h3>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <div class="mr-auto mt-2 mt-lg-0">
+             <?= $this->Html->link(__('Create'), ['action' => 'add'], ['class' => 'btn btn-info rounded-0 overlay', 'title' => 'Add', 'escape' => false]) ?>
         </div>
+        <div class="col-auto">
+        </div>
+        <!-- Search Form -->
+        <form class="form-inline my-2 my-lg-0" method="get" id="searchable">
+            <input class="form-control rounded-0" type="search" name="q" placeholder="Search">
+            <button class="btn btn-outline-info rounded-0 my-2 my-sm-0 navigator" type="submit">Search</button>
+        </form>
+        <!-- ./end Search form -->
+
+        <!-- Pagination -->
+        <span class="navbar-text ml-3 pl-4 border-left">
+                <?= $this->Paginator->counter(['format' => __('{{count}}  of {{pages}}')]) ?>
+            </span>
+        <!-- ./end pagination -->
+
+        <div class="mt-2 mt-lg-0">
+            <ul class="navbar-nav">
+                <?= $this->Paginator->prev(__('<i class="fas fa-less-than fa-1x"></i>'), ['class' => 'test', 'escape' => false]) ?>
+
+                <?= $this->Paginator->next(__('<i class="fas fa-greater-than fa-1x"></i>'), ['escape' => false]) ?>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- .\end Menu Area -->
+
+<div class="container-fluid">
+    <div class="mb-4">
         <div class="card-body">
             <div class="table-responsive">
-                <table cellpadding="0" cellspacing="0" class="table table-bordered dataTable br-m" role="grid" aria-describedby="dataTable_info">
+                <table class="table table-striped table-sm dataTable br-m" role="grid" aria-describedby="dataTable_info">
 
-                    <thead class="bg-primary">
+                    <thead>
                         <tr class="">
-                            <th scope="col" class="text-white"><?= __('Last Name') ?></th>
-                            <th scope="col" class="text-white"><?= __('First Name') ?></th>
-                            <th scope="col" class="text-white"><?= __('Other Names') ?></th>
-                            <th scope="col" class="text-white"><?= __('Role') ?></th>
-                            <th scope="col" class="text-white"><?= __('Address') ?></th>
-                            <th scope="col" class="text-white"><?= __('State') ?></th>
-                            <th scope="col" class="text-white"><?= __('Country') ?></th>
-                            <th scope="col" class="text-white"><?= __('Email') ?></th>
-                            <th scope="col" class="text-white"><?= __('Phone Number') ?></th>
-                            <th scope="col" class="text-white" class="actions"><?= __('Actions') ?></th>
+                            <th><?= __('Username') ?></th>
+                            <th><?= __('Full Name') ?></th>
+                            <th><?= __('Email') ?></th>
+                            <th><?= __('Role') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($staff as $staff): ?>
                         <tr>
-                            <td><?= h($staff->last_name) ?></td>
-                            <td><?= h($staff->first_name) ?></td>
-                            <td><?= h($staff->other_names) ?></td>
+                            <td><?= $staff->has('user') ? h($staff->user->username) : '' ?></td>
+                            <td><?= h($staff->full_name) ?></td>
+                            <td><?= $staff->has('user') ? h($staff->user->email) : '' ?></td>
                             <td><?= $staff->has('role') ? h($staff->role->name) : '' ?></td>
-                            <td><?= h($staff->address) ?></td>
-                            <td><?= h($staff->state) ?></td>
-                            <td><?= h($staff->country) ?></td>
-                            <td><?= h($staff->email) ?></td>
-                            <td><?= h($staff->phone_no) ?></td>
                             <td class="actions">
-                                <?= $this->Html->link(__('<i class="fa fa-pencil fa-lg text-primary"></i>'), ['action' => 'edit', $staff->id], ['class' => 'btn btn-outline-warning btn-sm overlay text-primary', 'title' => 'Edit', 'escape' => false]) ?>
+                                <?= $this->Html->link(__('<i class="fa fa-eye fa-lg"></i>'), ['action' => 'view', $staff->id], ['class' => 'overlay text-info', 'title' => 'View', 'escape' => false]) ?>
 
-                                <?= $this->Form->postLink(__("<i class='fa fa-trash-o fa-lg'></i>"), ['action' => 'delete', $staff->id], ['confirm' => __('Are you sure you want to delete # {0}?', $staff->id), 'escape' => false, 'class' => 'btn btn-outline-danger btn-sm text-primary']) ?>
+                                <?= $this->Html->link(__('<i class="fas fa-edit fa-lg"></i>'), ['action' => 'edit', $staff->id], ['class' => 'overlay text-warning ml-1', 'title' => 'Edit', 'escape' => false]) ?>
+
+                                <?= $this->Form->postLink(__("<i class='fas fa-trash fa-lg'></i>"), ['action' => 'delete', $staff->id], ['confirm' => __('Are you sure you want to delete # {0}?', $staff->id), 'escape' => false, 'class' => 'text-danger ml-1']) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
