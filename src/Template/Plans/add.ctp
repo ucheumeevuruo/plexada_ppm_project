@@ -8,7 +8,7 @@ $this->start('sidebar');
 echo $this->element('sidebar/default');
 $this->end();
 ?>
-
+<?= $this->Html->script('mychart.js') ?>
 <div class="plans form large-9 medium-8 columns content">
     <?= $this->Form->create($plan) ?>
     <fieldset>
@@ -23,8 +23,8 @@ $this->end();
         ]]);
         echo $this->Form->control('assigned_to_id', ['options' => $staff]);
         echo $this->Form->control('user_id', ['value'=>$logged_in_user,'type'=>'hidden']);
-        echo $this->Form->control('start_date', ['autocomplete' => 'off', 'id' => 'start_date', 'type' => 'text', 'label' => 'State date', 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>']);
-        echo $this->Form->control('end_date', ['autocomplete' => 'off', 'id' => 'start_date', 'type' => 'text', 'label' => 'End date', 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>']);
+        echo $this->Form->control('start_date', ['autocomplete' => 'off', 'id' => 'start_date','onblur'=>"javascript:checkForDate();", 'type' => 'text', 'label' => 'State date', 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>','required']);
+        echo $this->Form->control('end_date', ['autocomplete' => 'off', 'id' => 'end_date', 'onblur'=>"javascript:checkForDate();",'type' => 'text', 'label' => 'End date', 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>','required']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

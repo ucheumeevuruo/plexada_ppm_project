@@ -138,7 +138,7 @@ data: {
             backgroundColor: '#22aa99'
          },
          {
-            label: 'Paid',
+            label: 'Spent',
             data: expense,
             // data: [2000000, 4000000, 1000000, 2000000, 1000000, 2000000],
             backgroundColor: '#dc3912'
@@ -360,3 +360,75 @@ function ganttProject2 (array_code2) {
     chart.splitterPosition("14%")
     chart.collapseAll();
 };
+
+function checkForDate(){
+    var sdate = document.getElementById("start_date").value;
+    var edate = document.getElementById("end_date").value;
+    var dateParts = sdate.split("/")
+    var dateParts2 = edate.split("/")
+    var s_date = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0])
+    var e_date = new Date(+dateParts2[2], dateParts2[1] - 1, +dateParts2[0])
+
+    // if (sdate == ""){
+    //     alert('Start Date Cannot be Empty date');
+    // }
+    if (s_date >= e_date){
+        alert('Invalid date');
+        document.getElementById("start_date").value="";
+        document.getElementById("end_date").value="";
+    }
+}
+
+function checkDate(){
+    var sdate = document.getElementById("Start_date").value;
+    var edate = document.getElementById("end_date").value;
+    var dateParts = sdate.split("/")
+    var dateParts2 = edate.split("/")
+    var s_date = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0])
+    var e_date = new Date(+dateParts2[2], dateParts2[1] - 1, +dateParts2[0])
+
+    // if (sdate == ""){
+    //     alert('Start Date Cannot be Empty date');
+    // }
+    if (s_date >= e_date){
+        alert('Invalid date');
+        document.getElementById("Start_date").value="";
+        document.getElementById("end_date").value="";
+    }
+}
+
+function dateCheck(){
+    var sdate = document.getElementById("start_dt").value;
+    var edate = document.getElementById("end_dt").value;
+    var dateParts = sdate.split("/")
+    var dateParts2 = edate.split("/")
+    var s_date = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0])
+    var e_date = new Date(+dateParts2[2], dateParts2[1] - 1, +dateParts2[0])
+
+    // if (sdate == ""){
+    //     alert('Start Date Cannot be Empty date');
+    // }
+    if (s_date >= e_date){
+        alert('Invalid date');
+        document.getElementById("start_dt").value="";
+        document.getElementById("end_dt").value="";
+    }
+}   
+
+ // yes = 1, no = 0
+ function recordClick() {
+    var x = document.getElementById("milestone-id").selectedIndex;
+    var val = document.getElementsByTagName("option")[x].value; 
+    // alert(val);
+    console.log('sending...');
+
+    // return ajax call, which returns a Promise object
+    return  $.ajax({
+      url: 'activities/method',
+      method: 'POST',
+      data: {the_value: val},
+      success: function() {
+        console.log('Data was sent!');
+      }
+    });
+  }

@@ -120,17 +120,25 @@ class MilestonesController extends AppController
 
         $projects = $this->Milestones->Projects->find('list', ['limit' => 200]);
 
+        $this->loadModel('ProjectDetails');
         $result  = $this->ProjectDetails->find('all', ['conditions' => ['project_id' => $milestone->project_id]])->first();
         $budget = $result->budget;
         $start_date = ($result->start_dt)->format("d-m-Y");
         $end_date = ($result->end_dt)->format("d-m-Y");
 
-        // debug($milestone->project_id);
-        // die();
+
+        $indicator = $this->Milestones->find('all')->where(['project_id' => $milestone['project_id']]);
+
+        $indiTotal = 0;
+        foreach ($indicator as $ind) {
+            $indiTotal = $indiTotal + $ind->amount;
+        }
+
+        $sumDiff = $budget - $indiTotal;
 
         $lov = $this->Milestones->Lov->find('list', ['limit' => 200]);
         $triggers = $this->Milestones->Triggers->find('list', ['limit' => 200]);
-        $this->set(compact('milestone', 'projects', 'lov', 'triggers','budget','start_date','end_date'));
+        $this->set(compact('milestone', 'projects', 'lov', 'triggers','budget','start_date','end_date','sumDiff'));
     }
 
     /**
@@ -153,4 +161,19 @@ class MilestonesController extends AppController
         // return $this->redirect(['action' => 'index']);
         return $this->redirect($this->referer());
     }
+
+    public function method() {
+        // Run only if this is an AJAX request and we are POSTing data
+        if ($this->request->is('ajax') && !empty($this->request->data)) {
+          $value_to_save = $this->request->data['the_value'];
+      
+          if ($value_to_save == 1) {
+            $this->Controller->save('yes');
+          } else {
+            $this->Controller->save('no');
+          }
+        } else {
+          throw new \MethodNotAllowedException('This method is not allowed');
+        }
+      }
 }
