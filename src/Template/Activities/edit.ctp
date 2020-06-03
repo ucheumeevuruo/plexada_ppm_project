@@ -44,8 +44,12 @@ $this->end();
                 <?php echo $this->Form->control('end_date', ['empty' => true, 'class' => 'addon-right', 'label' => false, 'id' => 'end_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']); ?>
 
                 <label class="control-label font-weight-bolder" for="cost">Cost</label>
-                <?php echo $this->Form->control('cost', ['autocomplete' => 'off', 'label' => false, 'max' => $sumDiff]); ?>
+                <?php echo $this->Form->control('cost', ['autocomplete' => 'off', 'label' => false]); ?>
+
+                <label class="control-label font-weight-bolder" for="sub_status_id">Sub Status</label>
+                <?php echo $this->Form->control('sub_status_id', ['options' => $substatus, 'label' => false]); ?>
             </div>
+
         </div>
         <!--        --><?php
                         //            echo $this->Form->control('project_id', ['options' => $projectDetails, 'empty' => true, 'type' => 'hidden']);

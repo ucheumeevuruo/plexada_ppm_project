@@ -47,10 +47,15 @@ class ProjectsController extends AppController
         $this->loadModel('ProjectDetails');
         $projectDetails =  $this->ProjectDetails->find('all');
 
-        // debug($projectDetails);
+        $this->loadModel('Activities');
+        $activities =  $this->Activities->find('all');
+
+
+
+        // debug($projects);
         // die();
 
-        $this->set(compact('projects', 'milestones', 'projectDetails'));
+        $this->set(compact('projects', 'milestones', 'projectDetails', 'activities'));
     }
 
     /**
@@ -136,7 +141,10 @@ class ProjectsController extends AppController
             ->where(['Milestones.project_id' => $project_id]);
 
         $milestones = $this->paginate($milestones);
-        
+
+        // debug($milestones);
+        // die();
+
         $this->set(compact('milestones', 'project_id'));
     }
 

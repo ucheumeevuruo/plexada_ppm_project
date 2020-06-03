@@ -145,6 +145,20 @@ class ActivitiesController extends AppController
             ]
         );
 
+        $this->loadModel('Lov');
+        $substatus = $this->Lov->find(
+            'list',
+            [
+                'conditions' => ['lov_type' => 'project_sub_status'],
+                'limit' => 200
+            ]
+        );
+
+
+
+        // debug($substatus);
+        // die();
+
         $users = $this->Activities->Users->find('list', ['limit' => 200]);
 
         $this->loadModel('Milestones');
@@ -155,7 +169,7 @@ class ActivitiesController extends AppController
         $s_date = ($result->start_date)->format("d-m-Y");
         $e_date = ($result->end_date)->format("d-m-Y");
 
-        $this->set(compact('activity', 'projectDetails', 'staff', 'users', 'priority', 'status','budget','s_date','e_date'));
+        $this->set(compact('activity', 'projectDetails', 'staff', 'users', 'priority', 'status', 'budget', 's_date', 'e_date', 'substatus'));
     }
 
     /**
