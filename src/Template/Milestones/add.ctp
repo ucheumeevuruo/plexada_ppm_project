@@ -48,13 +48,13 @@
 <script>
 // $(function() {
     $(function() {
-        let start_date = <?= json_encode($project->project_detail->start_dt->format('m/d/yy')); ?>;
-        let end_date = <?= json_encode($project->project_detail->end_dt->format('m/d/yy')); ?>;
+        let start_date = <?= !is_null($project->project_detail->start_dt) ? json_encode($project->project_detail->start_dt->format('m/d/yy')) : ''; ?>;
+        let end_date = <?= !is_null($project->project_detail->end_dt) ? json_encode($project->project_detail->end_dt->format('m/d/yy')) : ''; ?>;
         $('#start_date').datepicker({
             inline: true,
             "format": "dd/mm/yyyy",
-            startDate: new Date(start_date),
-            endDate: new Date(end_date)
+            startDate: new Date(start_date.toString()),
+            endDate: new Date(end_date.toString())
         }).on('changeDate', function(selected) {
             let date = new Date(selected.date.valueOf());
             date.setDate(date.getDate());

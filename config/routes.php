@@ -111,7 +111,7 @@ Router::prefix('api', function ($routes) {
     // Because you are in the admin scope,
     // you do not need to include the /admin prefix
     // or the admin route element.
-    $routes->connect('/', ['controller' => 'Users', 'action' => 'login', 'isRest' => true, 'requireAuthorization' => true]);
+    $routes->connect('/', ['controller' => 'Staff', 'action' => 'login', 'isRest' => true, 'requireAuthorization' => true]);
 //    $routes->connect('/', ['controller' => 'Users', 'action' => 'index']);
     // All routes here will be prefixed with `/admin`
     //$routes->connect('/admin', ['controller' => 'Order', 'action' => 'index']); // call other controller like this

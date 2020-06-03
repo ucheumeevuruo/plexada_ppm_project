@@ -179,16 +179,10 @@ $this->end();
                             <?= h('MDA') ?>
                         </div>
                         <div class="h6 mb-0 text-gray-800 ">
-                            <?php foreach ($projectDet as $prodet) : ?>
-                                <?php foreach ($spons as $spon) : ?>
-                                    <?php if ($prodet->mda_id == $spon->id) : ?>
-                                        <p>
-                                            <?= h($spon->first_name) ?>
-                                            <?= h($spon->last_name) ?>
-                                        </p>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            <?php endforeach; ?>
+                            <?php foreach ($project->project_detail->mdas as $mda): ?>
+
+                                <?= h($mda->full_name) ?>
+                            <?php endforeach;?>
                         </div>
                     </div>
                 </div>

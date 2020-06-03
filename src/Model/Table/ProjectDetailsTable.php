@@ -125,6 +125,11 @@ class ProjectDetailsTable extends Table
             'foreignKey' => 'id',
             'conditions' => ['SponsorTypes.lov_value' => 'donor']
         ]);
+        $this->hasMany('Mdas', [
+            'className' => 'Sponsors',
+            'foreignKey' => 'id',
+            'conditions' => ['SponsorTypes.lov_value' => 'mda']
+        ]);
         $this->hasMany('Sponsors', [
             'foreignKey' => 'id',
             'conditions' => ['SponsorTypes.lov_value' => 'sponsor']

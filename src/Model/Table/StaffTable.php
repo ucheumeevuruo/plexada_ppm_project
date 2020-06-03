@@ -50,6 +50,19 @@ class StaffTable extends Table
         ]);
     }
 
+    public function findByName(Query $query, $options)
+    {
+        $name = $options['name'];
+
+        if(!is_null($name))
+        {
+            $query->where(function ($exp, Query $q) use ($name){
+                return $exp->like('Users.username', "%$name%");
+            });
+        }
+        return $query;
+    }
+
     /**
      * Default validation rules.
      *
@@ -128,7 +141,7 @@ class StaffTable extends Table
         $rules->add($rules->isUnique(['first_name', 'last_name']));
         $rules->add($rules->isUnique(['email']));
         $rules->add($rules->existsIn(['system_user_id'], 'Users'));
-        // $this->add($rules->existsIn(['role_id'], 'Roles'));
+        $rules->add($rules->existsIn(['role_id'], 'Roles'));
 
         return $rules;
     }

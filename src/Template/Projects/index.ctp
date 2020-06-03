@@ -39,8 +39,7 @@ $this->Paginator->setTemplates([
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <div class="mr-auto mt-2 mt-lg-0">
-                <!-- <?= $this->Html->link(__('Create'), ['action' => 'add'], ['class' => 'btn btn-info rounded-0 navigator', 'title' => 'Add', 'escape' => false]) ?> -->
-                <?= $this->Html->link(__('Create'), ['action' => 'add'], ['class' => 'overlay btn btn-info', 'escape' => false]) ?>
+                 <?= $this->Html->link(__('Create'), ['action' => 'add'], ['class' => 'btn btn-info rounded-0 overlay', 'title' => 'Add', 'escape' => false]) ?>
             </div>
             <div class="col-auto">
             </div>
@@ -85,7 +84,8 @@ $this->Paginator->setTemplates([
                 <?php foreach ($projects as $project) : ?>
                     <?php $count = 0; ?>
                     <?php $close = 0; ?>
-                    <?php foreach ($project->milestones as $milestone) : ?>
+                    <?php $one = 1; ?>
+                    <?php foreach ($milestones as $milestone) : ?>
                         <?php if ($milestone->project_id == $project->id) {
                             $count++;
                         } ?>

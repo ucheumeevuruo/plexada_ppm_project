@@ -19,6 +19,17 @@ class RolesController extends AppController
      */
     public function index()
     {
+        $q = $this->request->getQuery('q');
+
+        $customFinderOptions = [
+            'name' => $q
+        ];
+        $this->paginate = [
+            'finder' => [
+                'byName' => $customFinderOptions
+            ]
+        ];
+
         $roles = $this->paginate($this->Roles);
 
         $this->set(compact('roles'));
