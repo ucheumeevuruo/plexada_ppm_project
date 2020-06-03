@@ -15,7 +15,7 @@ $this->end();
         <legend><?= __('Plan Monitoring') ?></legend>
         <?php
         echo $this->Form->control('activity_id', ['value'=>$sid,'type'=>'hidden']);
-        echo $this->Form->control('name');
+        echo $this->Form->control('name',['readonly']);
         // echo $this->Form->control('title');
         // echo $this->Form->control('comment', ['type' => 'textArea']);
         // echo $this->Form->control('plan_type', ['options' => [

@@ -103,7 +103,12 @@ class TasksController extends AppController
             }
             $this->Flash->error(__('The task could not be saved. Please, try again.'));
         }
-        $this->set(compact('task'));
+
+        $activity = $this->Tasks->Activities->find('all')->where(['activity_id'=>$task['activity_id']])->first();
+        $start_date = ($activity->start_date)->format("d-m-Y");
+        $end_date = ($activity->end_date)->format("d-m-Y");
+
+        $this->set(compact('task','start_date','end_date'));
     }
 
 

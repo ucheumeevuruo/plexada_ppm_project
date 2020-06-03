@@ -8,6 +8,7 @@ $this->start('sidebar');
 echo $this->element('sidebar/default');
 $this->end();
 ?>
+<?= $this->Html->script('mychart.js') ?>
 <div class="activities container-fluid">
     <?= $this->Form->create($activity) ?>
     <fieldset>
@@ -38,10 +39,10 @@ $this->end();
                 <?php echo $this->Form->hidden('currency_id', ['value' => '1']); ?>
 
                 <label class="control-label font-weight-bolder" for="start_date">Start Date</label>
-                <?php echo $this->Form->control('start_date', ['empty' => true, 'class' => 'addon-right', 'label' => false, 'id' => 'start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']); ?>
+                <?php echo $this->Form->control('start_date', ['empty' => true, 'class' => 'addon-right', 'label' => false,'onblur'=>"javascript:checkForDate();", 'id' => 'start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off','required']); ?>
 
                 <label class="control-label font-weight-bolder" for="end_date">End Date</label>
-                <?php echo $this->Form->control('end_date', ['empty' => true, 'class' => 'addon-right', 'label' => false, 'id' => 'end_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']); ?>
+                <?php echo $this->Form->control('end_date', ['empty' => true, 'class' => 'addon-right', 'label' => false,'onblur'=>"javascript:checkForDate();", 'id' => 'end_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off','required']); ?>
 
                 <label class="control-label font-weight-bolder" for="cost">Cost</label>
                 <?php echo $this->Form->control('cost', ['autocomplete' => 'off', 'label' => false]); ?>
