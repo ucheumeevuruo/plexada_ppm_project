@@ -27,6 +27,7 @@ $this->end();
         <li><?= $this->Html->link(__('New Lov'), ['controller' => 'Lov', 'action' => 'add']) ?></li>
     </ul>
 </nav> -->
+<?= $this->Html->script('mychart.js') ?>
 <div class="conatiner">
     <?= $this->Form->create($milestone) ?>
     <fieldset>
@@ -49,13 +50,13 @@ $this->end();
                 <?= $this->Form->hidden('trigger_id', ['options' => $triggers, 'empty' => true]); ?>
 
                 <label class="control-label font-weight-bolder" for="amount">Amount</label>
-                <?= $this->Form->control('amount', ['autocomplete' => 'off', 'label' => false]); ?>
+                <?= $this->Form->control('amount', ['autocomplete' => 'off', 'label' => false,'max'=> $sumDiff]); ?>
 
                 <label class="control-label font-weight-bolder" for="start_date">Start Date</label>
-                <?= $this->Form->control('start_date', ['autocomplete' => 'off', 'id' => 'start_date', 'type' => 'text', 'label' => false, 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>',]); ?>
+                <?= $this->Form->control('start_date', ['autocomplete' => 'off','onchange'=>"javascript:checkForDate();", 'id' => 'start_date', 'type' => 'text', 'label' => false, 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>',]); ?>
 
                 <label class="control-label font-weight-bolder" for="end_date">End Date</label>
-                <?= $this->Form->control('end_date', ['autocomplete' => 'off', 'id' => 'end_date', 'type' => 'text', 'label' => false, 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>',]); ?>
+                <?= $this->Form->control('end_date', ['autocomplete' => 'off', 'onchange'=>"javascript:checkForDate();",'id' => 'end_date', 'type' => 'text', 'label' => false, 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>',]); ?>
             </div>
         </div>
     </fieldset>
@@ -74,4 +75,5 @@ $(function() {
         "keyboardNavigation": false
     });
 });
+
 </script>
