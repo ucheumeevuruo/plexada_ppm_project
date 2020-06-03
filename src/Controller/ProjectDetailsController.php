@@ -280,27 +280,27 @@ class ProjectDetailsController extends AppController
         $sponsors = $this->ProjectDetails->Sponsors->find(
             'list',
             [
-                'contain' => ['SponsorTypes'],
-                'conditions' => ['SponsorTypes.lov_value' => 'sponsor'],
+//                'contain' => ['SponsorTypes'],
+//                'conditions' => ['SponsorTypes.lov_value' => 'sponsor'],
                 'limit' => 200
             ]
         );
 
 
-        $donors = $this->ProjectDetails->Sponsors->find(
+        $donors = $this->ProjectDetails->Donors->find(
             'list',
             [
-                'contain' => ['SponsorTypes'],
-                'conditions' => ['SponsorTypes.lov_value' => 'donor'],
+//                'contain' => ['SponsorTypes'],
+//                'conditions' => ['SponsorTypes.lov_value' => 'donor'],
                 'limit' => 200
             ]
         );
 
-        $mdas = $this->ProjectDetails->Sponsors->find(
+        $mdas = $this->ProjectDetails->Mdas->find(
             'list',
             [
-                'contain' => ['SponsorTypes'],
-                'conditions' => ['SponsorTypes.lov_value' => 'mda'],
+//                'contain' => ['SponsorTypes'],
+//                'conditions' => ['SponsorTypes.lov_value' => 'mda'],
                 'limit' => 200
             ]
         );
@@ -385,26 +385,26 @@ class ProjectDetailsController extends AppController
         $sponsors = $this->ProjectDetails->Sponsors->find(
             'list',
             [
-                'contain' => ['SponsorTypes'],
-                'conditions' => ['SponsorTypes.lov_value' => 'sponsor'],
+//                'contain' => ['SponsorTypes'],
+//                'conditions' => ['SponsorTypes.lov_value' => 'sponsor'],
                 'limit' => 200
             ]
         );
 
-        $donors = $this->ProjectDetails->Sponsors->find(
+        $donors = $this->ProjectDetails->Donors->find(
             'list',
             [
-                'contain' => ['SponsorTypes'],
-                'conditions' => ['SponsorTypes.lov_value' => 'donor'],
+//                'contain' => ['SponsorTypes'],
+//                'conditions' => ['SponsorTypes.lov_value' => 'donor'],
                 'limit' => 200
             ]
         );
 
-        $mdas = $this->ProjectDetails->Sponsors->find(
+        $mdas = $this->ProjectDetails->Mdas->find(
             'list',
             [
-                'contain' => ['SponsorTypes'],
-                'conditions' => ['SponsorTypes.lov_value' => 'mda'],
+//                'contain' => ['SponsorTypes'],
+//                'conditions' => ['SponsorTypes.lov_value' => 'mda'],
                 'limit' => 200
             ]
         );

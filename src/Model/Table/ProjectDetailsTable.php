@@ -88,11 +88,7 @@ class ProjectDetailsTable extends Table
             'foreignKey' => 'annotation_id',
         ]);
         $this->belongsTo('Projects', [
-            'foreignKey' => 'id',
-            'joinType' => 'INNER',
-        ]);
-        $this->hasOne('Projects', [
-            'foreignKey' => 'id',
+            'foreignKey' => 'project_id',
             'joinType' => 'INNER',
         ]);
         $this->belongsTo('Prices', [
@@ -115,24 +111,19 @@ class ProjectDetailsTable extends Table
             'joinType' => 'INNER',
             'conditions' => ['Statuses.lov_type' => 'project_status']
         ]);
-//        $this->belongsTo('Donors', [
-//            'className' => 'Sponsors',
-//            'foreignKey' => 'sponsor_id',
-////            'conditions' => ['Donors.sponsor_type' => 'donor']
-//        ]);
-        $this->hasMany('Donors', [
+        $this->belongsTo('Donors', [
             'className' => 'Sponsors',
-            'foreignKey' => 'id',
-            'conditions' => ['SponsorTypes.lov_value' => 'donor']
+            'foreignKey' => 'sponsor_id',
+            'conditions' => ['Donors.sponsor_type_id' => '14']
         ]);
-        $this->hasMany('Mdas', [
+        $this->belongsTo('Mdas', [
             'className' => 'Sponsors',
-            'foreignKey' => 'id',
-            'conditions' => ['SponsorTypes.lov_value' => 'mda']
+            'foreignKey' => 'sponsor_id',
+            'conditions' => ['Mdas.sponsor_type_id' => '15']
         ]);
-        $this->hasMany('Sponsors', [
-            'foreignKey' => 'id',
-            'conditions' => ['SponsorTypes.lov_value' => 'sponsor']
+        $this->belongsTo('Sponsors', [
+            'foreignKey' => 'sponsor_id',
+            'conditions' => ['Sponsors.sponsor_type_id' => '13']
         ]);
     }
 

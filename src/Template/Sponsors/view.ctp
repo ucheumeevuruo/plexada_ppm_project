@@ -58,7 +58,7 @@ $this->end();
             </tr>
             <?php foreach ($sponsor->project_details as $projectDetails): ?>
             <tr>
-                <td><?= $projectDetails->has('project') ? $this->Html->link($projectDetails->project->name, ['controller' => 'projects', 'action' => 'report', $projectDetails->project->id]) : '' ?></td>
+                <td><?= $projectDetails->has('project') ? $this->Html->link($projectDetails->project->name, ['controller' => 'projects', 'action' => 'report', $projectDetails->project_id]) : '' ?></td>
                 <td><?= $projectDetails->has('project') ? $this->NumberFormat->format(
                         $projectDetails->budget,
                         ['before' => $projectDetails->has('currency') ? $projectDetails->currency->symbol : '']
