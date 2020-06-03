@@ -20,6 +20,7 @@ class MessageHelper extends Helper
     public function getMessageCount()
     {
         $count = $this->Messages->find('all')
+            ->contain(['Senders'])
             ->where(['is_read' => 'N'])
             ->count();
         return $count;
