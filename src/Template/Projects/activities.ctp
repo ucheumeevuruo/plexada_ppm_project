@@ -113,8 +113,13 @@ $this->Paginator->setTemplates([
             <div class="row mx-0">
                 <?php foreach ($activities as $activity) : ?>
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <div
-                        class="card <?= $this->Indicator->status($activity->has('status') ? $activity->status->lov_value : '') ?> shadow py-0">
+                    <?php if ($activity->status_id == 1) : ?>
+                        <div class="card shadow py-0 border border-left-light rounded-lg">
+                    <?php endif; ?>
+
+                    <?php if ($activity->status_id == 3) : ?>
+                        <div class="card shadow py-0 border border-left-dark rounded-lg">
+                    <?php endif; ?>
                         <div class="card-body py-2 px-2">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2" id="clickable-sub-applet"
@@ -225,3 +230,6 @@ $this->Paginator->setTemplates([
         </script>
     </div>
 </section>
+
+ <div
+                        class="card <?= $this->Indicator->status($activity->has('status') ? $activity->status->lov_value : '') ?> shadow py-0">

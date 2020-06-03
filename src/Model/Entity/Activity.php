@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -59,9 +60,10 @@ class Activity extends Entity
         'staff' => true,
         'priority' => true,
         'status' => true,
+        'sub_status_id' => true,
         'user' => true,
-        'milestone_id'=>true,
-        'start_date'=>true,
-        'end_date'=>true
+        'milestone_id' => true,
+        'start_date' => true,
+        'end_date' => true
     ];
 }

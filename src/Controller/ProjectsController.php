@@ -47,10 +47,15 @@ class ProjectsController extends AppController
         $this->loadModel('ProjectDetails');
         $projectDetails =  $this->ProjectDetails->find('all');
 
-        // debug($projectDetails);
+        $this->loadModel('Activities');
+        $activities =  $this->Activities->find('all');
+
+
+
+        // debug($projects);
         // die();
 
-        $this->set(compact('projects', 'milestones', 'projectDetails'));
+        $this->set(compact('projects', 'milestones', 'projectDetails', 'activities'));
     }
 
     /**
@@ -131,7 +136,10 @@ class ProjectsController extends AppController
             ->where(['Milestones.project_id' => $project_id]);
 
         $milestones = $this->paginate($milestones);
-        
+
+        // debug($milestones);
+        // die();
+
         $this->set(compact('milestones', 'project_id'));
     }
 
@@ -144,8 +152,7 @@ class ProjectsController extends AppController
             ->where(['Milestones.project_id' => $project_id]);
 
         $milestones = $this->paginate($milestones);
-        // debug($milestones);
-        // die();
+
 
         $this->set(compact('milestones', 'project_id'));
     }
@@ -539,9 +546,9 @@ class ProjectsController extends AppController
         // debug($len);
         // die();
         foreach ($qrymilestone as $milestone) {
-            if ($i == $len-1){             
+            if ($i == $len - 1) {
                 $milestone_id = $milestone['id'];
-                $num_mile2 = $num_mile + 1 ;
+                $num_mile2 = $num_mile + 1;
                 $mileID = "$num _ $num_mile";
                 $mileConnector = "$num _ $num_mile2";
                 $object_milestone = new \stdClass();
@@ -552,10 +559,10 @@ class ProjectsController extends AppController
                 $object_milestone->progressValue = "$progress%";
                 $object_milestone->children = $this->activityRecords($milestone_id, $num, $num_mile);
                 array_push($array_gantt_child, $object_milestone);
-                $num_mile++;                
-            }else{
+                $num_mile++;
+            } else {
                 $milestone_id = $milestone['id'];
-                $num_mile2 = $num_mile + 1 ;
+                $num_mile2 = $num_mile + 1;
                 $mileID = "$num _ $num_mile";
                 $mileConnector = "$num _ $num_mile2";
                 $object_milestone = new \stdClass();
@@ -584,19 +591,19 @@ class ProjectsController extends AppController
         $allproject = $conn->execute("SELECT count(*) as S FROM activities where milestone_id ='" . $milestone_id . "' ");
         $complete = $completed->fetch('assoc');
         $totalprojects = $allproject->fetch('assoc');
-        $progress = 0;        
+        $progress = 0;
         if ($totalprojects['S'] == 0) {
 
             $progress = 0;
         } else {
             $result =  ($complete['T'] / $totalprojects['S']) * 100;
             $progress = round(number_format($result, 2), 2);
-        };        
+        };
         $num_mile = 1;
         $len = count($qryactivity);
         $i  = 0;
         foreach ($qryactivity as $activity) {
-            if ($i == $len - 1){
+            if ($i == $len - 1) {
                 $activityID = $activity['activity_id'];
                 $num_mile2 = $num_mile + 1;
                 $mileID = "$num _ $num _ $num_mile";
@@ -607,10 +614,10 @@ class ProjectsController extends AppController
                 $object_activity->actualStart = $activity['start_date'];
                 $object_activity->actualEnd = $activity['end_date'];
                 $object_activity->progressValue = "$progress%";
-                $object_activity->children = $this->tasksRecords($activityID, $num,$num_mile);
+                $object_activity->children = $this->tasksRecords($activityID, $num, $num_mile);
                 array_push($array_activity_child, $object_activity);
                 $num_mile++;
-            }else{
+            } else {
                 $activityID = $activity['activity_id'];
                 $num_mile2 = $num_mile + 1;
                 $mileID = "$num _ $num _ $num_mile";
@@ -623,7 +630,7 @@ class ProjectsController extends AppController
                 $object_activity->connectTo = $mileConnector;
                 $object_activity->connectorType = "finish-start";
                 $object_activity->progressValue = "$progress%";
-                $object_activity->children = $this->tasksRecords($activityID, $num,$num_mile);
+                $object_activity->children = $this->tasksRecords($activityID, $num, $num_mile);
                 array_push($array_activity_child, $object_activity);
                 $num_mile++;
             }
@@ -643,7 +650,7 @@ class ProjectsController extends AppController
         $len = count($qrytasks);
         $i  = 0;
         foreach ($qrytasks as $task) {
-            if ($i == $len - 1){
+            if ($i == $len - 1) {
                 $num_mile2 = $num_mile + 1;
                 $mileID = "$num _ $num _ $num _ $num_mile";
                 $mileConnector = "$num _ $num _ $num _ $num_mile2";
@@ -654,7 +661,7 @@ class ProjectsController extends AppController
                 $object_tasks->actualEnd = $task['end_date'];
                 array_push($array_task_child, $object_tasks);
                 $num_mile++;
-            }else{
+            } else {
                 $num_mile2 = $num_mile + 1;
                 $mileID = "$num _ $num _ $num _ $num_mile";
                 $mileConnector = "$num _ $num _ $num _ $num_mile2";
@@ -666,7 +673,7 @@ class ProjectsController extends AppController
                 $object_tasks->connectTo = $mileConnector;
                 $object_tasks->connectorType = "finish-finish";
                 array_push($array_task_child, $object_tasks);
-                $num_mile++;                
+                $num_mile++;
             }
 
 

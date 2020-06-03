@@ -118,6 +118,11 @@ class ActivitiesTable extends Table
             ->allowEmptyString('next_activity');
 
         $validator
+            ->scalar('sub_status_id')
+            ->maxLength('sub_status_id', 11)
+            ->allowEmptyString('sub_status_id');
+
+        $validator
             ->notEmptyString('priority_id');
 
         $validator
