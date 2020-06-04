@@ -79,11 +79,8 @@ class MilestonesController extends AppController
         foreach ($project->milestones as $milestone) {
             $indicatorTotal += $milestone->amount;
         }
-        $sumDiff = $project->budget - $indicatorTotal;
+        $sumDiff = $project->project_detail->budget - $indicatorTotal;
 
-        // debug($sumDiff);
-        // debug($start_date);
-        // die();
 
         $status = $this->Milestones->Statuses->find('list', ['limit' => 200])->where(['lov_type' => 'project_status']);
         $triggers = [];

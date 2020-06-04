@@ -16,9 +16,9 @@ class DisbursementsController extends AppController
      *
      * @return \Cake\Http\Response|null
      */
-    public function index()
+    public function index($id=null)
     {
-        $disbursements = $this->paginate($this->Disbursements);
+        $disbursements = $this->paginate($this->Disbursements->find()->where(['milestone_id'=>$id]) );
 
         $this->set(compact('disbursements'));
     }

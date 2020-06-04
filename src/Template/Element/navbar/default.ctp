@@ -118,7 +118,7 @@
                                         </div>
                                         <div>
                                             <div class="text-truncate">'. $message->subject . '</div>
-                                            <div class="small text-gray-500">'. $message->sender->username .' '. $message->created->format('d/m/yy') .'</div>
+                                            <div class="small text-gray-500">'. $message->user->username .' '. $message->created->format('d/m/yy') .'</div>
                                         </div>'), ['controller' => 'messages', 'action' => 'view', $message->id],
                                         ['class' => 'dropdown-item d-flex align-items-center', 'title' => 'Message', 'escape' => false])?>
                                 <?php endforeach; ?>
