@@ -194,19 +194,19 @@ class ActivitiesController extends AppController
         return $this->redirect($this->referer());
     }
 
-    public function method() {
+    public function method()
+    {
         // Run only if this is an AJAX request and we are POSTing data
         if ($this->request->is('ajax') && !empty($this->request->data)) {
-          $value_sent = $this->request->data['the_value'];
+            $value_sent = $this->request->data['the_value'];
 
-          $this->loadModel('Milestones');
-          $indicator = $this->Milestones->find('all')->where(['project_id' => $value_sent]);
-          $s_date = ($result->start_date)->format("d-m-Y");
-          $e_date = ($result->end_date)->format("d-m-Y");
-          return $s_date;
-
+            $this->loadModel('Milestones');
+            $indicator = $this->Milestones->find('all')->where(['project_id' => $value_sent]);
+            $s_date = ($result->start_date)->format("d-m-Y");
+            $e_date = ($result->end_date)->format("d-m-Y");
+            return $s_date;
         } else {
-          throw new \MethodNotAllowedException('This method is not allowed');
+            throw new \MethodNotAllowedException('This method is not allowed');
         }
-      }
+    }
 }

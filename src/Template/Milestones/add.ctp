@@ -24,11 +24,11 @@
         <legend class="font-weight-bolder text-center"><?= __('Add Indicator') ?></legend>
         <div class="row">
             <div class="col-md-6">
-                <?php if (empty($project)):?>
-                <?= $this->Form->control('project_id', ['options' => $projects, 'empty' => true]); ?>
-                <?php else: ?>
-                <?= $this->Form->hidden('project_id', ['value' => $project->id]); ?>
-                <?php endif;?>
+                <?php if (empty($project)) : ?>
+                    <?= $this->Form->control('project_id', ['options' => $projects, 'empty' => true]); ?>
+                <?php else : ?>
+                    <?= $this->Form->hidden('project_id', ['value' => $project->id]); ?>
+                <?php endif; ?>
                 <?= $this->Form->control('name', ['autocomplete' => 'off', 'label' => ['class' => 'font-weight-bolder mandatory']]); ?>
                 <?= $this->Form->control('description', ['type' => 'textarea', 'label' => ['class' => 'font-weight-bolder']]); ?>
                 <?= $this->Form->hidden('status_id', ['value' => 1]); ?>

@@ -24,9 +24,9 @@ echo $this->Html->css('mandatory');
             <div class="col-md-6">
                 <?php if (empty($project)): ?>
                     <?= $this->Form->control('project_id', ['options' => $projects, 'empty' => true]); ?>
-                <?php else: ?>
+                <?php else : ?>
                     <?= $this->Form->hidden('project_id', ['value' => $project->id, 'empty' => false]); ?>
-                <?php endif;?>
+                <?php endif; ?>
                 <?= $this->Form->control('milestone_id', ['options' => $milestone, 'label' => ['class' => 'mandatory font-weight-bolder']]); ?>
                 <!-- <?= $this->Html->link(__('Create Milestones'), ['controller' => 'milestones', 'action' => 'add', $project->id], ['class' => 'overlay btn btn-info rounded-0', 'escape' => false]) ?> -->
                 <?= $this->Form->control('name', ['autocomplete' => 'off', 'label' => ['class' => 'mandatory font-weight-bolder']]); ?>
@@ -69,7 +69,7 @@ echo $this->Html->css('mandatory');
             startDate: new Date(start_date),
             endDate: new Date(end_date),
             "keyboardNavigation": false
-            
+
         });
         $(".overlay").click(function(event) {
             event.preventDefault();
@@ -81,6 +81,4 @@ echo $this->Html->css('mandatory');
             });
         });
     });
-    
-
 </script>
