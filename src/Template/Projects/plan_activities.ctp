@@ -99,7 +99,7 @@ $this->Paginator->setTemplates([
 
         <!-- .\end Menu Area -->
 
-        <div class="grey-bg vh-4 py-4">
+        <div class="grey-bg py-4">
             <div class="row mx-0">
                 <?php foreach ($activities as $activity) : ?>
                     <div class="col-xl-3 col-md-6 mb-4" data-attr="">
@@ -117,7 +117,7 @@ $this->Paginator->setTemplates([
                                 <div class="row">
                                     <div class="col-auto">
                                         <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'), ['controller' => 'Plans', 'action' => 'add', $activity->activity_id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Plan']) ?>
-                                        <?= $this->Html->link(__('<i class="fas fa-eye fa-1x text-gray-300"></i>'), ['action' => 'viewPlans', $activity->activity_id], ['class' => 'overlay', 'escape' => false, 'title' => 'View Plans']) ?>
+                                        <?= $this->Html->link(__('<i class="fas fa-eye fa-1x text-gray-300"></i>'), ['action' => 'V', $activity->activity_id], ['class' => 'overlay', 'escape' => false, 'title' => 'View Plans']) ?>
                                     </div>
                                 </div>
                             </div>

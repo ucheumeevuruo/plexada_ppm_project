@@ -101,7 +101,8 @@ class ActivitiesController extends AppController
         foreach ($project->activities as $act) {
             $activityTotal += $act->cost;
         }
-        $sumDiff = $project->budget - $activityTotal;
+        $sumDiff = $project->project_detail->budget - $activityTotal;
+
         $milestone = $this->Activities->Milestones->find('list', ['limit' => 200, 'conditions' => ['project_id' => $project_id]]);
         $this->set(compact('activity', 'projects', 'project', 'staff', 'priority', 'sumDiff', 'status', 'users', 'milestone'));
     }
@@ -169,32 +170,7 @@ class ActivitiesController extends AppController
         $s_date = ($result->start_date)->format("d-m-Y");
         $e_date = ($result->end_date)->format("d-m-Y");
 
-<<<<<<< Updated upstream
         $this->set(compact('activity', 'projectDetails', 'staff', 'users', 'priority', 'status', 'budget', 's_date', 'e_date', 'substatus'));
-=======
-        // cost of project
-        $projectCost  = $this->ProjectDetails->find('all', ['conditions' => ['project_id' => $activity['project_id']]]);
-        foreach ($projectCost as $pCost);
-        $result = $pCost->budget;
-
-        // cost of indicators
-        $indicator = $this->Milestones->find('all')->where(['project_id' => $activity['project_id']]);
-        $indiTotal = 0;
-        foreach ($indicator as $ind) {
-            $indiTotal = $indiTotal + $ind->amount;
-        }
-
-        // cost of activities
-        $active = $this->Activities->find('all')->where(['project_id' => $activity['project_id']]);
-        $activityTotal = 0;
-        foreach ($active as $act) {
-            $activityTotal = $activityTotal + $act->cost;
-        }
-
-        $sumDiff = $result - $activityTotal;
-
-        $this->set(compact('activity', 'projectDetails', 'staff', 'users', 'priority', 'status','budget','s_date','e_date','sumDiff'));
->>>>>>> Stashed changes
     }
 
     /**
