@@ -31,9 +31,12 @@ class ProjectsController extends AppController
 
         $this->paginate = [
             'contain' => [
-                'ProjectDetails', 'ProjectDetails.Statuses', 'ProjectDetails.Currencies', 'Activities'
+                'ProjectDetails',
+                'ProjectDetails.Statuses',
+                'ProjectDetails.Currencies',
+                'Activities'
             ],
-            'conditions' => ['ProjectDetails.system_user_id' => $this->Auth->user('system_user_id')],
+            // 'conditions' => ['ProjectDetails.system_user_id' => $this->Auth->user('system_user_id')],// This is supposed to show only projects you created. Not fully implemented
             //            'maxLimit' => 3
             'finder' => [
                 'byProjectName' => $customFinderOptions
@@ -50,6 +53,9 @@ class ProjectsController extends AppController
 
         $this->loadModel('Activities');
         $activities =  $this->Activities->find('all');
+
+        // debug($projects);
+        // die();
 
         $this->set(compact('projects', 'milestones', 'projectDetails', 'activities'));
     }
@@ -104,9 +110,9 @@ class ProjectsController extends AppController
                     'ProjectDetails.Donors',
                     'ProjectDetails.Donors.SponsorTypes',
                     'ProjectDetails.Mdas',
-//                    'ProjectDetails.Mdas.SponsorTypes',
+                    //                    'ProjectDetails.Mdas.SponsorTypes',
                     'ProjectDetails.Sponsors',
-//                    'ProjectDetails.Sponsors.SponsorTypes',
+                    //                    'ProjectDetails.Sponsors.SponsorTypes',
                     'Pads',
                     'ProjectDetails.Currencies'
                 ],
@@ -688,21 +694,23 @@ class ProjectsController extends AppController
     {
         $this->loadModel('Disbursements');
         $disbursed =  $this->Disbursements->find('all')->where(['project_id' => $id]);
+        
+        $this->loadModel('ProjectDetails');
+        $projectDetails =  $this->ProjectDetails->find('all')->where(['project_id' => $id])->first();
 
 
         $milestones = $this->Projects->Milestones->find()
-            ->contain(['Statuses', 'Projects.ProjectDetails.Currencies'])
+            ->contain(['Projects.ProjectDetails.Currencies'])
             ->where(['Milestones.project_id' => $id]);
 
-        foreach($milestones as $milestone)
+        foreach ($milestones as $milestone)
 
-        $amount_dis = 0;
-
-        foreach($disbursed as $disburse) {
+            $amount_dis = 0;
+        foreach ($disbursed as $disburse) {
             $amount_dis = $amount_dis + $disburse->cost;
         }
-        // debug($disbursed);
+        // debug($projectDetails);
         // die();
-        $this->set(compact('id', 'disbursed', 'amount_dis', 'milestone'));
+        $this->set(compact('id', 'disbursed', 'amount_dis', 'milestone', 'milestones', 'projectDetails'));
     }
 }

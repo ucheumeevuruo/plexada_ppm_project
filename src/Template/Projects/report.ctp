@@ -44,7 +44,7 @@ $this->end();
             <?= $this->Html->link('Activities', ['controller' => 'projects', 'action' => 'activities', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Partners', ['controller' => 'projectDetails', 'action' => 'partners', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+            <?= $this->Html->link('Disbursement', ['controller' => 'projects', 'action' => 'disburse', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
             <?= $this->Html->link('Gantt Charts', ['controller' => 'projects', 'action' => 'gantt_chart', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
@@ -107,8 +107,7 @@ $this->end();
                             <?= h('Sponsors') ?>
                         </div>
                         <div class="h6 mb-0 text-gray-800">
-
-                            <?= $project->project_detail->has('sponsor')? $project->project_detail->sponsor->full_name : '' ?>
+                            <?= $project->project_detail->has('sponsor') ? $project->project_detail->sponsor->full_name : '' ?>
                         </div>
                     </div>
                 </div>
@@ -124,7 +123,7 @@ $this->end();
                             <?= h('Donors') ?>
                         </div>
                         <div class="h6 mb-0 text-gray-800">
-                            <?= $project->project_detail->has('donor')? $project->project_detail->donor->full_name : '' ?>
+                            <?= $project->project_detail->has('donor') ? $project->project_detail->donor->full_name : '' ?>
                         </div>
                     </div>
                 </div>
@@ -173,7 +172,7 @@ $this->end();
                             <?= h('MDA') ?>
                         </div>
                         <div class="h6 mb-0 text-gray-800 ">
-                            <?= $project->project_detail->has('mda')? $project->project_detail->mda->full_name : '' ?>
+                            <?= $project->project_detail->has('mda') ? $project->project_detail->mda->full_name : '' ?>
                         </div>
                     </div>
                 </div>

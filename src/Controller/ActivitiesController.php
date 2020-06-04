@@ -169,32 +169,28 @@ class ActivitiesController extends AppController
         $s_date = ($result->start_date)->format("d-m-Y");
         $e_date = ($result->end_date)->format("d-m-Y");
 
-<<<<<<< Updated upstream
-        $this->set(compact('activity', 'projectDetails', 'staff', 'users', 'priority', 'status', 'budget', 's_date', 'e_date', 'substatus'));
-=======
-        // cost of project
-        $projectCost  = $this->ProjectDetails->find('all', ['conditions' => ['project_id' => $activity['project_id']]]);
-        foreach ($projectCost as $pCost);
-        $result = $pCost->budget;
+        // // cost of project
+        // $projectCost  = $this->ProjectDetails->find('all', ['conditions' => ['project_id' => $activity['project_id']]]);
+        // foreach ($projectCost as $pCost);
+        // $result = $pCost->budget;
 
-        // cost of indicators
-        $indicator = $this->Milestones->find('all')->where(['project_id' => $activity['project_id']]);
-        $indiTotal = 0;
-        foreach ($indicator as $ind) {
-            $indiTotal = $indiTotal + $ind->amount;
-        }
+        // // cost of indicators
+        // $indicator = $this->Milestones->find('all')->where(['project_id' => $activity['project_id']]);
+        // $indiTotal = 0;
+        // foreach ($indicator as $ind) {
+        //     $indiTotal = $indiTotal + $ind->amount;
+        // }
 
-        // cost of activities
-        $active = $this->Activities->find('all')->where(['project_id' => $activity['project_id']]);
-        $activityTotal = 0;
-        foreach ($active as $act) {
-            $activityTotal = $activityTotal + $act->cost;
-        }
+        // // cost of activities
+        // $active = $this->Activities->find('all')->where(['project_id' => $activity['project_id']]);
+        // $activityTotal = 0;
+        // foreach ($active as $act) {
+        //     $activityTotal = $activityTotal + $act->cost;
+        // }
 
-        $sumDiff = $result - $activityTotal;
+        // $sumDiff = $result - $activityTotal;
 
-        $this->set(compact('activity', 'projectDetails', 'staff', 'users', 'priority', 'status','budget','s_date','e_date','sumDiff'));
->>>>>>> Stashed changes
+        $this->set(compact('activity', 'projectDetails', 'staff', 'users', 'priority', 'status',  's_date', 'e_date', 'substatus'));
     }
 
     /**
@@ -218,19 +214,19 @@ class ActivitiesController extends AppController
         return $this->redirect($this->referer());
     }
 
-    public function method() {
+    public function method()
+    {
         // Run only if this is an AJAX request and we are POSTing data
         if ($this->request->is('ajax') && !empty($this->request->data)) {
-          $value_sent = $this->request->data['the_value'];
+            $value_sent = $this->request->data['the_value'];
 
-          $this->loadModel('Milestones');
-          $indicator = $this->Milestones->find('all')->where(['project_id' => $value_sent]);
-          $s_date = ($result->start_date)->format("d-m-Y");
-          $e_date = ($result->end_date)->format("d-m-Y");
-          return $s_date;
-
+            $this->loadModel('Milestones');
+            $indicator = $this->Milestones->find('all')->where(['project_id' => $value_sent]);
+            $s_date = ($result->start_date)->format("d-m-Y");
+            $e_date = ($result->end_date)->format("d-m-Y");
+            return $s_date;
         } else {
-          throw new \MethodNotAllowedException('This method is not allowed');
+            throw new \MethodNotAllowedException('This method is not allowed');
         }
-      }
+    }
 }
