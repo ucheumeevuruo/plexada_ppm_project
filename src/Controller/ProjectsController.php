@@ -715,17 +715,12 @@ class ProjectsController extends AppController
     }
 
     public function viewPlans($id =  null)
-    {
+    {   
         $this->loadModel('Plans');
         $plans =  $this->Plans->find('all');
 
         $this->loadModel('Staff');
         $staffs =  $this->Staff->find('all');
-
-        // $this->loadModel('User');
-        // $users =  $this->User->find('all');
-        // debug($users);
-        // die();
 
         $this->set(compact('plans', 'id', 'staffs'));
     }
