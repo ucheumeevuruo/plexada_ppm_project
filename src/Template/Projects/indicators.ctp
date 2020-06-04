@@ -114,16 +114,23 @@ $this->Paginator->setTemplates([
     <?php break; ?>
     <?php endforeach; ?>
 
-    <div class="grey-bg vh-4 py-4">
+    <div class="grey-bg py-4">
         <div class="row mx-0">
             <?php foreach ($milestones as $milestone) : ?>
             <div class="col-xl-3 col-md-6 mb-4"
                 data-attr="<?= $this->Url->build(['controller' => 'milestones', 'action' => 'view', $project_id]) ?>">
                 <div
-                    class="card <?= $this->Indicator->status($milestone->has('status') ? $milestone->status->lov_value : '') ?> shadow py-0">
+                    <?php if($milestone->status_id == 1){ ?>
+                        class="card border-left-light shadow py-0"
+                    <?php }else{ ?>
+                        class="card border-left-dark shadow py-0"
+                    <?php } ?>
+                    >
                     <div class="card-body py-2 px-2">
                         <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
+                            <div class="col mr-2" id="clickable-sub-applet"
+                                data-attr="<?= $this->Url->build(['controller' => 'disbursements', 'action' => 'index', $milestone->id]) ?>">
+                                
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                     <?= $milestone->name ?>
                                 </div>
@@ -167,7 +174,7 @@ $this->Paginator->setTemplates([
             <?php endforeach; ?>
         </div>
     </div>
-    <div class="row border-top">
+    <div class="py-0" id="sub-applet">
 
     </div>
     <!-- MODAL ELEMENTS -->
@@ -196,5 +203,33 @@ $this->Paginator->setTemplates([
             });
         });
     });
+    $(document).on('click', '#clickable-sub-applet', function(event) {
+                event.preventDefault();
+                let href = $(this).attr('data-attr');
+                console.log(href)
+                $.ajax({
+                    url: href,
+                    
+                    // contentType: "application/json",
+                    // dataType: 'json',
+                    beforeSend: function() {
+                        $('#loader').show();
+                    },
+                    success: function(result) {
+                        $('#sub-applet').html(result);
+                        // history.pushState(null, null, href);
+                    },
+                    complete: function() {
+                        $('#loader').hide();
+                    },
+                    error: function(jqXHR, testStatus, error) {
+
+                        console.log(error);
+                        alert("Page " + href + " cannot open. Error:" + error);
+                        $('#loader').hide();
+                    },
+                    timeout: 8000
+                })
+            })    
     </script>
 </div>

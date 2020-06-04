@@ -99,25 +99,29 @@ $this->Paginator->setTemplates([
                             $close++;
                         } ?>
                 <?php endforeach; ?>
-                <div class="col-xl-3 col-md-6 mb-4">
-
                     <?php if ($count == 0) : { ?>
+                        <div class="col-xl-3 col-md-6 mb-4 d-none">
                     <div class="card shadow h-100 py-0 border border-left-light rounded-lg">
 
                         <?php } elseif (($close / $count * 100) < 40) : { ?>
+                            <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card shadow h-100 py-0 border border-left-danger rounded-lg">
 
                             <?php } elseif ((($close / $count * 100) >= 40) && (($close / $count * 100) < 60)) : { ?>
+                                <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card shadow h-100 py-0 border border-left-warning rounded-lg">
 
                                 <?php } elseif ((($close / $count * 100) >= 60) && (($close / $count * 100) < 80)) : { ?>
+                                    <div class="col-xl-3 col-md-6 mb-4">
                                 <div class="card shadow h-100 py-0 border border-left-warning rounded-lg">
 
                                     <?php } elseif ((($close / $count * 100) >= 80) && (($close / $count * 100) < 100)) : { ?>
+                                        <div class="col-xl-3 col-md-6 mb-4">
                                     <div class="card shadow h-100 py-0 border border-left-success rounded-lg">
 
                                         <?php } elseif (($close / $count * 100) == 100) : { ?>
-                                        <div class="card shadow h-100 py-0 border border-left-dark rounded-lg">
+                                            <div class="col-xl-3 col-md-6 mb-4 d-none">
+                                        <div class="card shadow h-100 py-0 border border-left-dark rounded-lg d-none">
 
                                             <?php  } ?>
                                             <?php endif; ?>

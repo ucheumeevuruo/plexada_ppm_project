@@ -22,13 +22,13 @@ echo $this->Html->css('mandatory');
         <legend class="font-weight-bolder text-center"><?= __('Add Activities') ?></legend>
         <div class="row">
             <div class="col-md-6">
-                <?php if (empty($project)) : ?>
+                <?php if (empty($project)): ?>
                     <?= $this->Form->control('project_id', ['options' => $projects, 'empty' => true]); ?>
                 <?php else : ?>
                     <?= $this->Form->hidden('project_id', ['value' => $project->id, 'empty' => false]); ?>
                 <?php endif; ?>
                 <?= $this->Form->control('milestone_id', ['options' => $milestone, 'label' => ['class' => 'mandatory font-weight-bolder']]); ?>
-                <?= $this->Html->link(__('Create Milestones'), ['controller' => 'milestones', 'action' => 'add', $project->id], ['class' => 'overlay btn btn-info rounded-0', 'escape' => false]) ?>
+                <!-- <?= $this->Html->link(__('Create Milestones'), ['controller' => 'milestones', 'action' => 'add', $project->id], ['class' => 'overlay btn btn-info rounded-0', 'escape' => false]) ?> -->
                 <?= $this->Form->control('name', ['autocomplete' => 'off', 'label' => ['class' => 'mandatory font-weight-bolder']]); ?>
                 <?= $this->Form->control('description', ['type' => 'textarea', 'label' => ['class' => 'mandatory font-weight-bolder']]); ?>
                 <?= $this->Form->hidden('activity_type_id', ['value' => 12]); ?>
@@ -47,7 +47,6 @@ echo $this->Html->css('mandatory');
 
     </fieldset>
     <?= $this->Form->button(__('Submit'), ['class' => 'bg-primary']) ?>
-    <?= $this->Html->link(__('New Lov'), ['controller' => 'activities', 'action' => 'method']) ?>
     <?= $this->Form->end() ?>
 </div>
 <script>

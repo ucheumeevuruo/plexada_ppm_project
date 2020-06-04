@@ -226,5 +226,3 @@ $this->Paginator->setTemplates([
             </script>
         </div>
 </section>
-
-<div class="card <?= $this->Indicator->status($activity->has('status') ? $activity->status->lov_value : '') ?> shadow py-0">

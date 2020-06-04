@@ -35,7 +35,7 @@
             </div>
             <div class="col-md-6">
                 <?= $this->Form->hidden('trigger_id', ['options' => $triggers, 'empty' => true]); ?>
-                <?= $this->Form->control('amount', ['autocomplete' => 'off', 'max' => $project->project_detail->budget, 'label' => ['class' => 'font-weight-bolder mandatory'], 'max' => $sumDiff, 'min' => 0]); ?>
+                <?= $this->Form->control('amount', ['autocomplete' => 'off', 'label' => ['class' => 'font-weight-bolder mandatory'], 'max' => $sumDiff, 'min' => 0]); ?>
                 <?= $this->Form->control('start_date', ['autocomplete' => 'off', 'id' => 'start_date', 'type' => 'text', 'label' => ['class' => 'font-weight-bolder'], 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>',]); ?>
                 <?= $this->Form->control('end_date', ['autocomplete' => 'off', 'id' => 'end_date', 'type' => 'text', 'label' => ['class' => 'font-weight-bolder'], 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>',]); ?>
                 <?= $this->Form->control('Indicator_type', ['options' => ['critical', 'non-critical', 'PPA', 'intermediary', 'DLI'], 'label' => ['class' => 'font-weight-bolder'], 'empty' => true]); ?>
@@ -46,7 +46,7 @@
     <?= $this->Form->end() ?>
 </div>
 <script>
-    // $(function() {
+// $(function() {
     $(function() {
         let start_date = <?= !is_null($project->project_detail->start_dt) ? json_encode($project->project_detail->start_dt->format('m/d/yy')) : ''; ?>;
         let end_date = <?= !is_null($project->project_detail->end_dt) ? json_encode($project->project_detail->end_dt->format('m/d/yy')) : ''; ?>;
@@ -68,5 +68,5 @@
             "keyboardNavigation": false
         });
     });
-    // })
+// })
 </script>

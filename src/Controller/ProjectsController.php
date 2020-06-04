@@ -31,9 +31,9 @@ class ProjectsController extends AppController
 
         $this->paginate = [
             'contain' => [
-                'ProjectDetails',
-                'ProjectDetails.Statuses',
-                'ProjectDetails.Currencies',
+                'ProjectDetails', 
+                'ProjectDetails.Statuses', 
+                'ProjectDetails.Currencies', 
                 'Activities'
             ],
             // 'conditions' => ['ProjectDetails.system_user_id' => $this->Auth->user('system_user_id')],// This is supposed to show only projects you created. Not fully implemented
@@ -712,5 +712,21 @@ class ProjectsController extends AppController
         // debug($projectDetails);
         // die();
         $this->set(compact('id', 'disbursed', 'amount_dis', 'milestone', 'milestones', 'projectDetails'));
+    }
+
+    public function viewPlans($id =  null)
+    {
+        $this->loadModel('Plans');
+        $plans =  $this->Plans->find('all');
+
+        $this->loadModel('Staff');
+        $staffs =  $this->Staff->find('all');
+
+        // $this->loadModel('User');
+        // $users =  $this->User->find('all');
+        // debug($users);
+        // die();
+
+        $this->set(compact('plans', 'id', 'staffs'));
     }
 }
