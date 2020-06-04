@@ -117,7 +117,7 @@ $this->Paginator->setTemplates([
                                 <div class="row">
                                     <div class="col-auto">
                                         <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'), ['controller' => 'Plans', 'action' => 'add', $activity->activity_id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Plan']) ?>
-                                        <?= $this->Html->link(__('<i class="fas fa-eye fa-1x text-gray-300"></i>'), ['action' => 'V', $activity->activity_id], ['class' => 'overlay', 'escape' => false, 'title' => 'View Plans']) ?>
+                                        <?= $this->Html->link(__('<i class="fas fa-eye fa-1x text-gray-300"></i>'), ['action' => 'viewPlans', $activity->activity_id], ['class' => 'overlay', 'escape' => false, 'title' => 'View Plans']) ?>
                                     </div>
                                 </div>
                             </div>

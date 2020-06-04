@@ -55,7 +55,7 @@ $this->Paginator->setTemplates([
                 <?= $this->Html->link('Disbursement', ['controller' => 'projects', 'action' => 'disburse', $project_id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
             </li>
             <li class="nav-item">
-                <?= $this->Html->link('Gantt Charts', ['action' => 'gantt_chart', $project_id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+                <?= $this->Html->link('Gantt Chart', ['action' => 'gantt_chart', $project_id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
             </li>
             <li class="nav-item">
                 <?= $this->Html->link('Documents', ['action' => 'documents', $project_id], ['id' => 'transmit', 'class' => 'nav-link']) ?>

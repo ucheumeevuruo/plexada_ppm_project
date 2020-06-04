@@ -58,7 +58,7 @@ $this->Paginator->setTemplates([
             <?= $this->Html->link('Disbursement', [], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Gantt Charts', ['action' => 'gantt_chart', $id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+            <?= $this->Html->link('Gantt Chart', ['action' => 'gantt_chart', $id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
             <?= $this->Html->link('Documents', ['action' => 'documents', $id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
@@ -70,7 +70,7 @@ $this->Paginator->setTemplates([
     <!-- Menu area [Search, pagination] -->
     <!-- I was supposed to put this section in the element template but will do that soon. -->
     <nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
-        <a class="navbar-brand" href="#">Total Amount Disbursed</a>
+        <p class="navbar-brand" href="#">Total Amount Disbursed</p>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -78,9 +78,9 @@ $this->Paginator->setTemplates([
 
     </nav>
     <div class="grey-bg vh-4 py-4">
-        <h4 class="ml-3 text-md font-weight-bold  ">Total Expected:  <?= $this->NumberFormat->format($projectDetails->budget, ['before' => $milestone->project->project_detail->has('currency') ? $milestone->project->project_detail->currency->symbol : '']) ?></h4>
-        <h4 class="ml-3 text-md font-weight-bold  ">Total Disbursed:  <?= $this->NumberFormat->format($amount_dis, ['before' => $milestone->project->project_detail->has('currency') ? $milestone->project->project_detail->currency->symbol : '']) ?></h4>
-        <h3 class="ml-3"><u>Details:</u></h3>
+        <h5 class="ml-3 text-sm font-weight-bold  ">Total Expected:  <?= $this->NumberFormat->format($projectDetails->budget, ['before' => $milestone->project->project_detail->has('currency') ? $milestone->project->project_detail->currency->symbol : '']) ?></h5>
+        <h5 class="ml-3 text-sm font-weight-bold  ">Total Disbursed:  <?= $this->NumberFormat->format($amount_dis, ['before' => $milestone->project->project_detail->has('currency') ? $milestone->project->project_detail->currency->symbol : '']) ?></h5>
+        <h6 class="ml-3"><u>Details:</u></h6>
         <table class="table table-bordered ml-3">
             <thead>
                 <tr>
