@@ -38,7 +38,7 @@ class ProjectsController extends AppController
                 'byProjectName' => $customFinderOptions
             ]
         ];
-//        $this->loadModel('Projects');
+        //        $this->loadModel('Projects');
         $projects = $this->paginate($this->Projects);
 
         $this->loadModel('Milestones');
@@ -107,7 +107,7 @@ class ProjectsController extends AppController
             ]
         );
 
-//        debug($project->milestones[0]->count());
+        //        debug($project->milestones[0]->count());
 
         $this->loadModel('Milestones');
         $closedCount =  $this->Milestones->find('all', ['conditions' => ['project_id' => $id, 'status_id' => 3]])->count();
@@ -284,7 +284,7 @@ class ProjectsController extends AppController
 
 
         $this->loadModel('Plans');
-        $activePlans =  $this->Plans->find('all',['conditions'=>['activity_id'=>$id]]);
+        $activePlans =  $this->Plans->find('all', ['conditions' => ['activity_id' => $id]]);
 
         $this->loadModel('Activities');
         $project_details = $this->Activities->find()->where(['activity_id' => $id])->first();
@@ -296,7 +296,7 @@ class ProjectsController extends AppController
         // debug($activity_id_ , $project_id_ , $milestone_id_);
         // die();
 
-        $this->set(compact('activePlans','activity_id_','project_id_','milestone_id_'));
+        $this->set(compact('activePlans', 'activity_id_', 'project_id_', 'milestone_id_'));
     }
 
     public function monitoring()
@@ -675,6 +675,28 @@ class ProjectsController extends AppController
         $project_id_ = $project_details->project_id;
         // debug($project_id_);
         // die();
-        $this->set(compact('activities', 'project_id', 'plans','project_id_'));
+        $this->set(compact('activities', 'project_id', 'plans', 'project_id_'));
+    }
+
+    public function disburse($id = null)
+    {
+        $this->loadModel('Disbursements');
+        $disbursed =  $this->Disbursements->find('all')->where(['project_id' => $id]);
+
+
+        $milestones = $this->Projects->Milestones->find()
+            ->contain(['Statuses', 'Projects.ProjectDetails.Currencies'])
+            ->where(['Milestones.project_id' => $id]);
+
+        foreach($milestones as $milestone)
+
+        $amount_dis = 0;
+
+        foreach($disbursed as $disburse) {
+            $amount_dis = $amount_dis + $disburse->cost;
+        }
+        // debug($disbursed);
+        // die();
+        $this->set(compact('id', 'disbursed', 'amount_dis', 'milestone'));
     }
 }
