@@ -21,7 +21,7 @@ $this->end();
             <li class="breadcrumb-item">
                 <?= $this->Html->link(__('Projects'), ['action' => 'index']) ?>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Gantt Charts</li>
+            <li class="breadcrumb-item active" aria-current="page">Gantt Chart</li>
         </ol>
     </nav>
     <!-- ./end Breadcrumb -->
@@ -41,7 +41,7 @@ $this->end();
             <?= $this->Html->link('Disbursement', ['controller' => 'projects', 'action' => 'disburse', $id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Gantt Charts', ['controller' => 'projects', 'action' => 'gantt_chart', $id], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
+            <?= $this->Html->link('Gantt Chart', ['controller' => 'projects', 'action' => 'gantt_chart', $id], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
         </li>
         <li class="nav-item">
             <?= $this->Html->link('Documents', ['action' => 'documents', $id], ['id' => 'transmit', 'class' => 'nav-link ']) ?>
@@ -52,7 +52,7 @@ $this->end();
     <!-- Menu area [Search, pagination] -->
     <!-- I was supposed to put this section in the element template but will do that soon. -->
     <nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
-        <a class="navbar-brand" href="#">Gantt Charts</a>
+        <a class="navbar-brand" href="#">Gantt Chart</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

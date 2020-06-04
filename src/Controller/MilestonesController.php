@@ -76,8 +76,8 @@ class MilestonesController extends AppController
 //        $indicator = $this->Milestones->find('all')->where(['project_id' => $id]);
 
         $indicatorTotal = 0;
-        foreach ($project->milestones as $milestone) {
-            $indicatorTotal += $milestone->amount;
+        foreach ($project->milestones as $miles) {
+            $indicatorTotal += $miles->amount;
         }
         $sumDiff = $project->project_detail->budget - $indicatorTotal;
 
