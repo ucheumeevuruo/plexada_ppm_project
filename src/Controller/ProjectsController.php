@@ -33,6 +33,7 @@ class ProjectsController extends AppController
             'contain' => [
                 'ProjectDetails', 'ProjectDetails.Statuses', 'ProjectDetails.Currencies', 'Activities'
             ],
+            'conditions' => ['ProjectDetails.system_user_id' => $this->Auth->user('system_user_id')],
             //            'maxLimit' => 3
             'finder' => [
                 'byProjectName' => $customFinderOptions
@@ -50,11 +51,6 @@ class ProjectsController extends AppController
         $this->loadModel('Activities');
         $activities =  $this->Activities->find('all');
 
-
-
-        // debug($projects);
-        // die();
-
         $this->set(compact('projects', 'milestones', 'projectDetails', 'activities'));
     }
 
@@ -70,7 +66,17 @@ class ProjectsController extends AppController
         $project = $this->Projects->get(
             $id,
             [
-                'contain' => ['Pims', 'ProjectFundings', 'ProjectDetails', 'Activities', 'Annotations', 'Milestones', 'Objectives', 'Prices', 'RiskIssues'],
+                'contain' => [
+                    'Pims',
+                    'ProjectFundings',
+                    'ProjectDetails',
+                    'Activities',
+                    'Annotations',
+                    'Milestones',
+                    'Objectives',
+                    'Prices',
+                    'RiskIssues'
+                ],
             ]
         );
 
@@ -98,9 +104,9 @@ class ProjectsController extends AppController
                     'ProjectDetails.Donors',
                     'ProjectDetails.Donors.SponsorTypes',
                     'ProjectDetails.Mdas',
-                    'ProjectDetails.Mdas.SponsorTypes',
+//                    'ProjectDetails.Mdas.SponsorTypes',
                     'ProjectDetails.Sponsors',
-                    'ProjectDetails.Sponsors.SponsorTypes',
+//                    'ProjectDetails.Sponsors.SponsorTypes',
                     'Pads',
                     'ProjectDetails.Currencies'
                 ],

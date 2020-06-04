@@ -108,10 +108,7 @@ $this->end();
                         </div>
                         <div class="h6 mb-0 text-gray-800">
 
-                            <?php foreach ($project->project_detail->sponsors as $sponsor): ?>
-
-                                <?= h($sponsor->full_name) ?>
-                            <?php endforeach;?>
+                            <?= $project->project_detail->has('sponsor')? $project->project_detail->sponsor->full_name : '' ?>
                         </div>
                     </div>
                 </div>
@@ -127,10 +124,7 @@ $this->end();
                             <?= h('Donors') ?>
                         </div>
                         <div class="h6 mb-0 text-gray-800">
-                            <?php foreach ($project->project_detail->donors as $donor): ?>
-
-                                <?= h($donor->full_name) ?>
-                            <?php endforeach;?>
+                            <?= $project->project_detail->has('donor')? $project->project_detail->donor->full_name : '' ?>
                         </div>
                     </div>
                 </div>
@@ -179,10 +173,7 @@ $this->end();
                             <?= h('MDA') ?>
                         </div>
                         <div class="h6 mb-0 text-gray-800 ">
-                            <?php foreach ($project->project_detail->mdas as $mda): ?>
-
-                                <?= h($mda->full_name) ?>
-                            <?php endforeach;?>
+                            <?= $project->project_detail->has('mda')? $project->project_detail->mda->full_name : '' ?>
                         </div>
                     </div>
                 </div>

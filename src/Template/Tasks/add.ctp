@@ -10,7 +10,7 @@ $this->end();
 ?>
 
 <?php echo $this->Html->css('mandatory'); ?>
-
+<?= $this->Html->script('mychart.js') ?>
 <div class="container content">
     <?= $this->Form->create($task) ?>
     <fieldset>
@@ -44,12 +44,12 @@ $this->end();
                 <label class="control-label font-weight-bolder mandatory" for="Start_date">Start
                     Date</label>
                 <?= $this->Form->control('Start_date', [
-                    'empty' => true, 'class' => 'addon-right', 'label' => false, 'id' => 'Start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off'
+                    'empty' => true, 'class' => 'addon-right', 'label' => false, 'id' => 'Start_date', 'type' => 'text','onblur'=>"javascript:checkDate();", 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off','required'
                 ]) ?>
 
                 <label class="control-label font-weight-bolder mandatory" for="end_date">End Date</label>
                 <?= $this->Form->control('end_date', [
-                    'empty' => true, 'class' => 'addon-right', 'label' => false, 'id' => 'Start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off'
+                    'empty' => true, 'class' => 'addon-right', 'label' => false, 'id' => 'end_date', 'type' => 'text','onblur'=>"javascript:checkDate();", 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off','required'
                 ]) ?>
 
             </div>
@@ -61,7 +61,7 @@ $this->end();
 
 <script>
 $(function() {
-    $('#Expected_end_date, #Start_date').datepicker({
+    $('#end_date, #Start_date').datepicker({
         inline: true,
         "format": "dd/mm/yyyy",
          startDate: "<?php echo $start_date ?>",

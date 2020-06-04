@@ -37,7 +37,7 @@ class SponsorsTable extends Table
         parent::initialize($config);
 
         $this->setTable('sponsors');
-        $this->setDisplayField('first_name');
+        $this->setDisplayField('full_name');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');

@@ -5,6 +5,14 @@ use Cake\ORM\TableRegistry;
 use Cake\View\Helper;
 use Cake\View\View;
 
+/**
+ * Milestones Controller
+ *
+ * @property \App\Model\Table\MessagesTable $Messages
+ *
+ * @method \App\Model\Entity\Messages[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ */
+
 class MessageHelper extends Helper
 {
     private $Messages;
@@ -20,20 +28,21 @@ class MessageHelper extends Helper
     public function getMessageCount()
     {
         $count = $this->Messages->find('all')
-            ->where(['is_read' => 'N'])
+            ->contain(['Users'])
+            ->where(['is_read' => 'N', 'Users.id' => $_SESSION['Auth']['Users']['system_user_id']])
             ->count();
+
         return $count;
     }
 
     public function getMessages()
     {
         $messages = $this->Messages->find('all')
-            ->contain(['Senders'])
-            ->where(['is_read' => 'N'])
+            ->contain(['Users'])
+            ->where(['is_read' => 'N', 'Users.id' => $_SESSION['Auth']['Users']['system_user_id']])
             ->orderDesc('Messages.created')
             ->limit(5);
-//            ->where(['first_name' => $name[0], 'last_name' => $name[1]])
-//            ->first();
+
         return $messages;
     }
 }
