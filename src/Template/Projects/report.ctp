@@ -14,7 +14,7 @@ $this->end();
 
 <style>
     .drilldown {
-        max-height: 150px;
+        max-height: 100px;
         overflow-y: scroll;
     }
 </style>
@@ -47,7 +47,7 @@ $this->end();
             <?= $this->Html->link('Disbursement', ['controller' => 'projects', 'action' => 'disburse', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Gantt Charts', ['controller' => 'projects', 'action' => 'gantt_chart', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+            <?= $this->Html->link('Gantt Chart', ['controller' => 'projects', 'action' => 'gantt_chart', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
             <?= $this->Html->link('Documents', ['controller' => 'projects', 'action' => 'documents', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
@@ -189,9 +189,11 @@ $this->end();
                         </div>
                         <div class="h6 mb-0 text-gray-800 drilldown">
                             <?php foreach ($project->milestones as $milestones) : ?>
+                                <?php if ($milestones->status_id == 3) : ?>
                                 <p class="card-text text-gray-800">
                                     <?= $this->Html->link($milestones->description, ['controller' => 'milestones', 'action' => 'view', $milestones->id], ['class' => 'nav-col text-gray-800']) ?>
                                 </p>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                         </div>
 
