@@ -49,12 +49,12 @@ $this->end();
         <legend class="font-weight-bolder">Project Duration</legend>
         <label class="control-label font-weight-bolder" for="start_dt">Start Date</label>
         <div class="input-group mb-3"><input type="text" name="start_dt" value="<?= $projectDetail->start_dt ?>"
-                class="form-control" empty="1" id="start_dt" autocomplete="off" onchange ="dateCheck();"><i
+                class="form-control" empty="1" id="start_dt" autocomplete="off" onchange ="dateCheck();" required><i
                 class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>
         </div>
         <label class="control-label font-weight-bolder" for="end_dt">End Date</label>
         <div class="input-group mb-3"><input type="text" name="end_dt" value="<?= $projectDetail->end_dt ?>"
-                class="form-control" empty="1" id="end_dt" autocomplete="off" onchange ="dateCheck();"><i
+                class="form-control" empty="1" id="end_dt" autocomplete="off" onchange ="dateCheck();" required><i
                 class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>
         </div>
         <!-- <?= $this->Form->control('start_dt', ['empty' => true, 'class' => 'addon-right mb-0 mt-0', 'label' => 'Start Date ', 'id' => 'start_date', 'type' => 'text', 'append' => '<i class="fa fa-calendar fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off']); ?> -->

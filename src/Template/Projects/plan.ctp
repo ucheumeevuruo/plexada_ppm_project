@@ -112,9 +112,9 @@ $this->Paginator->setTemplates([
                 <?php foreach ($activePlans as $plan) : ?>
                     <div class="col-xl-3 col-md-6 mb-4" data-attr="">
                     <?php if ($plan->approved == 1 ){?>
-                        <div class="card shadow  h-100 py-0 border border-left-success rounded-lg">
+                        <div class="card shadow  h-100 py-0 border border-left-dark rounded-lg">
                         <?php }else{ ?>
-                            <div class="card shadow  h-100 py-0 border border-left-danger rounded-lg">
+                            <div class="card shadow  h-100 py-0 border border-left-light rounded-lg">
                         <?php } ?>
         
                             <div class="card-body py-2 px-2">
