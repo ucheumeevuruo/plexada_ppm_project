@@ -355,8 +355,11 @@ class ProjectDetailsController extends AppController
 //                'Projects.ProjectDonors.SponsorTypes',
             ]
         ]);
+
 //        debug($projectDetail);die();
-         $project_info = $this->Projects->get($id);
+// debug('here');
+// die();
+        //  $project_info = $this->Projects->get($id);
 
 
         $project_info = $this->Projects->get($projectDetail->project_id);
@@ -440,6 +443,7 @@ class ProjectDetailsController extends AppController
 
         $users = $this->ProjectDetails->Users->find('list', ['limit' => 200]);
         $userid = $id;
+
         $this->set(compact('projectDetail', 'vendors', 'staff', 'sponsors', 'donors', 'mdas', 'lov', 'users', 'subStatus', 'users', 'currencies', 'project_info'));
     }
     /**
