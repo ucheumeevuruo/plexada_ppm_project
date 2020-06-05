@@ -79,7 +79,7 @@ $this->end();
                                                 <td class="actions">
                                                     <!-- <?= $this->Html->link(__('View'), ['action' => 'view', $message->id]) ?>
                                                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $message->id]) ?> -->
-                                                    <?= $this->Form->postLink(__('<i class="fa fa-trash-o fa-lg"></i>'), ['action' => 'delete', $message->id], ['confirm' => __('Are you sure you want to delete # {0}?', $message->id),'escape' => false, 'class' => 'btn btn-outline-danger btn-sm']) ?>
+                                                    <?= $this->Form->postLink(__('<i class="fa fa-trash fa-lg"></i>'), ['action' => 'delete', $message->id], ['confirm' => __('Are you sure you want to delete # {0}?', $message->id),'escape' => false, 'class' => 'btn btn-outline-danger btn-sm']) ?>
                                                 </td>
                                             </tr>
                                             <?php endforeach; ?>
@@ -115,7 +115,7 @@ $this->end();
                                                 <td class="actions">
                                                     <!-- <?= $this->Html->link(__('View'), ['action' => 'view', $message->id]) ?>
                                                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $message->id]) ?> -->
-                                                    <?= $this->Form->postLink(__('<i class="fa fa-trash-o fa-lg"></i>'), ['action' => 'delete', $message->id], ['confirm' => __('Are you sure you want to delete # {0}?', $message->id),'escape' => false, 'class' => 'btn btn-outline-danger btn-sm']) ?>
+                                                    <?= $this->Form->postLink(__('<i class="fa fa-trash fa-lg"></i>'), ['action' => 'delete', $message->id], ['confirm' => __('Are you sure you want to delete # {0}?', $message->id),'escape' => false, 'class' => 'btn btn-outline-danger btn-sm']) ?>
                                                 </td>
                                             </tr>
                                             <?php endforeach; ?>
