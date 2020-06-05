@@ -26,14 +26,11 @@
                 <th scope="col"><?= $this->Paginator->sort('milestone_id') ?></th> -->
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                 <!-- <th scope="col"><?= $this->Paginator->sort('percentage_completion') ?></th> -->
-                <th scope="col"><?= $this->Paginator->sort('description') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('comments') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Disbursed Date') ?></th>
                 <!-- <th scope="col"><?= $this->Paginator->sort('end_date') ?></th> -->
                 <th scope="col"><?= $this->Paginator->sort('cost') ?></th>
-                <!-- <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('last_updated') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('system_user_id') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th> -->
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -48,14 +45,14 @@
                 <td><?= h($disbursement->start_date) ?></td>
                 <!-- <td><?= h($disbursement->end_date) ?></td> -->
                 <td><?= $this->Number->format($disbursement->cost) ?></td>
-                <!-- <td><?= h($disbursement->created) ?></td>
-                <td><?= h($disbursement->last_updated) ?></td>
-                <td><?= $disbursement->has('user') ? $this->Html->link($disbursement->user->username, ['controller' => 'Users', 'action' => 'view', $disbursement->user->id]) : '' ?></td>
+                <!-- <td><?= h($disbursement->created) ?></td> -->
+                <!-- <td><?= h($disbursement->last_updated) ?></td>  -->
+                <!-- <td><?= $disbursement->has('user') ? $this->Html->link($disbursement->user->username, ['controller' => 'Users', 'action' => 'view', $disbursement->user->id]) : '' ?></td> -->
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $disbursement->disbursement_id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $disbursement->disbursement_id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $disbursement->disbursement_id], ['confirm' => __('Are you sure you want to delete # {0}?', $disbursement->disbursement_id)]) ?>
-                </td> -->
+                    <!-- <?= $this->Html->link(__('View'), ['action' => 'view', $disbursement->disbursement_id]) ?> -->
+                    <?= $this->Html->link(__('<i class="fa fa-edit fa-lg"></i>'), ['action' => 'edit', $disbursement->disbursement_id], ['class' => 'overlay text-warning ml-1', 'title' => 'Edit', 'escape' => false]) ?>
+                    <?= $this->Form->postLink(__("<i class='fa fa-trash fa-lg'></i>"), ['action' => 'delete', $disbursement->disbursement_id], ['confirm' => __('Are you sure you want to delete # {0}?', $disbursement->disbursement_id),'escape' => false,'class' => 'text-danger ml-1']) ?>
+                </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
@@ -71,3 +68,29 @@
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
 </div>
+<div id="dialogModal" class="bg-primary">
+    <!-- the external content is loaded inside this tag -->
+    <div id="contentWrap">
+        <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-lg']) ?>
+        <?= $this->Modal->body() // No header
+        ?>
+        <?= $this->Modal->footer() // Footer with close button (default)
+        ?>
+        <?= $this->Modal->end() ?>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    //respond to click event on anything with 'overlay' class
+    $(".overlay").click(function(event) {
+        event.preventDefault();
+        //load content from href of link
+        $('#contentWrap .modal-body').load($(this).attr("href"), function() {
+            $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content')
+                .removeClass()
+            $('#MyModal4').modal('show')
+        });
+    });
+});
+</script>
