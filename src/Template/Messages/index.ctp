@@ -24,7 +24,7 @@ $this->end();
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <?= $this->Html->link(__('Projects'), ['action' => 'index'])?>
+                <?= $this->Html->link(__('Projects'), ['controller'=> 'projects','action' => 'index'])?>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Messages</li>
         </ol>
