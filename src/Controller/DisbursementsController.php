@@ -94,15 +94,20 @@ class DisbursementsController extends AppController
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $disbursement = $this->Disbursements->patchEntity($disbursement, $this->request->getData());
+            // $disbursement = $this->Disbursements->patchEntity($disbursement, $this->request->getData());
+            $disbursement = $this->Disbursements->patchEntity($disbursement, $this->Disbursements->identify($this->request->getData()));
+                       
             if ($this->Disbursements->save($disbursement)) {
                 $this->Flash->success(__('The disbursement has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->referer());
             }
             $this->Flash->error(__('The disbursement could not be saved. Please, try again.'));
+            return $this->redirect($this->referer());
         }
-        $this->set(compact('disbursement'));
+        $milestones = $disbursement->milestone_id;
+        $projects = $disbursement->project_id;
+        $this->set(compact('disbursement','milestones','projects'));
     }
 
     /**
@@ -122,6 +127,6 @@ class DisbursementsController extends AppController
             $this->Flash->error(__('The disbursement could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
 }
