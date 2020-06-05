@@ -49,6 +49,7 @@ $this->end();
 
                 <label class="control-label font-weight-bolder" for="percentage_completion">Sub Status</label>
                 <?php echo $this->Form->control('percentage_completion', ['options' => $substatus, 'label' => false]); ?>
+                <?php echo $this->Form->control('risk', ['type' => 'textarea', 'label' => 'Risks and Issues', 'required']); ?>
             </div>
 
         </div>

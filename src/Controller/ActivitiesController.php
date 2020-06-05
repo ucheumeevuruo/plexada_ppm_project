@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Activities Controller
@@ -122,7 +123,13 @@ class ActivitiesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $activity = $this->Activities->patchEntity($activity, $this->Activities->identify($this->request->getData()));
             if ($this->Activities->save($activity)) {
+                $risks = $this->request->getData('risk');
+
                 $this->Flash->success(__('The activity has been saved.'));
+                $project_id = $activity->project_id;
+                debug($project_id);
+                $conn = ConnectionManager::get('default');
+                $conn->execute("Update project_details set risk_and_issues = '" . $risks . "' where project_id = $project_id") ;
 
                 //                return $this->redirect(['action' => 'index']);
                 return $this->redirect($this->referer());
@@ -169,6 +176,8 @@ class ActivitiesController extends AppController
         // $budget = $result->amount;
         $s_date = ($result->start_date)->format("d-m-Y");
         $e_date = ($result->end_date)->format("d-m-Y");
+
+
 
         $this->set(compact('activity', 'projectDetails', 'staff', 'users', 'priority', 'status', 'budget', 's_date', 'e_date', 'substatus'));
     }
