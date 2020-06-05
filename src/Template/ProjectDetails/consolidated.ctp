@@ -30,7 +30,7 @@ $this->end();
                                             <div class="form-group">
                                                 <!-- Date input -->
                                                 <label class="control-label" for="date">From</label>
-                                                <input class="form-control" id="date" name="from"
+                                                <input class="form-control" id="date" name="from" autocomplete ="off"
                                                     placeholder="MM/DD/YYY" type="text"
                                                     style="background-color: #CDD8F6; border-color: #4E73DF; border-width: medium;" />
                                             </div>
@@ -48,12 +48,12 @@ $this->end();
                         <div class="bootstrap-iso">
                             <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-md-8 col-sm-6 col-xs-12">
+                                    <div class="col-md-12 col-sm-6 col-xs-12">
 
                                             <div class="form-group">
                                                 <!-- Date input -->
                                                 <label class="control-label" for="date">To</label>
-                                                <input class="form-control" id="dateto" name="dateto"
+                                                <input class="form-control" id="dateto" name="dateto" autocomplete ="off"
                                                     placeholder="MM/DD/YYY" type="text"
                                                     style="background-color: #CDD8F6; border-color: #4E73DF; border-width: medium;" />
                                             </div>
@@ -112,21 +112,24 @@ $this->end();
                 <tbody>
                     <?php if(isset($projectReports)){ ?>
                     <?php $num = 0; ?>
+                    
                     <?php foreach ($projectReports as $projectDetail) : ?>
+                        <?php $randomNumber = rand(0,100); ?>
                     <?php
-                    $onethird = ($projectDetail->cost) * 0.33;
-                    $leftbalance = ($projectDetail->cost) - $onethird;
-                    $percent = ($onethird/($projectDetail->cost) ) * 100;
+
+                    $onethird = ($projectDetail->budget) * ($randomNumber/100);
+                    $leftbalance = ($projectDetail->budget) - $onethird;
+                    $percent = ($onethird/($projectDetail->budget) ) * 100;
                     $fromto = $onethird/2;
-                    $leftto = ($projectDetail->cost)/3
+                    $leftto = ($projectDetail->budget)/3
                     ?>
                     <?php $num++; ?>
                     <tr>
                     <td style="width:5%" style="color: black !important;" class="mx-auto"><?= h($num) ?></td>
                     <td style="width:5%" style="color: black !important;" class="mx-auto"><?= $projectDetail->name ?></td>
                     <td style="width:5%" style="color: black !important;" class="mx-auto"><?= $projectDetail->location ?></td>
-                    <td style="width:5%" style="color: black !important;" class="mx-auto"><?= $this->Number->currency(($projectDetail->cost)/1000000) ?></td>
-                    <td style="width:5%" style="color: black !important;" class="mx-auto"><?= $this->Number->currency(($projectDetail->cost)/12000000) ?></td>
+                    <td style="width:5%" style="color: black !important;" class="mx-auto"><?= $this->Number->currency(($projectDetail->budget)/1000000) ?></td>
+                    <td style="width:5%" style="color: black !important;" class="mx-auto"><?= $this->Number->currency(($projectDetail->budget)/12000000) ?></td>
                     <td style="width:5%" style="color: black !important;" class="mx-auto"><?= $this->Number->currency($onethird/1000000) ?></td>
                     <td style="width:5%" style="color: black !important;" class="mx-auto"><?= $this->Number->currency($leftbalance/1000000) ?></td>
                     <td style="width:5%" style="color: black !important;" class="mx-auto"> <?= $percent?></td>
