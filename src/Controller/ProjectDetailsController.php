@@ -119,7 +119,7 @@ class ProjectDetailsController extends AppController
         $projectDetails = $this->ProjectDetails->find('all');
 
         $this->loadModel('Sponsors');
-        $sponsors = $this->ProjectDetails->Sponsors->find('all');
+        $sponsors = $this->Sponsors->find('all');
         // debug($projectDetails);
         // die();
 
@@ -142,10 +142,10 @@ class ProjectDetailsController extends AppController
         if ($this->request->is('post')) {
             $sdate = $this->request->getData('from');
             $edate = $this->request->getData('dateto');
-            
+
             $this->loadModel('Projects');
             $projectReports = $this->ProjectDetails->find('all')->contain(['Projects'])->where(['ProjectDetails.start_dt >=' => $sdate, 'ProjectDetails.end_dt <=' => $edate]);
-            
+
             $todays = date("Y");
             $sObj = new DateTime($sdate);
             $shsdate = $sObj->format("j F Y");
@@ -160,7 +160,7 @@ class ProjectDetailsController extends AppController
             $this->request->data('from', $from);
             // sql($projectReports);
             // die();
-            $this->set(compact('projectReports', 'from', 'edate', 'fromshdate1', 'fromshdate2','projects'));
+            $this->set(compact('projectReports', 'from', 'edate', 'fromshdate1', 'fromshdate2', 'projects'));
         }
         $this->set(compact('projectDetails'));
     }
@@ -169,7 +169,16 @@ class ProjectDetailsController extends AppController
     public function summary()
     {
         $projectDetails = $this->ProjectDetails->find('all');
-        $this->set(compact('projectDetails'));
+
+
+        $this->loadModel('Milestones');
+        $milestones =  $this->Milestones->find('all');
+        $this->loadModel('Sponsors');
+        $sponsors =  $this->Sponsors->find('all');
+        // debug($sponsors);
+        // die();
+
+        $this->set(compact('projectDetails', 'milestones', 'sponsors'));
     }
 
     public function printable($id = null)
@@ -254,8 +263,8 @@ class ProjectDetailsController extends AppController
      */
     public function add($id)
     {
-         $this->loadModel('Projects');
-         $project_info = $this->Projects->get($id);
+        $this->loadModel('Projects');
+        $project_info = $this->Projects->get($id);
 
         $projectDetail = $this->ProjectDetails->newEntity();
         if ($this->request->is('post')) {
@@ -274,14 +283,16 @@ class ProjectDetailsController extends AppController
         $projects = $this->ProjectDetails->Projects->find('list', ['limit' => 200]);
         $vendors = $this->ProjectDetails->Vendors->find('list', ['limit' => 200]);
         $staff = $this->ProjectDetails->Staff->find('list', ['limit' => 200]);
-        $lov = $this->ProjectDetails->Lov->find('list',
+        $lov = $this->ProjectDetails->Lov->find(
+            'list',
             [
                 'conditions' => ['Lov.lov_type' => 'project_status'],
                 'limit' => 200
             ]
         );
 
-        $sponsors = $this->ProjectDetails->Projects->ProjectSponsors->Sponsors->find('list',
+        $sponsors = $this->ProjectDetails->Projects->ProjectSponsors->Sponsors->find(
+            'list',
             [
                 'contain' => ['SponsorTypes'],
                 'conditions' => ['SponsorTypes.lov_value' => 'sponsor'],
@@ -289,7 +300,8 @@ class ProjectDetailsController extends AppController
             ]
         );
 
-        $donors = $this->ProjectDetails->Projects->ProjectSponsors->Sponsors->find('list',
+        $donors = $this->ProjectDetails->Projects->ProjectSponsors->Sponsors->find(
+            'list',
             [
                 'contain' => ['SponsorTypes'],
                 'conditions' => ['SponsorTypes.lov_value' => 'donor'],
@@ -297,7 +309,8 @@ class ProjectDetailsController extends AppController
             ]
         );
 
-        $mdas = $this->ProjectDetails->Projects->ProjectSponsors->Sponsors->find('list',
+        $mdas = $this->ProjectDetails->Projects->ProjectSponsors->Sponsors->find(
+            'list',
             [
                 'contain' => ['SponsorTypes'],
                 'conditions' => ['SponsorTypes.lov_value' => 'mda'],
@@ -321,7 +334,8 @@ class ProjectDetailsController extends AppController
             ]
         );
         $authUser = $this->Auth->User();
-        $currencies = $this->ProjectDetails->Currencies->find('list',
+        $currencies = $this->ProjectDetails->Currencies->find(
+            'list',
             [
                 'limit' => 200
             ]
@@ -348,11 +362,11 @@ class ProjectDetailsController extends AppController
             'contain' => [
                 'Projects',
                 'Projects.ProjectSponsors',
-//                'Projects.ProjectSponsors.SponsorTypes',
+                //                'Projects.ProjectSponsors.SponsorTypes',
                 'Projects.ProjectMdas',
-//                'Projects.ProjectMdas.SponsorTypes',
+                //                'Projects.ProjectMdas.SponsorTypes',
                 'Projects.ProjectDonors',
-//                'Projects.ProjectDonors.SponsorTypes',
+                //                'Projects.ProjectDonors.SponsorTypes',
             ]
         ]);
 
@@ -370,8 +384,8 @@ class ProjectDetailsController extends AppController
                 ]
             ]);
 
-//             debug($projectDetail);
-//             die();
+            //             debug($projectDetail);
+            //             die();
             if ($this->ProjectDetails->save($projectDetail)) {
 
                 $this->Flash->success(__('The project detail has been saved.'));

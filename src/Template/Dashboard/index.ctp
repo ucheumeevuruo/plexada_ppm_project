@@ -411,12 +411,12 @@ $this->end();
             </div>
         </div>
     </div>
-
+<!-- 
     <div class="row">
         <div class="col">
-            <div class="card shadow mb-5">
+            <div class="card shadow mb-5"> -->
                 <!-- Card Header - Dropdown -->
-                <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
+                <!-- <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
                     <h4 class="m-0 text-white">Budget vs Spent</h4>
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -430,13 +430,13 @@ $this->end();
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Card Body -->
-                <div class="card-body">
-                    <div id="container">
+                <!-- <div class="card-body">
+                    <div id="container"> -->
                         <!-- <canvas id="myPieChart"></canvas> -->
-                        <canvas id="myChart2" width="200" height="50" style="height:400px"></canvas>
+                        <!-- <canvas id="myChart2" width="200" height="50" style="height:400px"></canvas>
                         <script>
                             <?php $budget_array = json_encode($allBudgetList) ?>
                             <?php $expense_array = json_encode($allExpenseList) ?>
@@ -444,7 +444,7 @@ $this->end();
                             var array_budget = <?php echo $budget_array; ?>;
                             var array_expense = <?php echo $expense_array; ?>;
                             doBarChart2(array_code, array_budget, array_expense);
-                        </script>
+                        </script> -->
                         <!-- <div class="card shadow mb-5"> -->
 
                             <!-- <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
@@ -476,9 +476,9 @@ $this->end();
                                 </div>
                                 <div class="mt-4 text-center small status"></div>
                             </div> -->
-                        </div>
+                        <!-- </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- <div class="row">
         <div class="col">
