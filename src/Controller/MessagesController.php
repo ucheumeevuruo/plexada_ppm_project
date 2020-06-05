@@ -72,7 +72,7 @@ class MessagesController extends AppController
             $message = $this->Messages->patchEntity($message, $this->request->getData());
             if ($this->Messages->save($message)) {
                 $this->Flash->success(__('The message has been saved.'));
-                $this->sendMail($email,$myMessage,$subject);
+                // $this->sendMail($email,$myMessage,$subject);
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The message could not be saved. Please, try again.'));
