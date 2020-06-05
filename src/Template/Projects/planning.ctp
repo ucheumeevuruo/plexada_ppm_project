@@ -139,9 +139,7 @@ $this->Paginator->setTemplates([
                                                                     ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']
                                                                 )  : '0.00' ?></div>
                                                     </div>
-                                                    <div class="col-auto">
-                                                        <i class="fas fa-check-circle fa-2x text-gray-300"></i>
-                                                    </div>
+
                                                 </div>
                                             </div>
                                             <div class="card-footer no-gutters align-items-center py-0"
