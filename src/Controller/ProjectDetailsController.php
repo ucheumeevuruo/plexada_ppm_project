@@ -169,10 +169,16 @@ class ProjectDetailsController extends AppController
     public function summary()
     {
         $projectDetails = $this->ProjectDetails->find('all');
-        // debug($projectDetails);
-        // dit();
 
-        $this->set(compact('projectDetails'));
+
+        $this->loadModel('Milestones');
+        $milestones =  $this->Milestones->find('all');
+        $this->loadModel('Sponsors');
+        $sponsors =  $this->Sponsors->find('all');
+        // debug($sponsors);
+        // die();
+
+        $this->set(compact('projectDetails', 'milestones', 'sponsors'));
     }
 
     public function printable($id = null)

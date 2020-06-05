@@ -89,18 +89,15 @@ $this->end();
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="">
-
-
                                         <div class="form-group" style="display: flex; flex-direction: column;">
                                             <!-- Date input -->
                                             <div class="input-group date" data-provide="datepicker" style="background-color: #CDD8F6; border-color: #4E73DF; border-width: medium;">
-                                                <input type="text" class="form-control" placeholder="MM/DD/YYY" name="from" id='from' />
+                                                <input type="text" class="form-control" placeholder="MM/DD/YYY" name="from" id='from' autocomplete="off"/>
                                                 <div class="input-group-addon">
                                                     <span class="glyphicon glyphicon-th"></span>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +117,7 @@ $this->end();
                                         <div class="form-group" style="display: flex; flex-direction: column; margin-left: -20px;">
 
                                             <div class="input-group date" data-provide="datepicker" style="background-color: #CDD8F6; border-color: #4E73DF; border-width: medium;">
-                                                <input type="text" class="form-control" placeholder="MM/DD/YYY" name="to" id='to' />
+                                                <input type="text" class="form-control" placeholder="MM/DD/YYY" name="to" id='to' autocomplete="off"/>
                                                 <div class="input-group-addon">
                                                     <span class="glyphicon glyphicon-th"></span>
                                                 </div>
@@ -197,7 +194,6 @@ $this->end();
                                 <td style="width:5%" style="color: black !important;"><?= h($num) ?></td>
                                 <td id="print2">
                                     <?= $this->Html->link($projectDetail->name, ['controller' => 'projectDetails', 'action' => 'printable', $projectDetail->id]) ?>
-
                                 </td>
                                 <th scope="col" class="text-blue" style="color: black !important;">
                                     <?php foreach ($sponsors as $sponsor) : ?>
@@ -219,7 +215,6 @@ $this->end();
                                 <th scope="col" class="text-blue" style="color: black !important;">
                                     <?= h($projectDetail->beneficiary) ?>
                                 </th>
-
                                 <th scope="col" class="text-blue" style="color: black !important;">
                                     <?= h($projectDetail->start_dt) ?></th>
                                 <th scope="col" class="text-blue" style="color: black !important;">
@@ -229,9 +224,6 @@ $this->end();
                                 <th scope="col" class="text-blue" style="color: black !important;">
                                     <?= h($projectDetail->risk_and_issues) ?></th>
                                 </th>
-                                <!-- <th scope="col" class="text-blue" style="color: black !important;">
-                                    <?= __('Liaise with the PMO on additional funding.') ?>
-                                </th> -->
                             </tr>
                         <?php endif; ?>
                     <?php endforeach; ?>
