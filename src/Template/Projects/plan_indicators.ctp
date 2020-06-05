@@ -87,6 +87,12 @@ $this->Paginator->setTemplates([
         <!-- ./end Breadcrumb -->
 
         <h3 class="text-primary text-left font-weight-bold mt-0">Select Indicator </h3>
+        <?php foreach ($milestones as $milestone) : ?>
+           <h6 class="text-default text-left font-weight-bold mt-0 text-uppercase"> <?= h($milestone->project->name) ?></h6>
+        <?php break; ?>
+        <?php endforeach; ?>
+
+
 
         <!-- .\end Menu Area -->
 

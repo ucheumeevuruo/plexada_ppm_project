@@ -96,6 +96,14 @@ $this->Paginator->setTemplates([
         <!-- ./end Breadcrumb -->
 
         <h3 class="text-primary text-left font-weight-bold mt-0">Select Activities </h3>
+        <?php foreach ($projectDetails as $projectDetail) : ?>
+            <?php foreach ($activities as $activity) : ?>
+                <?php if ($projectDetail->id == $activity->project_id) : ?>
+                    <h6 class="text-default text-left font-weight-bold mt-0 text-uppercase"> <?= h($projectDetail->name) ?></h6>
+                    <?php break; ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endforeach; ?>
 
         <!-- .\end Menu Area -->
 
@@ -106,8 +114,7 @@ $this->Paginator->setTemplates([
                         <div class="card shadow py-0">
                             <div class="card-body py-2 px-2">
                                 <div class="row no-gutters align-items-center">
-                                <div class="col mr-2" id="clickable-sub-applet"
-                                data-attr="<?= $this->Url->build(['controller' => 'projects', 'action' => 'viewPlans', $activity->activity_id]) ?>">
+                                    <div class="col mr-2" id="clickable-sub-applet" data-attr="<?= $this->Url->build(['controller' => 'projects', 'action' => 'viewPlans', $activity->activity_id]) ?>">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             <?= h($activity->name) ?>
                                         </div>
@@ -118,7 +125,7 @@ $this->Paginator->setTemplates([
                                 <div class="row">
                                     <div class="col-auto">
                                         <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'), ['controller' => 'Plans', 'action' => 'add', $activity->activity_id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Plan']) ?>
-                                        <!-- <?= $this->Html->link(__('<i class="fas fa-eye fa-1x text-gray-300"></i>'), ['controller'=>'projects','action' => 'viewPlans', $activity->activity_id], ['class' => 'overlay', 'escape' => false, 'title' => 'View Plans']) ?> -->
+                                        <!-- <?= $this->Html->link(__('<i class="fas fa-eye fa-1x text-gray-300"></i>'), ['controller' => 'projects', 'action' => 'viewPlans', $activity->activity_id], ['class' => 'overlay', 'escape' => false, 'title' => 'View Plans']) ?> -->
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +145,7 @@ $this->Paginator->setTemplates([
 <div id="dialogModal" class="bg-primary">
     <!-- the external content is loaded inside this tag -->
     <div id="contentWrap">
-        <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-xl']) ?>
+        <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-lg']) ?>
         <?= $this->Modal->body() // No header
         ?>
         <?= $this->Modal->footer() // Footer with close button (default)
@@ -162,33 +169,32 @@ $this->Paginator->setTemplates([
     });
 
     $(document).on('click', '#clickable-sub-applet', function(event) {
-            event.preventDefault();
-            let href = $(this).attr('data-attr');
-            console.log(href)
-            $.ajax({
-                url: href,
-                
-                // contentType: "application/json",
-                // dataType: 'json',
-                beforeSend: function() {
-                    $('#loader').show();
-                },
-                success: function(result) {
-                    $('#sub-applet').html(result);
-                    // history.pushState(null, null, href);
-                },
-                complete: function() {
-                    $('#loader').hide();
-                },
-                error: function(jqXHR, testStatus, error) {
+        event.preventDefault();
+        let href = $(this).attr('data-attr');
+        console.log(href)
+        $.ajax({
+            url: href,
 
-                    console.log(error);
-                    alert("Page " + href + " cannot open. Error:" + error);
-                    $('#loader').hide();
-                },
-                timeout: 8000
-            })
-        })  
+            // contentType: "application/json",
+            // dataType: 'json',
+            beforeSend: function() {
+                $('#loader').show();
+            },
+            success: function(result) {
+                $('#sub-applet').html(result);
+                // history.pushState(null, null, href);
+            },
+            complete: function() {
+                $('#loader').hide();
+            },
+            error: function(jqXHR, testStatus, error) {
 
+                console.log(error);
+                alert("Page " + href + " cannot open. Error:" + error);
+                $('#loader').hide();
+            },
+            timeout: 8000
+        })
+    })
 </script>
 </div>
