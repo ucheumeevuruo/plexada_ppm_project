@@ -207,7 +207,7 @@ $this->Paginator->setTemplates([
                                                             <?php $container = array(); ?>
                                                             <?php foreach ($activities as $activity) : ?>
                                                                 <?php if ($activity->project_id == $project->id) : ?>
-                                                                    <?php array_push($container, $activity->sub_status_id); ?>
+                                                                    <?php array_push($container, $activity->percentage_completion); ?>
                                                                 <?php endif; ?>
                                                             <?php endforeach; ?>
                                                             <?php foreach ($activities as $activity) : ?>
