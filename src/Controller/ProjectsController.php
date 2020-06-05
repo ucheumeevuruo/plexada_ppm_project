@@ -31,9 +31,9 @@ class ProjectsController extends AppController
 
         $this->paginate = [
             'contain' => [
-                'ProjectDetails', 
-                'ProjectDetails.Statuses', 
-                'ProjectDetails.Currencies', 
+                'ProjectDetails',
+                'ProjectDetails.Statuses',
+                'ProjectDetails.Currencies',
                 'Activities'
             ],
             // 'conditions' => ['ProjectDetails.system_user_id' => $this->Auth->user('system_user_id')],// This is supposed to show only projects you created. Not fully implemented
@@ -119,7 +119,7 @@ class ProjectsController extends AppController
             ]
         );
 
-//        debug($project);
+        //        debug($project);
 
         $this->loadModel('Milestones');
         $closedCount =  $this->Milestones->find('all', ['conditions' => ['project_id' => $id, 'status_id' => 3]])->count();
@@ -636,6 +636,7 @@ class ProjectsController extends AppController
 
         $milestones = $this->paginate($milestones);
 
+
         $this->set(compact('milestones', 'project_id'));
     }
 
@@ -651,9 +652,16 @@ class ProjectsController extends AppController
 
         $this->loadModel('Plans');
         $plans =  $this->Plans->find('all');
+        
+        $this->loadModel('ProjectDetails');
+        $projectDetails =  $this->Projects->find('all');
 
 
-        $this->set(compact('activities', 'project_id', 'plans'));
+        // debug($activities);
+        // die();
+
+
+        $this->set(compact('activities', 'project_id', 'plans', 'projectDetails'));
     }
 
     public function monitorIndicators($project_id = null)
@@ -693,7 +701,7 @@ class ProjectsController extends AppController
     {
         $this->loadModel('Disbursements');
         $disbursed =  $this->Disbursements->find('all')->where(['project_id' => $id]);
-        
+
         $this->loadModel('ProjectDetails');
         $projectDetails =  $this->ProjectDetails->find('all')->where(['project_id' => $id])->first();
 
@@ -714,9 +722,12 @@ class ProjectsController extends AppController
     }
 
     public function viewPlans($id =  null)
-    {   
+    {
         $this->loadModel('Plans');
         $plans =  $this->Plans->find('all');
+
+        // debug($plans);
+        // die();
 
         $this->loadModel('Staff');
         $staffs =  $this->Staff->find('all');
