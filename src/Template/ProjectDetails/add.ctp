@@ -50,10 +50,10 @@ $this->end();
         <legend>Project Stakeholders</legend>
         <?= $this->Form->control('beneficiary', ['empty' => true,]); ?>
         <?= $this->Form->control('manager_id', ['options' => $staff, 'empty' => true]); ?>
-        <?= $this->Form->control('sponsor_id', ['options' => $sponsors, 'empty' => true]); ?>
+        <?= $this->Form->control('project.project_sponsors.sponsor_id', ['options' => $sponsors, 'empty' => true]); ?>
 
-        <?= $this->Form->control('donor_id', ['options' => $donors, 'empty' => true, 'label' => 'Source of Funds']); ?>
-        <?= $this->Form->control('mda_id', ['options' => $mdas, 'empty' => true, 'label' => 'MDA']); ?>
+        <?= $this->Form->control('project.project_donors.sponsor_id', ['options' => $donors, 'empty' => true, 'label' => 'Source of Funds']); ?>
+        <?= $this->Form->control('project.project_mdas.sponsor_id', ['options' => $mdas, 'empty' => true, 'label' => 'MDA']); ?>
     </fieldset>
 
 

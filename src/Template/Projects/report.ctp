@@ -108,7 +108,7 @@ $this->end();
                         </div>
                         <div class="h6 mb-0 text-gray-800">
 
-                            <?= $project->project_detail->has('sponsor')? $project->project_detail->sponsor->full_name : '' ?>
+                            <?= $project->has('project_sponsor')? $project->project_sponsor->sponsor->full_name : '' ?>
                         </div>
                     </div>
                 </div>
@@ -124,7 +124,7 @@ $this->end();
                             <?= h('Donors') ?>
                         </div>
                         <div class="h6 mb-0 text-gray-800">
-                            <?= $project->project_detail->has('donor')? $project->project_detail->donor->full_name : '' ?>
+                            <?= $project->has('project_donor')? $project->project_donor->sponsor->full_name : '' ?>
                         </div>
                     </div>
                 </div>
@@ -173,7 +173,7 @@ $this->end();
                             <?= h('MDA') ?>
                         </div>
                         <div class="h6 mb-0 text-gray-800 ">
-                            <?= $project->project_detail->has('mda')? $project->project_detail->mda->full_name : '' ?>
+                            <?= $project->has('project_mda')? $project->project_mda->sponsor->full_name : '' ?>
                         </div>
                     </div>
                 </div>

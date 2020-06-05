@@ -246,10 +246,10 @@ class ProjectDetailsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id)
     {
-        // $this->loadModel('Projects');
-        // $project_info = $this->Projects->get($id);
+         $this->loadModel('Projects');
+         $project_info = $this->Projects->get($id);
 
         $projectDetail = $this->ProjectDetails->newEntity();
         if ($this->request->is('post')) {
@@ -257,7 +257,6 @@ class ProjectDetailsController extends AppController
             $projectDetail = $this->ProjectDetails->patchEntity($projectDetail, $this->ProjectDetails->identify($this->request->getData()));
             if ($this->ProjectDetails->save($projectDetail)) {
                 $this->Flash->success(__('The project detail has been saved.'));
-
                 return $this->redirect(['controller' => 'projects', 'action' => 'index']);
                 // return $this->redirect(['controller' => 'pims', 'action' => 'add', $id]);
             }
@@ -269,38 +268,33 @@ class ProjectDetailsController extends AppController
         $projects = $this->ProjectDetails->Projects->find('list', ['limit' => 200]);
         $vendors = $this->ProjectDetails->Vendors->find('list', ['limit' => 200]);
         $staff = $this->ProjectDetails->Staff->find('list', ['limit' => 200]);
-        $lov = $this->ProjectDetails->Lov->find(
-            'list',
+        $lov = $this->ProjectDetails->Lov->find('list',
             [
                 'conditions' => ['Lov.lov_type' => 'project_status'],
                 'limit' => 200
             ]
         );
 
-        $sponsors = $this->ProjectDetails->Sponsors->find(
-            'list',
+        $sponsors = $this->ProjectDetails->Projects->ProjectSponsors->Sponsors->find('list',
             [
-//                'contain' => ['SponsorTypes'],
-//                'conditions' => ['SponsorTypes.lov_value' => 'sponsor'],
+                'contain' => ['SponsorTypes'],
+                'conditions' => ['SponsorTypes.lov_value' => 'sponsor'],
                 'limit' => 200
             ]
         );
 
-
-        $donors = $this->ProjectDetails->Donors->find(
-            'list',
+        $donors = $this->ProjectDetails->Projects->ProjectSponsors->Sponsors->find('list',
             [
-//                'contain' => ['SponsorTypes'],
-//                'conditions' => ['SponsorTypes.lov_value' => 'donor'],
+                'contain' => ['SponsorTypes'],
+                'conditions' => ['SponsorTypes.lov_value' => 'donor'],
                 'limit' => 200
             ]
         );
 
-        $mdas = $this->ProjectDetails->Mdas->find(
-            'list',
+        $mdas = $this->ProjectDetails->Projects->ProjectSponsors->Sponsors->find('list',
             [
-//                'contain' => ['SponsorTypes'],
-//                'conditions' => ['SponsorTypes.lov_value' => 'mda'],
+                'contain' => ['SponsorTypes'],
+                'conditions' => ['SponsorTypes.lov_value' => 'mda'],
                 'limit' => 200
             ]
         );
@@ -321,8 +315,7 @@ class ProjectDetailsController extends AppController
             ]
         );
         $authUser = $this->Auth->User();
-        $currencies = $this->ProjectDetails->Currencies->find(
-            'list',
+        $currencies = $this->ProjectDetails->Currencies->find('list',
             [
                 'limit' => 200
             ]
@@ -345,22 +338,32 @@ class ProjectDetailsController extends AppController
     {
         $this->loadModel('Projects');
 
-        $projectDetail = $this->ProjectDetails->get($id);
-        // $project_info = $this->Projects->get($id);
+        $projectDetail = $this->ProjectDetails->get($id, [
+            'contain' => [
+                'Projects',
+                'Projects.ProjectSponsors',
+//                'Projects.ProjectSponsors.SponsorTypes',
+                'Projects.ProjectMdas',
+//                'Projects.ProjectMdas.SponsorTypes',
+                'Projects.ProjectDonors',
+//                'Projects.ProjectDonors.SponsorTypes',
+            ]
+        ]);
+//        debug($projectDetail);die();
+         $project_info = $this->Projects->get($id);
 
 
         $project_info = $this->Projects->get($projectDetail->project_id);
-        // debug($projectDetail);
-        // die();
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $projectDetail = $this->ProjectDetails->patchEntity(
-                $projectDetail,
-                $this->ProjectDetails->identify($this->request->getData())
-            );
-            if ($this->ProjectDetails->save($projectDetail)) {
+            $projectDetail = $this->ProjectDetails->patchEntity($projectDetail, $this->ProjectDetails->identify($this->request->getData()), [
+                'associated' => [
+                    'Projects.ProjectDonors', 'Projects.ProjectMdas', 'Projects.ProjectSponsors'
+                ]
+            ]);
 
-                // debug($donors);
-                // die();
+//             debug($projectDetail);
+//             die();
+            if ($this->ProjectDetails->save($projectDetail)) {
 
                 $this->Flash->success(__('The project detail has been saved.'));
                 return $this->redirect($this->referer());
@@ -382,33 +385,32 @@ class ProjectDetailsController extends AppController
             ]
         );
 
-        $sponsors = $this->ProjectDetails->Sponsors->find(
+        $sponsors = $this->ProjectDetails->Projects->ProjectSponsors->Sponsors->find(
             'list',
             [
-//                'contain' => ['SponsorTypes'],
-//                'conditions' => ['SponsorTypes.lov_value' => 'sponsor'],
+                'contain' => ['SponsorTypes'],
+                'conditions' => ['SponsorTypes.lov_value' => 'sponsor'],
                 'limit' => 200
             ]
         );
 
-        $donors = $this->ProjectDetails->Donors->find(
+        $donors = $this->ProjectDetails->Projects->ProjectSponsors->Sponsors->find(
             'list',
             [
-//                'contain' => ['SponsorTypes'],
-//                'conditions' => ['SponsorTypes.lov_value' => 'donor'],
+                'contain' => ['SponsorTypes'],
+                'conditions' => ['SponsorTypes.lov_value' => 'donor'],
                 'limit' => 200
             ]
         );
 
-        $mdas = $this->ProjectDetails->Mdas->find(
+        $mdas = $this->ProjectDetails->Projects->ProjectSponsors->Sponsors->find(
             'list',
             [
-//                'contain' => ['SponsorTypes'],
-//                'conditions' => ['SponsorTypes.lov_value' => 'mda'],
+                'contain' => ['SponsorTypes'],
+                'conditions' => ['SponsorTypes.lov_value' => 'mda'],
                 'limit' => 200
             ]
         );
-
         $priority = $this->ProjectDetails->Lov->find(
             'list',
             [

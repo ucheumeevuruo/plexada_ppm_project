@@ -56,21 +56,21 @@ class ProjectDetailsTable extends Table
         $this->belongsTo('Staff', [
             'foreignKey' => 'manager_id',
         ]);
-        $this->belongsTo('Sponsors', [
-            'foreignKey' => 'sponsor_id'
-        ]);
-        $this->belongsTo('Donors', [
-            'foreignKey' => 'donor_id'
-        ]);
-        $this->belongsTo('mdas', [
-            'foreignKey' => 'mda_id'
-        ]);
+//        $this->belongsTo('Sponsors', [
+//            'foreignKey' => 'sponsor_id'
+//        ]);
+//        $this->belongsTo('Donors', [
+//            'foreignKey' => 'donor_id'
+//        ]);
+//        $this->belongsTo('mdas', [
+//            'foreignKey' => 'mda_id'
+//        ]);
         $this->belongsTo('Staff', [
             'foreignKey' => 'waiting_on_id',
         ]);
         $this->belongsTo('Currencies', [
             'foreignKey' => 'currency_id',
-            'joinType' => 'INNER',
+            'joinType' => 'RIGHT',
         ]);
         $this->belongsTo('Lov', [
             'foreignKey' => 'status_id',
@@ -108,22 +108,8 @@ class ProjectDetailsTable extends Table
         $this->belongsTo('Statuses', [
             'className' => 'lov',
             'foreignKey' => 'status_id',
-            'joinType' => 'INNER',
+            'joinType' => 'RIGHT',
             'conditions' => ['Statuses.lov_type' => 'project_status']
-        ]);
-        $this->belongsTo('Donors', [
-            'className' => 'Sponsors',
-            'foreignKey' => 'sponsor_id',
-            'conditions' => ['Donors.sponsor_type_id' => '14']
-        ]);
-        $this->belongsTo('Mdas', [
-            'className' => 'Sponsors',
-            'foreignKey' => 'sponsor_id',
-            'conditions' => ['Mdas.sponsor_type_id' => '15']
-        ]);
-        $this->belongsTo('Sponsors', [
-            'foreignKey' => 'sponsor_id',
-            'conditions' => ['Sponsors.sponsor_type_id' => '13']
         ]);
     }
 
@@ -223,6 +209,12 @@ class ProjectDetailsTable extends Table
             DateTime::createFromFormat('d/m/Y', $formData['start_dt']) : $formData['start_dt'];
         $formData['end_dt'] = !empty($formData['end_dt']) ?
             DateTime::createFromFormat('d/m/Y', $formData['end_dt']) : $formData['end_dt'];
+        if(isset($formData['project']['project_sponsor']))
+            $formData['project']['project_sponsor']['sponsor_type_id'] = '13';
+        if(isset($formData['project']['project_donor']))
+            $formData['project']['project_donor']['sponsor_type_id'] = '14';
+        if(isset($formData['project']['project_mda']))
+            $formData['project']['project_mda']['sponsor_type_id'] = '15';
         return $formData;
     }
 
@@ -239,7 +231,7 @@ class ProjectDetailsTable extends Table
     {
         $rules->add($rules->existsIn(['vendor_id'], 'Vendors'));
         $rules->add($rules->existsIn(['manager_id'], 'Staff'));
-        $rules->add($rules->existsIn(['sponsor_id'], 'Sponsors'));
+//        $rules->add($rules->existsIn(['sponsor_id'], 'Sponsors'));
         // $rules->add($rules->existsIn(['mda_id'], 'MDA'));
         $rules->add($rules->existsIn(['waiting_on_id'], 'Staff'));
         $rules->add($rules->existsIn(['status_id'], 'Lov'));

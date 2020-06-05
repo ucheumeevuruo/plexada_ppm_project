@@ -48,6 +48,7 @@ class ProjectsTable extends Table
 
         $this->hasMany('Activities', [
             'foreignKey' => 'project_id',
+            'joinType' => 'RIGHT',
         ]);
         $this->hasMany('Annotations', [
             'foreignKey' => 'project_id',
@@ -64,11 +65,15 @@ class ProjectsTable extends Table
         ]);
         $this->hasOne('ProjectDetails', [
             'foreignKey' => 'project_id',
+            'joinType' => 'RIGHT'
         ]);
         $this->hasOne('ProjectFundings', [
             'foreignKey' => 'project_id',
         ]);
         $this->hasOne('Pims', [
+            'foreignKey' => 'project_id',
+        ]);
+        $this->hasOne('Pads', [
             'foreignKey' => 'project_id',
         ]);
         $this->hasMany('ProjectMilestones', [
@@ -80,17 +85,25 @@ class ProjectsTable extends Table
         $this->hasMany('RiskIssues', [
             'foreignKey' => 'project_id',
         ]);
-        $this->hasMany('Sponsors', [
-            'foreignKey' => 'last_name',
-        ]);
         $this->hasMany('Documents', [
             'foreignKey' => 'project_id',
         ]);
         $this->hasMany('Tasks', [
             'foreignKey' => 'Task_name',
         ]);
-        $this->hasOne('Pads', [
+        $this->hasOne('ProjectSponsors', [
             'foreignKey' => 'project_id',
+            'conditions' => ['ProjectSponsors.sponsor_type_id' => '13'],
+        ]);
+        $this->hasOne('ProjectDonors', [
+            'className' => 'ProjectSponsors',
+            'foreignKey' => 'project_id',
+            'conditions' => ['ProjectDonors.sponsor_type_id' => '14'],
+        ]);
+        $this->hasOne('ProjectMdas', [
+            'className' => 'ProjectSponsors',
+            'foreignKey' => 'project_id',
+            'conditions' => ['ProjectMdas.sponsor_type_id' => '15'],
         ]);
     }
 

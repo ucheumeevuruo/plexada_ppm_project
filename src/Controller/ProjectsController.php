@@ -101,19 +101,19 @@ class ProjectsController extends AppController
                     'Objectives',
                     'Prices',
                     'RiskIssues',
-                    'ProjectDetails.Donors',
-                    'ProjectDetails.Donors.SponsorTypes',
-                    'ProjectDetails.Mdas',
-//                    'ProjectDetails.Mdas.SponsorTypes',
-                    'ProjectDetails.Sponsors',
-//                    'ProjectDetails.Sponsors.SponsorTypes',
+                    'ProjectDonors',
+                    'ProjectDonors.Sponsors',
+                    'ProjectMdas',
+                    'ProjectMdas.Sponsors',
+                    'ProjectSponsors',
+                    'ProjectSponsors.Sponsors',
                     'Pads',
                     'ProjectDetails.Currencies'
                 ],
             ]
         );
 
-//        debug($project->milestones[0]->count());
+//        debug($project);
 
         $this->loadModel('Milestones');
         $closedCount =  $this->Milestones->find('all', ['conditions' => ['project_id' => $id, 'status_id' => 3]])->count();
@@ -431,7 +431,6 @@ class ProjectsController extends AppController
         $project = $this->Projects->newEntity();
         if ($this->request->is('post')) {
             $project = $this->Projects->patchEntity($project, $this->request->getData());
-
             if ($this->Projects->save($project)) {
                 $this->Flash->success(__('The project has been saved.'));
 

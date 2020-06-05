@@ -316,7 +316,7 @@ $this->Paginator->setTemplates([
 
                                                                         </div>
 
-                                                                        <div class="col-auto">
+                                                                        <div class="col-auto border-left">
                                                                             <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['action' => 'edit', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Edit Project']) ?>
                                                                         </div>
                                                                         <div class="col-auto border-left">

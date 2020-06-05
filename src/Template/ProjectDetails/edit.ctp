@@ -64,20 +64,15 @@ $this->end();
     <fieldset class="col-md-6 float-right mb-3" style="border: #464751 1px solid;">
         <legend class="font-weight-bolder">Project Stakeholders</legend>
 
-        <label class="control-label font-weight-bolder" for="beneficiary">Beneficiary</label>
-        <?= $this->Form->control('beneficiary', ['empty' => true, 'label' => false]); ?>
+        <?= $this->Form->control('beneficiary', ['empty' => true, 'label' => ['class' => 'font-weight-bolder']]); ?>
 
-        <label class="control-label font-weight-bolder" for="manager_id">Manager</label>
-        <?= $this->Form->control('manager_id', ['options' => $staff, 'empty' => true, 'label' => false]); ?>
+        <?= $this->Form->control('manager_id', ['options' => $staff, 'empty' => true, 'label' => ['class' => 'font-weight-bolder']]); ?>
 
-        <label class="control-label font-weight-bolder" for="sponsor_id">Project Sponsor</label>
-        <?= $this->Form->control('sponsor_id', ['options' => $sponsors, 'empty' => true, 'label' => false]); ?>
+        <?= $this->Form->control('project.project_sponsor.sponsor_id', ['options' => $sponsors, 'empty' => true, 'label' => ['class' => 'font-weight-bolder']]); ?>
 
-        <label class="control-label font-weight-bolder" for="donor_id">Source of Funds</label>
-        <?= $this->Form->control('donor_id', ['options' => $donors, 'empty' => true, 'label' => false]); ?>
+        <?= $this->Form->control('project.project_donor.sponsor_id', ['options' => $donors, 'empty' => true, 'label' => ['class' => 'font-weight-bolder']]); ?>
 
-        <label class="control-label font-weight-bolder" for="mdar_id">MDA</label>
-        <?= $this->Form->control('mda_id', ['options' => $mdas, 'empty' => true, 'label' => false]); ?>
+        <?= $this->Form->control('project.project_mda.sponsor_id', ['options' => $mdas, 'empty' => true, 'label' => ['class' => 'font-weight-bolder']]); ?>
         <!-- echo $this->Form->control('DLI'); -->
 
 
