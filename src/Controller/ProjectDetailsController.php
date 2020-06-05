@@ -118,6 +118,11 @@ class ProjectDetailsController extends AppController
 
         $projectDetails = $this->ProjectDetails->find('all');
 
+        $this->loadModel('Sponsors');
+        $sponsors = $this->ProjectDetails->Sponsors->find('all');
+        // debug($projectDetails);
+        // die();
+
         $staff = $this->ProjectDetails->Staff->find('all');
         $this->loadModel('Milestones');
         $milestone_list =  $this->Milestones->find('all');
@@ -126,7 +131,7 @@ class ProjectDetailsController extends AppController
         $this->loadModel('ProjectFundings');
         $projectfundings =  $this->ProjectFundings->find('all');
 
-        $this->set(compact('projectDetails', 'staff', 'milestone_list', 'activities', 'projectfundings'));
+        $this->set(compact('projectDetails', 'staff', 'milestone_list', 'activities', 'projectfundings', 'sponsors'));
     }
 
 

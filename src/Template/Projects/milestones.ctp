@@ -153,7 +153,13 @@ $this->Paginator->setTemplates([
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-item text-gray-900">Status:
-                                                <?= $milestone->has('lov') ? $milestone->lov->lov_value : 'Not Defined' ?></div>
+                                                <!-- <?= $milestone->has('lov') ? $milestone->lov->lov_value : 'Not Defined' ?> -->
+                                                <?php if ($milestone->status_id == 1) : ?>
+                                                    <?= h('Open') ?>
+                                                <?php else : ?>
+                                                    <?= h('Close') ?>
+                                                <?php endif; ?>
+                                            </div>
                                             <div class="dropdown-item text-gray-900">Start Date: <?= $milestone->start_date ?>
                                             </div>
                                             <div class="dropdown-item text-gray-900">End Date: <?= $milestone->end_date ?></div>
