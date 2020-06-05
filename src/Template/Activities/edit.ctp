@@ -47,8 +47,8 @@ $this->end();
                 <label class="control-label font-weight-bolder" for="cost">Cost</label>
                 <?php echo $this->Form->control('cost', ['autocomplete' => 'off', 'label' => false]); ?>
 
-                <label class="control-label font-weight-bolder" for="sub_status_id">Sub Status</label>
-                <?php echo $this->Form->control('sub_status_id', ['options' => $substatus, 'label' => false]); ?>
+                <label class="control-label font-weight-bolder" for="percentage_completion">Sub Status</label>
+                <?php echo $this->Form->control('percentage_completion', ['options' => $substatus, 'label' => false]); ?>
             </div>
 
         </div>
