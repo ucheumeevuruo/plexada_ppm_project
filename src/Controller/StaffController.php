@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Mailer\MailerAwareTrait;       //  Built in function use for sending multiple email
+use Cake\Mailer\Email;
+
 
 /**
  * Staff Controller
@@ -63,8 +66,30 @@ class StaffController extends AppController
         $staff = $this->Staff->newEntity();
         if ($this->request->is('post')) {
             $staff = $this->Staff->patchEntity($staff, $this->request->getData());
+
+            $firstname = $staff->first_name;
+            $lastname = $staff->last_name;
+            $othername = $staff->other_names;
+            $username = $staff->user->username;
+            $email = $staff->user->email;
+            $phone = $staff->phone_no;
+
+            $st = 'You just created an account with Ogun State PPM' . ', 
+            First Name: ' . $firstname . ', 
+            Last Name: ' . $lastname . ', 
+            Other Name(s): ' . $othername . ', 
+            Username: ' . $username . ', 
+            Email: ' . $email . ', 
+            Phone No: ' . $phone;
+
             if ($this->Staff->save($staff)) {
                 $this->Flash->success(__('The staff has been saved.'));
+                $email = new Email('default');
+                $email->from(['kingsconsult001@gmail.com' => 'Ogun state PPM'])
+                    ->to($staff->user->email)
+                    ->subject('A staff have been created')
+                    ->replyTo('kingsconsult001@gmail.com')
+                    ->send($st);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -132,7 +157,7 @@ class StaffController extends AppController
                     ->where(['system_user_id' => $user['id']])
                     ->first();
                 $this->Auth->setUser($staff);
-                if(isset($redirect))
+                if (isset($redirect))
                     return $this->redirect($this->Auth->redirectUrl($redirect));
                 else
                     return $this->redirect($this->Auth->redirectUrl('/projects'));
@@ -153,7 +178,7 @@ class StaffController extends AppController
         $staff = $this->Staff->newEntity();
         if ($this->request->is('post')) {
             $staff = $this->Staff->patchEntity($staff, $this->request->getData());
-//            debug($staff);die();
+            //            debug($staff);die();
             if ($this->Staff->save($staff)) {
                 $this->Flash->success(__('The user has been saved.'));
 

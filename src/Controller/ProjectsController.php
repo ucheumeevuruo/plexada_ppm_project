@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Datasource\ConnectionManager;
 use DateTime;
+use Cake\Mailer\MailerAwareTrait;       //  Built in function use for sending multiple email
+use Cake\Mailer\Email;                          // import email library
+
 
 /**
  * Projects Controller
@@ -15,6 +18,8 @@ use DateTime;
  */
 class ProjectsController extends AppController
 {
+    use MailerAwareTrait;
+
     /**
      * Index method
      *
@@ -432,13 +437,28 @@ class ProjectsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
+
     public function add()
     {
+
         $project = $this->Projects->newEntity();
+
+        $this->loadModel('Users');
         if ($this->request->is('post')) {
             $project = $this->Projects->patchEntity($project, $this->request->getData());
+            $user =  $this->Users->find('all')->where(['id' => $project->project_detail->system_user_id])->first();
             if ($this->Projects->save($project)) {
                 $this->Flash->success(__('The project has been saved.'));
+                $email = new Email('default');
+                $email->from(['kingsconsult001@gmail.com' => 'Ogun state PPM'])
+                    ->to($user->email)
+                    ->bcc('kingsconsult001@gmail.com') // blind carbon (optional)
+                    ->subject('A project have been created')
+                    ->replyTo('kingsconsult001@gmail.com')
+                    ->send($project);
+
+                // debug($project->project_detail->system_user_id);
+                // die();
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -448,6 +468,7 @@ class ProjectsController extends AppController
         $projectDetails = $this->Projects->ProjectDetails->find('list', ['limit' => 200]);
         $projectFundings = $this->Projects->ProjectFundings->find('list', ['limit' => 200]);
         $currencies = $this->Projects->ProjectDetails->Currencies->find('list', ['limit' => 200]);
+
         $this->set(compact('project', 'pims', 'projectFundings', 'projectDetails', 'currencies'));
     }
 
@@ -472,6 +493,12 @@ class ProjectsController extends AppController
             $project = $this->Projects->patchEntity($project, $this->request->getData());
             if ($this->Projects->save($project)) {
                 $this->Flash->success(__('The project has been saved.'));
+                $email = new Email('default');
+                $email->from(['kingsconsult001@gmail.com' => 'Ogun state PPM'])
+                    ->to('kingsconsult001@gmail.com')
+                    ->subject('Project Editted')
+                    ->replyTo('kingsconsult001@gmail.com')
+                    ->send($project);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -652,7 +679,7 @@ class ProjectsController extends AppController
 
         $this->loadModel('Plans');
         $plans =  $this->Plans->find('all');
-        
+
         $this->loadModel('ProjectDetails');
         $projectDetails =  $this->Projects->find('all');
 
