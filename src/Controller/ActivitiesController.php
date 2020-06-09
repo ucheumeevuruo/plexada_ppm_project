@@ -127,7 +127,6 @@ class ActivitiesController extends AppController
 
                 $this->Flash->success(__('The activity has been saved.'));
                 $project_id = $activity->project_id;
-                debug($project_id);
                 $conn = ConnectionManager::get('default');
                 $conn->execute("Update project_details set risk_and_issues = '" . $risks . "' where project_id = $project_id") ;
 
@@ -161,11 +160,6 @@ class ActivitiesController extends AppController
                 'limit' => 200
             ]
         );
-
-
-
-        // debug($substatus);
-        // die();
 
         $users = $this->Activities->Users->find('list', ['limit' => 200]);
 
