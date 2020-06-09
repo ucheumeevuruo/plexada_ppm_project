@@ -846,6 +846,8 @@ class ProjectsController extends AppController
             ->contain(['Projects.ProjectDetails.Currencies'])
             ->where(['Milestones.project_id' => $id]);
 
+            // if (isset($milestones->cost)){
+
         foreach ($milestones as $milestone)
 
             $amount_dis = 0;
@@ -888,7 +890,13 @@ class ProjectsController extends AppController
         // debug($array_years);
         // die();
         $this->set(compact('id', 'disbursed', 'amount_dis', 'milestone', 'milestones', 'projectDetails','array_years','disburse_amt'));
+        // }
+
+        // $this->set(compact('projectDetails','id','milestones'));
     }
+
+
+
 
     public function viewPlans($id =  null)
     {
