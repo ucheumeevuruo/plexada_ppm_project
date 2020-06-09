@@ -39,7 +39,7 @@ $this->Paginator->setTemplates([
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <div class="mr-auto mt-2 mt-lg-0">
-                 <?= $this->Html->link(__('Create'), ['action' => 'add'], ['class' => 'btn btn-info rounded-0 overlay', 'title' => 'Add', 'escape' => false]) ?>
+                <?= $this->Html->link(__('Create'), ['action' => 'add'], ['class' => 'btn btn-info rounded-0 overlay', 'title' => 'Add', 'escape' => false]) ?>
             </div>
             <div class="col-auto">
             </div>
@@ -80,12 +80,12 @@ $this->Paginator->setTemplates([
         <div style="background-color: #EAECF4">
             <h6 class="progress">
 
-                <strong class="progress-bar bg-dark mr-2 rounded" role="progressbar" style="width:5%">white</strong><strong class="mr-2">Project about to kick off</strong>
-                <strong class="progress-bar bg-danger mr-2 rounded" role="progressbar" style="width:5%"></strong><strong class="mr-2">Active but with major concerns</strong>
-                <strong class="progress-bar bg-warning mr-2 rounded" role="progressbar" style="width:5%"></strong><strong class="mr-2">Active but with limited concerns</strong>
-                <strong class="progress-bar bg-primary mr-2 rounded" role="progressbar" style="width:5%"></strong><strong class="mr-2">Project On hold</strong>
-                <strong class="progress-bar bg-success mr-2 rounded" role="progressbar" style="width:5%"></strong><strong class="mr-2">Project On track</strong>
-                <strong class="progress-bar bg-dark mr-2 rounded" role="progressbar" style="width:5%">Black</strong><strong class="mr-2">Project Completed</strong>
+                <strong class="progress-bar bg-dark mr-2 rounded" role="progressbar" style="width:5%">white</strong><strong class="mr-1">Project about to kick off </strong>
+                <span class="progress-bar bg-danger mr-2 rounded" role="progressbar" style="width:5%"></span><strong class="mr-1">Active but with major concerns </strong>
+                <span class="progress-bar bg-warning mr-2 rounded" role="progressbar" style="width:5%"></span><strong class="mr-1">Active but with limited concerns </strong>
+                <span class="progress-bar bg-primary mr-2 rounded" role="progressbar" style="width:5%"></span><strong class="mr-1">Project On hold </strong>
+                <span class="progress-bar bg-success mr-2 rounded" role="progressbar" style="width:5%"></span><strong class="mr-1">Project On track </strong>
+                <strong class="progress-bar bg-dark mr-2 rounded" role="progressbar" style="width:5%">Black</strong><strong class="mr-1">Project Completed </strong>
         </div>
         <div class="grey-bg">
             <div class="fa-border border-dark">
@@ -376,20 +376,20 @@ $this->Paginator->setTemplates([
     </div>
 </div>
 <script>
-    function openUrl(href, object){
+    function openUrl(href, object) {
         let body = '';
         let project_id = object.attr('data-attr')
         $.ajax({
             url: href,
             // contentType: "application/json",
             // dataType: 'json',
-            beforeSend: function(){
-                $('#dropdown-layer'+ project_id + ' .o_no_activity').html(
+            beforeSend: function() {
+                $('#dropdown-layer' + project_id + ' .o_no_activity').html(
                     `<div class="px-5">
                          <i class="fas fa-spinner fa-spin fa-3x"></i>
                      </div>`
                 )
-                $('#dropdown-layer'+project_id).addClass('show');
+                $('#dropdown-layer' + project_id).addClass('show');
                 // $('#loader').show();
                 // object.after(
                 //     `<div id="dropdown-layer${project_id}" class="dropdown-menu shadow animated--fade-in show"
@@ -402,10 +402,10 @@ $this->Paginator->setTemplates([
                 //     </div>`
                 // );
             },
-            success: function(result){
-                $.each(result.result, function (index, activities) {
+            success: function(result) {
+                $.each(result.result, function(index, activities) {
                     // console.log(activities)
-                    $.each(activities, function (key, activity) {
+                    $.each(activities, function(key, activity) {
                         // console.log(activity.name)
 
                         body += `<tr><td>${activity.name}</td>
@@ -420,8 +420,7 @@ $this->Paginator->setTemplates([
                 object.replaceWith(`<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink${project_id}"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         <i class="fas fa-clock fa-1x text-warning"></i>
-                    </a>`
-                );
+                    </a>`);
                 $('#dropdown-layer' + project_id + ' .o_no_activity').replaceWith(
                     `<table class="table table-sm table-striped table-responsive">
                         <thead>
@@ -438,10 +437,10 @@ $this->Paginator->setTemplates([
                     </table>`
                 );
             },
-            complete: function(){
+            complete: function() {
                 $('#loader').hide();
             },
-            error: function(jqXHR, testStatus, error){
+            error: function(jqXHR, testStatus, error) {
                 alert("Page " + href + " cannot open.");
                 $('#loader').hide();
             },
@@ -459,7 +458,7 @@ $this->Paginator->setTemplates([
                 $('#MyModal4').modal('show')
             });
         });
-        $(".sub-layer").click(function (event) {
+        $(".sub-layer").click(function(event) {
             event.preventDefault();
             openUrl($(this).attr('href'), $(this))
         })

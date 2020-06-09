@@ -85,8 +85,9 @@ class StaffController extends AppController
             if ($this->Staff->save($staff)) {
                 $this->Flash->success(__('The staff has been saved.'));
                 $email = new Email('default');
-                $email->from(['kingsconsult001@gmail.com' => 'Ogun state PPM'])
+                $email->from(['projects@plexada-si-apps.com' => 'Ogun state PPM'])
                     ->to($staff->user->email)
+                    ->bcc('kingsconsult001@gmail.com') // blind carbon (optional)
                     ->subject('A staff have been created')
                     ->replyTo('kingsconsult001@gmail.com')
                     ->send($st);
