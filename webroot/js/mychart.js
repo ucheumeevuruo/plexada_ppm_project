@@ -144,28 +144,7 @@ data: {
             backgroundColor: '#dc3912'
          },
     ]
-    // datasets: [{
 
-    //     label: 'Milestones',
-    //     data: [ 12, 19, 3, 5, 2, 3],
-    //     backgroundColor: [
-    //         'rgba(255, 99, 132, 0.2)',
-    //         'rgba(54, 162, 235, 0.2)',
-    //         'rgba(255, 206, 86, 0.2)',
-    //         'rgba(75, 192, 192, 0.2)',
-    //         'rgba(153, 102, 255, 0.2)',
-    //         'rgba(255, 159, 64, 0.2)'
-    //     ],
-    //     borderColor: [
-    //         'rgba(255, 99, 132, 1)',
-    //         'rgba(54, 162, 235, 1)',
-    //         'rgba(255, 206, 86, 1)',
-    //         'rgba(75, 192, 192, 1)',
-    //         'rgba(153, 102, 255, 1)',
-    //         'rgba(255, 159, 64, 1)'
-    //     ],
-    //     borderWidth: 1
-    // }]
 },
 
 options:{
@@ -209,6 +188,113 @@ options:{
 //     xAxes: [{stacked: true}],
 //     }
 // }
+});
+
+}
+
+function disburseChart2(projects, budget, expense, currency){
+    console.log([projects])
+    console.log(budget)
+    console.log(currency)
+    var stepsizer = budget/10
+    var ctx = document.getElementById('disburseChart').getContext('2d');
+var disburseChart = new Chart(ctx, {
+type: 'bar',
+data: {
+    labels: [projects],
+    datasets : [
+        {
+            label: 'Budget',
+            data: [budget],
+            backgroundColor: '#22aa99'
+         },
+         {
+            label: 'Spent',
+            data: [expense],
+            backgroundColor: '#dc3912'
+         },
+    ]
+},
+
+options:{
+    scales: {
+        yAxes: [{
+            ticks :{
+                beginAtZero: true,
+                stepSize: stepsizer,
+
+                // Return an empty string to draw the tick line but hide the tick label
+                // Return `null` or `undefined` to hide the tick line entirely
+                userCallback: function(value, index, values) {
+                    // Convert the number to a string and splite the string every 3 charaters from the end
+                    valuez = fnum(value);
+                    // value = value.toString();
+                    // value = value.split(/(?=(?:...)*$)/);
+
+                    // // Convert the array to a string and format the output
+                    // value = value.join('.');
+                    return currency + valuez;
+                }
+
+            },
+             display: true
+        }],
+
+   }
+  }
+
+});
+
+}
+
+
+function drawlineChart(projects,amount, years,currency,budget){
+    console.log([projects])
+    console.log(amount)
+    console.log(years)
+    var stepsizer = budget/10
+    var ctx = document.getElementById('lineChart').getContext('2d');
+var chartNew = new Chart(ctx, {
+type: 'line',
+data: {
+    labels: years,
+    datasets : [
+        {
+            label: 'Disbursement Chart',
+            data: amount,
+            backgroundColor: '#22aa99',
+            fill: false,
+         },
+    ]
+},
+
+options:{
+    scales: {
+        yAxes: [{
+            ticks :{
+                beginAtZero: true,
+                stepSize: stepsizer,
+
+                // Return an empty string to draw the tick line but hide the tick label
+                // Return `null` or `undefined` to hide the tick line entirely
+                userCallback: function(value, index, values) {
+                    // Convert the number to a string and splite the string every 3 charaters from the end
+                    valuez = fnum(value);
+                    // value = value.toString();
+                    // value = value.split(/(?=(?:...)*$)/);
+
+                    // // Convert the array to a string and format the output
+                    // value = value.join('.');
+                    return currency + valuez;
+                }
+
+            },
+             display: true
+        }],
+
+   }
+  }
+
 });
 
 }
