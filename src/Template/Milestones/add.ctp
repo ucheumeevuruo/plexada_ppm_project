@@ -46,7 +46,7 @@
     <?= $this->Form->end() ?>
 </div>
 <script>
-// $(function() {
+    // $(function() {
     $(function() {
         let start_date = <?= !is_null($project->project_detail->start_dt) ? json_encode($project->project_detail->start_dt->format('m/d/yy')) : ''; ?>;
         let end_date = <?= !is_null($project->project_detail->end_dt) ? json_encode($project->project_detail->end_dt->format('m/d/yy')) : ''; ?>;
@@ -68,5 +68,5 @@
             "keyboardNavigation": false
         });
     });
-// })
+    // })
 </script>

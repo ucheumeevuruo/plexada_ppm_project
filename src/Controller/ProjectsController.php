@@ -444,21 +444,33 @@ class ProjectsController extends AppController
         $project = $this->Projects->newEntity();
 
         $this->loadModel('Users');
+
+        $user =  $this->Users->find('all')->where(['id' => $this->Auth->user('id')])->first();
+
         if ($this->request->is('post')) {
             $project = $this->Projects->patchEntity($project, $this->request->getData());
             $user =  $this->Users->find('all')->where(['id' => $project->project_detail->system_user_id])->first();
+
+            $proName = $project->name;
+            $message = ' has just been created. The details are : ';
+            $brief = $project->introduction;
+            $location = $project->location;
+
+            $text = $proName . $message .
+                'Project Name: ' . $proName .
+                ', Project Introduction: ' . $brief .
+                ', Project Location: ' . $location;
+
+
             if ($this->Projects->save($project)) {
                 $this->Flash->success(__('The project has been saved.'));
                 $email = new Email('default');
-                $email->from(['kingsconsult001@gmail.com' => 'Ogun state PPM'])
+                $email->from(['projects@plexada-si-apps.com' => 'Ogun state PPM'])
                     ->to($user->email)
                     ->bcc('kingsconsult001@gmail.com') // blind carbon (optional)
-                    ->subject('A project have been created')
+                    ->subject('A project has been created')
                     ->replyTo('kingsconsult001@gmail.com')
-                    ->send($project);
-
-                // debug($project->project_detail->system_user_id);
-                // die();
+                    ->send($text);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -483,22 +495,42 @@ class ProjectsController extends AppController
      */
     public function edit($id = null)
     {
+
         $project = $this->Projects->get(
             $id,
             [
                 'contain' => [],
             ]
         );
+
+        $this->loadModel('Users');
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $project = $this->Projects->patchEntity($project, $this->request->getData());
+
+            $proName = $project->name;
+            $message = ' has just been edited. The details are : ';
+            $brief = $project->introduction;
+            $location = $project->location;
+
+            $text = $proName . $message .
+                'Project Name: ' . $proName .
+                ', Project Introduction: ' . $brief .
+                ', Project Location: ' . $location;
+
+
+            $user =  $this->Users->find('all')->where(['id' => $this->Auth->user('id')])->first();
+
             if ($this->Projects->save($project)) {
                 $this->Flash->success(__('The project has been saved.'));
+
                 $email = new Email('default');
-                $email->from(['kingsconsult001@gmail.com' => 'Ogun state PPM'])
-                    ->to('kingsconsult001@gmail.com')
-                    ->subject('Project Editted')
+                $email->from(['projects@plexada-si-apps.com' => 'Ogun state PPM'])
+                    ->to($user->email)
+                    ->bcc('kingsconsult001@gmail.com') // blind carbon (optional)
+                    ->subject('A project has been edited')
                     ->replyTo('kingsconsult001@gmail.com')
-                    ->send($project);
+                    ->send($text);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -522,7 +554,19 @@ class ProjectsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $project = $this->Projects->get($id);
+
+        $this->loadModel('Users');
+
+        $user =  $this->Users->find('all')->where(['id' => $this->Auth->user('id')])->first();
+
         if ($this->Projects->delete($project)) {
+            $email = new Email('default');
+            $email->from(['projects@plexada-si-apps.com' => 'Ogun state PPM'])
+                ->to($user->email)
+                ->bcc('kingsconsult001@gmail.com') // blind carbon (optional)
+                ->subject('A project has been deleted')
+                ->replyTo('kingsconsult001@gmail.com')
+                ->send($project->name);
             $this->Flash->success(__('The project has been deleted.'));
         } else {
             $this->Flash->error(__('The project could not be deleted. Please, try again.'));
@@ -684,10 +728,6 @@ class ProjectsController extends AppController
         $projectDetails =  $this->Projects->find('all');
 
 
-        // debug($activities);
-        // die();
-
-
         $this->set(compact('activities', 'project_id', 'plans', 'projectDetails'));
     }
 
@@ -719,8 +759,7 @@ class ProjectsController extends AppController
         $this->loadModel('Milestones');
         $project_details = $this->Milestones->find()->where(['id' => $project_id])->first();
         $project_id_ = $project_details->project_id;
-        // debug($project_id_);
-        // die();
+
         $this->set(compact('activities', 'project_id', 'plans', 'project_id_'));
     }
 

@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Datasource\ConnectionManager;
+use Cake\Mailer\MailerAwareTrait;       //  Built in function use for sending multiple email
+use Cake\Mailer\Email;                          // import email library
 
 /**
  * Activities Controller
@@ -17,6 +19,8 @@ use Cake\Datasource\ConnectionManager;
  */
 class ActivitiesController extends AppController
 {
+    use MailerAwareTrait;
+
     /**
      * Index method
      *
@@ -120,16 +124,48 @@ class ActivitiesController extends AppController
         $activity = $this->Activities->get($id, [
             'contain' => [],
         ]);
+
+        $this->loadModel('Users');
+        $user =  $this->Users->find('all')->where(['id' => $this->Auth->user('id')])->first();
+
+        $this->loadModel('Projects');
+        $project =  $this->Projects->find('all')->where(['id' => $activity->project_id])->first();
+
+        $this->loadModel('Lov');
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $activity = $this->Activities->patchEntity($activity, $this->Activities->identify($this->request->getData()));
             if ($this->Activities->save($activity)) {
                 $risks = $this->request->getData('risk');
 
+                // get the id of project sub status
+                $sub = $this->request->getData('percentage_completion');
+
+                // get the lov 
+                $lov =  $this->Lov->find('all')->where(['id' => $sub])->first();
+
                 $this->Flash->success(__('The activity has been saved.'));
                 $project_id = $activity->project_id;
-                debug($project_id);
+
                 $conn = ConnectionManager::get('default');
-                $conn->execute("Update project_details set risk_and_issues = '" . $risks . "' where project_id = $project_id") ;
+                $conn->execute("Update project_details set risk_and_issues = '" . $risks . "' where project_id = $project_id");
+
+
+                $proName = $project->name;
+                $message = ' activity has been edited, the sub status is now "';
+                $lov = $lov->lov_value;
+                $riskIssue = '". The risks and Issues is "';
+                
+
+                $text = $proName . $message . $lov . $riskIssue . $risks .'"';
+
+                $email = new Email('default');
+                $email->from(['projects@plexada-si-apps.com' => 'Ogun state PPM'])
+                    ->to($user->email)
+                    ->bcc('kingsconsult001@gmail.com') // blind carbon (optional)
+                    ->subject('A project activity has been edited')
+                    ->replyTo('kingsconsult001@gmail.com')
+                    ->send($text);
 
                 //                return $this->redirect(['action' => 'index']);
                 return $this->redirect($this->referer());

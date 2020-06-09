@@ -162,7 +162,7 @@ class ProjectDetailsController extends AppController
             // die();
             $this->set(compact('projectReports', 'from', 'edate', 'fromshdate1', 'fromshdate2', 'projects'));
         }
-        $this->set(compact('projectDetails'));
+        // $this->set(compact('projectDetails'));
     }
 
 
@@ -186,11 +186,33 @@ class ProjectDetailsController extends AppController
         $projectDetails = $this->ProjectDetails->get(
             $id,
             [
-                'contain' => [],
+                'contain' => ['Currencies'],
             ]
         );
+        $this->loadModel('Sponsors');
+        $sponsors =  $this->Sponsors->find('all')->where(['id' => $projectDetails->sponsor_id])->first();
 
-        $this->set('projectDetails', $projectDetails);
+        $this->loadModel('Disbursements');
+        $disbursed =  $this->Disbursements->find('all')->where(['project_id' => $projectDetails->project_id]);
+
+        $amountDisbursed = 0;
+        foreach ($disbursed as $disburse) {
+            $amountDisbursed = $amountDisbursed + $disburse->cost;
+        }
+
+        $this->loadModel('Milestones');
+        $milestones =  $this->Milestones->find('all')->where(['project_id' => $projectDetails->project_id]);
+
+        $this->loadModel('Activities');
+        $activities =  $this->Activities->find('all')->where(['project_id' => $projectDetails->project_id]);
+
+        // $return = $this->redirect($this->referer());
+
+        // debug($return);
+        // die();
+
+
+        $this->set(compact('projectDetails', 'sponsors', 'amountDisbursed', 'milestones', 'activities'));
     }
 
 
@@ -225,14 +247,6 @@ class ProjectDetailsController extends AppController
             ]
         );
 
-
-
-        // $projectDetails = $this->ProjectDetails->find('all')->contain(['sponsors'])->where(['project_id' => 1]);
-        // debug($projectDetails);
-        // die();
-
-        // sql($projectDetails);
-        // die();
         $this->set('projectDetails', $projectDetails);
     }
 
@@ -369,11 +383,6 @@ class ProjectDetailsController extends AppController
                 //                'Projects.ProjectDonors.SponsorTypes',
             ]
         ]);
-
-//        debug($projectDetail);die();
-// debug('here');
-// die();
-        //  $project_info = $this->Projects->get($id);
 
 
         $project_info = $this->Projects->get($projectDetail->project_id);
