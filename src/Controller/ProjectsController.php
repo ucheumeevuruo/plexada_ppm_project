@@ -782,9 +782,42 @@ class ProjectsController extends AppController
         foreach ($disbursed as $disburse) {
             $amount_dis = $amount_dis + $disburse->cost;
         }
-        // debug($projectDetails);
+        $st_date = ($projectDetails->start_dt)->format("Y");
+        $ed_date = ($projectDetails->end_dt)->format("Y");
+        $diff = date_diff($projectDetails->start_dt,$projectDetails->end_dt);
+
+        $array_years = array();
+        $disburse_amt = array();
+        while ($st_date <= $ed_date){
+            $xx = 1;
+            $y = "$st_date-01-01";
+            $y2 = "$st_date-01-01";
+            $z = "$st_date-12-31"; 
+            $start_year_obj = new DateTime($y);           
+            $start_year = new DateTime($y2);           
+            while ($xx < 4){
+                $ab="Q$xx";
+            $step_up = (date_add($start_year,date_interval_create_from_date_string('3 months')))->format('Y-m-d');
+            // $end_year_obj = $start_year_obj->modify('+3 month');
+            $a = $start_year_obj->format('Y-m-d');
+            $query = $this->Disbursements->find('all');
+            $query = $query->where(['project_id'=>$id,'start_date >='=>$a,'start_date <='=>$step_up]);
+            $query = $query->select(['cost' => $query->func()->SUM('cost')])->first();
+            $cummulative = $query['cost'] ? $query['cost']: 0;
+            // echo $a;
+            // debug($step_up);
+            // die();
+            array_push($array_years, $st_date."-".$ab);
+            array_push($disburse_amt, $cummulative);
+            $start_year_obj->modify('+3 month');
+            $xx++;
+            }
+            
+            $st_date++;
+        }
+        // debug($array_years);
         // die();
-        $this->set(compact('id', 'disbursed', 'amount_dis', 'milestone', 'milestones', 'projectDetails'));
+        $this->set(compact('id', 'disbursed', 'amount_dis', 'milestone', 'milestones', 'projectDetails','array_years','disburse_amt'));
     }
 
     public function viewPlans($id =  null)

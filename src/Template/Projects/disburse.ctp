@@ -29,7 +29,8 @@ $this->Paginator->setTemplates([
     'last' => ''
 ]);
 ?>
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+<?= $this->Html->script('mychart.js') ?>
 <div class="container-fluid mt-4">
     <!-- Breadcrumb area -->
     <nav aria-label="breadcrumb">
@@ -80,8 +81,19 @@ $this->Paginator->setTemplates([
     <div class="grey-bg vh-4 py-4">
         <h5 class="ml-3 text-sm font-weight-bold  ">Total Expected:  <?= $this->NumberFormat->format($projectDetails->budget, ['before' => $milestone->project->project_detail->has('currency') ? $milestone->project->project_detail->currency->symbol : '']) ?></h5>
         <h5 class="ml-3 text-sm font-weight-bold  ">Total Disbursed:  <?= $this->NumberFormat->format($amount_dis, ['before' => $milestone->project->project_detail->has('currency') ? $milestone->project->project_detail->currency->symbol : '']) ?></h5>
-        <h6 class="ml-3"><u>Details:</u></h6>
-        <table class="table table-bordered ml-3">
+        <canvas id="disburseChart" width="200" height="50" style="height:400px"></canvas>
+                        <script>
+                            <?php $budget_array = json_encode($projectDetails->budget) ?>
+                            <?php $expense_array = json_encode($amount_dis) ?>
+                            <?php $projectName = json_encode($projectDetails->name) ?>
+                            <?php $currency = json_encode($milestone->project->project_detail->has('currency') ?$milestone->project->project_detail->currency->symbol : '') ?>
+                            var array_code = <?php echo $projectName; ?>;
+                            var array_budget = <?php echo $budget_array; ?>;
+                            var array_expense = <?php echo $expense_array; ?>;
+                            var currency = <?php echo $currency; ?>;
+                            disburseChart2(array_code, array_budget, array_expense,currency);
+                        </script>
+         <!-- <table class="table table-bordered ml-3">
             <thead>
                 <tr>
                     <th scope="col">S/N</th>
@@ -106,8 +118,23 @@ $this->Paginator->setTemplates([
                 <?php endforeach; ?>
             </tbody>
 
-        </table>
+        </table> -->
 
-
+                    <div class = "mt-5">
+                        <canvas id="lineChart" width="200" height="50" style="height:400px"></canvas>
+                            <script>
+                                <?php $amount = json_encode($disburse_amt) ?>
+                                <?php $budget_array = json_encode($projectDetails->budget) ?>
+                                <?php $years = json_encode($array_years) ?>
+                                <?php $projectName = json_encode($projectDetails->name) ?>
+                                <?php $currency = json_encode($milestone->project->project_detail->has('currency') ?$milestone->project->project_detail->currency->symbol : '') ?>
+                                var proj_name = <?php echo $projectName; ?>;
+                                var array_budget = <?php echo $budget_array; ?>;
+                                var disburse_amt = <?php echo $amount; ?>;
+                                var years = <?php echo $years; ?>;
+                                var currency = <?php echo $currency; ?>;
+                                drawlineChart(proj_name, disburse_amt, years,currency,array_budget);
+                            </script>                    
+                    </div>
     </div>
 </div>
