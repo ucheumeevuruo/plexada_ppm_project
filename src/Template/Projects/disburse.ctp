@@ -78,8 +78,9 @@ $this->Paginator->setTemplates([
 
 
     </nav>
+    <?php if (isset($milestone)) : ?>
     <div class="grey-bg vh-4 py-4">
-        <h5 class="ml-3 text-sm font-weight-bold  ">Total Expected:  <?= $this->NumberFormat->format($projectDetails->budget, ['before' => $milestone->project->project_detail->has('currency') ? $milestone->project->project_detail->currency->symbol : '']) ?></h5>
+        <h5 class="ml-3 text-sm font-weight-bold  ">Total Expected:  <?=  $this->NumberFormat->format($projectDetails->budget, ['before' => $milestone->project->project_detail->has('currency') ? $milestone->project->project_detail->currency->symbol : '']) ?></h5>
         <h5 class="ml-3 text-sm font-weight-bold  ">Total Disbursed:  <?= $this->NumberFormat->format($amount_dis, ['before' => $milestone->project->project_detail->has('currency') ? $milestone->project->project_detail->currency->symbol : '']) ?></h5>
         <canvas id="disburseChart" width="200" height="50" style="height:400px"></canvas>
                         <script>
@@ -137,4 +138,5 @@ $this->Paginator->setTemplates([
                             </script>                    
                     </div>
     </div>
+                <?php endif; ?>
 </div>

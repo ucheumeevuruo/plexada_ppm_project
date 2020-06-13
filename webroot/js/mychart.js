@@ -196,7 +196,7 @@ function disburseChart2(projects, budget, expense, currency){
     console.log([projects])
     console.log(budget)
     console.log(currency)
-    var stepsizer = budget/10
+    var stepsizer = Math.round(budget/10)
     var ctx = document.getElementById('disburseChart').getContext('2d');
 var disburseChart = new Chart(ctx, {
 type: 'bar',
@@ -221,7 +221,7 @@ options:{
         yAxes: [{
             ticks :{
                 beginAtZero: true,
-                stepSize: stepsizer,
+                stepSize: 1000000,
 
                 // Return an empty string to draw the tick line but hide the tick label
                 // Return `null` or `undefined` to hide the tick line entirely
