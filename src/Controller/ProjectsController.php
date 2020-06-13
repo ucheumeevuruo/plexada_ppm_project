@@ -472,7 +472,7 @@ class ProjectsController extends AppController
                     ->replyTo('kingsconsult001@gmail.com')
                     ->send($text);
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'preImplementation']);
             }
             $this->Flash->error(__('The project could not be saved. Please, try again.'));
         }
@@ -532,7 +532,9 @@ class ProjectsController extends AppController
                     ->replyTo('kingsconsult001@gmail.com')
                     ->send($text);
 
-                return $this->redirect(['action' => 'index']);
+                // return $this->redirect(['action' => 'index']);
+                return $this->redirect($this->referer());
+
             }
             $this->Flash->error(__('The project could not be saved. Please, try again.'));
         }
@@ -572,7 +574,9 @@ class ProjectsController extends AppController
             $this->Flash->error(__('The project could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        // return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
+
     }
 
 
@@ -787,9 +791,7 @@ class ProjectsController extends AppController
 
         $activities = $this->Projects->Activities->find()->where(['milestone_id' => $project_id]);;
 
-
         $activities = $this->paginate($activities);
-
 
         $this->loadModel('Plans');
         $plans =  $this->Plans->find('all');
@@ -887,8 +889,7 @@ class ProjectsController extends AppController
             
             $st_date++;
         }
-        // debug($array_years);
-        // die();
+
         $this->set(compact('id', 'disbursed', 'amount_dis', 'milestone', 'milestones', 'projectDetails','array_years','disburse_amt'));
         // }
 
@@ -903,12 +904,139 @@ class ProjectsController extends AppController
         $this->loadModel('Plans');
         $plans =  $this->Plans->find('all');
 
-        // debug($plans);
-        // die();
-
         $this->loadModel('Staff');
         $staffs =  $this->Staff->find('all');
 
         $this->set(compact('plans', 'id', 'staffs'));
+    }
+
+    public function completion()
+    {
+        $q = $this->request->getQuery('q');
+
+        $customFinderOptions = [
+            'id' => $q
+        ];
+
+
+        $this->paginate = [
+            'contain' => [
+                'ProjectDetails',
+                'ProjectDetails.Statuses',
+                'ProjectDetails.Currencies',
+                'Activities'
+            ],
+            // 'conditions' => ['ProjectDetails.system_user_id' => $this->Auth->user('system_user_id')],// This is supposed to show only projects you created. Not fully implemented
+            //            'maxLimit' => 3
+            'finder' => [
+                'byProjectName' => $customFinderOptions
+            ]
+        ];
+        //        $this->loadModel('Projects');
+        $projects = $this->paginate($this->Projects);
+
+        $this->loadModel('Milestones');
+        $milestones =  $this->Milestones->find('all');
+
+        $this->loadModel('ProjectDetails');
+        $projectDetails =  $this->ProjectDetails->find('all');
+
+        $this->loadModel('Activities');
+        $activities =  $this->Activities->find('all');
+
+        // debug($projects);
+        // die();
+
+        $this->set(compact('projects', 'milestones', 'projectDetails', 'activities'));
+    }
+
+    public function implementation()
+    {
+        $q = $this->request->getQuery('q');
+
+        $customFinderOptions = [
+            'id' => $q
+        ];
+
+
+        $this->paginate = [
+            'contain' => [
+                'ProjectDetails',
+                'ProjectDetails.Statuses',
+                'ProjectDetails.Currencies',
+                'Activities'
+            ],
+            // 'conditions' => ['ProjectDetails.system_user_id' => $this->Auth->user('system_user_id')],// This is supposed to show only projects you created. Not fully implemented
+            //            'maxLimit' => 3
+            'finder' => [
+                'byProjectName' => $customFinderOptions
+            ]
+        ];
+        //        $this->loadModel('Projects');
+        $projects = $this->paginate($this->Projects);
+
+        $this->loadModel('Milestones');
+        $milestones =  $this->Milestones->find('all');
+
+        $this->loadModel('ProjectDetails');
+        $projectDetails =  $this->ProjectDetails->find('all');
+
+        $this->loadModel('Activities');
+        $activities =  $this->Activities->find('all');
+
+        $this->loadModel('Approvals');
+        $approvals =  $this->Approvals->find('all');
+
+        // debug($projects);
+        // die();
+
+        $this->set(compact('projects', 'milestones', 'projectDetails', 'activities', 'approvals'));
+    }
+    public function preImplementation($id =  null)
+    {
+        $q = $this->request->getQuery('q');
+
+        $customFinderOptions = [
+            'id' => $q
+        ];
+
+
+        $this->paginate = [
+            'contain' => [
+                'ProjectDetails',
+                'ProjectDetails.Statuses',
+                'ProjectDetails.Currencies',
+                'Activities',
+                'Approvals',
+                'Agreements'
+            ],
+            // 'conditions' => ['ProjectDetails.system_user_id' => $this->Auth->user('system_user_id')],// This is supposed to show only projects you created. Not fully implemented
+            //            'maxLimit' => 3
+            'finder' => [
+                'byProjectName' => $customFinderOptions
+            ]
+        ];
+        //        $this->loadModel('Projects');
+        $projects = $this->paginate($this->Projects);
+
+        $this->loadModel('Milestones');
+        $milestones =  $this->Milestones->find('all');
+
+        $this->loadModel('ProjectDetails');
+        $projectDetails =  $this->ProjectDetails->find('all');
+
+        $this->loadModel('Activities');
+        $activities =  $this->Activities->find('all');
+        
+        $this->loadModel('Agreements');
+        $agreements =  $this->Agreements->find('all');
+        
+        $this->loadModel('Approvals');
+        $approvals =  $this->Approvals->find('all');
+        // debug($agreements);
+        // debug($projects);
+        // die();
+
+        $this->set(compact('projects', 'milestones', 'projectDetails', 'activities', 'agreements', 'approvals'));
     }
 }

@@ -105,6 +105,13 @@ class ProjectsTable extends Table
             'foreignKey' => 'project_id',
             'conditions' => ['ProjectMdas.sponsor_type_id' => '15'],
         ]);
+        $this->hasOne('Approvals', [
+            'foreignKey' => 'project_id',
+            'joinType' => 'RIGHT'
+        ]);
+        $this->hasOne('Agreements', [
+            'foreignKey' => 'project_id',
+        ]);
     }
 
     /**
@@ -137,9 +144,9 @@ class ProjectsTable extends Table
             ->requirePresence('location', 'create')
             ->notEmptyString('location');
 
-//        $validator
-//            ->requirePresence('cost', 'create')
-//            ->notEmptyString('cost');
+        //        $validator
+        //            ->requirePresence('cost', 'create')
+        //            ->notEmptyString('cost');
 
         return $validator;
     }
@@ -148,9 +155,8 @@ class ProjectsTable extends Table
     {
         $id = $options['id'];
 
-        if(!is_null($id))
-        {
-            $query->where(function ($exp, Query $q) use ($id){
+        if (!is_null($id)) {
+            $query->where(function ($exp, Query $q) use ($id) {
                 return $exp->like('Projects.name', "%$id%");
             });
         }

@@ -35,11 +35,36 @@
             <!--            <i class="fas fa-fw fa-cog"></i>-->
             <!--            <span>Components</span>-->
             <!--        </a>-->
-            <?= $this->Html->link(
+            <a href="#collapseExample3" class="nav-link collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample1">
+                <i class="fa fa-archive fa-lg"></i> &nbsp;Projects</a>
+            <div class="collapse" id="collapseExample3">
+                <div class="">
+            <!-- <?= $this->Html->link(
                 __('<i class="fa fa-archive fa-lg"></i> &nbsp;Projects'),
                 ['controller' => 'Projects', 'action' => 'index'],
                 ['escape' => false, 'class' => 'nav-link collapsed']
+            ) ?> -->
+            <?= $this->Html->link(
+                __('<i class="fa fa-archive fa-lg"></i> &nbsp;Pre-Implementation'),
+                ['controller' => 'Projects', 'action' => 'preImplementation'],
+                ['escape' => false, 'class' => 'nav-link collapsed']
             ) ?>
+            <?= $this->Html->link(
+                __('<i class="fa fa-archive fa-lg"></i> &nbsp;Implementation'),
+                ['controller' => 'Projects', 'action' => 'implementation'],
+                ['escape' => false, 'class' => 'nav-link collapsed']
+            ) ?>
+            <?= $this->Html->link(
+                __('<i class="fa fa-archive fa-lg"></i> &nbsp;Completion'),
+                ['controller' => 'Projects', 'action' => 'completion'],
+                ['escape' => false, 'class' => 'nav-link collapsed']
+            ) ?>
+                    
+
+                </div>
+            </div>
+
+
             <!--        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">-->
             <!--            <div class="bg-white py-2 collapse-inner rounded">-->
             <!--                <h6 class="collapse-header">Custom Components:</h6>-->

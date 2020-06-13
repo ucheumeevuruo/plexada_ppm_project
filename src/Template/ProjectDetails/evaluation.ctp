@@ -70,33 +70,45 @@ $this->end();
                         ['controller' => 'ProjectDetails', 'action' => 'summary'],
                         ['escape' => false, 'class' => 'nav-link collapsed']
                     ) ?>
-                    <!-- <?= $this->Html->link(
-                                __(' <i id="print" class="btn  btn-success" style="width: 100px">Report</i> '),
-                                ['controller' => 'ProjectDetails', 'action' => 'summary'],
-                                ['escape' => false, 'class' => 'nav-link collapsed']
-                            ) ?> -->
                 </div>
             </div>
             <div>
                 <div>
                 </div>
-                <div style="  outline: 2px solid; padding-left: 22px; " class="input-group outline-info">
-                    <div class="dropdown">
-                        <div>
-                            <h6 class="font-weight-bold text-dark text-center">Project start Date </h6>
-                            <div class="dropdown-menu">
+                <div style=" outline: 5px solid #36B9CC; border-radius: 0 20px 20px 0" class="input-group outline-info">
+
+                    <div>
+                        <h6 class="font-weight-bold text-dark text-center">Reporting Period </h6>
+
+                        <div style="display: flex; ">
+                            <div class="bootstrap-iso">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group" style="display: flex; ">
+                                                <!-- Date input -->
+                                                <div class="input-group date" data-provide="datepicker">
+                                                    <input type="text" class="form-control" placeholder="MM/DD/YYYY" name="from" id='from' autocomplete="off" />
+                                                    <div class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="bootstrap-iso">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group" style="display: flex; flex-direction: column;">
-                                            <!-- Date input -->
-                                            <div class="input-group date" data-provide="datepicker" style="background-color: #CDD8F6; border-color: #4E73DF; border-width: medium;">
-                                                <input type="text" class="form-control" placeholder="MM/DD/YYY" name="from" id='from' autocomplete="off" />
-                                                <div class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
+
+                            <div class="bootstrap-iso">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group" style="display: flex; ">
+                                                <div class="input-group date" data-provide="datepicker">
+                                                    <input type="text" class="form-control" placeholder="MM/DD/YYYY" name="to" id='to' autocomplete="off" />
+                                                    <div class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -105,31 +117,7 @@ $this->end();
                             </div>
                         </div>
                     </div>
-                    <div class="dropdown">
-                        <div>
 
-                            <h6 class="font-weight-bold text-dark text-center">Project End date</h6>
-                            <div class="dropdown-menu">
-                            </div>
-                        </div>
-                        <div class="bootstrap-iso">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group" style="display: flex; flex-direction: column; margin-left: -20px;">
-
-                                            <div class="input-group date" data-provide="datepicker" style="background-color: #CDD8F6; border-color: #4E73DF; border-width: medium;">
-                                                <input type="text" class="form-control" placeholder="MM/DD/YYY" name="to" id='to' autocomplete="off" />
-                                                <div class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <?= $this->Form->button(__('Select'), ["class" => "btn-info "]) ?>
                 </div>
             </div>
@@ -170,13 +158,12 @@ $this->end();
                     <th scope="col"><?= __('Donor/Lender') ?></th>
                     <th scope="col"><?= __('Funding Type') ?></th>
                     <th scope="col"><?= __('Budget') ?></th>
-                    <th scope="col"><?= __('Description') ?></th>
                     <th scope="col"><?= __('Beneficiary') ?></th>
-                    <th scope="col"><?= __('Project State Date') ?></th>
-                    <th scope="col"><?= __('Project Completion Date') ?></th>
-                    <!-- <th scope="col"><?= __('Status') ?></th> -->
-                    <th scope="col"><?= __('Key Challenge') ?></th>
-                    <!-- <th scope="col" class="text-white"><?= __('Next Action Plan ') ?></th> -->
+                    <th scope="col"><?= __('Achievements') ?></th>
+                    <th scope="col" class="text-white"><?= __('Next Action Plan ') ?></th>
+                    <th scope="col"><?= __('Start Date') ?></th>
+                    <th scope="col"><?= __('Completion Date') ?></th>
+                    <th scope="col"><?= __('Risk and Issues') ?></th>
                 </tr>
             </thead>
 
@@ -207,11 +194,27 @@ $this->end();
                                 <th scope="col">
                                     <?= $this->NumberFormat->format($projectDetail->budget, ['before' => $projectDetail->has('currency') ? $projectDetail->currency->symbol : '']) ?>
                                 </th>
-                                <th scope="col"><?= h($projectDetail->description) ?></th>
                                 <th scope="col"><?= h($projectDetail->beneficiary) ?></th>
+                                <th scope="col">
+                                    <?php $serial = 1; ?>
+                                    <?php foreach ($activities as $activity) : ?>
+                                        <?php if ($projectDetail->project_id == $activity->project_id && $activity->status_id == 3) : ?>
+                                            <p><?= h($serial++) ?>. <?= h($activity->name) ?></p>
+
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </th>
+                                <th scope="col">
+                                    <?php $serial1 = 1; ?>
+                                    <?php foreach ($activities as $activity) : ?>
+                                        <?php if ($projectDetail->project_id == $activity->project_id && $activity->status_id == 1) : ?>
+                                            <p><?= h($serial1++) ?>. <?= h($activity->name) ?></p>
+
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </th>
                                 <th scope="col"><?= h($projectDetail->start_dt) ?></th>
                                 <th scope="col"><?= h($projectDetail->end_dt) ?></th>
-                                <!-- <th scope="col"><?= __(' ') ?></th> -->
                                 <th scope="col"><?= h($projectDetail->risk_and_issues) ?></th>
                             </tr>
                         <?php endif; ?>

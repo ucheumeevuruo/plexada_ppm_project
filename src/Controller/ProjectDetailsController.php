@@ -116,12 +116,11 @@ class ProjectDetailsController extends AppController
             $this->set(compact('fromnumber', 'tonumber'));
         }
 
-        $projectDetails = $this->ProjectDetails->find('all');
+        $projectDetails = $this->ProjectDetails->find('all')->contain(['Currencies']);
 
         $this->loadModel('Sponsors');
         $sponsors = $this->Sponsors->find('all');
-        // debug($projectDetails);
-        // die();
+
 
         $staff = $this->ProjectDetails->Staff->find('all');
         $this->loadModel('Milestones');
@@ -130,6 +129,10 @@ class ProjectDetailsController extends AppController
         $activities =  $this->Activities->find('all');
         $this->loadModel('ProjectFundings');
         $projectfundings =  $this->ProjectFundings->find('all');
+
+
+        // debug($projectDetails);
+        // die();
 
         $this->set(compact('projectDetails', 'staff', 'milestone_list', 'activities', 'projectfundings', 'sponsors'));
     }
@@ -144,7 +147,10 @@ class ProjectDetailsController extends AppController
             $edate = $this->request->getData('dateto');
 
             $this->loadModel('Projects');
-            $projectReports = $this->ProjectDetails->find('all')->contain(['Projects'])->where(['ProjectDetails.start_dt >=' => $sdate, 'ProjectDetails.end_dt <=' => $edate]);
+            $projectReports = $this->ProjectDetails->find('all')->contain(['Projects', 'Currencies'])->where(['ProjectDetails.start_dt >=' => $sdate, 'ProjectDetails.end_dt <=' => $edate]);
+
+
+
 
             $todays = date("Y");
             $sObj = new DateTime($sdate);
@@ -158,11 +164,10 @@ class ProjectDetailsController extends AppController
             $from = $sObj->format("d M Y");
             // $this->request->setData(['from'=> $from]);
             $this->request->data('from', $from);
-            // sql($projectReports);
+            // debug($projectReports);
             // die();
-            $this->set(compact('projectReports', 'from', 'edate', 'fromshdate1', 'fromshdate2', 'projects'));
+            $this->set(compact('projectReports', 'from', 'edate', 'fromshdate1', 'fromshdate2'));
         }
-        // $this->set(compact('projectDetails'));
     }
 
 
@@ -175,10 +180,12 @@ class ProjectDetailsController extends AppController
         $milestones =  $this->Milestones->find('all');
         $this->loadModel('Sponsors');
         $sponsors =  $this->Sponsors->find('all');
+        $this->loadModel('Projects');
+        $projects =  $this->Projects->find('all');
         // debug($sponsors);
         // die();
 
-        $this->set(compact('projectDetails', 'milestones', 'sponsors'));
+        $this->set(compact('projectDetails', 'milestones', 'sponsors',  'projects'));
     }
 
     public function printable($id = null)
@@ -202,7 +209,6 @@ class ProjectDetailsController extends AppController
 
         $this->loadModel('Milestones');
         $milestones =  $this->Milestones->find('all')->where(['project_id' => $projectDetails->project_id]);
-
         $this->loadModel('Activities');
         $activities =  $this->Activities->find('all')->where(['project_id' => $projectDetails->project_id]);
 
@@ -552,5 +558,48 @@ class ProjectDetailsController extends AppController
             }
         }
         $this->set(compact('projectDetails'));
+    }
+    /**
+     * Edit method
+     *
+     * @param  string|null $id Project Detail id.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function designApproval($id = null)
+    {
+        $this->loadModel('Projects');
+
+        $projectDetail = $this->ProjectDetails->get($id, [
+            'contain' => [
+                'Projects',
+                'Projects.ProjectSponsors',
+                //                'Projects.ProjectSponsors.SponsorTypes',
+                'Projects.ProjectMdas',
+                //                'Projects.ProjectMdas.SponsorTypes',
+                'Projects.ProjectDonors',
+                //                'Projects.ProjectDonors.SponsorTypes',
+            ]
+        ]);
+
+
+        $project_info = $this->Projects->get($projectDetail->project_id);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $projectDetail = $this->ProjectDetails->patchEntity($projectDetail, $this->ProjectDetails->identify($this->request->getData()), [
+                'associated' => [
+                    'Projects.ProjectDonors', 'Projects.ProjectMdas', 'Projects.ProjectSponsors'
+                ]
+            ]);
+            if ($this->ProjectDetails->save($projectDetail)) {
+
+                $this->Flash->success(__('The project design has been approved.'));
+                return $this->redirect($this->referer());
+            }
+            $this->Flash->error(__('The project detail could not be saved. Please, try again.'));
+
+            return $this->redirect($this->referer());
+        }
+        $this->set(compact('projectDetail', 'project_info'));
+
     }
 }
