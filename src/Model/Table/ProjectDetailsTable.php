@@ -56,15 +56,15 @@ class ProjectDetailsTable extends Table
         $this->belongsTo('Staff', [
             'foreignKey' => 'manager_id',
         ]);
-//        $this->belongsTo('Sponsors', [
-//            'foreignKey' => 'sponsor_id'
-//        ]);
-//        $this->belongsTo('Donors', [
-//            'foreignKey' => 'donor_id'
-//        ]);
-//        $this->belongsTo('mdas', [
-//            'foreignKey' => 'mda_id'
-//        ]);
+        //        $this->belongsTo('Sponsors', [
+        //            'foreignKey' => 'sponsor_id'
+        //        ]);
+        //        $this->belongsTo('Donors', [
+        //            'foreignKey' => 'donor_id'
+        //        ]);
+        //        $this->belongsTo('mdas', [
+        //            'foreignKey' => 'mda_id'
+        //        ]);
         $this->belongsTo('Staff', [
             'foreignKey' => 'waiting_on_id',
         ]);
@@ -192,6 +192,11 @@ class ProjectDetailsTable extends Table
             ->allowEmptyString('risks');
 
         $validator
+            ->scalar('approve_design')
+            ->maxLength('approve_design', 2)
+            ->allowEmptyString('approve_design');
+
+        $validator
             ->scalar('components')
             ->maxLength('components', 255)
             // ->requirePresence('components', 'create')
@@ -209,11 +214,11 @@ class ProjectDetailsTable extends Table
             DateTime::createFromFormat('d/m/Y', $formData['start_dt']) : $formData['start_dt'];
         $formData['end_dt'] = !empty($formData['end_dt']) ?
             DateTime::createFromFormat('d/m/Y', $formData['end_dt']) : $formData['end_dt'];
-        if(isset($formData['project']['project_sponsor']))
+        if (isset($formData['project']['project_sponsor']))
             $formData['project']['project_sponsor']['sponsor_type_id'] = '13';
-        if(isset($formData['project']['project_donor']))
+        if (isset($formData['project']['project_donor']))
             $formData['project']['project_donor']['sponsor_type_id'] = '14';
-        if(isset($formData['project']['project_mda']))
+        if (isset($formData['project']['project_mda']))
             $formData['project']['project_mda']['sponsor_type_id'] = '15';
         return $formData;
     }
@@ -231,7 +236,7 @@ class ProjectDetailsTable extends Table
     {
         $rules->add($rules->existsIn(['vendor_id'], 'Vendors'));
         $rules->add($rules->existsIn(['manager_id'], 'Staff'));
-//        $rules->add($rules->existsIn(['sponsor_id'], 'Sponsors'));
+        //        $rules->add($rules->existsIn(['sponsor_id'], 'Sponsors'));
         // $rules->add($rules->existsIn(['mda_id'], 'MDA'));
         $rules->add($rules->existsIn(['waiting_on_id'], 'Staff'));
         $rules->add($rules->existsIn(['status_id'], 'Lov'));
@@ -244,6 +249,6 @@ class ProjectDetailsTable extends Table
         $rules->add($rules->existsIn(['currency_id'], 'SubStatuses'));
 
 
-       return $rules;
+        return $rules;
     }
 }

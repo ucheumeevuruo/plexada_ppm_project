@@ -13,6 +13,7 @@ use Cake\ORM\Entity;
  * @property int $cost
  *
  * @property \App\Model\Entity\ProjectDetail[] $project_details
+ * @property \App\Model\Entity\Approval[] $project_details
  * @property \App\Model\Entity\Pim $pim
  * @property \App\Model\Entity\ProjectFunding $project_funding
  * @property \App\Model\Entity\Activity[] $activities
@@ -41,6 +42,8 @@ class Project extends Entity
         'location' => true,
         'cost' => true,
         'project_details' => true,
+        'approval' => true,
+        'agreement' => true,
         'pim' => true,
         'project_funding' => true,
         'activities' => true,

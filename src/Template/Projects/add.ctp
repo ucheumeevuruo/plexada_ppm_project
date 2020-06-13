@@ -63,6 +63,15 @@ $this->end();
                 <?php
                 echo $this->Form->control('project_detail.budget', ['label' => false, 'class' => 'mb-0', 'min' => 0]);
                 ?>
+                <?php
+                echo $this->Form->hidden('approval.project_approval', ['value' => 'N']);
+                echo $this->Form->hidden('approval.design_approval', ['value' => 'N']);
+                echo $this->Form->hidden('approval.documents_approval', ['value' => 'N']);
+                ?>
+                <?php
+                echo $this->Form->hidden('agreement.approve_documents', ['value' => 'N']);
+                echo $this->Form->hidden('agreement.approve_project', ['value' => 'N']);
+                ?>
                 <!-- <label class="control-label mandatory" for="project_detail.budget">Budget</label>
                 <div class="input-group mb-3"><input type="number" name="project_detail.budget" class="form-control"
                         empty="1" id="project_detail.budget" autocomplete="off">

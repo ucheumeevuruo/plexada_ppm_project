@@ -156,22 +156,40 @@ $this->end();
                             $stat = ' <p class="mb-0" style="background-color: #FF0000"> &nbsp; </p>';
                         }
                         ?>
+                        <?php if ($projectDetail->name != null) : ?>
+                            <tr>
+                                <td style="width:5%"><?= h($num) ?></td>
+                                <td><?= h($projectDetail->name) ?></td>
+                                <td><?= $this->Html->link(
+                                        __($stat),
+                                        ['controller' => 'ProjectDetails', 'action' => 'summary'],
+                                        ['escape' => false, 'class' => 'nav-link collapsed']
+                                    ) ?>
+                                </td>
+                                <td><?= h($percen) ?>%</td>
+                                <td><?= h($projectDetail->start_dt) ?></td>
+                                <td><?= h($projectDetail->end_dt) ?></td>
 
-                        <tr>
-                            <td style="width:5%"><?= h($num) ?></td>
-                            <td><?= h($projectDetail->name) ?></td>
-                            <td><?= $this->Html->link(
-                                    __($stat),
-                                    ['controller' => 'ProjectDetails', 'action' => 'summary'],
-                                    ['escape' => false, 'class' => 'nav-link collapsed']
-                                ) ?>
-                            </td>
-                            <td><?= h($percen) ?>%</td>
-                            <td><?= h($projectDetail->start_dt) ?></td>
-                            <td><?= h($projectDetail->end_dt) ?></td>
-
-                        </tr>
-
+                            </tr>
+                        <?php else : ?>
+                            <?php foreach ($projects as $project) : ?>
+                                <?php if ($project->id == $projectDetail->project_id) : ?>
+                                    <tr>
+                                        <td style="width:5%"><?= h($num) ?></td>
+                                        <td><?= h($project->name) ?></td>
+                                        <td><?= $this->Html->link(
+                                                __($stat),
+                                                ['controller' => 'ProjectDetails', 'action' => 'summary'],
+                                                ['escape' => false, 'class' => 'nav-link collapsed']
+                                            ) ?>
+                                        </td>
+                                        <td><?= h($percen) ?>%</td>
+                                        <td><?= h('No Start Date Yet') ?></td>
+                                        <td><?= h('No End Date Yet') ?></td>
+                                    </tr>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </tbody>
                 <!-- completed projects -->

@@ -75,18 +75,18 @@ $this->end();
         <div>
         </div>
         <?php if (isset($projectReports)) { ?>
-            <h3 colspan=10>OGUN STATE CONSOLIDATED PORTFOLIO REPORT FROM <?php echo $fromshdate1 ?></h3>
+            <h3 colspan=10>OGUN STATE CONSOLIDATED FINANCIAL REPORT FROM <?php echo $fromshdate1 ?></h3>
         <?php } else { ?>
-            <h3 colspan=10>OGUN STATE CONSOLIDATED PORTFOLIO REPORT FROM ....</h3>
+            <h3 colspan=10>OGUN STATE CONSOLIDATED FINANCIAL REPORT FROM ....</h3>
         <?php }  ?>
         <div class="table-responsive justify-content-center">
-            <table cellpadding="0" id="table2excel" cellspacing="0" class="table table-bordered table-sm dataTable table-info table-hover br-m justify-content-center" role="grid" aria-describedby="dataTable_info">
-                <thead class="bg-success">
+            <table cellpadding="0" id="table2excel" cellspacing="0" class="table  table-bordered dataTable table-default br-m table-striped table-sm" role="grid" aria-describedby="dataTable_info">
+                <thead class="table-dark text-center align-text-middle">
                     <tr>
                         <th scope="col" class="text-white"><?= __('S/N  ') ?></th>
                         <th scope="col" class="text-white"><?= __('Projects') ?></th>
                         <th scope="col" class="text-white"><?= __('State Sector Development Plan') ?></th>
-                        <th scope="col" class="text-white"><?= __('State Allocation(Notional Amount from WB)($m)') ?></th>
+                        <th scope="col" class="text-white"><?= __('State Allocation(Notional Amount from WB)') ?></th>
                         <th scope="col" class="text-white"><?= __('Monthly Disbursement by Project') ?></th>
                         <th scope="col" class="text-white"><?= __('Cummulative Amount Disbursed From Project start till date') ?></th>
                         <th scope="col" class="text-white"><?= __('Undisbursed Balance') ?></th>
@@ -120,15 +120,27 @@ $this->end();
                             <?php $num++; ?>
                             <tr>
                                 <td style="width:5%" style="color: black !important;" class="mx-auto"><?= h($num) ?></td>
-                                <td style="width:5%" style="color: black !important;" class="mx-auto"><?= $projectDetail->name ?></td>
+                                <td style="width:5%" style="color: black !important;" class="mx-auto text-left"><?= $projectDetail->name ?></td>
                                 <td style="width:5%" style="color: black !important;" class="mx-auto"><?= $projectDetail->location ?></td>
-                                <td style="width:5%" style="color: black !important;" class="mx-auto"><?= $this->Number->currency(($projectDetail->budget) / 1000000) ?></td>
-                                <td style="width:5%" style="color: black !important;" class="mx-auto"><?= $this->Number->currency(($projectDetail->budget) / 12000000) ?></td>
-                                <td style="width:5%" style="color: black !important;" class="mx-auto"><?= $this->Number->currency($onethird / 1000000) ?></td>
-                                <td style="width:5%" style="color: black !important;" class="mx-auto"><?= $this->Number->currency($leftbalance / 1000000) ?></td>
-                                <td style="width:5%" style="color: black !important;" class="mx-auto"> <?= $percent ?></td>
-                                <td style="width:5%" style="color: black !important;" class="justify-content-center"><?= $this->Number->currency($fromto / 1000000) ?></td>
-                                <td style="width:5%" style="color: black !important;" class="mx-auto"><?= $this->Number->currency(($leftto) / 1000000) ?></td>
+                                <td style="width:5%" style="color: black !important;" class="mx-auto">
+                                    <?= $this->NumberFormat->format($projectDetail->budget, ['before' => $projectDetail->has('currency') ? $projectDetail->currency->symbol : '']) ?>
+                                </td>
+                                <td style="width:5%" style="color: black !important;" class="mx-auto">
+                                    <?= $this->NumberFormat->format($projectDetail->budget / 12, ['before' => $projectDetail->has('currency') ? $projectDetail->currency->symbol : '']) ?>
+                                </td>
+                                <td style="width:5%" style="color: black !important;" class="mx-auto">
+                                    <?= $this->NumberFormat->format($onethird, ['before' => $projectDetail->has('currency') ? $projectDetail->currency->symbol : '']) ?>
+                                </td>
+                                <td style="width:5%" style="color: black !important;" class="mx-auto">
+                                    <?= $this->NumberFormat->format($leftbalance, ['before' => $projectDetail->has('currency') ? $projectDetail->currency->symbol : '']) ?>
+                                </td>
+                                <td style="width:5%" style="color: black !important;" class="mx-auto"><?= $percent ?></td>
+                                <td style="width:5%" style="color: black !important;" class="justify-content-center">
+                                    <?= $this->NumberFormat->format($fromto, ['before' => $projectDetail->has('currency') ? $projectDetail->currency->symbol : '']) ?>
+                                </td>
+                                <td style="width:5%" style="color: black !important;" class="mx-auto">
+                                    <?= $this->NumberFormat->format($leftto, ['before' => $projectDetail->has('currency') ? $projectDetail->currency->symbol : '']) ?>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php } ?>

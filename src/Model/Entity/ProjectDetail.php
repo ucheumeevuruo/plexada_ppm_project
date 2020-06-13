@@ -105,5 +105,6 @@ class ProjectDetail extends Entity
         'funding_type' => true,
         'beneficiary' => true,
         'pim' => true,
+        'approve_design' => true,
     ];
 }
