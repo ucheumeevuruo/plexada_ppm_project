@@ -253,7 +253,7 @@ $this->Paginator->setTemplates([
                                                                 <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id), 'escape' => false, 'title' => 'Delete Project']) ?>
                                                             </div>
                                                             <div class="col-auto border-left">
-                                                                <?= $this->Html->link(__('<i class="fas fa-book fa-1x text-gray-300"></i>'), ['controller' => 'Agreements', 'action' => 'edit', $project->agreement->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add / Edit Agreements']) ?>
+                                                                <?= $this->Html->link(__('<i class="fas fa-book fa-1x text-gray-300"></i>'), ['controller' => 'Documents', 'action' => 'addDoc', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Project Document']) ?>
                                                             </div>
                                                             <div class="col-auto border-left">
                                                                 <?php if ($count != 0) { ?>

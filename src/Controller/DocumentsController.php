@@ -115,4 +115,26 @@ class DocumentsController extends AppController
         return $this->redirect($this->referer());
         // return $this->redirect(['action' => 'index']);
     }
+    public function addDoc($id = null)
+    {
+        $document = $this->Documents->newEntity();
+        if ($this->request->is('post')) {
+            $document = $this->Documents->patchEntity($document, $this->request->getData());
+            if ($this->Documents->save($document)) {
+                $this->Flash->success(__('The document has been saved.'));
+
+                // return $this->redirect(['controller' => 'Projects', 'action' => 'documents', $id]);
+                return $this->redirect($this->referer());
+
+            }
+            $this->Flash->error(__('The document could not be saved. Please, try again.'));
+        }
+
+        $projects = $this->Documents->Projects->find('list', ['limit' => 200])->where(['id' => $id]);
+        $lastFile = $this->Documents->find()->where(['project_id' => $id])->last();
+
+        // debug($projects);
+        // die();
+        $this->set(compact('document', 'projects', 'id', 'lastFile'));
+    }
 }

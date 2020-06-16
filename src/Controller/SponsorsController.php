@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -71,6 +72,38 @@ class SponsorsController extends AppController
         }
         $users = $this->Sponsors->Users->find('list', ['limit' => 200]);
         $sponsorTypes = $this->Sponsors->SponsorTypes->find('list', ['limit' => 200]);
+
+
+
+        // $curl = curl_init();
+
+        // curl_setopt_array($curl, array(
+        //     CURLOPT_URL => "https://wft-geo-db.p.rapidapi.com/v1/geo/countries",
+        //     CURLOPT_RETURNTRANSFER => true,
+        //     CURLOPT_FOLLOWLOCATION => true,
+        //     CURLOPT_ENCODING => "",
+        //     CURLOPT_MAXREDIRS => 10,
+        //     CURLOPT_TIMEOUT => 30,
+        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //     CURLOPT_CUSTOMREQUEST => "GET",
+        //     CURLOPT_HTTPHEADER => array(
+        //         "x-rapidapi-host: wft-geo-db.p.rapidapi.com",
+        //         "x-rapidapi-key: 4a43186850mshb71948461cb94bcp142f45jsne029e7d37817"
+        //     ),
+        // ));
+
+        // $response = curl_exec($curl);
+        // $err = curl_error($curl);
+
+        // curl_close($curl);
+
+        // if ($err) {
+        //     echo "cURL Error #:" . $err;
+        // } else {
+        //     echo $response;
+        // }
+
+
         $this->set(compact('sponsor', 'users', 'sponsorTypes'));
     }
 
