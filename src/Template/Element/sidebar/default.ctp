@@ -107,7 +107,7 @@
     <?php if (strtolower($_SESSION['Auth']['Users']->role->name) == "project executive" or strtolower($_SESSION['Auth']['Users']->role->name) == "administrator" or strtolower($_SESSION['Auth']['Users']->role->name) == "dppc") { ?>
         <li class="nav-item">
             <a href="#collapseExample2" class="nav-link collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample2">
-                <i class="fa fa-archive fa-lg"></i> &nbsp;DPPC</a>
+                <i class="fa fa-archive fa-lg"></i> &nbsp;DPC Reporting</a>
 
             <div class="collapse" id="collapseExample2">
                 <a href="#collapseExample" class="nav-link collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">

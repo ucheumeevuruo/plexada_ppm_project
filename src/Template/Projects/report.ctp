@@ -73,7 +73,7 @@ $this->end();
         <div class="card  shadow h-100 py-0 border border-left-<?= $colorCode ?> rounded-lg">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
-                    <div class="col mr-2" id="clickable-card" data-attr="">
+                    <div class="col mr-2">
                         <div class=" font-weight-bold mb-4 mt- 2 text-primary text-uppercase mb-1">
                             <?= h('Project Brief') ?>
                         </div>
@@ -88,7 +88,7 @@ $this->end();
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
-                    <div class="col mr-2" id="clickable-card" data-attr="">
+                    <div class="col mr-2">
                         <div class=" font-weight-bold mb-4 mt- 2 text-primary text-uppercase mb-1">
                             <?= h('Objectives') ?>
                         </div>
@@ -102,13 +102,20 @@ $this->end();
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
-                    <div class="col mr-2" id="clickable-card" data-attr="">
+                    <div class="col mr-2">
                         <div class=" font-weight-bold mb-4 mt- 2 text-primary text-uppercase mb-1">
                             <?= h('Sponsors') ?>
                         </div>
                         <div class="h6 mb-0 text-gray-800">
-
-                            <?= $project->has('project_sponsor')? $project->project_sponsor->sponsor->full_name : '' ?>
+                            <div class="mb-1">
+                                Name: <?= $project->has('project_sponsor') ? $project->project_sponsor->sponsor->full_name : '' ?>
+                            </div>
+                            <div class="mb-1 text-gray-800">
+                                Contact Person: <?= $project->has('project_sponsor') ? $project->project_sponsor->sponsor->other_names : '' ?>
+                            </div>
+                            <div class="mb-1 text-gray-800">
+                                Contact Phone: <?= $project->has('project_sponsor') ? $project->project_sponsor->sponsor->phone_no : '' ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -119,12 +126,18 @@ $this->end();
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
-                    <div class="col mr-2" id="clickable-card" data-attr="">
+                    <div class="col mr-2">
                         <div class=" font-weight-bold mb-4 mt- 2 text-primary text-uppercase mb-1">
                             <?= h('Donors') ?>
                         </div>
                         <div class="h6 mb-0 text-gray-800">
-                            <?= $project->has('project_donor')? $project->project_donor->sponsor->full_name : '' ?>
+                            Name: <?= $project->has('project_donor') ? $project->project_donor->sponsor->full_name : '' ?>
+                        </div>
+                        <div class="mb-1 text-gray-800">
+                            Contact Person: <?= $project->has('project_donor') ? $project->project_donor->sponsor->other_names : '' ?>
+                        </div>
+                        <div class="mb-1 text-gray-800">
+                            Contact Phone: <?= $project->has('project_donor') ? $project->project_donor->sponsor->phone_no : '' ?>
                         </div>
                     </div>
                 </div>
@@ -135,17 +148,17 @@ $this->end();
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
-                    <div class="col mr-2" id="clickable-card" data-attr="">
+                    <div class="col mr-2">
                         <div class=" font-weight-bold mb-4 mt- 2 text-primary text-uppercase mb-1">
                             <?= h('Budget and Expense') ?>
                         </div>
-                        <div class="h6 mb-0 text-gray-800">Currency :
+                        <div class="h6 mb-1 text-gray-800">Currency :
                             <?= $project->project_detail->has('currency') ? $project->project_detail->currency->code : '' ?>
                         </div>
-                        <div class="h6 mb-0 text-gray-800">Budget :
+                        <div class="h6 mb-1 text-gray-800">Budget :
                             <?= $this->Number->format($project->project_detail->budget, ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']) ?>
                         </div>
-                        <div class="h6 mb-0 text-gray-800">Expenses :
+                        <div class="h6 mb-1 text-gray-800">Expenses :
                             <?= $this->Number->format($project->project_detail->expenses, ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']) ?>
                         </div>
 
@@ -168,12 +181,18 @@ $this->end();
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
-                    <div class="col mr-2" id="clickable-card" data-attr="">
+                    <div class="col mr-2">
                         <div class=" font-weight-bold mb-4 mt- 2 text-primary text-uppercase mb-1">
                             <?= h('MDA') ?>
                         </div>
                         <div class="h6 mb-0 text-gray-800 ">
-                            <?= $project->has('project_mda')? $project->project_mda->sponsor->full_name : '' ?>
+                            <?= $project->has('project_mda') ? $project->project_mda->sponsor->full_name : '' ?>
+                        </div>
+                        <div class="mb-1 text-gray-800">
+                            Contact Person: <?= $project->has('project_donor') ? $project->project_donor->sponsor->other_names : '' ?>
+                        </div>
+                        <div class="mb-1 text-gray-800">
+                            Contact Phone: <?= $project->has('project_donor') ? $project->project_donor->sponsor->phone_no : '' ?>
                         </div>
                     </div>
                 </div>
@@ -191,9 +210,9 @@ $this->end();
                         <div class="h6 mb-0 text-gray-800 drilldown">
                             <?php foreach ($project->milestones as $milestones) : ?>
                                 <?php if ($milestones->status_id == 3) : ?>
-                                <p class="card-text text-gray-800">
-                                    <?= $this->Html->link($milestones->description, ['controller' => 'milestones', 'action' => 'view', $milestones->id], ['class' => 'nav-col text-gray-800']) ?>
-                                </p>
+                                    <p class="card-text text-gray-800">
+                                        <?= $this->Html->link($milestones->description, ['controller' => 'milestones', 'action' => 'view', $milestones->id], ['class' => 'nav-col text-gray-800']) ?>
+                                    </p>
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         </div>
@@ -207,7 +226,7 @@ $this->end();
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
-                    <div class="col mr-2" id="clickable-card" data-attr="">
+                    <div class="col mr-2">
                         <div class=" font-weight-bold mb-4 mt- 2 text-primary text-uppercase mb-1">
                             <?= h('Risks & Issues') ?>
                         </div>
@@ -223,14 +242,13 @@ $this->end();
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
-                    <div class="col mr-2" id="clickable-card" data-attr="">
+                    <div class="col mr-2">
                         <div class=" font-weight-bold mb-4 mt- 2 text-primary text-uppercase mb-1">
                             <?= h('Project Duration') ?>
                         </div>
-                        <div class="h6 mb-0 text-gray-800">Start date :
+                        <div class="h6 mb-1 text-gray-800">Start date :
                             <?= h($project->project_detail->start_dt) ?></div>
-                        <br>
-                        <div class="h6 mb-0 text-gray-800">End date :
+                        <div class="h6 mb-1 text-gray-800">End date :
                             <?= h($project->project_detail->end_dt) ?></div>
                     </div>
                 </div>

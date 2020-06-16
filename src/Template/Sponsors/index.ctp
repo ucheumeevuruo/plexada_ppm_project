@@ -64,7 +64,8 @@ $this->Paginator->setTemplates([
 
                     <thead>
                         <tr>
-                            <th><?= __('Name') ?></th>
+                            <th><?= __('Organization Name') ?></th>
+                            <th><?= __('Organization Contact Person') ?></th>
                             <th><?= __('Sponsor Type') ?></th>
                             <th><?= __('Email') ?></th>
                             <th><?= __('Phone no') ?></th>
@@ -75,6 +76,7 @@ $this->Paginator->setTemplates([
                     <?php foreach ($sponsors as $sponsor): ?>
                         <tr>
                             <td><?= h($sponsor->full_name) ?></td>
+                            <td><?= h($sponsor->other_names) ?></td>
                             <td><?= $sponsor->has('sponsor_type') ? h($sponsor->sponsor_type->lov_value) : '' ?></td>
                             <td><?= h($sponsor->email) ?></td>
                             <td><?= h($sponsor->phone_no) ?></td>
