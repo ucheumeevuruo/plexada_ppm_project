@@ -19,7 +19,7 @@ $this->end();
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <?= $this->Html->link(__('Projects'), ['action' => 'index']) ?>
+                <?= $this->Html->link(__('Projects'), ['action' => 'preImplementation']) ?>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Gantt Chart</li>
         </ol>
@@ -53,9 +53,7 @@ $this->end();
     <!-- I was supposed to put this section in the element template but will do that soon. -->
     <nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
         <a class="navbar-brand" href="#">Gantt Chart</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+
     </nav>
     <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($project->name) ?>
     </h2>

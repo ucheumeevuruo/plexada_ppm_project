@@ -127,20 +127,19 @@ $this->end();
     <?= $this->Form->end() ?>
 
     <div class="">
-        <button type="button" class="btn btn-info mr-4 mb-sm-4" style="height: 40px;">
+        <button class="btn  text-decoration-none">
+
             <?= $this->Html->link(
-                __('<i style="color: white;">Show Details</i>'),
+                __('Show Details'),
                 ['controller' => 'ProjectDetails', 'action' => 'summary'],
-                ['escape' => false, 'class' => 'nav-link ']
+                ['escape' => false, 'class' => 'nav-link btn btn-info mr-4 mb-sm-4']
             ) ?>
         </button>
+
+
         <button type="button" class="btn btn-info mr-4 mb-sm-4">
             <!-- <?= $this->Html->link('export', ['controller' => 'projectdetails', 'action' => 'export', '_ext' => 'csv']) ?> -->
             Save As
-        </button>
-
-        <button type="button" class="btn btn-info mr-4 mb-sm-4">Printable view
-
         </button>
 
         <button type="button" class="btn btn-info ml-4 mb-sm-4" id="exp" onclick="exportTableToExcel('table2excel',filename ='summary report');">Export to Excel</button>

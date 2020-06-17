@@ -879,7 +879,7 @@ class ProjectsController extends AppController
             $query = $query->select(['cost' => $query->func()->SUM('cost')])->first();
             $cummulative = $query['cost'] ? $query['cost']: 0;
             // echo $a;
-            // debug($step_up);
+            // debug($projectDetails);
             // die();
             array_push($array_years, $st_date."-".$ab);
             array_push($disburse_amt, $cummulative);

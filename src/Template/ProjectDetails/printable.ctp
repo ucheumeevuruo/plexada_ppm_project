@@ -19,7 +19,7 @@
             <strong><?= h($projectDetails->description) ?>
             </strong>
         </P>
-        <P class="mb-0 font-weight-bold" style="margin-left: 100px;">DONOR/LENDER: &nbsp;
+        <P class="mb-0 font-weight-bold" style="margin-left: 100px;">DONOR: &nbsp;
             <strong><?= h($sponsors->first_name . ' ' . $sponsors->last_name) ?>
             </strong>
         </P>
