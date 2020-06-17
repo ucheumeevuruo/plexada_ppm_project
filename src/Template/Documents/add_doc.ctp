@@ -55,7 +55,7 @@ $this->end();
                 echo $this->Form->control('file_uploaded', ['type' => 'file', 'label' => false, 'class' => 'mb-4']);
                 ?>
                 <div class="lg">
-                    <legend class="control-label font-weight-bolder">Last Document Uploaded</legend>
+                    <legend class="text-gray-600 font-weight-bolder">Last Document Uploaded</legend>
                     <table class="table-bordered">
                         <thead>
                             <tr>
@@ -76,6 +76,10 @@ $this->end();
                             <?php endif; ?>
                         </tbody>
                     </table>
+                    <?php if (isset($lastFile)) : ?>
+                        <?= $this->Html->link(__('<legend class="text-gray-600  font-weight-bold">List of all Project Documents</legend>'), ['controller' => 'Projects', 'action' => 'documents', $id], [ 'escape' => false, 'title' => 'View all documents']) ?>
+
+                    <?php endif; ?>
                 </div>
             </fieldset>
             <?= $this->Form->button(__('Submit'), ['class' => "bg-primary"]) ?>
