@@ -183,7 +183,9 @@ $this->Paginator->setTemplates([
                                                                 <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id), 'escape' => false, 'title' => 'Delete Project']) ?>
                                                             </div>
                                                             <div class="col-auto border-left">
-                                                                <?= $this->Html->link(__('<i class="fas fas fa-check-circle fa-1x text-gray-300"></i>'), ['controller' => 'Approvals', 'action' => 'designApproval', $approval->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Approve Design']) ?>
+                                                                <?php if (strtolower($_SESSION['Auth']['Users']->role->name) == "administrator") { ?>
+                                                                    <?= $this->Html->link(__('<i class="fas fas fa-check-circle fa-1x text-gray-300"></i>'), ['controller' => 'Approvals', 'action' => 'designApproval', $approval->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Approve Design']) ?>
+                                                                <?php } ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -256,8 +258,10 @@ $this->Paginator->setTemplates([
                                                                 <?= $this->Html->link(__('<i class="fas fa-book fa-1x text-gray-300"></i>'), ['controller' => 'Documents', 'action' => 'addDoc', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Project Document']) ?>
                                                             </div>
                                                             <div class="col-auto border-left">
-                                                                <?php if ($count != 0) { ?>
-                                                                    <?= $this->Html->link(__('<i class="fas fas fa-check-circle fa-1x text-gray-300"></i>'), ['controller' => 'Approvals', 'action' => 'documentsApproval', $approval->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Approve Design']) ?>
+                                                                <?php if (strtolower($_SESSION['Auth']['Users']->role->name) == "administrator") { ?>
+                                                                    <?php if ($count != 0) { ?>
+                                                                        <?= $this->Html->link(__('<i class="fas fas fa-check-circle fa-1x text-gray-300"></i>'), ['controller' => 'Approvals', 'action' => 'documentsApproval', $approval->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Approve Documents']) ?>
+                                                                    <?php } ?>
                                                                 <?php } ?>
                                                             </div>
                                                         </div>
@@ -330,7 +334,9 @@ $this->Paginator->setTemplates([
                                                             </div>
 
                                                             <div class="col-auto border-left">
-                                                                <?= $this->Html->link(__('<i class="fas fas fa-check-circle fa-1x text-gray-300"></i>'), ['controller' => 'Approvals', 'action' => 'projectApproval', $approval->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Approve Project']) ?>
+                                                                <?php if (strtolower($_SESSION['Auth']['Users']->role->name) == "administrator") { ?>
+                                                                    <?= $this->Html->link(__('<i class="fas fas fa-check-circle fa-1x text-gray-300"></i>'), ['controller' => 'Approvals', 'action' => 'projectApproval', $approval->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Approve Project']) ?>
+                                                                <?php } ?>
                                                             </div>
                                                         </div>
                                                     </div>
