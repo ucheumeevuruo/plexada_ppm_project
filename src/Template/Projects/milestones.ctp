@@ -164,7 +164,6 @@ $this->Paginator->setTemplates([
                                             </div>
                                             <div class="dropdown-item text-gray-900">End Date: <?= $milestone->end_date ?></div>
                                         </div>
-                                        <!--                                <i class="fas fa-info-circle fa-1x text-gray-300"></i>-->
                                     </div>
                                 </div>
                             </div>
