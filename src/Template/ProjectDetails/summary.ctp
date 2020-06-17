@@ -22,26 +22,6 @@ $this->end();
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <!-- <div class="bootstrap-iso float-right">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-8 col-sm-6 col-xs-12 float-right" style="outline: 5px solid #4E73DF; margin-top: 10px;">
-                                <h5 class="text-center text-primary pb-2 font-weight-bold"><?= __('SELECT PERIOD') ?>
-                                    <form method="post" style="display: flex;">
-                                        <div class="form-group">
-                                            <h6 class="font-weight-bold">From</h6>
-                                            <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" style="background-color: #CDD8F6; border-color: #4E73DF; border-width: medium;" />
-                                        </div>
-
-                                        <div class="form-group">
-                                            <h6 class="font-weight-bold">To</h6>
-                                            <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" style="background-color: #CDD8F6; border-color: #4E73DF; border-width: medium;" />
-                                        </div>
-                                    </form>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
                 <div class="table-responsive">
                     <table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-sm dataTable br-m text-center font-weight-bolder" role="grid" aria-describedby="dataTable_info">
                         <thead class="thead-dark">
@@ -143,7 +123,6 @@ $this->end();
                         } ?>
                         <?php if ($count != 0 && ($close / $count * 100) == 100) {
                             $stat = ' <p class="mb-0" style="background-color: #000000;"> &nbsp;  </p>';
-                            $completedProjects++;
                         } else if ($count == 0 && $close == 0) {
                             $stat = ' <p class="mb-0" style="background-color: #fff"> &nbsp; </p>';
                         } else if ($count != 0 && (($close / $count * 100) >= 40) && (($close / $count * 100) < 60)) {
