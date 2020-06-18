@@ -1,13 +1,16 @@
-<nav class="float-right">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+
+<nav id ="nav-btn" class="float-right">
     <button class="btn btn-info">
         <?= $this->Html->link(__('<i class="fa fa-backward"> Back</i>'), ['action' => 'evaluation'], ['label' => false, 'escape' => false, 'title' => 'Go back', 'class' => 'text-light font-weight-bold']) ?>
     </button>
-    <button class="btn btn-info"><i class="fa fa-save"> Save As</i> </button>
-    <button class="btn btn-info"><i class="fa fa-print"> Print</i> </button>
+    <button id ="btnSaveAs" class="btn btn-info"><i class="fa fa-download"> Download</i> </button>
+    <button id ="btnPrint" class= "btn btn-info"><i class="fa fa-print"> Print</i> </button>
 </nav>
 
-<div class=”row" style=" width: 1000px; margin-left: 100px;" id="report">
-    <div class=”col-6 align-self-center”>
+<div id="report">
+    <div class="w-75">
         <h4 class="d-flex justify-content-center bold"><strong>OGUN STATE GOVERNMENT</strong></h4>
         <h4 class="d-flex justify-content-center bold"><strong>DEVELOPMENT PARTNERS COORDINATION</strong></h4>
         <h4 class="d-flex justify-content-center bold"><strong>PROJECT REPORT </strong></h4>
@@ -187,4 +190,23 @@
     </div>
 </div>
 
+<script>
 
+     $("#btnSaveAs").click(function () { 
+        document.getElementById("nav-btn").style.display="none"
+        let doc = new jsPDF('p', 'pt', 'a4');
+         doc.addHTML(document.body, function () {
+             doc.save('report.pdf');
+             document.getElementById("nav-btn").style.display="block"
+         });
+      });
+
+      $("#btnPrint").click(
+          function(){
+            document.getElementById("nav-btn").style.display="none"
+              window.print()
+              document.getElementById("nav-btn").style.display="block"
+          }
+      )
+
+</script>
