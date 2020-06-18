@@ -33,7 +33,7 @@ $this->Paginator->setTemplates([
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <?= $this->Html->link(__('Projects'), ['action' => 'index']) ?>
+                    <?= $this->Html->link(__('Projects'), ['action' => 'preImplementation']) ?>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Activities</li>
             </ol>
@@ -133,9 +133,7 @@ $this->Paginator->setTemplates([
                                                 <?= $this->NumberFormat->format($activity->cost, ['before' => $activity->currency->symbol]) ?>
                                             </div>
                                         </div>
-                                        <!--                            <div class="col-auto">-->
-                                        <!--                                <i class="fas fa-calendar fa-2x text-gray-300"></i>-->
-                                        <!--                            </div>-->
+
                                     </div>
                                 </div>
                                 <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
@@ -159,7 +157,44 @@ $this->Paginator->setTemplates([
                                                 <div class="dropdown-item text-gray-900">End Date: <?= $activity->end_date ?>
                                                 </div>
                                             </div>
-                                            <!--                                <i class="fas fa-info-circle fa-1x text-gray-300"></i>-->
+                                        </div>
+                                        <div class="col-auto dropdown no-arrow border-left">
+                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                <i class="fas fa-list-alt fa-1x text-gray-300"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                                <div class="dropdown-item text-gray-900">Project Name:
+                                                    <?= h($activity->project->name) ?>
+                                                </div>
+                                                <div class="dropdown-item text-gray-900">Indicator Name:
+                                                    <?= $activity->has('milestone') ? $activity->milestone->name : 'Not Assigned t0 indicator' ?>
+
+                                                </div>
+                                                <div class="dropdown-item text-gray-900">Activity Name:
+                                                    <?= h($activity->name) ?>
+                                                </div>
+                                                <div class="dropdown-item text-gray-900">Activity Status:
+                                                    <?= h($activity->status->lov_value) ?>
+                                                </div>
+                                                <div class="dropdown-item text-gray-900">Assigned to:
+                                                    <?= h($activity->staff->full_name) ?>
+                                                </div>
+                                                <div class="dropdown-item text-gray-900">Challenges/Issues:
+                                                    <?= $activity->has('issues') ? $activity->issues : 'No Issue found' ?>
+                                                </div>
+                                                <div class="dropdown-item text-gray-900">Next line of Action:
+                                                    <?= h($activity->next_activity) ?>
+                                                </div>
+                                                <div class="dropdown-item text-gray-900">No of Task(s):
+                                                    <?= h(count($activity->tasks)) ?>
+                                                </div>
+                                                <div class="dropdown-item text-gray-900">No of Completed Task(s):
+                                                    <?= h(count($activity->tasks)) ?>
+                                                </div>
+                                                <div class="dropdown-item text-gray-900">PM Comments:
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

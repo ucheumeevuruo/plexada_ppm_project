@@ -36,7 +36,7 @@ $this->Paginator->setTemplates([
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <?= $this->Html->link(__('Projects'), ['action' => 'index']) ?>
+                <?= $this->Html->link(__('Projects'), ['action' => 'preImplementation']) ?>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Disbursement</li>
         </ol>
@@ -72,29 +72,29 @@ $this->Paginator->setTemplates([
     <!-- I was supposed to put this section in the element template but will do that soon. -->
     <nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
         <p class="navbar-brand" href="#">Total Amount Disbursed</p>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
 
     </nav>
+
+    <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($projectDetails->name) ?>
+    </h2>
+
     <?php if (isset($milestone)) : ?>
-    <div class="grey-bg vh-4 py-4">
-        <h5 class="ml-3 text-sm font-weight-bold  ">Total Expected:  <?=  $this->NumberFormat->format($projectDetails->budget, ['before' => $milestone->project->project_detail->has('currency') ? $milestone->project->project_detail->currency->symbol : '']) ?></h5>
-        <h5 class="ml-3 text-sm font-weight-bold  ">Total Disbursed:  <?= $this->NumberFormat->format($amount_dis, ['before' => $milestone->project->project_detail->has('currency') ? $milestone->project->project_detail->currency->symbol : '']) ?></h5>
-        <canvas id="disburseChart" width="200" height="50" style="height:400px"></canvas>
-                        <script>
-                            <?php $budget_array = json_encode($projectDetails->budget) ?>
-                            <?php $expense_array = json_encode($amount_dis) ?>
-                            <?php $projectName = json_encode($projectDetails->name) ?>
-                            <?php $currency = json_encode($milestone->project->project_detail->has('currency') ?$milestone->project->project_detail->currency->symbol : '') ?>
-                            var array_code = <?php echo $projectName; ?>;
-                            var array_budget = <?php echo $budget_array; ?>;
-                            var array_expense = <?php echo $expense_array; ?>;
-                            var currency = <?php echo $currency; ?>;
-                            disburseChart2(array_code, array_budget, array_expense,currency);
-                        </script>
-         <!-- <table class="table table-bordered ml-3">
+        <div class="grey-bg vh-4 py-4">
+            <h5 class="ml-3 text-sm font-weight-bold  ">Total Expected: <?= $this->NumberFormat->format($projectDetails->budget, ['before' => $milestone->project->project_detail->has('currency') ? $milestone->project->project_detail->currency->symbol : '']) ?></h5>
+            <h5 class="ml-3 text-sm font-weight-bold  ">Total Disbursed: <?= $this->NumberFormat->format($amount_dis, ['before' => $milestone->project->project_detail->has('currency') ? $milestone->project->project_detail->currency->symbol : '']) ?></h5>
+            <canvas id="disburseChart" width="200" height="50" style="height:400px"></canvas>
+            <script>
+                <?php $budget_array = json_encode($projectDetails->budget) ?>
+                <?php $expense_array = json_encode($amount_dis) ?>
+                <?php $projectName = json_encode($projectDetails->name) ?>
+                <?php $currency = json_encode($milestone->project->project_detail->has('currency') ? $milestone->project->project_detail->currency->symbol : '') ?>
+                var array_code = <?php echo $projectName; ?>;
+                var array_budget = <?php echo $budget_array; ?>;
+                var array_expense = <?php echo $expense_array; ?>;
+                var currency = <?php echo $currency; ?>;
+                disburseChart2(array_code, array_budget, array_expense, currency);
+            </script>
+            <!-- <table class="table table-bordered ml-3">
             <thead>
                 <tr>
                     <th scope="col">S/N</th>
@@ -121,22 +121,22 @@ $this->Paginator->setTemplates([
 
         </table> -->
 
-                    <div class = "mt-5">
-                        <canvas id="lineChart" width="200" height="50" style="height:400px"></canvas>
-                            <script>
-                                <?php $amount = json_encode($disburse_amt) ?>
-                                <?php $budget_array = json_encode($projectDetails->budget) ?>
-                                <?php $years = json_encode($array_years) ?>
-                                <?php $projectName = json_encode($projectDetails->name) ?>
-                                <?php $currency = json_encode($milestone->project->project_detail->has('currency') ?$milestone->project->project_detail->currency->symbol : '') ?>
-                                var proj_name = <?php echo $projectName; ?>;
-                                var array_budget = <?php echo $budget_array; ?>;
-                                var disburse_amt = <?php echo $amount; ?>;
-                                var years = <?php echo $years; ?>;
-                                var currency = <?php echo $currency; ?>;
-                                drawlineChart(proj_name, disburse_amt, years,currency,array_budget);
-                            </script>                    
-                    </div>
-    </div>
-                <?php endif; ?>
+            <div class="mt-5">
+                <canvas id="lineChart" width="200" height="50" style="height:400px"></canvas>
+                <script>
+                    <?php $amount = json_encode($disburse_amt) ?>
+                    <?php $budget_array = json_encode($projectDetails->budget) ?>
+                    <?php $years = json_encode($array_years) ?>
+                    <?php $projectName = json_encode($projectDetails->name) ?>
+                    <?php $currency = json_encode($milestone->project->project_detail->has('currency') ? $milestone->project->project_detail->currency->symbol : '') ?>
+                    var proj_name = <?php echo $projectName; ?>;
+                    var array_budget = <?php echo $budget_array; ?>;
+                    var disburse_amt = <?php echo $amount; ?>;
+                    var years = <?php echo $years; ?>;
+                    var currency = <?php echo $currency; ?>;
+                    drawlineChart(proj_name, disburse_amt, years, currency, array_budget);
+                </script>
+            </div>
+        </div>
+    <?php endif; ?>
 </div>

@@ -182,7 +182,7 @@ class ProjectDetailsController extends AppController
         $sponsors =  $this->Sponsors->find('all');
         $this->loadModel('Projects');
         $projects =  $this->Projects->find('all');
-        // debug($sponsors);
+        // debug($projectDetails);
         // die();
 
         $this->set(compact('projectDetails', 'milestones', 'sponsors',  'projects'));
@@ -211,14 +211,16 @@ class ProjectDetailsController extends AppController
         $milestones =  $this->Milestones->find('all')->where(['project_id' => $projectDetails->project_id]);
         $this->loadModel('Activities');
         $activities =  $this->Activities->find('all')->where(['project_id' => $projectDetails->project_id]);
+        $this->loadModel('Tasks');
+        $tasks =  $this->Tasks->find('all');
 
         // $return = $this->redirect($this->referer());
 
-        // debug($return);
+        // debug($tasks);
         // die();
 
 
-        $this->set(compact('projectDetails', 'sponsors', 'amountDisbursed', 'milestones', 'activities'));
+        $this->set(compact('projectDetails', 'sponsors', 'amountDisbursed', 'milestones', 'activities', 'tasks'));
     }
 
 

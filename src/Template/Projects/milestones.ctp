@@ -35,7 +35,7 @@ $this->Paginator->setTemplates([
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <?= $this->Html->link(__('Projects'), ['action' => 'index']) ?>
+                <?= $this->Html->link(__('Projects'), ['action' => 'preImplementation']) ?>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Indicator</li>
         </ol>
@@ -164,7 +164,6 @@ $this->Paginator->setTemplates([
                                             </div>
                                             <div class="dropdown-item text-gray-900">End Date: <?= $milestone->end_date ?></div>
                                         </div>
-                                        <!--                                <i class="fas fa-info-circle fa-1x text-gray-300"></i>-->
                                     </div>
                                 </div>
                             </div>

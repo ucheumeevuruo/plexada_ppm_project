@@ -22,7 +22,7 @@
             <strong><?= h($projectDetails->description) ?>
             </strong>
         </P>
-        <P class="mb-0 font-weight-bold" style="margin-left: 100px;">DONOR/LENDER: &nbsp;
+        <P class="mb-0 font-weight-bold" style="margin-left: 100px;">DONOR: &nbsp;
             <strong><?= h($sponsors->first_name . ' ' . $sponsors->last_name) ?>
             </strong>
         </P>
@@ -103,7 +103,7 @@
                         <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($activity->name) ?> </td>
                         <?php foreach ($milestones as $milestone) : ?>
                             <?php if ($activity->milestone_id == $milestone->id) : ?>
-                                <td style="outline: 1px solid black;"><?= h($milestone->name) ?> </td>
+                                <td style="outline: 1px solid black; color: black !important;"><?= h($milestone->name) ?> </td>
                             <?php endif; ?>
                         <?php endforeach; ?>
                         <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= $this->NumberFormat->format($activity->cost, ['before' => $projectDetails->has('currency') ? $projectDetails->currency->symbol : '']) ?> </td>
@@ -125,27 +125,38 @@
             </tbody>
         </table>
 
-        <!-- <p style="margin-left: 100px" class="font-weight-bold">Indicators Funding</p>
+
+        <p style="margin-left: 100px" class="font-weight-bold">Task Report</p>
         <table style="margin-left: 100px;" cellpadding="0" cellspacing="0" class="table table-sm table-bordered br-m">
             <thead class="bg-default">
                 <tr>
-                    <th style="outline: 1px solid black; color: black !important;  width:5%;">S/N</th>
-                    <th style="outline: 1px solid black; color: black !important; ">Indicator activities</th>
-                    <th style="outline: 1px solid black; color: black !important; ">Funding Agencies</th>
-                    <th style="outline: 1px solid black; color: black !important; ">Funding Amount</th>
+                    <th style="outline: 1px solid black; color: black !important; width:5%;">S/N</th>
+                    <th style="outline: 1px solid black; color: black !important; ">Task Name</th>
+                    <th style="outline: 1px solid black; color: black !important; ">Activity Name</th>
+                    <th style="outline: 1px solid black; color: black !important; ">Description</th>
+                    <th style="outline: 1px solid black; color: black !important;">Predecessor</th>
+                    <th style="outline: 1px solid black; color: black !important;">Successor</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td style="outline: 1px solid black;">1.</td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"></td>
-                    <td style="outline: 1px solid black;"></td>
-                </tr>
-
-
+                <?php $num4 = 1; ?>
+                <?php foreach ($tasks as $task) : ?>
+                    <?php foreach ($activities as $activity) : ?>
+                        <?php if ($task->activity_id == $activity->activity_id) : ?>
+                            <tr>
+                                <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($num4++) ?>.</td>
+                                <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($task->Task_name) ?> </td>
+                                <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($activity->name) ?> </td>
+                                <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($task->Description) ?> </td>
+                                <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($task->Predecessor) ?> </td>
+                                <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($task->Successor) ?> </td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endforeach; ?>
             </tbody>
-        </table> -->
+        </table>
+
     </div>
     <div>
         <h6 style="font-weight:bolder; margin-left: 100px;" class="font-weight-bold">CHALLENGES/ISSUES:</h6>

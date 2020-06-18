@@ -185,7 +185,7 @@ class ProjectsController extends AppController
 
         $activities = $this->Projects->Activities->find();
 
-        $activities->contain(['Statuses', 'Priorities', 'Currencies']);
+        $activities->contain(['Statuses', 'Priorities', 'Currencies', 'Staff', 'Milestones', 'Tasks', 'Projects']);
 
         $activities->where(['Activities.project_id' => $project_id]);
 
@@ -211,8 +211,8 @@ class ProjectsController extends AppController
         );
         $this->loadModel('Milestones');
         $milestones = $this->Milestones->find('all')->where(['project_id' => $project_id]);
-
-
+        // debug($activities);
+        // die();
         $this->set(compact('activities', 'project_id', 'project', 'milestones'));
     }
 
@@ -534,7 +534,6 @@ class ProjectsController extends AppController
 
                 // return $this->redirect(['action' => 'index']);
                 return $this->redirect($this->referer());
-
             }
             $this->Flash->error(__('The project could not be saved. Please, try again.'));
         }
@@ -576,7 +575,6 @@ class ProjectsController extends AppController
 
         // return $this->redirect(['action' => 'index']);
         return $this->redirect($this->referer());
-
     }
 
 
@@ -636,9 +634,9 @@ class ProjectsController extends AppController
         // debug($len);
         // die();
         foreach ($qrymilestone as $milestone) {
-            if ($i == $len-1){             
+            if ($i == $len - 1) {
                 $milestone_id = $milestone['id'];
-                $num_mile2 = $num_mile + 1 ;
+                $num_mile2 = $num_mile + 1;
                 $mileID = "$num _ $num_mile";
                 $mileConnector = "$num _ $num_mile2";
                 $object_milestone = new \stdClass();
@@ -649,10 +647,10 @@ class ProjectsController extends AppController
                 $object_milestone->progressValue = "$progress%";
                 $object_milestone->children = $this->activityRecords($milestone_id, $num, $num_mile);
                 array_push($array_gantt_child, $object_milestone);
-                $num_mile++;                
-            }else{
+                $num_mile++;
+            } else {
                 $milestone_id = $milestone['id'];
-                $num_mile2 = $num_mile + 1 ;
+                $num_mile2 = $num_mile + 1;
                 $mileID = "$num _ $num_mile";
                 $mileConnector = "$num _ $num_mile2";
                 $object_milestone = new \stdClass();
@@ -681,7 +679,7 @@ class ProjectsController extends AppController
         $allproject = $conn->execute("SELECT count(*) as S FROM activities where milestone_id ='" . $milestone_id . "' ");
         $complete = $completed->fetch('assoc');
         $totalprojects = $allproject->fetch('assoc');
-        $progress = 0;        
+        $progress = 0;
         if ($totalprojects['S'] == 0) {
 
             $progress = 0;
@@ -693,7 +691,7 @@ class ProjectsController extends AppController
         $len = count($qryactivity);
         $i  = 0;
         foreach ($qryactivity as $activity) {
-            if ($i == $len - 1){
+            if ($i == $len - 1) {
                 $activityID = $activity['activity_id'];
                 $num_mile2 = $num_mile + 1;
                 $mileID = "$num _ $num _ $num_mile";
@@ -704,10 +702,10 @@ class ProjectsController extends AppController
                 $object_activity->actualStart = $activity['start_date'];
                 $object_activity->actualEnd = $activity['end_date'];
                 $object_activity->progressValue = "$progress%";
-                $object_activity->children = $this->tasksRecords($activityID, $num,$num_mile);
+                $object_activity->children = $this->tasksRecords($activityID, $num, $num_mile);
                 array_push($array_activity_child, $object_activity);
                 $num_mile++;
-            }else{
+            } else {
                 $activityID = $activity['activity_id'];
                 $num_mile2 = $num_mile + 1;
                 $mileID = "$num _ $num _ $num_mile";
@@ -720,7 +718,7 @@ class ProjectsController extends AppController
                 $object_activity->connectTo = $mileConnector;
                 $object_activity->connectorType = "finish-start";
                 $object_activity->progressValue = "$progress%";
-                $object_activity->children = $this->tasksRecords($activityID, $num,$num_mile);
+                $object_activity->children = $this->tasksRecords($activityID, $num, $num_mile);
                 array_push($array_activity_child, $object_activity);
                 $num_mile++;
             }
@@ -740,7 +738,7 @@ class ProjectsController extends AppController
         $len = count($qrytasks);
         $i  = 0;
         foreach ($qrytasks as $task) {
-            if ($i == $len - 1){
+            if ($i == $len - 1) {
                 $num_mile2 = $num_mile + 1;
                 $mileID = "$num _ $num _ $num _ $num_mile";
                 $mileConnector = "$num _ $num _ $num _ $num_mile2";
@@ -751,7 +749,7 @@ class ProjectsController extends AppController
                 $object_tasks->actualEnd = $task['end_date'];
                 array_push($array_task_child, $object_tasks);
                 $num_mile++;
-            }else{
+            } else {
                 $num_mile2 = $num_mile + 1;
                 $mileID = "$num _ $num _ $num _ $num_mile";
                 $mileConnector = "$num _ $num _ $num _ $num_mile2";
@@ -763,7 +761,7 @@ class ProjectsController extends AppController
                 $object_tasks->connectTo = $mileConnector;
                 $object_tasks->connectorType = "finish-finish";
                 array_push($array_task_child, $object_tasks);
-                $num_mile++;                
+                $num_mile++;
             }
 
 
@@ -848,7 +846,7 @@ class ProjectsController extends AppController
             ->contain(['Projects.ProjectDetails.Currencies'])
             ->where(['Milestones.project_id' => $id]);
 
-            // if (isset($milestones->cost)){
+        // if (isset($milestones->cost)){
 
         foreach ($milestones as $milestone)
 
@@ -858,39 +856,39 @@ class ProjectsController extends AppController
         }
         $st_date = ($projectDetails->start_dt)->format("Y");
         $ed_date = ($projectDetails->end_dt)->format("Y");
-        $diff = date_diff($projectDetails->start_dt,$projectDetails->end_dt);
+        $diff = date_diff($projectDetails->start_dt, $projectDetails->end_dt);
 
         $array_years = array();
         $disburse_amt = array();
-        while ($st_date <= $ed_date){
+        while ($st_date <= $ed_date) {
             $xx = 1;
             $y = "$st_date-01-01";
             $y2 = "$st_date-01-01";
-            $z = "$st_date-12-31"; 
-            $start_year_obj = new DateTime($y);           
-            $start_year = new DateTime($y2);           
-            while ($xx < 4){
-                $ab="Q$xx";
-            $step_up = (date_add($start_year,date_interval_create_from_date_string('3 months')))->format('Y-m-d');
-            // $end_year_obj = $start_year_obj->modify('+3 month');
-            $a = $start_year_obj->format('Y-m-d');
-            $query = $this->Disbursements->find('all');
-            $query = $query->where(['project_id'=>$id,'start_date >='=>$a,'start_date <='=>$step_up]);
-            $query = $query->select(['cost' => $query->func()->SUM('cost')])->first();
-            $cummulative = $query['cost'] ? $query['cost']: 0;
-            // echo $a;
-            // debug($step_up);
-            // die();
-            array_push($array_years, $st_date."-".$ab);
-            array_push($disburse_amt, $cummulative);
-            $start_year_obj->modify('+3 month');
-            $xx++;
+            $z = "$st_date-12-31";
+            $start_year_obj = new DateTime($y);
+            $start_year = new DateTime($y2);
+            while ($xx < 4) {
+                $ab = "Q$xx";
+                $step_up = (date_add($start_year, date_interval_create_from_date_string('3 months')))->format('Y-m-d');
+                // $end_year_obj = $start_year_obj->modify('+3 month');
+                $a = $start_year_obj->format('Y-m-d');
+                $query = $this->Disbursements->find('all');
+                $query = $query->where(['project_id' => $id, 'start_date >=' => $a, 'start_date <=' => $step_up]);
+                $query = $query->select(['cost' => $query->func()->SUM('cost')])->first();
+                $cummulative = $query['cost'] ? $query['cost'] : 0;
+                // echo $a;
+                // debug($projectDetails);
+                // die();
+                array_push($array_years, $st_date . "-" . $ab);
+                array_push($disburse_amt, $cummulative);
+                $start_year_obj->modify('+3 month');
+                $xx++;
             }
-            
+
             $st_date++;
         }
 
-        $this->set(compact('id', 'disbursed', 'amount_dis', 'milestone', 'milestones', 'projectDetails','array_years','disburse_amt'));
+        $this->set(compact('id', 'disbursed', 'amount_dis', 'milestone', 'milestones', 'projectDetails', 'array_years', 'disburse_amt'));
         // }
 
         // $this->set(compact('projectDetails','id','milestones'));
@@ -1027,10 +1025,10 @@ class ProjectsController extends AppController
 
         $this->loadModel('Activities');
         $activities =  $this->Activities->find('all');
-        
+
         $this->loadModel('Agreements');
         $agreements =  $this->Agreements->find('all');
-        
+
         $this->loadModel('Approvals');
         $approvals =  $this->Approvals->find('all');
         // debug($agreements);

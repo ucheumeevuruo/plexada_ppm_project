@@ -17,26 +17,6 @@ $this->end();
     <div class="card shadow mb-4 " style="padding: 20px 20px 0 20px">
         <div class="me-dropdowns input-group mb-4" style="display: flex; justify-content:space-between;">
 
-            <!-- <div class="dropdown mr-5">
-                <h6 class="font-weight-bold">Summarize Information</h6>
-                <select class="form-control" id="cars" style="width: 200px;">
-                    <option style="font-weight:bold; " value="green">Select Status
-                    </option>
-                    <option style="font-weight:bold; color: white; background-color: green;" value="green">Project
-                        Active and On-Track!</option>
-                    <option style="font-weight:bold; color: white; background-color: red;" value="red">Project active
-                        but major concerns, needs corrective action!</option>
-                    <option style="font-weight:bold; color: black; background-color: yellow;" value="yellow">Project
-                        active but limited concerns, needs close monitoring!</option>
-                    <option style="font-weight:bold; color: black; background-color: white;" value="white">Project about
-                        to Kick-Off!</option>
-                    <option style="font-weight:bold; color: white; background-color: black;" value="black">Project
-                        Completed</option>
-                    <option style="font-weight:bold; color: white; background-color: blue;" value="blue">Project
-                        on-hold!</option>
-                </select>
-            </div> -->
-
             <div class="dropdown mr-6">
                 <h6 class="font-weight-bold">Summarize Information</h6>
                 <div>
@@ -127,20 +107,19 @@ $this->end();
     <?= $this->Form->end() ?>
 
     <div class="">
-        <button type="button" class="btn btn-info mr-4 mb-sm-4" style="height: 40px;">
+        <button class="btn  text-decoration-none">
+
             <?= $this->Html->link(
-                __('<i style="color: white;">Show Details</i>'),
+                __('Show Details'),
                 ['controller' => 'ProjectDetails', 'action' => 'summary'],
-                ['escape' => false, 'class' => 'nav-link ']
+                ['escape' => false, 'class' => 'nav-link btn btn-info mr-4 mb-sm-4']
             ) ?>
         </button>
+
+
         <button type="button" class="btn btn-info mr-4 mb-sm-4">
             <!-- <?= $this->Html->link('export', ['controller' => 'projectdetails', 'action' => 'export', '_ext' => 'csv']) ?> -->
             Save As
-        </button>
-
-        <button type="button" class="btn btn-info mr-4 mb-sm-4">Printable view
-
         </button>
 
         <button type="button" class="btn btn-info ml-4 mb-sm-4" id="exp" onclick="exportTableToExcel('table2excel',filename ='summary report');">Export to Excel</button>
@@ -155,12 +134,12 @@ $this->end();
                 <tr>
                     <th scope="col"><?= __('S/N  ') ?></th>
                     <th scope="col"><?= __('Project Name') ?></th>
-                    <th scope="col"><?= __('Donor/Lender') ?></th>
+                    <th scope="col"><?= __('Donor') ?></th>
                     <th scope="col"><?= __('Funding Type') ?></th>
                     <th scope="col"><?= __('Budget') ?></th>
-                    <th scope="col"><?= __('Beneficiary') ?></th>
                     <th scope="col"><?= __('Achievements') ?></th>
                     <th scope="col" class="text-white"><?= __('Next Action Plan ') ?></th>
+                    <th scope="col"><?= __('Status') ?></th>
                     <th scope="col"><?= __('Start Date') ?></th>
                     <th scope="col"><?= __('Completion Date') ?></th>
                     <th scope="col"><?= __('Risk and Issues') ?></th>
@@ -176,6 +155,42 @@ $this->end();
                         <?php $enddate = h($projectDetail->end_dt); ?>
                         <?php $startdatenumber = strtotime($startdate); ?>
                         <?php $enddatenumber = strtotime($enddate); ?>
+
+                        <?php $count = 0; ?>
+                        <?php $close = 0; ?>
+                        <?php $num++; ?>
+                        <?php $one = 1; ?>
+                        <?php foreach ($milestone_list as $milestone) : ?>
+                            <?php if ($milestone->project_id == $projectDetail->project_id) {
+                                $count++;
+                            } ?>
+                            <?php if ($milestone->project_id == $projectDetail->project_id && $milestone->status_id == 3) {
+                                $close++;
+                            } ?>
+                        <?php endforeach; ?>
+                        <?php $stat = ''; ?>
+                        <?php $percen = 0; ?>
+                        <?php if ($count == 0) {
+                            $percen = 0;
+                        } else {
+                            $percen = $close / $count * 100;
+                        } ?>
+                        <?php if ($count != 0 && ($close / $count * 100) == 100) {
+                            $stat = ' <p class="mb-0" style="background-color: #000000;"> &nbsp;  </p>';
+                        } else if ($count == 0 && $close == 0) {
+                            $stat = ' <p class="mb-0" style="background-color: #fff"> &nbsp; </p>';
+                        } else if ($count != 0 && (($close / $count * 100) >= 40) && (($close / $count * 100) < 60)) {
+                            $stat = ' <p class="mb-0" style="background-color: #FFFF00"> &nbsp; </p>';
+                        } else if ($count != 0 && (($close / $count * 100) >= 60) && (($close / $count * 100) < 80)) {
+                            $stat = ' <p class="mb-0" style="background-color: #FFFF00"> &nbsp; </p>';
+                        } else if ((($close / $count * 100) >= 80) && (($close / $count * 100) < 100)) {
+                            $stat = ' <p class="mb-0" style="background-color: #1CC88A"> &nbsp; </p>';
+                        } else {
+                            $stat = ' <p class="mb-0" style="background-color: #FF0000"> &nbsp; </p>';
+                        }
+                        ?>
+
+
                         <?php if (($startdatenumber >= $fromnumber) && ($enddatenumber <= $tonumber)) : ?>
                             <?php $num++; ?>
                             <tr>
@@ -194,7 +209,6 @@ $this->end();
                                 <th scope="col">
                                     <?= $this->NumberFormat->format($projectDetail->budget, ['before' => $projectDetail->has('currency') ? $projectDetail->currency->symbol : '']) ?>
                                 </th>
-                                <th scope="col"><?= h($projectDetail->beneficiary) ?></th>
                                 <th scope="col">
                                     <?php $serial = 1; ?>
                                     <?php foreach ($activities as $activity) : ?>
@@ -213,6 +227,12 @@ $this->end();
                                         <?php endif; ?>
                                     <?php endforeach; ?>
                                 </th>
+                                <td><?= $this->Html->link(
+                                        __($stat),
+                                        ['controller' => 'ProjectDetails', 'action' => 'summary'],
+                                        ['escape' => false, 'class' => 'nav-link collapsed']
+                                    ) ?>
+                                </td>
                                 <th scope="col"><?= h($projectDetail->start_dt) ?></th>
                                 <th scope="col"><?= h($projectDetail->end_dt) ?></th>
                                 <th scope="col"><?= h($projectDetail->risk_and_issues) ?></th>
