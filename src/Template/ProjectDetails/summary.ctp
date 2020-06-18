@@ -71,7 +71,7 @@ $this->end();
                             <?php endforeach; ?>
                             <tr>
                                 <td scope="col" width="15%" id='all-project'><?= h($allProjects) ?></td>
-                                <td scope="col" width="15%" id='project-behind'><?= h($aboutToStart) ?></td>
+                                <td scope="col" width="15%" id='about-start'><?= h($aboutToStart) ?></td>
                                 <td scope="col" width="15%" id='completed-project'><?= h($completedProjects) ?></td>
                                 <td scope="col" width="15%" id='project-progress'><?= h($progressProjects) ?></td>
                                 <td scope="col" width="15%" id='project-behind'><?= h($behindProjects) ?></td>
@@ -172,27 +172,110 @@ $this->end();
                     <?php endforeach; ?>
                 </tbody>
                 <!-- completed projects -->
+
+                <!-- completed projects -->
+                <tbody style="display:none" id="about-projects">
+
+                    <?php $num = 0; ?>
+                    <?php foreach ($projectDetails as $projectDetail) : ?>
+                        <?php $count = 0; ?>
+                        <?php $close = 0; ?>
+                        <?php foreach ($milestones as $milestone) : ?>
+                            <?php if ($milestone->project_id == $projectDetail->project_id) {
+                                $count++;
+                            } ?>
+                            <?php if ($milestone->project_id == $projectDetail->project_id && $milestone->status_id == 3) {
+                                $close++;
+                            } ?>
+                        <?php endforeach; ?>
+                        <?php $percen = 0; ?>
+                        <?php if ($count == 0) {
+                            $percen = 0;
+                        } else {
+                            $percen = $close / $count * 100;
+                        } ?>
+                        <?php if ($count == 0 && $close == 0) { ?>
+
+                            <?php $num++; ?>
+                            <?php if ($projectDetail->name != null) : ?>
+                                <tr>
+                                    <td style="width:5%"><?= h($num) ?></td>
+                                    <td><?= h($projectDetail->name) ?></td>
+                                    <td><?= $this->Html->link(
+                                            __($stat),
+                                            ['controller' => 'ProjectDetails', 'action' => 'summary'],
+                                            ['escape' => false, 'class' => 'nav-link collapsed']
+                                        ) ?>
+                                    </td>
+                                    <td><?= h($percen) ?>%</td>
+                                    <td><?= h($projectDetail->start_dt) ?></td>
+                                    <td><?= h($projectDetail->end_dt) ?></td>
+
+                                </tr>
+                            <?php else : ?>
+                                <?php foreach ($projects as $project) : ?>
+                                    <?php if ($project->id == $projectDetail->project_id) : ?>
+                                        <tr>
+                                            <td style="width:5%"><?= h($num) ?></td>
+                                            <td><?= h($project->name) ?></td>
+                                            <td><?= $this->Html->link(
+                                                    __($stat),
+                                                    ['controller' => 'ProjectDetails', 'action' => 'summary'],
+                                                    ['escape' => false, 'class' => 'nav-link collapsed']
+                                                ) ?>
+                                            </td>
+                                            <td><?= h($percen) ?>%</td>
+                                            <td><?= h('No Start Date Yet') ?></td>
+                                            <td><?= h('No End Date Yet') ?></td>
+                                        </tr>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        <?php } ?>
+
+                    <?php endforeach; ?>
+                </tbody>
+                <!-- Projects in Progress -->
+                <!-- completed projects -->
                 <tbody style="display:none" id="completed-projects">
 
                     <?php $num = 0; ?>
                     <?php foreach ($projectDetails as $projectDetail) : ?>
-                        <?php if ($projectDetail->completed_percent == 100) : ?>
+                        <?php $count = 0; ?>
+                        <?php $close = 0; ?>
+                        <?php foreach ($milestones as $milestone) : ?>
+                            <?php if ($milestone->project_id == $projectDetail->project_id) {
+                                $count++;
+                            } ?>
+                            <?php if ($milestone->project_id == $projectDetail->project_id && $milestone->status_id == 3) {
+                                $close++;
+                            } ?>
+                        <?php endforeach; ?>
+                        <?php $percen = 0; ?>
+                        <?php if ($count == 0) {
+                            $percen = 0;
+                        } else {
+                            $percen = $close / $count * 100;
+                        } ?>
+                        <?php if ($count != 0 && ($close / $count * 100) == 100) { ?>
                             <?php $num++; ?>
+
                             <tr>
                                 <td style="width:5%"><?= h($num) ?></td>
                                 <td><?= h($projectDetail->name) ?></td>
                                 <td><?= $this->Html->link(
-                                        __(' <p class="mb-0" style="background-color: #00FF00;"> &nbsp;  </p>'),
+                                        __(' <p class="mb-0" style="background-color: #000;"> &nbsp;  </p>'),
+                                        [],
                                         ['escape' => false, 'class' => 'nav-link collapsed']
                                     ) ?>
                                 </td>
-                                <td><?= h($projectDetail->sponsor) ?></td>
-                                <td><?= h($projectDetail->completed_percent) ?></td>
+
+                                <td><?= h($percen) ?>%</td>
                                 <td><?= h($projectDetail->start_dt) ?></td>
                                 <td><?= h($projectDetail->end_dt) ?></td>
 
                             </tr>
-                        <?php endif; ?>
+                        <?php } ?>
                     <?php endforeach; ?>
                 </tbody>
                 <!-- Projects in Progress -->
@@ -200,34 +283,41 @@ $this->end();
 
                     <?php $num = 0; ?>
                     <?php foreach ($projectDetails as $projectDetail) : ?>
-                        <?php if ($projectDetail->completed_percent == 80 || $projectDetail->completed_percent == 60) : ?>
+                        <?php $count = 0; ?>
+                        <?php $close = 0; ?>
+                        <?php foreach ($milestones as $milestone) : ?>
+                            <?php if ($milestone->project_id == $projectDetail->project_id) {
+                                $count++;
+                            } ?>
+                            <?php if ($milestone->project_id == $projectDetail->project_id && $milestone->status_id == 3) {
+                                $close++;
+                            } ?>
+                        <?php endforeach; ?>
+                        <?php $percen = 0; ?>
+                        <?php if ($count == 0) {
+                            $percen = 0;
+                        } else {
+                            $percen = $close / $count * 100;
+                        } ?>
+                        <?php if ($count != 0 && ($close / $count * 100) >= 40 && ($close / $count * 100) != 100) { ?>
                             <?php $num++; ?>
-                            <?php if ($projectDetail->completed_percent == 100) {
-                                $stat = ' <p class="mb-0" style="background-color: #00FF00;"> &nbsp;  </p>';
-                            } else if ($projectDetail->completed_percent == 80) {
-                                $stat = ' <p class="mb-0" style="background-color: #FFFF00"> &nbsp; </p>';
-                            } else if ($projectDetail->completed_percent == 60) {
-                                $stat = ' <p class="mb-0" style="background-color: #FFBF00"> &nbsp; </p>';
-                            } else {
-                                $stat = ' <p class="mb-0" style="background-color: #FF0000"> &nbsp; </p>';
-                            }
-                            ?>
+
                             <tr>
                                 <td style="width:5%"><?= h($num) ?></td>
                                 <td><?= h($projectDetail->name) ?></td>
                                 <td><?= $this->Html->link(
-                                        __($stat),
-                                        ['controller' => 'ProjectDetails', 'action' => 'summary'],
+                                        __(' <p class="mb-0" style="background-color: #FFFF00;"> &nbsp;  </p>'),
+                                        [],
                                         ['escape' => false, 'class' => 'nav-link collapsed']
                                     ) ?>
                                 </td>
-                                <td><?= h($projectDetail->sponsor) ?></td>
-                                <td><?= h($projectDetail->completed_percent) ?></td>
+
+                                <td><?= h($percen) ?>%</td>
                                 <td><?= h($projectDetail->start_dt) ?></td>
                                 <td><?= h($projectDetail->end_dt) ?></td>
 
                             </tr>
-                        <?php endif; ?>
+                        <?php } ?>
                     <?php endforeach; ?>
                 </tbody>
                 <!-- Projects behind schedule -->
@@ -235,7 +325,23 @@ $this->end();
 
                     <?php $num = 0; ?>
                     <?php foreach ($projectDetails as $projectDetail) : ?>
-                        <?php if ($projectDetail->completed_percent == 20) : ?>
+                        <?php $count = 0; ?>
+                        <?php $close = 0; ?>
+                        <?php foreach ($milestones as $milestone) : ?>
+                            <?php if ($milestone->project_id == $projectDetail->project_id) {
+                                $count++;
+                            } ?>
+                            <?php if ($milestone->project_id == $projectDetail->project_id && $milestone->status_id == 3) {
+                                $close++;
+                            } ?>
+                        <?php endforeach; ?>
+                        <?php $percen = 0; ?>
+                        <?php if ($count == 0) {
+                            $percen = 0;
+                        } else {
+                            $percen = $close / $count * 100;
+                        } ?>
+                        <?php if ($count != 0 && ($close / $count * 100) < 40) { ?>
                             <?php $num++; ?>
 
                             <tr>
@@ -243,17 +349,17 @@ $this->end();
                                 <td><?= h($projectDetail->name) ?></td>
                                 <td><?= $this->Html->link(
                                         __(' <p class="mb-0" style="background-color: #FF0000;"> &nbsp;  </p>'),
-                                        ['controller' => 'ProjectDetails', 'action' => 'summary'],
+                                        [],
                                         ['escape' => false, 'class' => 'nav-link collapsed']
                                     ) ?>
                                 </td>
-                                <td><?= h($projectDetail->sponsor) ?></td>
-                                <td><?= h($projectDetail->completed_percent) ?></td>
+
+                                <td><?= h($percen) ?>%</td>
                                 <td><?= h($projectDetail->start_dt) ?></td>
                                 <td><?= h($projectDetail->end_dt) ?></td>
 
                             </tr>
-                        <?php endif; ?>
+                        <?php } ?>
                     <?php endforeach; ?>
                 </tbody>
             </table>
@@ -280,6 +386,8 @@ $this->end();
             $("#completed-projects").hide();
             $("#projects-progress").hide();
             $("#projects-behind").hide();
+            $("#about-projects").hide();
+
         });
 
         $("#completed-project").click(function() {
@@ -287,6 +395,15 @@ $this->end();
             $("#all-projects").hide();
             $("#projects-progress").hide();
             $("#projects-behind").hide();
+            $("#about-projects").hide();
+
+        });
+        $("#about-start").click(function() {
+            $("#about-projects").show();
+            $("#all-projects").hide();
+            $("#projects-progress").hide();
+            $("#projects-behind").hide();
+            $("#completed-projects").hide();
         });
 
         $("#project-progress").click(function() {
@@ -294,6 +411,8 @@ $this->end();
             $("#all-projects").hide();
             $("#completed-projects").hide();
             $("#projects-behind").hide();
+            $("#about-projects").hide();
+
         });
 
         $("#project-behind").click(function() {
@@ -301,6 +420,8 @@ $this->end();
             $("#all-projects").hide();
             $("#completed-projects").hide();
             $("#projects-progress").hide();
+            $("#about-projects").hide();
+
         });
     });
 </script>

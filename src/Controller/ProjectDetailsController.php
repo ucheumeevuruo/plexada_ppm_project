@@ -182,7 +182,7 @@ class ProjectDetailsController extends AppController
         $sponsors =  $this->Sponsors->find('all');
         $this->loadModel('Projects');
         $projects =  $this->Projects->find('all');
-        // debug($sponsors);
+        // debug($projectDetails);
         // die();
 
         $this->set(compact('projectDetails', 'milestones', 'sponsors',  'projects'));
