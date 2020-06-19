@@ -17,25 +17,6 @@ $this->end();
     <div class="card shadow mb-4 " style="padding: 20px 20px 0 20px">
         <div class="me-dropdowns input-group mb-4" style="display: flex; justify-content:space-between;">
 
-            <!-- <div class="dropdown mr-5">
-                <h6 class="font-weight-bold">Summarize Information</h6>
-                <select class="form-control" id="cars" style="width: 200px;">
-                    <option style="font-weight:bold; " value="green">Select Status
-                    </option>
-                    <option style="font-weight:bold; color: white; background-color: green;" value="green">Project
-                        Active and On-Track!</option>
-                    <option style="font-weight:bold; color: white; background-color: red;" value="red">Project active
-                        but major concerns, needs corrective action!</option>
-                    <option style="font-weight:bold; color: black; background-color: yellow;" value="yellow">Project
-                        active but limited concerns, needs close monitoring!</option>
-                    <option style="font-weight:bold; color: black; background-color: white;" value="white">Project about
-                        to Kick-Off!</option>
-                    <option style="font-weight:bold; color: white; background-color: black;" value="black">Project
-                        Completed</option>
-                    <option style="font-weight:bold; color: white; background-color: blue;" value="blue">Project
-                        on-hold!</option>
-                </select>
-            </div> -->
 
             <div class="dropdown mr-6">
                 <h6 class="font-weight-bold">Summarize Information</h6>
@@ -53,7 +34,9 @@ $this->end();
 
                 <script type="text/javascript">
                     $(function() {
-                        $('#datetimepicker1').datetimepicker();
+                        $('#datetimepicker1').datetimepicker({
+                            format: 'dd/mm/yyyy'
+                        });
                     });
                 </script>
 
@@ -88,7 +71,7 @@ $this->end();
                                             <div class="form-group" style="display: flex; ">
                                                 <!-- Date input -->
                                                 <div class="input-group date" data-provide="datepicker">
-                                                    <input type="text" class="form-control" placeholder="MM/DD/YYYY" name="from" id='from' autocomplete="off" />
+                                                    <input type="text" class="form-control" placeholder="DD/MM/YYYY" name="from" id='from' autocomplete="off" />
                                                     <div class="input-group-addon">
                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                     </div>
@@ -105,7 +88,7 @@ $this->end();
                                         <div class="col-sm-12">
                                             <div class="form-group" style="display: flex; ">
                                                 <div class="input-group date" data-provide="datepicker">
-                                                    <input type="text" class="form-control" placeholder="MM/DD/YYYY" name="to" id='to' autocomplete="off" />
+                                                    <input type="text" class="form-control" placeholder="DD/MM/YYYY" name="to" id='to' autocomplete="off" />
                                                     <div class="input-group-addon">
                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                     </div>
@@ -241,18 +224,6 @@ $this->end();
         <?= $this->Modal->end() ?>
     </div>
 </div>
-<!--  jQuery -->
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script> -->
-
-<!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
-<!-- <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> -->
-
-<!-- Bootstrap Date-Picker Plugin -->
-<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" /> -->
-
-
-
 
 <script>
     $(document).ready(function() {
@@ -282,22 +253,7 @@ $this->end();
                 $('#MyModal4').modal('show')
             });
         });
-        var date_input = $('input[name="date"]'); //our date input has the name "date"
-        var container =
-            $(".bootstrap-iso form").length > 0 ?
-            $(".bootstrap-iso form").parent() :
-            "body";
-        var options = {
-            format: "mm/dd/yyyy",
-            container: container,
-            todayHighlight: true,
-            autoclose: true,
-            keyboardNavigation: false,
-            inline: true,
 
-
-        };
-        date_input.datepicker(options);
     });
 
     function exportTableToExcel(tableID, filename = '') {
