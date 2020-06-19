@@ -65,12 +65,6 @@ $this->Paginator->setTemplates([
         <!-- ./end Breadcrumb -->
         <div style="background-color: #EAECF4">
             <h6 class="progress">
-
-                <strong class="progress-bar bg-dark mr-2 rounded" role="progressbar" style="width:5%">white</strong><strong class="mr-1">Project about to kick off </strong>
-                <span class="progress-bar bg-danger mr-2 rounded" role="progressbar" style="width:5%"></span><strong class="mr-1">Active but with major concerns </strong>
-                <span class="progress-bar bg-warning mr-2 rounded" role="progressbar" style="width:5%"></span><strong class="mr-1">Active but with limited concerns </strong>
-                <span class="progress-bar bg-primary mr-2 rounded" role="progressbar" style="width:5%"></span><strong class="mr-1">Project On hold </strong>
-                <span class="progress-bar bg-success mr-2 rounded" role="progressbar" style="width:5%"></span><strong class="mr-1">Project On track </strong>
                 <strong class="progress-bar bg-dark mr-2 rounded" role="progressbar" style="width:5%">Black</strong><strong class="mr-1">Project Completed </strong>
         </div>
         <div class="grey-bg">
@@ -108,35 +102,6 @@ $this->Paginator->setTemplates([
                                             <div class="col-auto">
                                                 <i class="fas fa-check-circle fa-2x text-gray-300"></i>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-                                        <div class="row">
-                                            <div class="col-auto">
-                                                <?php foreach ($projectDetails as $projectD) : ?>
-                                                    <?php if (isset($projectD->name) && $projectD->project_id == $project->id) : ?>
-                                                        <?= $this->Html->link(__('<i class="fas fa-edit fa-1x text-gray-300"></i>'), ['controller' => 'projectDetails', 'action' => 'edit', $project->project_detail->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Edit Project Details']) ?>
-                                                    <?php endif; ?>
-                                                    <?php if (!isset($projectD->name) && $projectD->project_id == $project->id) : ?>
-                                                        <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'), ['controller' => 'projectDetails', 'action' => 'edit', $project->project_detail->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Project Details']) ?>
-                                                    <?php endif; ?>
-                                                <?php endforeach; ?>
-
-                                            </div>
-
-                                            <div class="col-auto border-left">
-                                                <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['action' => 'edit', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Edit Project']) ?>
-                                            </div>
-                                            <div class="col-auto border-left">
-                                                <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id), 'escape' => false, 'title' => 'Delete Project']) ?>
-                                            </div>
-
-                                            <!-- <div class="col-auto border-left">
-                                                                            <i class="fas fa-clock fa-1x text-gray-300"></i>
-                                                                        </div>
-                                                                        <div class="col border-left ">
-                                                                            <i class="fas fa-book fa-1x text-gray-300"></i>
-                                                                        </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -188,17 +153,7 @@ $this->Paginator->setTemplates([
                      </div>`
                 )
                 $('#dropdown-layer' + project_id).addClass('show');
-                // $('#loader').show();
-                // object.after(
-                //     `<div id="dropdown-layer${project_id}" class="dropdown-menu shadow animated--fade-in show"
-                //     aria-labelledby="dropdownMenuLink${project_id}" style="width: 500px">
-                //         <div class="container-fluid activity">
-                //             <div class="px-5" style='width: 20px;'>
-                //                 <i class="fas fa-spinner fa-spin fa-3x"></i>
-                //             </div>
-                //         </div>
-                //     </div>`
-                // );
+
             },
             success: function(result) {
                 $.each(result.result, function(index, activities) {

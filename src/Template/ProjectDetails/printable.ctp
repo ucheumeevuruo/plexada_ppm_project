@@ -1,12 +1,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
 
-<nav id ="nav-btn" class="float-right">
+<nav id="nav-btn" class="float-right">
     <button class="btn btn-info">
         <?= $this->Html->link(__('<i class="fa fa-backward"> Back</i>'), ['action' => 'evaluation'], ['label' => false, 'escape' => false, 'title' => 'Go back', 'class' => 'text-light font-weight-bold']) ?>
     </button>
-    <button id ="btnSaveAs" class="btn btn-info"><i class="fa fa-download"> Download</i> </button>
-    <button id ="btnPrint" class= "btn btn-info"><i class="fa fa-print"> Print</i> </button>
+    <button id="btnSaveAs" class="btn btn-info"><i class="fa fa-download"> Download</i> </button>
+    <button id="btnPrint" class="btn btn-info"><i class="fa fa-print"> Print</i> </button>
 </nav>
 
 <div id="report">
@@ -19,12 +19,11 @@
     <div>
         <P class="mb-0 font-weight-bold" style="margin-left: 100px;">PROJECT NAME: &nbsp; <strong class="text-capitalize"> <?= h($projectDetails->name) ?></strong></P>
         <P class="mb-0 font-weight-bold" style="margin-left: 100px;">DESCRIPTION OF PROJECT: &nbsp;
-            <strong><?= h($projectDetails->description) ?>
-            </strong>
+            <strong><?= h($projectDetails->description) ?></strong>
         </P>
         <P class="mb-0 font-weight-bold" style="margin-left: 100px;">DONOR: &nbsp;
-            <strong><?= h($sponsors->first_name . ' ' . $sponsors->last_name) ?>
-            </strong>
+            <strong><?= h($sponsorDetails->first_name . ' ' . $sponsorDetails->last_name) ?>
+             </strong>
         </P>
         <P class="mb-0 font-weight-bold" style="margin-left: 100px;">FUNDING TYPE:
             <strong><?= h($projectDetails->funding_type) ?></strong></P>
@@ -202,22 +201,20 @@
 </div>
 
 <script>
-
-     $("#btnSaveAs").click(function () { 
-        document.getElementById("nav-btn").style.display="none"
+    $("#btnSaveAs").click(function() {
+        document.getElementById("nav-btn").style.display = "none"
         let doc = new jsPDF('p', 'pt', 'a4');
-         doc.addHTML(document.body, function () {
-             doc.save('report.pdf');
-             document.getElementById("nav-btn").style.display="block"
-         });
-      });
+        doc.addHTML(document.body, function() {
+            doc.save('report.pdf');
+            document.getElementById("nav-btn").style.display = "block"
+        });
+    });
 
-      $("#btnPrint").click(
-          function(){
-            document.getElementById("nav-btn").style.display="none"
-              window.print()
-              document.getElementById("nav-btn").style.display="block"
-          }
-      )
-
+    $("#btnPrint").click(
+        function() {
+            document.getElementById("nav-btn").style.display = "none"
+            window.print()
+            document.getElementById("nav-btn").style.display = "block"
+        }
+    );
 </script>

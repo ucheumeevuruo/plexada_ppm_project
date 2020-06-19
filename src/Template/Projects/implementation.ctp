@@ -128,8 +128,18 @@ $this->Paginator->setTemplates([
                                                                                 ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']
                                                                             )  : '0.00' ?>
                                                                         </div>
-
                                                                     </div>
+                                                                    <?php if (date_create($project->project_detail->start_dt) > date_create($todayDate)) { ?>
+                                                                        <?php $dateDiff =  date_diff(date_create($todayDate), date_create($project->project_detail->start_dt))->format('%R%a day(s)') ?>
+                                                                        <div>
+                                                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                                                <?= h('Start Date') ?>
+                                                                            </div>
+                                                                            <div class="text-xs font-weight-bold text-default text-uppercase mb-1">
+                                                                                <?= h($dateDiff) ?>
+                                                                            </div>
+                                                                        </div>
+                                                                    <?php } ?>
                                                                     <div class="col-auto">
                                                                         <?php $container = array(); ?>
                                                                         <?php foreach ($activities as $activity) : ?>
