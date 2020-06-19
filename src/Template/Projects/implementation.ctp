@@ -154,27 +154,16 @@ $this->Paginator->setTemplates([
                                                                                 <?php endif; ?>
                                                                             <?php endif; ?>
                                                                         <?php endforeach; ?>
-
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
                                                                 <div class="row">
                                                                     <div class="col-auto">
-                                                                        <?php foreach ($projectDetails as $projectD) : ?>
-                                                                            <?php if (isset($projectD->name) && $projectD->project_id == $project->id) : ?>
-                                                                                <?= $this->Html->link(__('<i class="fas fa-edit fa-1x text-gray-300"></i>'), ['controller' => 'projectDetails', 'action' => 'edit', $project->project_detail->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Edit Project Details']) ?>
-                                                                            <?php endif; ?>
-                                                                            <?php if (!isset($projectD->name) && $projectD->project_id == $project->id) : ?>
-                                                                                <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'), ['controller' => 'projectDetails', 'action' => 'edit', $project->project_detail->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Project Details']) ?>
-                                                                            <?php endif; ?>
-                                                                        <?php endforeach; ?>
+                                                                        <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'), ['controller' => 'milestones', 'action' => 'add', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Indicator']) ?>
                                                                     </div>
                                                                     <div class="col-auto">
-                                                                        <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['action' => 'edit', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Edit Project']) ?>
-                                                                    </div>
-                                                                    <div class="col-auto border-left">
-                                                                        <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id), 'escape' => false, 'title' => 'Delete Project']) ?>
+                                                                        <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'), ['controller' => 'activities', 'action' => 'add', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Activity']) ?>
                                                                     </div>
                                                                 </div>
                                                             </div>
