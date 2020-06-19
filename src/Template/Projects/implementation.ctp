@@ -98,93 +98,97 @@ $this->Paginator->setTemplates([
 
                                     <div class="col-xl-3 col-md-6 mb-4">
 
-                                        <?php if (($close / $count * 100) < 40) : { ?>
-                                                <div class="card shadow h-100 py-0 border border-left-danger rounded-lg">
+                                        <?php if (date_create($project->project_detail->start_dt) > date_create($todayDate)) : { ?>
+                                                <div class="card shadow h-100 py-0 border border-left-light rounded-lg">
 
-                                                <?php } elseif ((($close / $count * 100) >= 40) && (($close / $count * 100) < 60)) : { ?>
-                                                    <div class="card shadow h-100 py-0 border border-left-warning rounded-lg">
+                                                <?php } elseif (($close / $count * 100) < 40) : { ?>
+                                                    <div class="card shadow h-100 py-0 border border-left-danger rounded-lg">
 
-                                                    <?php } elseif ((($close / $count * 100) >= 60) && (($close / $count * 100) < 80)) : { ?>
+                                                    <?php } elseif ((($close / $count * 100) >= 40) && (($close / $count * 100) < 60)) : { ?>
                                                         <div class="card shadow h-100 py-0 border border-left-warning rounded-lg">
 
-                                                        <?php } elseif ((($close / $count * 100) >= 80) && (($close / $count * 100) < 100)) : { ?>
-                                                            <div class="card shadow h-100 py-0 border border-left-success rounded-lg">
+                                                        <?php } elseif ((($close / $count * 100) >= 60) && (($close / $count * 100) < 80)) : { ?>
+                                                            <div class="card shadow h-100 py-0 border border-left-warning rounded-lg">
 
-                                                            <?php  } ?>
-                                                        <?php endif; ?>
+                                                            <?php } elseif ((($close / $count * 100) >= 80) && (($close / $count * 100) < 100)) : { ?>
+                                                                <div class="card shadow h-100 py-0 border border-left-success rounded-lg">
 
-                                                        <div class="card-body py-2 px-2">
-                                                            <div class="row no-gutters align-items-center">
-                                                                <div class="col mr-2" id="clickable-card" data-attr="<?= $this->Url->build(['action' => 'report', $project->id]) ?>">
-                                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                                        <?= $project->name ?>
+                                                                <?php  } ?>
+                                                            <?php endif; ?>
+
+                                                            <div class="card-body py-2 px-2">
+                                                                <div class="row no-gutters align-items-center">
+                                                                    <div class="col mr-2" id="clickable-card" data-attr="<?= $this->Url->build(['action' => 'report', $project->id]) ?>">
+                                                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                                            <?= $project->name ?>
+                                                                        </div>
+                                                                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                                                                            <?= $project->has('project_detail') ? $this->NumberFormat->format(
+                                                                                $project->project_detail->budget,
+                                                                                ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']
+                                                                            )  : '0.00' ?>
+                                                                        </div>
+
                                                                     </div>
-                                                                    <div class="h6 mb-0 font-weight-bold text-gray-800">
-                                                                        <?= $project->has('project_detail') ? $this->NumberFormat->format(
-                                                                            $project->project_detail->budget,
-                                                                            ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']
-                                                                        )  : '0.00' ?>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-auto">
-                                                                    <?php $container = array(); ?>
-                                                                    <?php foreach ($activities as $activity) : ?>
-                                                                        <?php if ($activity->project_id == $project->id) : ?>
-                                                                            <?php array_push($container, $activity->percentage_completion); ?>
-                                                                        <?php endif; ?>
-                                                                    <?php endforeach; ?>
-                                                                    <?php foreach ($activities as $activity) : ?>
-                                                                        <?php if ($activity->project_id == $project->id) : ?>
-                                                                            <?php if (in_array(7, $container)) : ?>
-                                                                                <i class="fas fa-check-circle fa-2x text-gray-300 bg-gradient-danger bg-circle"></i>
-                                                                                <?php break; ?>
-                                                                            <?php elseif (in_array(8, $container)) : ?>
-                                                                                <i class="fas fa-check-circle fa-2x text-gray-300 bg-warning"></i>
-                                                                                <?php break; ?>
-                                                                            <?php elseif (in_array(9, $container)) : ?>
-                                                                                <i class="fas fa-check-circle fa-2x text-gray-300 bg-primary"></i>
-                                                                                <?php break; ?>
-                                                                            <?php elseif (in_array(10, $container)) : ?>
-                                                                                <i class="fas fa-check-circle fa-2x text-gray-300 bg-success"></i>
-                                                                                <?php break; ?>
+                                                                    <div class="col-auto">
+                                                                        <?php $container = array(); ?>
+                                                                        <?php foreach ($activities as $activity) : ?>
+                                                                            <?php if ($activity->project_id == $project->id) : ?>
+                                                                                <?php array_push($container, $activity->percentage_completion); ?>
                                                                             <?php endif; ?>
-                                                                        <?php endif; ?>
-                                                                    <?php endforeach; ?>
+                                                                        <?php endforeach; ?>
+                                                                        <?php foreach ($activities as $activity) : ?>
+                                                                            <?php if ($activity->project_id == $project->id) : ?>
+                                                                                <?php if (in_array(7, $container)) : ?>
+                                                                                    <i class="fas fa-check-circle fa-2x text-gray-300 bg-gradient-danger bg-circle"></i>
+                                                                                    <?php break; ?>
+                                                                                <?php elseif (in_array(8, $container)) : ?>
+                                                                                    <i class="fas fa-check-circle fa-2x text-gray-300 bg-warning"></i>
+                                                                                    <?php break; ?>
+                                                                                <?php elseif (in_array(9, $container)) : ?>
+                                                                                    <i class="fas fa-check-circle fa-2x text-gray-300 bg-primary"></i>
+                                                                                    <?php break; ?>
+                                                                                <?php elseif (in_array(10, $container)) : ?>
+                                                                                    <i class="fas fa-check-circle fa-2x text-gray-300 bg-success"></i>
+                                                                                    <?php break; ?>
+                                                                                <?php endif; ?>
+                                                                            <?php endif; ?>
+                                                                        <?php endforeach; ?>
 
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-                                                            <div class="row">
-                                                                <div class="col-auto">
-                                                                    <?php foreach ($projectDetails as $projectD) : ?>
-                                                                        <?php if (isset($projectD->name) && $projectD->project_id == $project->id) : ?>
-                                                                            <?= $this->Html->link(__('<i class="fas fa-edit fa-1x text-gray-300"></i>'), ['controller' => 'projectDetails', 'action' => 'edit', $project->project_detail->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Edit Project Details']) ?>
-                                                                        <?php endif; ?>
-                                                                        <?php if (!isset($projectD->name) && $projectD->project_id == $project->id) : ?>
-                                                                            <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'), ['controller' => 'projectDetails', 'action' => 'edit', $project->project_detail->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Project Details']) ?>
-                                                                        <?php endif; ?>
-                                                                    <?php endforeach; ?>
-                                                                </div>
-                                                                <div class="col-auto">
-                                                                    <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['action' => 'edit', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Edit Project']) ?>
-                                                                </div>
-                                                                <div class="col-auto border-left">
-                                                                    <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id), 'escape' => false, 'title' => 'Delete Project']) ?>
+                                                            <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
+                                                                <div class="row">
+                                                                    <div class="col-auto">
+                                                                        <?php foreach ($projectDetails as $projectD) : ?>
+                                                                            <?php if (isset($projectD->name) && $projectD->project_id == $project->id) : ?>
+                                                                                <?= $this->Html->link(__('<i class="fas fa-edit fa-1x text-gray-300"></i>'), ['controller' => 'projectDetails', 'action' => 'edit', $project->project_detail->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Edit Project Details']) ?>
+                                                                            <?php endif; ?>
+                                                                            <?php if (!isset($projectD->name) && $projectD->project_id == $project->id) : ?>
+                                                                                <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'), ['controller' => 'projectDetails', 'action' => 'edit', $project->project_detail->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Project Details']) ?>
+                                                                            <?php endif; ?>
+                                                                        <?php endforeach; ?>
+                                                                    </div>
+                                                                    <div class="col-auto">
+                                                                        <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-1x text-gray-300"></i>'), ['action' => 'edit', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Edit Project']) ?>
+                                                                    </div>
+                                                                    <div class="col-auto border-left">
+                                                                        <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id), 'escape' => false, 'title' => 'Delete Project']) ?>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                                </div>
                                                             </div>
+                                                        <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                <?php } ?>
+                                            <?php endforeach; ?>
                                                         </div>
-                                                    <?php endif; ?>
-                                                <?php endforeach; ?>
-                                            <?php } ?>
-                                        <?php endforeach; ?>
                                                     </div>
-                                                </div>
 
+                                                </div>
                                     </div>
-                </div>
 </section>
 
 
