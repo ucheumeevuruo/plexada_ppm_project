@@ -985,10 +985,12 @@ class ProjectsController extends AppController
         $this->loadModel('Approvals');
         $approvals =  $this->Approvals->find('all');
 
+        $todayDate = Date('m/d/Y');
+
         // debug($projects);
         // die();
 
-        $this->set(compact('projects', 'milestones', 'projectDetails', 'activities', 'approvals'));
+        $this->set(compact('projects', 'milestones', 'projectDetails', 'activities', 'approvals', 'todayDate'));
     }
     public function preImplementation($id =  null)
     {
