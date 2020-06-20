@@ -149,20 +149,6 @@ $this->Paginator->setTemplates([
                                                 <i class="fas fa-info-circle fa-1x text-gray-300"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                                <div class="dropdown-item text-gray-900">Status:
-                                                    <?= $activity->has('status') ? $activity->status->lov_value : 'Not Defined' ?>
-                                                </div>
-                                                <div class="dropdown-item text-gray-900">Start Date:
-                                                    <?= $activity->start_date ?></div>
-                                                <div class="dropdown-item text-gray-900">End Date: <?= $activity->end_date ?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto dropdown no-arrow border-left">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                <i class="fas fa-list-alt fa-1x text-gray-300"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                                 <div class="dropdown-item text-gray-900">Project Name:
                                                     <?= h($activity->project->name) ?>
                                                 </div>
@@ -174,7 +160,7 @@ $this->Paginator->setTemplates([
                                                     <?= h($activity->name) ?>
                                                 </div>
                                                 <div class="dropdown-item text-gray-900">Activity Status:
-                                                    <?= h($activity->status->lov_value) ?>
+                                                    <?= $activity->has('status') ? $activity->status->lov_value : 'Not Defined' ?>
                                                 </div>
                                                 <div class="dropdown-item text-gray-900">Assigned to:
                                                     <?= h($activity->staff->full_name) ?>
