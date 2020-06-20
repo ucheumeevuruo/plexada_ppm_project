@@ -23,7 +23,7 @@ $this->end();
                 <div>
                     <?= $this->Form->create(); ?>
                     <div class="form-group">
-                        <div class="input-group date" data-provide="datepicker" id='datetimepicker1'>
+                        <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
                             <input type="text" class="form-control" placeholder="Date of Report" name="reportdate" autocomplete="off">
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
@@ -32,13 +32,7 @@ $this->end();
                     </div>
                 </div>
 
-                <script type="text/javascript">
-                    $(function() {
-                        $('#datetimepicker1').datetimepicker({
-                            format: 'dd/mm/yyyy'
-                        });
-                    });
-                </script>
+
 
             </div>
             <div class="dropdown mr-6">
@@ -70,7 +64,7 @@ $this->end();
                                         <div class="col-sm-12">
                                             <div class="form-group" style="display: flex; ">
                                                 <!-- Date input -->
-                                                <div class="input-group date" data-provide="datepicker">
+                                                <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
                                                     <input type="text" class="form-control" placeholder="DD/MM/YYYY" name="from" id='from' autocomplete="off" />
                                                     <div class="input-group-addon">
                                                         <span class="glyphicon glyphicon-calendar"></span>
@@ -87,7 +81,7 @@ $this->end();
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group" style="display: flex; ">
-                                                <div class="input-group date" data-provide="datepicker">
+                                                <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
                                                     <input type="text" class="form-control" placeholder="DD/MM/YYYY" name="to" id='to' autocomplete="off" />
                                                     <div class="input-group-addon">
                                                         <span class="glyphicon glyphicon-calendar"></span>
@@ -133,35 +127,68 @@ $this->end();
     </div>
     <div class="table-responsive">
         <table cellpadding="0" cellspacing="0" id="table2excel" class="table  table-bordered dataTable table-default br-m table-striped table-sm" role="grid" aria-describedby="dataTable_info" style="height: 100px;">
-            <thead class="table-dark text-center align-text-middle">
+            <thead class="table-dark text-center">
                 <tr>
-                    <th scope="col"><?= __('S/N  ') ?></th>
-                    <th scope="col"><?= __('Project Name') ?></th>
-                    <th scope="col"><?= __('Donor/Lender') ?></th>
-                    <th scope="col"><?= __('Funding Type') ?></th>
-                    <th scope="col"><?= __('Budget') ?></th>
-                    <th scope="col"><?= __('Beneficiary') ?></th>
-                    <th scope="col"><?= __('Achievements') ?></th>
-                    <th scope="col" class="text-white"><?= __('Next Action Plan ') ?></th>
-                    <th scope="col"><?= __('Start Date') ?></th>
-                    <th scope="col"><?= __('Completion Date') ?></th>
-                    <th scope="col"><?= __('Risk and Issues') ?></th>
+                    <th class="align-middle" scope="col"><?= __('S/N') ?></th>
+                    <th class="align-middle" scope="col"><?= __('Project Name') ?></th>
+                    <th class="align-middle" scope="col"><?= __('Donor/Lender') ?></th>
+                    <th class="align-middle" scope="col"><?= __('Funding Type') ?></th>
+                    <th class="align-middle" scope="col"><?= __('Budget') ?></th>
+                    <th class="align-middle" scope="col"><?= __('Beneficiary') ?></th>
+                    <th class="align-middle" scope="col"><?= __('Achievements') ?></th>
+                    <th class="align-middle" scope="col"><?= __('Next Action Plan ') ?></th>
+                    <th class="align-middle" scope="col"><?= __('Status') ?></th>
+                    <th class="align-middle" scope="col"><?= __('Start Date') ?></th>
+                    <th class="align-middle" scope="col"><?= __('Completion Date') ?></th>
+                    <th class="align-middle" scope="col"><?= __('Risk and Issues') ?></th>
                 </tr>
             </thead>
 
             <tbody id="selected-projects">
                 <?php if (isset($fromnumber)) { ?>
 
-                    <?php $num = 0; ?>
+                    <?php $num = 1; ?>
                     <?php foreach ($projectDetails as $projectDetail) : ?>
                         <?php $startdate = h($projectDetail->start_dt); ?>
                         <?php $enddate = h($projectDetail->end_dt); ?>
                         <?php $startdatenumber = strtotime($startdate); ?>
                         <?php $enddatenumber = strtotime($enddate); ?>
+
+                        <?php $count = 0; ?>
+                        <?php $close = 0; ?>
+                        <?php foreach ($milestone_list as $milestone) : ?>
+                            <?php if ($milestone->project_id == $projectDetail->project_id) {
+                                $count++;
+                            } ?>
+                            <?php if ($milestone->project_id == $projectDetail->project_id && $milestone->status_id == 3) {
+                                $close++;
+                            } ?>
+                        <?php endforeach; ?>
+                        <?php $stat = ''; ?>
+                        <?php $percen = 0; ?>
+                        <?php if ($count == 0) {
+                            $percen = 0;
+                        } else {
+                            $percen = $close / $count * 100;
+                        } ?>
+                        <?php if ($count != 0 && ($close / $count * 100) == 100) {
+                            $stat = ' <p class="mb-0" style="background-color: #000000;"> &nbsp;  </p>';
+                        } else if ($count == 0 && $close == 0) {
+                            $stat = ' <p class="mb-0" style="background-color: #fff"> &nbsp; </p>';
+                        } else if ($count != 0 && (($close / $count * 100) >= 40) && (($close / $count * 100) < 60)) {
+                            $stat = ' <p class="mb-0" style="background-color: #FFFF00"> &nbsp; </p>';
+                        } else if ($count != 0 && (($close / $count * 100) >= 60) && (($close / $count * 100) < 80)) {
+                            $stat = ' <p class="mb-0" style="background-color: #FFFF00"> &nbsp; </p>';
+                        } else if ((($close / $count * 100) >= 80) && (($close / $count * 100) < 100)) {
+                            $stat = ' <p class="mb-0" style="background-color: #1CC88A"> &nbsp; </p>';
+                        } else {
+                            $stat = ' <p class="mb-0" style="background-color: #FF0000"> &nbsp; </p>';
+                        }
+                        ?>
+
                         <?php if (($startdatenumber >= $fromnumber) && ($enddatenumber <= $tonumber)) : ?>
-                            <?php $num++; ?>
                             <tr>
-                                <td style="width:5%"><?= h($num) ?></td>
+                                <td style="width:5%" class="text-center"><?= h($num++) ?></td>
                                 <td id="print2">
                                     <?= $this->Html->link($projectDetail->name, ['controller' => 'projectDetails', 'action' => 'printable', $projectDetail->id], []) ?>
                                 </td>
@@ -195,6 +222,12 @@ $this->end();
                                         <?php endif; ?>
                                     <?php endforeach; ?>
                                 </th>
+                                <td><?= $this->Html->link(
+                                        __($stat),
+                                        ['controller' => 'ProjectDetails', 'action' => 'summary'],
+                                        ['escape' => false, 'class' => 'nav-link collapsed']
+                                    ) ?>
+                                </td>
                                 <th scope="col"><?= h($projectDetail->start_dt) ?></th>
                                 <th scope="col"><?= h($projectDetail->end_dt) ?></th>
                                 <th scope="col"><?= h($projectDetail->risk_and_issues) ?></th>
@@ -202,7 +235,6 @@ $this->end();
                         <?php endif; ?>
                     <?php endforeach; ?>
                 <?php } ?>
-
             </tbody>
         </table>
     </div>

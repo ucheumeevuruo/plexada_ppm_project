@@ -16,23 +16,19 @@ $this->end();
     <div class="card shadow mb-4 " style="padding: 20px 20px 0 20px">
         <div class="me-dropdowns input-group mb-4" style="display: flex; justify-content:space-between;">
             <div>
-
                 <div style=" display: flex; flex-direction:row; justify-content:space-around; outline: 5px solid #36B9CC; padding-left: 22px" class="input-group">
                     <div class="dropdown mr-auto">
                         <div class="bootstrap-iso">
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-md-8 col-sm-6x col-xs-12">
-
                                         <!-- Form code begins -->
                                         <?= $this->Form->create() ?>
                                         <div class="form-group">
                                             <!-- Date input -->
                                             <label class="control-label ml-5" for="date">From</label>
-                                            <input class="form-control" id="date" name="from" autocomplete="off" placeholder="MM/DD/YYY" type="text" style="background-color: #CDD8F6; border-color: #36B9CC; border-width: medium;" />
+                                            <input class="form-control" id="date" name="from" autocomplete="off" placeholder="DD/MM/YYYY" type="text" style="background-color: #CDD8F6; border-color: #36B9CC; border-width: medium;" />
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>
@@ -50,18 +46,14 @@ $this->end();
                                         <div class="form-group">
                                             <!-- Date input -->
                                             <label class="control-label ml-5" for="date">To</label>
-                                            <input class="form-control" id="dateto" name="dateto" autocomplete="off" placeholder="MM/DD/YYY" type="text" style="background-color: #CDD8F6; border-color: #36B9CC; border-width: medium;" />
+                                            <input class="form-control" id="dateto" name="dateto" autocomplete="off" placeholder="DD/MM/YYYY" type="text" style="background-color: #CDD8F6; border-color: #36B9CC; border-width: medium;" />
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
         </div>
         <div class="row">
@@ -153,9 +145,7 @@ $this->end();
     $(function() {
         $('#date, #dateto').datepicker({
             inline: true,
-            "format": "yyyy/mm/dd",
-            // startDate: "0d",
-            // "endDate": "09-15-2017",
+            "format": "dd/mm/yyyy",
             "keyboardNavigation": false
         });
     });

@@ -108,10 +108,17 @@ class ProjectDetailsController extends AppController
 
         if ($this->request->is('post')) {
             $reportdate = $this->request->getData('reportdate');
+            // get the input dates from the frontend
             $from = $this->request->getData('from');
             $to = $this->request->getData('to');
-            $fromnumber = strtotime($from);
-            $tonumber = strtotime($to);
+
+            // split the extracted date to get the days, months, year
+            $splitfrom = explode('/', $from);
+            $splitto = explode('/', $to);
+            // rearrange the values to php date format
+            $fromnumber = strtotime($splitfrom[1] . '/' . $splitfrom[0] . '/' . $splitfrom[2]);
+            $tonumber = strtotime($splitto[1] . '/' . $splitto[0] . '/' . $splitto[2]);
+
 
             $this->set(compact('fromnumber', 'tonumber'));
         }
@@ -142,30 +149,39 @@ class ProjectDetailsController extends AppController
     {
 
         // $contact = new ContactForm();
+
         if ($this->request->is('post')) {
-            $sdate = $this->request->getData('from');
-            $edate = $this->request->getData('dateto');
+            $sdatefrom = $this->request->getData('from');
+            $edatefrom = $this->request->getData('dateto');
+
+            $sdatesplit = explode('/', $sdatefrom);
+            $edatesplit = explode('/', $edatefrom);
+
+            $sdate = ($sdatesplit[2] . '/' . $sdatesplit[1] . '/' . $sdatesplit[0]);
+            $edate = ($edatesplit[2] . '/' . $edatesplit[1] . '/' . $edatesplit[0]);
+
 
             $this->loadModel('Projects');
+
             $projectReports = $this->ProjectDetails->find('all')->contain(['Projects', 'Currencies'])->where(['ProjectDetails.start_dt >=' => $sdate, 'ProjectDetails.end_dt <=' => $edate]);
-
-
-
 
             $todays = date("Y");
             $sObj = new DateTime($sdate);
             $shsdate = $sObj->format("j F Y");
             $shsdate1 = $sObj->format("F Y");
+
+
             $eObj = new DateTime($edate);
             $shedate = $eObj->format("j F Y");
             $fromshdate1 = "$shsdate to $shedate";
             $fromshdate2 = "$shsdate1-December, $todays";
 
             $from = $sObj->format("d M Y");
+
             // $this->request->setData(['from'=> $from]);
             $this->request->data('from', $from);
-            // debug($projectReports);
-            // die();
+
+
             $this->set(compact('projectReports', 'from', 'edate', 'fromshdate1', 'fromshdate2'));
         }
     }
@@ -209,7 +225,7 @@ class ProjectDetailsController extends AppController
 
         $sponsorDetails = $projects->project_sponsor->sponsor;
 
-        
+
         $this->loadModel('Sponsors');
         $sponsors =  $this->Sponsors->find('all')->where(['id' => $projectDetails->sponsor_id]);
 
@@ -616,6 +632,5 @@ class ProjectDetailsController extends AppController
             return $this->redirect($this->referer());
         }
         $this->set(compact('projectDetail', 'project_info'));
-
     }
 }
