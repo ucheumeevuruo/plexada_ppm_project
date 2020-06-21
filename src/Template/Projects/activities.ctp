@@ -92,18 +92,11 @@ $this->Paginator->setTemplates([
                     <ul class="navbar-nav">
                         <?= $this->Paginator->prev(__('<i class="fas fa-less-than fa-1x"></i>'), ['class' => 'test', 'escape' => false]) ?>
                         <?= $this->Paginator->next(__('<i class="fas fa-greater-than fa-1x"></i>'), ['escape' => false]) ?>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fas fa-th-large fa-1x"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fas fa-list fa-1x text-gray-300"></i></a>
-                        </li> -->
                     </ul>
                 </div>
             </div>
         </nav>
         <!-- .\end Menu Area -->
-
         <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($project->name) ?>
         </h2>
 

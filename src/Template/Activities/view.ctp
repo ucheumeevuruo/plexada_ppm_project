@@ -59,33 +59,35 @@ $this->end();
                 <?= $this->Html->link(__('Create'), ['controller' => 'tasks', 'action' => 'add', $activity->activity_id], ['class' => 'btn btn-info rounded-0 overlay', 'title' => 'Add', 'escape' => false]) ?>
             </div>
 
-            <table class="table table-striped table-responsive table-sm dataTable" role="grid"
-                aria-describedby="dataTable_info">
-                <thead>
+            <table class="table table-striped table-responsive table-sm dataTable" role="grid" aria-describedby="dataTable_info">
+                <thead class="text-center">
                     <tr>
-                        <th scope="col"><?= __('Task Name') ?></th>
-                        <th scope="col"><?= __('Start Date') ?></th>
-                        <th scope="col"><?= __('End Date') ?></th>
-                        <th scope="col"><?= __('Description') ?></th>
-                        <th scope="col"><?= __('Predecessor') ?></th>
-                        <th scope="col"><?= __('Successor') ?></th>
-                        <th scope="col"><?= __('Actions') ?></th>
+                        <th class="align-middle" scope="col"><?= __('Task Name') ?></th>
+                        <th class="align-middle" scope="col"><?= __('Start Date') ?></th>
+                        <th class="align-middle" scope="col"><?= __('End Date') ?></th>
+                        <th class="align-middle" scope="col"><?= __('Description') ?></th>
+                        <th class="align-middle" scope="col"><?= __('PM Comment') ?></th>
+                        <th class="align-middle" scope="col"><?= __('Predecessor') ?></th>
+                        <th class="align-middle" scope="col"><?= __('Successor') ?></th>
+                        <th class="align-middle" scope="col"><?= __('Actions') ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($activity->tasks as $task) : ?>
-                    <tr>
-                        <td><?= h($task->Task_name) ?></td>
-                        <td><?= h($task->Start_date) ?></td>
-                        <td><?= h($task->end_date) ?></td>
-                        <td><?= h($task->Description) ?></td>
-                        <td><?= h($task->Predecessor) ?></td>
-                        <td><?= h($task->Successor) ?></td>
-                        <td class="actions">
-                            <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-sm"></i>'), ['controller' => 'tasks', 'action' => 'edit', $task->id], ['class' => 'btn btn-outline-warning btn-sm overlay', 'title' => 'Edit', 'escape' => false]) ?>
-                            <?= $this->Form->postLink(__("<i class='fas fa-trash fa-sm'></i>"), ['controller' => 'tasks', 'action' => 'delete', $task->id], ['confirm' => __('Are you sure you want to delete # {0}?', $task->Task_name), 'escape' => false, 'class' => 'btn btn-outline-danger btn-sm']) ?>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td><?= h($task->Task_name) ?></td>
+                            <td><?= h($task->Start_date) ?></td>
+                            <td><?= h($task->end_date) ?></td>
+                            <td><?= h($task->Description) ?></td>
+                            <td><?= h($task->pm_comment) ?></td>
+                            <td><?= h($task->Predecessor) ?></td>
+                            <td><?= h($task->Successor) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('<i class="fas fa-plus fa-sm"></i>'), ['controller' => 'tasks', 'action' => 'pmComment', $task->id], ['class' => 'btn btn-outline-primary btn-sm overlay', 'title' => 'Add comment', 'escape' => false]) ?>
+                                <?= $this->Html->link(__('<i class="fas fa-pencil-alt fa-sm"></i>'), ['controller' => 'tasks', 'action' => 'edit', $task->id], ['class' => 'btn btn-outline-warning btn-sm overlay', 'title' => 'Edit', 'escape' => false]) ?>
+                                <?= $this->Form->postLink(__("<i class='fas fa-trash fa-sm'></i>"), ['controller' => 'tasks', 'action' => 'delete', $task->id], ['confirm' => __('Are you sure you want to delete # {0}?', $task->Task_name), 'escape' => false, 'class' => 'btn btn-outline-danger btn-sm']) ?>
+                            </td>
+                        </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
@@ -107,17 +109,17 @@ $this->end();
 
 
 <script>
-$(document).ready(function() {
-    $(".overlay").click(function(event) {
-        event.preventDefault();
-        //load content from href of link
-        $('#contentWrap .modal-body').load($(this).attr("href"), function() {
-            $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content')
-                .removeClass()
-            $('#MyModal4').modal('show')
+    $(document).ready(function() {
+        $(".overlay").click(function(event) {
+            event.preventDefault();
+            //load content from href of link
+            $('#contentWrap .modal-body').load($(this).attr("href"), function() {
+                $('.projectDetails .large-9, .projectDetails .medium-8, .projectDetails .columns, .projectDetails .content')
+                    .removeClass()
+                $('#MyModal4').modal('show')
+            });
         });
+        $('.dataTable').DataTable();
     });
-    $('.dataTable').DataTable();
-});
 </script>
 <?= $this->Html->script('jquery.dataTables.min.js') ?>

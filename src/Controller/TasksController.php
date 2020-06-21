@@ -111,6 +111,28 @@ class TasksController extends AppController
         $this->set(compact('task','start_date','end_date'));
     }
 
+    public function pmComment($id = null)
+    {
+        $task = $this->Tasks->get($id, [
+            'contain' => [],
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $task = $this->Tasks->patchEntity($task, $this->Tasks->identify($this->request->getData()));
+            if ($this->Tasks->save($task)) {
+                $this->Flash->success(__('The Comment has been saved.'));
+
+                return $this->redirect($this->referer());
+            }
+            $this->Flash->error(__('The Commnet could not be saved. Please, try again.'));
+        }
+
+        $activity = $this->Tasks->Activities->find('all')->where(['activity_id'=>$task['activity_id']])->first();
+        $start_date = ($activity->start_date)->format("d-m-Y");
+        $end_date = ($activity->end_date)->format("d-m-Y");
+
+        $this->set(compact('task','start_date','end_date'));
+    }
+
 
     /**
      * Delete method
