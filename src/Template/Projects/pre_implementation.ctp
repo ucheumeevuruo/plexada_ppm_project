@@ -342,7 +342,6 @@ $this->Paginator->setTemplates([
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <?php break; ?>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
@@ -353,6 +352,9 @@ $this->Paginator->setTemplates([
                 </div>
             </div>
         </div>
+    </div>
+    <div>
+        <!-- <?= h($today) ?> -->
     </div>
 
     <!-- MODAL ELEMENTS -->

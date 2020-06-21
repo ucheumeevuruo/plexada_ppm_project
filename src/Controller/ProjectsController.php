@@ -59,8 +59,8 @@ class ProjectsController extends AppController
         $this->loadModel('Activities');
         $activities =  $this->Activities->find('all');
 
-        // debug($projects);
-        // die();
+
+
 
         $this->set(compact('projects', 'milestones', 'projectDetails', 'activities'));
     }
@@ -93,7 +93,6 @@ class ProjectsController extends AppController
 
         $this->set('project', $project);
     }
-
 
 
     public function report($id = null)
@@ -1032,10 +1031,28 @@ class ProjectsController extends AppController
 
         $this->loadModel('Approvals');
         $approvals =  $this->Approvals->find('all');
-        // debug($agreements);
-        // debug($projects);
-        // die();
 
-        $this->set(compact('projects', 'milestones', 'projectDetails', 'activities', 'agreements', 'approvals'));
+        $this->loadModel('Users');
+        $user =  $this->Users->find('all')->where(['id' => $this->Auth->user('id')])->first();
+
+        $today = strtotime(date('m/d/y'));
+
+        // foreach ($projectDetails as $project) {
+        //     $projectDate = strtotime($project->start_dt);
+        //     if ($project->name != null) {
+        //         if ($today < $projectDate && ($projectDate - $today) < 432000) {
+        //             $email = new Email('default');
+        //             $email->from(['projects@plexada-si-apps.com' => 'Ogun state PPM'])
+        //                 ->to($user->email)
+        //                 ->bcc('kingsconsult001@gmail.com') // blind carbon (optional)
+        //                 ->subject('Less than 5 days')
+        //                 ->replyTo('kingsconsult001@gmail.com')
+        //                 ->send($project->name . ' ' . $project->start_dt);
+        //             echo $project->name;
+        //         }
+        //     }
+        // }
+
+        $this->set(compact('projects', 'milestones', 'projectDetails', 'activities', 'agreements', 'approvals', 'today'));
     }
 }

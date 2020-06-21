@@ -79,11 +79,11 @@ class AppController extends Controller
             ],
             'loginRedirect' => [
                 'controller' => 'Projects',
-                'action' => 'index'
+                'action' => 'preImplementation'
             ],
             'logoutRedirect' => [
-                'controller' => 'staff',
-                'action' => 'index'
+                'controller' => 'Projects',
+                'action' => 'preImplementation'
             ],
             'storage' => [
                 'className' => 'Session',
