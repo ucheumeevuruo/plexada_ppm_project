@@ -59,12 +59,6 @@ $this->Paginator->setTemplates([
                     <?= $this->Paginator->prev(__('<i class="fas fa-less-than fa-1x"></i>'), ['class' => 'test', 'escape' => false]) ?>
 
                     <?= $this->Paginator->next(__('<i class="fas fa-greater-than fa-1x"></i>'), ['escape' => false]) ?>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-th-large fa-1x"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-list fa-1x text-gray-300"></i></a>
-                    </li> -->
                 </ul>
             </div>
         </div>
@@ -87,83 +81,76 @@ $this->Paginator->setTemplates([
         <h3 class="text-primary text-left font-weight-bold mt-0">Select Project </h3>
         <div class="grey-bg vh-5 py-4">
 
-        <div class="row mx-0">
+            <div class="row mx-0">
                 <?php foreach ($projects as $project) : ?>
-                <?php $count = 0; ?>
-                <?php $close = 0; ?>
-                <?php foreach ($milestones as $milestone) : ?>
-                <?php if ($milestone->project_id == $project->id) {
+                    <?php $count = 0; ?>
+                    <?php $close = 0; ?>
+                    <?php foreach ($milestones as $milestone) : ?>
+                        <?php if ($milestone->project_id == $project->id) {
                             $count++;
                         } ?>
-                <?php if ($milestone->project_id == $project->id && $milestone->status_id == 3) {
+                        <?php if ($milestone->project_id == $project->id && $milestone->status_id == 3) {
                             $close++;
                         } ?>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
                     <?php if ($count == 0) : { ?>
-                        <div class="col-xl-3 col-md-6 mb-4 d-none">
-                    <div class="card shadow h-100 py-0 border border-left-light rounded-lg">
+                            <div class="col-xl-3 col-md-6 mb-4 d-none">
+                                <div class="card shadow h-100 py-0 border border-left-light rounded-lg">
 
-                        <?php } elseif (($close / $count * 100) < 40) : { ?>
-                            <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card shadow h-100 py-0 border border-left-danger rounded-lg">
-
-                            <?php } elseif ((($close / $count * 100) >= 40) && (($close / $count * 100) < 60)) : { ?>
-                                <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card shadow h-100 py-0 border border-left-warning rounded-lg">
-
-                                <?php } elseif ((($close / $count * 100) >= 60) && (($close / $count * 100) < 80)) : { ?>
+                                <?php } elseif (($close / $count * 100) < 40) : { ?>
                                     <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="card shadow h-100 py-0 border border-left-warning rounded-lg">
+                                        <div class="card shadow h-100 py-0 border border-left-danger rounded-lg">
 
-                                    <?php } elseif ((($close / $count * 100) >= 80) && (($close / $count * 100) < 100)) : { ?>
-                                        <div class="col-xl-3 col-md-6 mb-4">
-                                    <div class="card shadow h-100 py-0 border border-left-success rounded-lg">
+                                        <?php } elseif ((($close / $count * 100) >= 40) && (($close / $count * 100) < 60)) : { ?>
+                                            <div class="col-xl-3 col-md-6 mb-4">
+                                                <div class="card shadow h-100 py-0 border border-left-warning rounded-lg">
 
-                                        <?php } elseif (($close / $count * 100) == 100) : { ?>
-                                            <div class="col-xl-3 col-md-6 mb-4 d-none">
-                                        <div class="card shadow h-100 py-0 border border-left-dark rounded-lg d-none">
+                                                <?php } elseif ((($close / $count * 100) >= 60) && (($close / $count * 100) < 80)) : { ?>
+                                                    <div class="col-xl-3 col-md-6 mb-4">
+                                                        <div class="card shadow h-100 py-0 border border-left-warning rounded-lg">
 
-                                            <?php  } ?>
-                                            <?php endif; ?>
+                                                        <?php } elseif ((($close / $count * 100) >= 80) && (($close / $count * 100) < 100)) : { ?>
+                                                            <div class="col-xl-3 col-md-6 mb-4">
+                                                                <div class="card shadow h-100 py-0 border border-left-success rounded-lg">
 
-                                            <div class="card-body py-2 px-2">
-                                                <div class="row no-gutters align-items-center">
-                                                <div class="col mr-2" id="clickable-card" data-attr="<?= $this->Url->build(['action' => 'monitorIndicators', $project->id]) ?>">
-                                                        <div
-                                                            class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                            <?= $project->name ?>
+                                                                <?php } elseif (($close / $count * 100) == 100) : { ?>
+                                                                    <div class="col-xl-3 col-md-6 mb-4 d-none">
+                                                                        <div class="card shadow h-100 py-0 border border-left-dark rounded-lg d-none">
+
+                                                                        <?php  } ?>
+                                                                    <?php endif; ?>
+                                                                    <div class="card-body py-2 px-2">
+                                                                        <div class="row no-gutters align-items-center">
+                                                                            <div class="col mr-2" id="clickable-card" data-attr="<?= $this->Url->build(['action' => 'monitorIndicators', $project->id]) ?>">
+                                                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                                                    <?= $project->name ?>
+                                                                                </div>
+                                                                                <div class="h6 mb-0 font-weight-bold text-gray-800">
+                                                                                    <?= $project->has('project_detail') ? $this->NumberFormat->format(
+                                                                                        $project->project_detail->budget,
+                                                                                        ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']
+                                                                                    )  : '0.00' ?></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
+                                                                        <div class="row">
+                                                                            <div class="col-auto">
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                        </div>
+                                                                    </div>
+                                                                <?php endforeach; ?>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="h6 mb-0 font-weight-bold text-gray-800">
-                                                            <?= $project->has('project_detail') ? $this->NumberFormat->format(
-                                                                    $project->project_detail->budget,
-                                                                    ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']
-                                                                )  : '0.00' ?></div>
                                                     </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="card-footer no-gutters align-items-center py-0"
-                                                style="background:#fff">
-                                                <div class="row">
-                                                    <div class="col-auto">
-                                  
-
-                                                    </div>
-
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-                        </div>
-        </div>
-    </div>
-        </div>
-    </div>
 </section>
-
 
 <!-- MODAL ELEMENTS -->
 

@@ -142,12 +142,7 @@ $this->Paginator->setTemplates([
                                             <div class="col-auto border-left">
                                                 <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id), 'escape' => false, 'title' => 'Delete Project']) ?>
                                             </div>
-                                            <!-- <div class="col-auto border-left">
-                                                <i class="fas fa-clock fa-1x text-gray-300"></i>
-                                            </div>
-                                            <div class="col border-left ">
-                                                <i class="fas fa-book fa-1x text-gray-300"></i>
-                                            </div> -->
+
                                         </div>
                                     </div>
                                 </div>
@@ -252,12 +247,6 @@ $this->Paginator->setTemplates([
                                                             <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id), 'escape' => false, 'title' => 'Delete Project']) ?>
                                                         </div>
 
-                                                        <!-- <div class="col-auto border-left">
-                                                            <i class="fas fa-clock fa-1x text-gray-300"></i>
-                                                        </div>
-                                                        <div class="col border-left ">
-                                                            <i class="fas fa-book fa-1x text-gray-300"></i>
-                                                        </div> -->
                                                     </div>
                                                 </div>
                                                     </div>
@@ -322,13 +311,6 @@ $this->Paginator->setTemplates([
                                                                         <div class="col-auto border-left">
                                                                             <?= $this->Form->postLink(__("<i class='fas fa-trash fa-1x text-gray-300'></i>"), ['action' => 'delete', $project->id], ['confirm' => __('Are you sure you want to delete # {0}?', $project->id), 'escape' => false, 'title' => 'Delete Project']) ?>
                                                                         </div>
-
-                                                                        <!-- <div class="col-auto border-left">
-                                                                            <i class="fas fa-clock fa-1x text-gray-300"></i>
-                                                                        </div>
-                                                                        <div class="col border-left ">
-                                                                            <i class="fas fa-book fa-1x text-gray-300"></i>
-                                                                        </div> -->
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -337,19 +319,9 @@ $this->Paginator->setTemplates([
                                                 <?php endforeach; ?>
                                             </div>
                                         </div>
-                                        <!-- <div class="my-5 float-bottom"></div> -->
-                                        <!-- <div class="float-right  shadow-lg p-3 bg-white rounded">
-
-                                            <p class="mb-0 text-center font-weight-bold"><ins>Color Code</ins></p>
-                                            <p class="mb-0 font-weight-light ">White: New created project without any Indicator.</p>
-                                            <p class="mb-0 font-weight-bolder text-warning">Yellow: Project with less uncompleted Indicators.</p>
-                                            <p class="mb-0 font-weight-bolder text-danger">Red: Project with many uncompleted Indicators.</p>
-                                            <p class="mb-0 font-weight-bolder text-dark">Black: Project with all Indicators completed.</p>
-                                        </div> -->
                             </div>
                 </div>
 </section>
-
 
 <!-- MODAL ELEMENTS -->
 

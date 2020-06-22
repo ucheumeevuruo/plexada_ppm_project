@@ -110,7 +110,6 @@ $this->Paginator->setTemplates([
                     <?php endforeach; ?>
                 </div>
             </div>
-
 </section>
 
 

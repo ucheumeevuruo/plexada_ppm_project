@@ -17,7 +17,6 @@ $this->end();
     <div class="card shadow mb-4 " style="padding: 20px 20px 0 20px">
         <div class="me-dropdowns input-group mb-4" style="display: flex; justify-content:space-between;">
 
-
             <div class="dropdown mr-6">
                 <h6 class="font-weight-bold">Summarize Information</h6>
                 <div>
@@ -31,12 +30,8 @@ $this->end();
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
             <div class="dropdown mr-6">
-
                 <h6 class="font-weight-bold">Show</h6>
                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                     Projects
@@ -94,7 +89,6 @@ $this->end();
                             </div>
                         </div>
                     </div>
-
                     <?= $this->Form->button(__('Select'), ["class" => "btn-info "]) ?>
                 </div>
             </div>
@@ -175,9 +169,7 @@ $this->end();
                             $stat = ' <p class="mb-0" style="background-color: #000000;"> &nbsp;  </p>';
                         } else if ($count == 0 && $close == 0) {
                             $stat = ' <p class="mb-0" style="background-color: #fff"> &nbsp; </p>';
-                        } else if ($count != 0 && (($close / $count * 100) >= 40) && (($close / $count * 100) < 60)) {
-                            $stat = ' <p class="mb-0" style="background-color: #FFFF00"> &nbsp; </p>';
-                        } else if ($count != 0 && (($close / $count * 100) >= 60) && (($close / $count * 100) < 80)) {
+                        } else if ($count != 0 && (($close / $count * 100) >= 40) && (($close / $count * 100) < 80)) {
                             $stat = ' <p class="mb-0" style="background-color: #FFFF00"> &nbsp; </p>';
                         } else if ((($close / $count * 100) >= 80) && (($close / $count * 100) < 100)) {
                             $stat = ' <p class="mb-0" style="background-color: #1CC88A"> &nbsp; </p>';
@@ -240,7 +232,6 @@ $this->end();
     </div>
 </div>
 <!-- overlayed element -->
-
 </div>
 
 <!-- MODAL ELEMENTS -->
@@ -274,7 +265,6 @@ $this->end();
             $("#allprojects").hide();
 
         });
-
         //respond to click event on anything with 'overlay' class
         $(".overlay").click(function(event) {
             event.preventDefault();
@@ -285,7 +275,6 @@ $this->end();
                 $('#MyModal4').modal('show')
             });
         });
-
     });
 
     function exportTableToExcel(tableID, filename = '') {

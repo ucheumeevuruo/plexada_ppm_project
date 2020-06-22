@@ -36,8 +36,6 @@ class ProjectDetailsController extends AppController
         $projectDetails = $this->ProjectDetails->find('all');
 
 
-        ///
-        ///
         //        $authUser = $this->Auth->User();
 
         //        $projectDetails = $this->ProjectDetails->find('all', [
@@ -83,7 +81,6 @@ class ProjectDetailsController extends AppController
         $projectDetail = $this->ProjectDetails->get(
             $id,
             [
-                // 'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'Milestones', 'Milestones.Lov', 'Milestones.Triggers', 'Priorities', 'Prices', 'Prices.Currencies'],
                 'contain' => ['Vendors', 'Staff', 'Personnel', 'Sponsors', 'Lov', 'Users', 'Milestones', 'Milestones.Lov', 'Milestones.Triggers', 'Priorities', 'Prices'],
             ]
         );
@@ -119,7 +116,6 @@ class ProjectDetailsController extends AppController
             $fromnumber = strtotime($splitfrom[1] . '/' . $splitfrom[0] . '/' . $splitfrom[2]);
             $tonumber = strtotime($splitto[1] . '/' . $splitto[0] . '/' . $splitto[2]);
 
-
             $this->set(compact('fromnumber', 'tonumber'));
         }
 
@@ -138,17 +134,12 @@ class ProjectDetailsController extends AppController
         $projectfundings =  $this->ProjectFundings->find('all');
 
 
-        // debug($projectDetails);
-        // die();
-
         $this->set(compact('projectDetails', 'staff', 'milestone_list', 'activities', 'projectfundings', 'sponsors'));
     }
 
 
     public function consolidated()
     {
-
-        // $contact = new ContactForm();
 
         if ($this->request->is('post')) {
             $sdatefrom = $this->request->getData('from');
@@ -198,8 +189,6 @@ class ProjectDetailsController extends AppController
         $sponsors =  $this->Sponsors->find('all');
         $this->loadModel('Projects');
         $projects =  $this->Projects->find('all');
-        // debug($projectDetails);
-        // die();
 
         $this->set(compact('projectDetails', 'milestones', 'sponsors',  'projects'));
     }
@@ -244,11 +233,8 @@ class ProjectDetailsController extends AppController
         $this->loadModel('Tasks');
         $tasks =  $this->Tasks->find('all');
 
-        // $return = $this->redirect($this->referer());
 
-        // debug($sponsorName);
-        // die();
-
+      
 
         $this->set(compact('projectDetails', 'sponsors', 'amountDisbursed', 'milestones', 'activities', 'tasks', 'sponsorDetails'));
     }
@@ -259,8 +245,6 @@ class ProjectDetailsController extends AppController
     {
         $this->loadModel('Milestones');
         $this->loadModel('RiskIssues');
-
-        $milestone_list =  $this->Milestones->find('all');
 
         $projectDetails = $this->ProjectDetails->get(
             $id,
@@ -276,8 +260,6 @@ class ProjectDetailsController extends AppController
     public function partners($id = null)
     {
 
-
-        // $projectDetails = $this->ProjectDetails->find('all', ['contain' => ['Sponsors']]);
         $projectDetails = $this->ProjectDetails->get(
             $id,
             [
@@ -328,8 +310,7 @@ class ProjectDetailsController extends AppController
                 // return $this->redirect(['controller' => 'pims', 'action' => 'add', $id]);
             }
             $this->Flash->error(__('The project detail could not be saved. Please, try again.'));
-            // debug($projectDetail);
-            // die();
+
             //            return $this->redirect(['controller' => 'projects', 'action' => 'index']);
         }
         $projects = $this->ProjectDetails->Projects->find('list', ['limit' => 200]);
@@ -431,8 +412,6 @@ class ProjectDetailsController extends AppController
                 ]
             ]);
 
-            //             debug($projectDetail);
-            //             die();
             if ($this->ProjectDetails->save($projectDetail)) {
 
                 $this->Flash->success(__('The project detail has been saved.'));
@@ -606,11 +585,8 @@ class ProjectDetailsController extends AppController
             'contain' => [
                 'Projects',
                 'Projects.ProjectSponsors',
-                //                'Projects.ProjectSponsors.SponsorTypes',
                 'Projects.ProjectMdas',
-                //                'Projects.ProjectMdas.SponsorTypes',
                 'Projects.ProjectDonors',
-                //                'Projects.ProjectDonors.SponsorTypes',
             ]
         ]);
 

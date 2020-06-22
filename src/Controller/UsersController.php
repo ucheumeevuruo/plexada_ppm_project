@@ -26,10 +26,6 @@ class UsersController extends AppController
         ];
         $users = $this->paginate($this->Users);
 
-        // $users1 = $this->Users;
-
-        // sql($users1);
-        // die();
         $this->set(compact('users'));
     }
 
@@ -50,7 +46,6 @@ class UsersController extends AppController
         // die();
         $this->set('user', $user);
     }
-
     /**
      * Add method
      *
@@ -118,5 +113,4 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-
 }

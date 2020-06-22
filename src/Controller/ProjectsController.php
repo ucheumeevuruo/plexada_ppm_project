@@ -47,7 +47,6 @@ class ProjectsController extends AppController
                 'byProjectName' => $customFinderOptions
             ]
         ];
-        //        $this->loadModel('Projects');
         $projects = $this->paginate($this->Projects);
 
         $this->loadModel('Milestones');
@@ -58,9 +57,6 @@ class ProjectsController extends AppController
 
         $this->loadModel('Activities');
         $activities =  $this->Activities->find('all');
-
-
-
 
         $this->set(compact('projects', 'milestones', 'projectDetails', 'activities'));
     }
@@ -123,8 +119,6 @@ class ProjectsController extends AppController
             ]
         );
 
-        //        debug($project);
-
         $this->loadModel('Milestones');
         $closedCount =  $this->Milestones->find('all', ['conditions' => ['project_id' => $id, 'status_id' => 3]])->count();
         $allCount =  $this->Milestones->find('all', ['conditions' => ['project_id' => $id]])->count();
@@ -157,9 +151,6 @@ class ProjectsController extends AppController
             ->where(['Milestones.project_id' => $project_id]);
 
         $milestones = $this->paginate($milestones);
-
-        // debug($milestones);
-        // die();
 
         $this->set(compact('milestones', 'project_id'));
     }
@@ -210,8 +201,7 @@ class ProjectsController extends AppController
         );
         $this->loadModel('Milestones');
         $milestones = $this->Milestones->find('all')->where(['project_id' => $project_id]);
-        // debug($activities);
-        // die();
+
         $this->set(compact('activities', 'project_id', 'project', 'milestones'));
     }
 
@@ -236,8 +226,7 @@ class ProjectsController extends AppController
             ]
         );
 
-        // debug($project);
-        // die();
+
         $this->set('project', $project);
     }
 
@@ -249,8 +238,6 @@ class ProjectsController extends AppController
                 'contain' => ['Pads', 'Pims', 'Documents'],
             ]
         );
-        // debug($project);
-        // die();
 
         $this->set('project', $project);
     }
@@ -309,8 +296,6 @@ class ProjectsController extends AppController
         $milestone_id_ = $project_details->milestone_id;
         $activity_id_ = $project_details->activity_id;
 
-        // debug($activity_id_ , $project_id_ , $milestone_id_);
-        // die();
 
         $this->set(compact('activePlans', 'activity_id_', 'project_id_', 'milestone_id_'));
     }
@@ -336,8 +321,6 @@ class ProjectsController extends AppController
         ];
 
         $projects = $this->paginate($this->Projects);
-        // debug($projects);
-        // die();
 
         $this->loadModel('Milestones');
         $milestones =  $this->Milestones->find('all');
@@ -355,7 +338,6 @@ class ProjectsController extends AppController
         $customFinderOptions = [
             'id' => $q
         ];
-
 
         $this->paginate = [
             'contain' => [
@@ -375,8 +357,6 @@ class ProjectsController extends AppController
         $this->loadModel('ProjectDetails');
         $projectDetails =  $this->ProjectDetails->find('all');
 
-        // debug($projectDetails);
-        // die();
 
         $this->set(compact('projects', 'milestones', 'projectDetails'));
     }
@@ -420,13 +400,9 @@ class ProjectsController extends AppController
                 $colorCode = 'black';
             }
         }
-        // debug($allCount);
-        // die();
 
         $milestones = $this->Projects->Milestones->find()->contain(['Activities']);
 
-        // debug($project);
-        // die();
         $this->set(compact('project', 'milestones', 'milestone_list', 'projectDet', 'spons', 'colorCode'));
     }
 
@@ -482,7 +458,6 @@ class ProjectsController extends AppController
 
         $this->set(compact('project', 'pims', 'projectFundings', 'projectDetails', 'currencies'));
     }
-
 
 
     /**
@@ -571,7 +546,6 @@ class ProjectsController extends AppController
         } else {
             $this->Flash->error(__('The project could not be deleted. Please, try again.'));
         }
-
         // return $this->redirect(['action' => 'index']);
         return $this->redirect($this->referer());
     }
@@ -630,8 +604,7 @@ class ProjectsController extends AppController
         $num_mile = 1;
         $len = count($qrymilestone);
         $i  = 0;
-        // debug($len);
-        // die();
+
         foreach ($qrymilestone as $milestone) {
             if ($i == $len - 1) {
                 $milestone_id = $milestone['id'];
@@ -763,7 +736,6 @@ class ProjectsController extends AppController
                 $num_mile++;
             }
 
-
             $i++;
         }
         return $array_task_child;
@@ -845,7 +817,6 @@ class ProjectsController extends AppController
             ->contain(['Projects.ProjectDetails.Currencies'])
             ->where(['Milestones.project_id' => $id]);
 
-        // if (isset($milestones->cost)){
 
         foreach ($milestones as $milestone)
 
@@ -875,9 +846,6 @@ class ProjectsController extends AppController
                 $query = $query->where(['project_id' => $id, 'start_date >=' => $a, 'start_date <=' => $step_up]);
                 $query = $query->select(['cost' => $query->func()->SUM('cost')])->first();
                 $cummulative = $query['cost'] ? $query['cost'] : 0;
-                // echo $a;
-                // debug($projectDetails);
-                // die();
                 array_push($array_years, $st_date . "-" . $ab);
                 array_push($disburse_amt, $cummulative);
                 $start_year_obj->modify('+3 month');
@@ -888,9 +856,6 @@ class ProjectsController extends AppController
         }
 
         $this->set(compact('id', 'disbursed', 'amount_dis', 'milestone', 'milestones', 'projectDetails', 'array_years', 'disburse_amt'));
-        // }
-
-        // $this->set(compact('projectDetails','id','milestones'));
     }
 
 
@@ -929,7 +894,6 @@ class ProjectsController extends AppController
                 'byProjectName' => $customFinderOptions
             ]
         ];
-        //        $this->loadModel('Projects');
         $projects = $this->paginate($this->Projects);
 
         $this->loadModel('Milestones');
@@ -940,9 +904,6 @@ class ProjectsController extends AppController
 
         $this->loadModel('Activities');
         $activities =  $this->Activities->find('all');
-
-        // debug($projects);
-        // die();
 
         $this->set(compact('projects', 'milestones', 'projectDetails', 'activities'));
     }
@@ -969,7 +930,6 @@ class ProjectsController extends AppController
                 'byProjectName' => $customFinderOptions
             ]
         ];
-        //        $this->loadModel('Projects');
         $projects = $this->paginate($this->Projects);
 
         $this->loadModel('Milestones');
@@ -985,8 +945,6 @@ class ProjectsController extends AppController
         $approvals =  $this->Approvals->find('all');
 
         $todayDate = Date('m/d/Y');
-        // debug($todayDate);
-        // die();
 
         $this->set(compact('projects', 'milestones', 'projectDetails', 'activities', 'approvals', 'todayDate'));
     }
@@ -1014,7 +972,6 @@ class ProjectsController extends AppController
                 'byProjectName' => $customFinderOptions
             ]
         ];
-        //        $this->loadModel('Projects');
         $projects = $this->paginate($this->Projects);
 
         $this->loadModel('Milestones');
@@ -1037,21 +994,6 @@ class ProjectsController extends AppController
 
         $today = strtotime(date('m/d/y'));
 
-        // foreach ($projectDetails as $project) {
-        //     $projectDate = strtotime($project->start_dt);
-        //     if ($project->name != null) {
-        //         if ($today < $projectDate && ($projectDate - $today) < 432000) {
-        //             $email = new Email('default');
-        //             $email->from(['projects@plexada-si-apps.com' => 'Ogun state PPM'])
-        //                 ->to($user->email)
-        //                 ->bcc('kingsconsult001@gmail.com') // blind carbon (optional)
-        //                 ->subject('Less than 5 days')
-        //                 ->replyTo('kingsconsult001@gmail.com')
-        //                 ->send($project->name . ' ' . $project->start_dt);
-        //             echo $project->name;
-        //         }
-        //     }
-        // }
 
         $this->set(compact('projects', 'milestones', 'projectDetails', 'activities', 'agreements', 'approvals', 'today'));
     }

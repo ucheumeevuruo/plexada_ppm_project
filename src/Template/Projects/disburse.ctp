@@ -103,7 +103,6 @@ $this->Paginator->setTemplates([
                     <th scope="col">Cost</th>
                     <th scope="col">Date Disbursed</th>
                 </tr>
-
             </thead>
             <tbody>
                 <?php $num = 0; ?>
