@@ -52,6 +52,12 @@ class TasksController extends AppController
 
 
         $task = $this->Tasks->newEntity();
+        $name = $this->request->getData('Task_name');
+        $prevsrecord = $this->Tasks->find('all')->where(['Task_name'=>$name])->first();
+        if(isset($prevsrecord)){
+            $this->Flash->error(__('The activity could not be saved. Record already exists, try again.'));
+            return $this->redirect($this->referer());
+        }
         if ($this->request->is('post')) {
             // $task = $this->Tasks->patchEntity($task, $this->request->getData());
             $task = $this->Tasks->patchEntity($task, $this->Tasks->identify($this->request->getData()));

@@ -32,6 +32,7 @@
                 <?= $this->Form->control('name', ['autocomplete' => 'off', 'label' => ['class' => 'font-weight-bolder mandatory']]); ?>
                 <?= $this->Form->control('description', ['type' => 'textarea', 'label' => ['class' => 'font-weight-bolder']]); ?>
                 <?= $this->Form->hidden('status_id', ['value' => 1]); ?>
+                <?= $this->Form->control('completed_date', ['autocomplete' => 'off', 'onchange'=>"javascript:checkForDate();",'id' => 'end_date', 'type' => 'hidden', 'label' => false, 'id'=>'completed_date','append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>',]); ?>
             </div>
             <div class="col-md-6">
                 <?= $this->Form->hidden('trigger_id', ['options' => $triggers, 'empty' => true]); ?>

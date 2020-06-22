@@ -59,6 +59,12 @@ class MilestonesController extends AppController
             'contain' => ['ProjectDetails', 'Milestones'],
             'limit' => 200
         ]);
+        $name = $this->request->getData('name');
+        $prevsrecord = $this->Milestones->find('all')->where(['name'=>$name])->first();
+        if(isset($prevsrecord)){
+            $this->Flash->error(__('The milestone could not be saved. Record already exists, try again.'));
+            return $this->redirect($this->referer());
+        }
         $milestone = $this->Milestones->newEntity();
         if ($this->request->is('post')) {
             //  $milestone = $this->Milestones->patchEntity($milestone, $this->request->getData());
