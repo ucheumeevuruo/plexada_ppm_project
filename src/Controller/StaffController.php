@@ -16,6 +16,9 @@ use Cake\Mailer\Email;
  */
 class StaffController extends AppController
 {
+
+    use MailerAwareTrait;
+
     /**
      * Index method
      *
@@ -151,8 +154,36 @@ class StaffController extends AppController
     {
         if ($this->request->is('post')) {
             $redirect = $this->request->getQuery('redirect');
+
             $user = $this->Auth->identify();
+
+            $this->loadModel('ProjectDetails');
+            $projectDetails =  $this->ProjectDetails->find('all');
+            $today = strtotime(date('m/d/y'));
+            $today1 = date_create(date('m/d/Y'));
+
+
             if ($user) {
+                foreach ($projectDetails as $project) {
+                    $projectDate = strtotime($project->start_dt);
+
+                    if ($project->name != null) {
+                        if ($today < $projectDate && ($projectDate - $today) < 432000) {
+
+                            $dateDiff = date_diff($today1, date_create($project->start_dt));
+                            $convertDate = $dateDiff->format('%R%a day(s)');
+                            $msg = $project->name . ' will start less than ' . $convertDate;
+                            $email = new Email('default');
+                            $email->from(['projects@plexada-si-apps.com' => 'Ogun state PPM'])
+                                ->to($user['email'])
+                                ->bcc('kingsconsult001@gmail.com') // blind carbon (optional)
+                                ->subject($msg)
+                                ->replyTo('kingsconsult001@gmail.com')
+                                ->send($project->name . ' will start on ' . ($project->start_dt)->format('d/m/Y') . ', ' . $msg);
+                        }
+                    }
+                }
+            
                 $staff = $this->Staff->find('all')
                     ->contain(['Roles'])
                     ->where(['system_user_id' => $user['id']])
@@ -161,13 +192,15 @@ class StaffController extends AppController
                 if (isset($redirect))
                     return $this->redirect($this->Auth->redirectUrl($redirect));
                 else
-                    return $this->redirect($this->Auth->redirectUrl('/projects'));
+                    return $this->redirect($this->Auth->redirectUrl('/projects/preImplementation'));
             }
             $this->Flash->error(__('Login credentials failed, please try again'));
         }
 
+
         $this->set(compact('user'));
     }
+
 
     public function logout()
     {
