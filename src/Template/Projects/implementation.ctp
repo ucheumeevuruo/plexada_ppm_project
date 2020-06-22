@@ -54,6 +54,7 @@ $this->Paginator->setTemplates([
     </nav>
     <!-- .\end Menu Area -->
 
+    
     <div class="container-fluid ">
 
         <!-- Breadcrumb area -->

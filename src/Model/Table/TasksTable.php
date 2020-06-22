@@ -88,7 +88,6 @@ class TasksTable extends Table
         $validator
             ->scalar('pm_comment')
             ->maxLength('pm_comment', 300);
-            // ->notEmptyString('Description');
 
         // $validator
         //     ->scalar('Predecessor')

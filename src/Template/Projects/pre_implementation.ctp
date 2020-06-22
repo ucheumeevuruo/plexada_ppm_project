@@ -50,7 +50,6 @@ $this->Paginator->setTemplates([
             </form>
             <!-- ./end Search form -->
 
-
         </div>
     </nav>
     <!-- .\end Menu Area -->
@@ -61,7 +60,6 @@ $this->Paginator->setTemplates([
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active" aria-current="page">Projects</li>
-                <!-- <li class="float-right!" >Projects</li> -->
             </ol>
         </nav>
         <!-- ./end Breadcrumb -->

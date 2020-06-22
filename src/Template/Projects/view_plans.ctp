@@ -66,7 +66,6 @@ $this->end();
             <?php endforeach; ?>
         </tbody>
     </table>
-
 </div>
 
 <!-- overlayed element -->
