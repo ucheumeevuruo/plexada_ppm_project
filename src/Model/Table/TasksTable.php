@@ -85,6 +85,11 @@ class TasksTable extends Table
             // ->requirePresence('Description', 'create')
             ->notEmptyString('Description');
 
+        $validator
+            ->scalar('pm_comment')
+            ->maxLength('pm_comment', 300);
+            // ->notEmptyString('Description');
+
         // $validator
         //     ->scalar('Predecessor')
         //     ->maxLength('Predecessor', 255)

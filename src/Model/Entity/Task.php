@@ -32,6 +32,7 @@ class Task extends Entity
         'Description' => true,
         'Predecessor' => true,
         'Successor' => true,
+        'pm_comment' => true,
         'activity_id' => true,
         'end_date'=>true,
     ];

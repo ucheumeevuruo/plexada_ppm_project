@@ -92,18 +92,11 @@ $this->Paginator->setTemplates([
                     <ul class="navbar-nav">
                         <?= $this->Paginator->prev(__('<i class="fas fa-less-than fa-1x"></i>'), ['class' => 'test', 'escape' => false]) ?>
                         <?= $this->Paginator->next(__('<i class="fas fa-greater-than fa-1x"></i>'), ['escape' => false]) ?>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fas fa-th-large fa-1x"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fas fa-list fa-1x text-gray-300"></i></a>
-                        </li> -->
                     </ul>
                 </div>
             </div>
         </nav>
         <!-- .\end Menu Area -->
-
         <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($project->name) ?>
         </h2>
 
@@ -149,20 +142,6 @@ $this->Paginator->setTemplates([
                                                 <i class="fas fa-info-circle fa-1x text-gray-300"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                                <div class="dropdown-item text-gray-900">Status:
-                                                    <?= $activity->has('status') ? $activity->status->lov_value : 'Not Defined' ?>
-                                                </div>
-                                                <div class="dropdown-item text-gray-900">Start Date:
-                                                    <?= $activity->start_date ?></div>
-                                                <div class="dropdown-item text-gray-900">End Date: <?= $activity->end_date ?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto dropdown no-arrow border-left">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                <i class="fas fa-list-alt fa-1x text-gray-300"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                                 <div class="dropdown-item text-gray-900">Project Name:
                                                     <?= h($activity->project->name) ?>
                                                 </div>
@@ -174,7 +153,7 @@ $this->Paginator->setTemplates([
                                                     <?= h($activity->name) ?>
                                                 </div>
                                                 <div class="dropdown-item text-gray-900">Activity Status:
-                                                    <?= h($activity->status->lov_value) ?>
+                                                    <?= $activity->has('status') ? $activity->status->lov_value : 'Not Defined' ?>
                                                 </div>
                                                 <div class="dropdown-item text-gray-900">Assigned to:
                                                     <?= h($activity->staff->full_name) ?>
