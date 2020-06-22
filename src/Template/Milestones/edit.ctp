@@ -45,9 +45,6 @@ $this->end();
                 <?= $this->Form->hidden('status_id', ['value' => 1]); ?>
             </div>
             <div class="col-md-6">
-                <label class="control-label font-weight-bolder" for="status_id">Status</label>
-                <?= $this->Form->control('status_id', ['options' => $lov, 'label' => false]); ?>
-                <?= $this->Form->hidden('trigger_id', ['options' => $triggers, 'empty' => true]); ?>
 
                 <label class="control-label font-weight-bolder" for="amount">Amount</label>
                 <?= $this->Form->control('amount', ['autocomplete' => 'off', 'label' => false,'max'=> $sumDiff]); ?>
@@ -57,6 +54,13 @@ $this->end();
 
                 <label class="control-label font-weight-bolder" for="end_date">End Date</label>
                 <?= $this->Form->control('end_date', ['autocomplete' => 'off', 'onchange'=>"javascript:checkForDate();",'id' => 'end_date', 'type' => 'text', 'label' => false, 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>',]); ?>
+
+                <label class="control-label font-weight-bolder" for="status_id">Status</label>
+                <?= $this->Form->control('status_id', ['options' => $lov, 'label' => false]); ?>
+                <?= $this->Form->hidden('trigger_id', ['options' => $triggers, 'empty' => true]); ?>
+
+                <label class="control-label font-weight-bolder" for="end_date">Completed Date</label>
+                <?= $this->Form->control('completed_date', ['autocomplete' => 'off', 'onchange'=>"javascript:checkForDate();",'id' => 'end_date', 'type' => 'text', 'label' => false, 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>',]); ?>
             </div>
         </div>
     </fieldset>
@@ -67,7 +71,7 @@ $this->end();
 
 <script>
 $(function() {
-    $('#start_date, #end_date').datepicker({
+    $('#start_date, #end_date, #completed_date').datepicker({
         inline: true,
         "format": "dd/mm/yyyy",
         startDate: "<?php echo $start_date ?>",

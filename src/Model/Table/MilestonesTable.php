@@ -113,9 +113,9 @@ class MilestonesTable extends Table
             ->maxLength('achievement', 100)
             ->allowEmptyString('achievement');
 
-        $validator
-            ->date('completed_date')
-            ->allowEmptyDate('completed_date');
+        // $validator
+        //     ->date('completed_date')
+        //     ->allowEmptyDate('completed_date');
 
         $validator
             ->date('expected_completion_date')
@@ -138,6 +138,8 @@ class MilestonesTable extends Table
             DateTime::createFromFormat('d/m/Y', $formData['start_date'])->format('Y-m-d') : $formData['start_date'];
         $formData['end_date'] = !empty($formData['end_date']) ?
             DateTime::createFromFormat('d/m/Y', $formData['end_date'])->format('Y-m-d') : $formData['end_date'];
+        $formData['completed_date'] = !empty($formData['completed_date']) ?
+            DateTime::createFromFormat('d/m/Y', $formData['completed_date'])->format('Y-m-d') : $formData['completed_date'];
 
         return $formData;
     }

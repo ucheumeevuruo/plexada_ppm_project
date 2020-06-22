@@ -118,18 +118,13 @@ $this->end();
                                     if ($result == 0) {
                                         $result = 1;
                                     };
-                                    $result2 = ($expectedprojectdays * 100) / $result;
+                                    $result2 = ($expectedprojectdays) / $result;
                                     $expectdays =  round(number_format($result2, 2), 2);
-                                    // echo $expectdays;
-                                    // End of epected
-
-                                    // echo $freshdate = $a['completed_date'];
 
                                     $milestones = "";
                                     $milestones = $milestone_list->find('all');
                                     $milestones = $milestone_list->find('all', ['conditions' => ['project_id' => $project->project_id, 'status_id' => '3']]);
-                                    // $milestones = $milestone_list->find('all')->where(['project_id =' => $project->id]);
-                                    // sql($milestones);
+                                    $allmcount = $milestones->count();
                                     $prjid = $project->project_id;
                                     $conn = ConnectionManager::get('default');
                                     $qrycount = $conn->execute("SELECT count(*) as recount FROM milestones where project_id ='" . $prjid . "' ");
@@ -148,17 +143,24 @@ $this->end();
                                     } else {
                                         $completeddays = 0;
                                     }
+                                    $ptocomplete = "";
                                     if ($expectdays > 0) {
                                         $ptocomplete = 1 - round(number_format(($completeddays / $expectdays), 2), 2);
                                     } else {
                                         $ptocomplete = 1;
                                     }
+                                    if (date('Y-m-d H:i:s') < $project->start_dt->format("Y-m-d H:i:s")){
+                                        // echo(date('Y-m-d H:i:s'). "&&&&" .$project->start_dt->format("Y-m-d H:i:s"));
+                                        $ptocomplete = 2;
+                                        $completeddays = 0;
+                                    }
 
                                     $achievement = "";
+                                    // echo($ptocomplete);
                                     if ($ptocomplete == 0) {
                                         $color = "bg-success";
                                         $title = "This Project is on Schedule.";
-                                        $achievement = "Total of 37 projects now completed and verified";
+                                        $achievement = "Total of $results[0] indicators now completed and verified";
                                         $key = "Non";
                                     } else if ($ptocomplete > 0 && $ptocomplete <= 0.3) {
                                         $myPercent = ($ptocomplete * 100);
@@ -183,6 +185,13 @@ $this->end();
                                         $title = "This Project is $myPercent% behind schedule. To get back on track open the project page and increase tasks completion.";
                                         $achievement = "Ongoing review of submitted Pre-qualification bids from contractors for LOT1,2&3by PIU";
                                         $key = "Project vehicle is required to aid logistics";
+                                    } else if ($ptocomplete == 2) {
+                                        $myPercent = 100;
+                                        $color = "bg-light";
+                                        $title = "This Project is yet to kick-off.";
+                                        $achievement = "Project is Yet to Kick-off";
+                                        $key = "Project is Yet to Kick-off";
+                                        
                                     }
                                     ?>
 
@@ -190,9 +199,13 @@ $this->end();
                                         <td><a href="#" class="text-decoration-none"><?= $project->name ?></a></td>
                                         <!-- <td><?= $ptocomplete ?></td> -->
                                         <td>
-                                            <div class="progress " style="width:80px;">
+                                            <div class="progress border border-dark" style="width:80px;">
                                                 <div class="progress-bar <?= $color ?> progress-bar-striped active" title="<?= $title ?>" data-toggle="tooltip" data-placement="right" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
+                                            <!-- <?= $project->start_dt->format("Y-m-d H:i:s") ; ?> -->
+                                            <!-- <?= $result ; ?>
+                                            <?= $lastcloseddatediff ; ?>
+                                            <?= $result3 ; ?> -->
                                         </td>
                                         <td><?php echo $this->Form->button('<i class="fa fa-exclamation-triangle"></i>', array(
                                                 'type' => 'button',

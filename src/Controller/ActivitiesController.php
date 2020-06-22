@@ -86,6 +86,12 @@ class ActivitiesController extends AppController
         $project = $this->Activities->Projects->get($project_id, [
             'contain' => ['ProjectDetails', 'ProjectDetails.Currencies', 'Activities']
         ]);
+        $name = $this->request->getData('name');
+        $prevsrecord = $this->Activities->find('all')->where(['name'=>$name])->first();
+        if(isset($prevsrecord)){
+            $this->Flash->error(__('The activity could not be saved. Record already exists, try again.'));
+            return $this->redirect($this->referer());
+        }
         $activity = $this->Activities->newEntity();
         if ($this->request->is('post')) {
             $activity = $this->Activities->patchEntity($activity, $this->Activities->identify($this->request->getData()));
