@@ -196,8 +196,22 @@ class ProjectDetailsController extends AppController
                 'contain' => ['Currencies'],
             ]
         );
+        $projectId = $projectDetails->project_id;
+        $projects = $this->ProjectDetails->Projects->get(
+            $projectId,
+            [
+                'contain' => [
+                    'ProjectSponsors',
+                    'ProjectSponsors.Sponsors',
+                ],
+            ]
+        );
+
+        $sponsorDetails = $projects->project_sponsor->sponsor;
+
+        
         $this->loadModel('Sponsors');
-        $sponsors =  $this->Sponsors->find('all')->where(['id' => $projectDetails->sponsor_id])->first();
+        $sponsors =  $this->Sponsors->find('all')->where(['id' => $projectDetails->sponsor_id]);
 
         $this->loadModel('Disbursements');
         $disbursed =  $this->Disbursements->find('all')->where(['project_id' => $projectDetails->project_id]);
@@ -216,11 +230,11 @@ class ProjectDetailsController extends AppController
 
         // $return = $this->redirect($this->referer());
 
-        // debug($tasks);
+        // debug($sponsorName);
         // die();
 
 
-        $this->set(compact('projectDetails', 'sponsors', 'amountDisbursed', 'milestones', 'activities', 'tasks'));
+        $this->set(compact('projectDetails', 'sponsors', 'amountDisbursed', 'milestones', 'activities', 'tasks', 'sponsorDetails'));
     }
 
 

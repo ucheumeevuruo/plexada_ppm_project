@@ -986,8 +986,7 @@ class ProjectsController extends AppController
         $approvals =  $this->Approvals->find('all');
 
         $todayDate = Date('m/d/Y');
-
-        // debug($projects);
+        // debug($todayDate);
         // die();
 
         $this->set(compact('projects', 'milestones', 'projectDetails', 'activities', 'approvals', 'todayDate'));
