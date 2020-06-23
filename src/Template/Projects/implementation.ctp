@@ -54,7 +54,7 @@ $this->Paginator->setTemplates([
     </nav>
     <!-- .\end Menu Area -->
 
-    
+
     <div class="container-fluid ">
 
         <!-- Breadcrumb area -->
@@ -171,10 +171,10 @@ $this->Paginator->setTemplates([
                                                             <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
                                                                 <div class="row">
                                                                     <div class="col-auto">
-                                                                        <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'), ['controller' => 'milestones', 'action' => 'add', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Indicator']) ?>
+                                                                        <?= $this->Html->link(__('<i class="fas fa-plus-square fa-1x text-gray-300"></i>'), ['controller' => 'milestones', 'action' => 'add', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Indicator']) ?>
                                                                     </div>
                                                                     <div class="col-auto">
-                                                                        <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'), ['controller' => 'activities', 'action' => 'add', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Activity']) ?>
+                                                                        <?= $this->Html->link(__('<i class="fas fa-plus-circle fa-1x text-gray-300"></i>'), ['controller' => 'activities', 'action' => 'add', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Activity']) ?>
                                                                     </div>
                                                                 </div>
                                                             </div>
