@@ -55,7 +55,6 @@ $this->end();
 
 
     <!-- Menu area [Search, pagination] -->
-
     <!-- I was supposed to put this section in the element template but will do that soon. -->
     <nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
         <a class="navbar-brand" href="#">Summary</a>

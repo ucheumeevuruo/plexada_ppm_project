@@ -54,7 +54,7 @@ $this->Paginator->setTemplates([
     </nav>
     <!-- .\end Menu Area -->
 
-    
+
     <div class="container-fluid ">
 
         <!-- Breadcrumb area -->
@@ -171,11 +171,44 @@ $this->Paginator->setTemplates([
                                                             <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
                                                                 <div class="row">
                                                                     <div class="col-auto">
-                                                                        <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'), ['controller' => 'milestones', 'action' => 'add', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Indicator']) ?>
+                                                                        <?= $this->Html->link(__('<i class="fas fa-plus-square fa-1x text-gray-300" style="color: purple !important"></i>'), ['controller' => 'milestones', 'action' => 'add', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Indicator']) ?>
                                                                     </div>
+
+                                                                    <div class="col-auto dropdown no-arrow border-left">
+                                                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title="List of Indicators">
+                                                                            <i class="fas fa-info-circle fa-1x text-gray-300" style="color: purple !important"></i>
+                                                                        </a>
+                                                                        <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                                                            <?php $indiNum = 1; ?>
+                                                                            <?php foreach ($milestones as $mile) : ?>
+                                                                                <?php if ($mile->project_id == $project->id) : ?>
+                                                                                    <div class="dropdown-item text-gray-900">
+                                                                                        <?= h($indiNum++) ?>. <?= h($mile->name) ?>
+                                                                                    </div>
+                                                                                <?php endif; ?>
+                                                                            <?php endforeach; ?>
+                                                                        </div>
+                                                                    </div>
+
                                                                     <div class="col-auto">
-                                                                        <?= $this->Html->link(__('<i class="fas fa-plus fa-1x text-gray-300"></i>'), ['controller' => 'activities', 'action' => 'add', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Activity']) ?>
+                                                                        <?= $this->Html->link(__('<i class="fas fa-plus-circle fa-1x text-gray-300" style="color: #36B9CC !important"></i>'), ['controller' => 'activities', 'action' => 'add', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Activity']) ?>
                                                                     </div>
+                                                                    <div class="col-auto dropdown no-arrow border-left">
+                                                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title="List of Activities">
+                                                                            <i class="fas fa-info-circle fa-1x text-gray-300" style="color: #36B9CC !important"></i>
+                                                                        </a>
+                                                                        <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                                                            <?php $actNum = 1; ?>
+                                                                            <?php foreach ($activities as $act) : ?>
+                                                                                <?php if ($act->project_id == $project->id) : ?>
+                                                                                    <div class="dropdown-item text-gray-900">
+                                                                                        <?= h($actNum++) ?>. <?= h($act->name) ?>
+                                                                                    </div>
+                                                                                <?php endif; ?>
+                                                                            <?php endforeach; ?>
+                                                                        </div>
+                                                                    </div>
+
                                                                 </div>
                                                             </div>
                                                                 </div>
