@@ -162,16 +162,7 @@ $this->end();
                     </div>
                 </div>
             </div>
-            <!-- <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-                <div class="row">
-                    <div class="col-auto">
-                        <i class="fas fa-clock fa-1x text-gray-300"></i>
-                    </div>
-                    <div class="col border-left ">
-                        <i class="fas fa-book fa-1x text-gray-300"></i>
-                    </div>
-                </div>
-            </div> -->
+
         </div>
     </div>
     <div class="col-xl-3 col-md-6 mb-4">
