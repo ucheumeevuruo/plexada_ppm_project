@@ -159,31 +159,57 @@ class StaffController extends AppController
 
             $this->loadModel('ProjectDetails');
             $projectDetails =  $this->ProjectDetails->find('all');
+
+            $this->loadModel('Tasks');
+            $tasks =  $this->Tasks->find('all');
+
             $today = strtotime(date('m/d/y'));
             $today1 = date_create(date('m/d/Y'));
 
 
+
             if ($user) {
+                // sending email to project less than 5 days to start
                 foreach ($projectDetails as $project) {
                     $projectDate = strtotime($project->start_dt);
 
                     if ($project->name != null) {
                         if ($today < $projectDate && ($projectDate - $today) < 432000) {
-
                             $dateDiff = date_diff($today1, date_create($project->start_dt));
                             $convertDate = $dateDiff->format('%R%a day(s)');
                             $msg = $project->name . ' will start less than ' . $convertDate;
                             $email = new Email('default');
                             $email->from(['projects@plexada-si-apps.com' => 'Ogun state PPM'])
                                 ->to($user['email'])
-                                ->bcc('kingsconsult001@gmail.com') // blind carbon (optional)
+                                // ->bcc('kingsconsult001@gmail.com') // blind carbon (optional)
                                 ->subject($msg)
                                 ->replyTo('kingsconsult001@gmail.com')
                                 ->send($project->name . ' will start on ' . ($project->start_dt)->format('d/m/Y') . ', ' . $msg);
                         }
                     }
                 }
-            
+                // sending email to task that is overdue
+                foreach ($tasks as $task) {
+                    $taskDate = Strtotime($task->Start_date);
+                    $status = '';
+                    if ($task->status_id == 3) {
+                        $status = 'Close';
+                    } else {
+                        $status = 'Open';
+                    }
+                    if ($taskDate < $today && $task->status_id == 1) {
+                        $msg = 'Task name: '. $task->Task_name . ', ' .'Task date: '. $task->Start_date . ', '.'Task Status: '. $status. "\xA";
+                        $msg1 = 'Task is due, status is uncompleted';
+                        $email = new Email('default');
+                        $email->from(['projects@plexada-si-apps.com' => 'Ogun state PPM'])
+                            ->to($user['email'])
+                            // ->bcc('kingsconsult001@gmail.com') // blind carbon (optional)
+                            ->subject($task->Task_name . ' is overdue')
+                            ->replyTo('kingsconsult001@gmail.com')
+                            ->send($msg . $msg1);
+                    }
+                }
+
                 $staff = $this->Staff->find('all')
                     ->contain(['Roles'])
                     ->where(['system_user_id' => $user['id']])

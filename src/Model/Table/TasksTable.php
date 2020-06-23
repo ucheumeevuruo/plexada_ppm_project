@@ -41,6 +41,10 @@ class TasksTable extends Table
             'foreignKey' => 'activity_id',
             ]
         );
+        $this->belongsTo('Lov', [
+            'foreignKey' => 'status_id',
+            'conditions' => ['Lov.lov_type' => 'project_status']
+        ]);
         // $this->setDisplayField('description');
         // $this->setPrimaryKey('id'); I commented this out as this is not the primary key the table is using
 
@@ -82,7 +86,6 @@ class TasksTable extends Table
         $validator
             ->scalar('Description')
             ->maxLength('Description', 255)
-            // ->requirePresence('Description', 'create')
             ->notEmptyString('Description');
 
         $validator

@@ -52,16 +52,15 @@ class MilestonesController extends AppController
     public function add($project_id = null)
     {
 
-//        $project_id = $this->request->getData('project_id');
-
+        //        $project_id = $this->request->getData('project_id');
 
         $project = $this->Milestones->Projects->get($project_id, [
             'contain' => ['ProjectDetails', 'Milestones'],
             'limit' => 200
         ]);
         $name = $this->request->getData('name');
-        $prevsrecord = $this->Milestones->find('all')->where(['name'=>$name])->first();
-        if(isset($prevsrecord)){
+        $prevsrecord = $this->Milestones->find('all')->where(['name' => $name])->first();
+        if (isset($prevsrecord)) {
             $this->Flash->error(__('The milestone could not be saved. Record already exists, try again.'));
             return $this->redirect($this->referer());
         }
@@ -77,9 +76,8 @@ class MilestonesController extends AppController
             //            return $this->redirect($this->referer());
         }
 
-        $projects = $this->Milestones->Projects->find('list', ['limit' => 200]);
 
-//        $indicator = $this->Milestones->find('all')->where(['project_id' => $id]);
+        $projects = $this->Milestones->Projects->find('list', ['limit' => 200]);
 
         $indicatorTotal = 0;
         foreach ($project->milestones as $miles) {
@@ -87,11 +85,10 @@ class MilestonesController extends AppController
         }
         $sumDiff = $project->project_detail->budget - $indicatorTotal;
 
-
         $status = $this->Milestones->Statuses->find('list', ['limit' => 200])->where(['lov_type' => 'project_status']);
         $triggers = [];
 
-        $this->set(compact('milestone', 'projects', 'project', 'project_id', 'status', 'triggers', 'sumDiff' ));
+        $this->set(compact('milestone', 'projects', 'project', 'project_id', 'status', 'triggers', 'sumDiff'));
     }
 
     /**
@@ -103,7 +100,6 @@ class MilestonesController extends AppController
      */
     public function edit($id = null)
     {
-        // $milestone = $this->Milestones->find('all',['conditions'=>['project_id'=>$id]]);
 
         $milestone = $this->Milestones->get($id, [
             'contain' => [],
@@ -141,7 +137,7 @@ class MilestonesController extends AppController
 
         $lov = $this->Milestones->Lov->find('list', ['limit' => 200]);
         $triggers = $this->Milestones->Triggers->find('list', ['limit' => 200]);
-        $this->set(compact('milestone', 'projects', 'lov', 'triggers','budget','start_date','end_date','sumDiff'));
+        $this->set(compact('milestone', 'projects', 'lov', 'triggers', 'budget', 'start_date', 'end_date', 'sumDiff'));
     }
 
     /**
@@ -165,18 +161,19 @@ class MilestonesController extends AppController
         return $this->redirect($this->referer());
     }
 
-    public function method() {
+    public function method()
+    {
         // Run only if this is an AJAX request and we are POSTing data
         if ($this->request->is('ajax') && !empty($this->request->data)) {
-          $value_to_save = $this->request->data['the_value'];
-      
-          if ($value_to_save == 1) {
-            $this->Controller->save('yes');
-          } else {
-            $this->Controller->save('no');
-          }
+            $value_to_save = $this->request->data['the_value'];
+
+            if ($value_to_save == 1) {
+                $this->Controller->save('yes');
+            } else {
+                $this->Controller->save('no');
+            }
         } else {
-          throw new \MethodNotAllowedException('This method is not allowed');
+            throw new \MethodNotAllowedException('This method is not allowed');
         }
-      }
+    }
 }
