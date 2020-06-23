@@ -20,11 +20,13 @@ $this->end();
 </style>
 
 <div class="container-fluid  mt-4">
+
     <!-- Breadcrumb area -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <?= $this->Html->link(__('Projects'), ['action' => 'preImplementation']) ?>
+                <?= $this->Html->link(__('Projects'), ['action' => 'implementation']) ?>
+            </li>
             <li class="breadcrumb-item active" aria-current="page">Summary</li>
         </ol>
     </nav>
@@ -53,17 +55,17 @@ $this->end();
     </ul>
     <!-- ./end Navigation area -->
 
-
     <!-- Menu area [Search, pagination] -->
-
     <!-- I was supposed to put this section in the element template but will do that soon. -->
     <nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
         <a class="navbar-brand" href="#">Summary</a>
     </nav>
+
     <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($project->name) ?>
     </h2>
 </div>
 <div class="row m-3">
+
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card  shadow h-100 py-0 border border-left-<?= $colorCode ?> rounded-lg">
             <div class="card-body py-2 px-2">
@@ -75,6 +77,7 @@ $this->end();
                         <div class="h6 mb-0 text-gray-800"><?= h($project->name) ?></div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -155,10 +158,20 @@ $this->end();
                         <div class="h6 mb-1 text-gray-800">Expenses :
                             <?= $this->Number->format($project->project_detail->expenses, ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']) ?>
                         </div>
+
                     </div>
                 </div>
             </div>
-
+            <!-- <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
+                <div class="row">
+                    <div class="col-auto">
+                        <i class="fas fa-clock fa-1x text-gray-300"></i>
+                    </div>
+                    <div class="col border-left ">
+                        <i class="fas fa-book fa-1x text-gray-300"></i>
+                    </div>
+                </div>
+            </div> -->
         </div>
     </div>
     <div class="col-xl-3 col-md-6 mb-4">
@@ -200,6 +213,7 @@ $this->end();
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -219,6 +233,7 @@ $this->end();
                 </div>
             </div>
         </div>
+
     </div>
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card  shadow h-100 py-0">
@@ -234,7 +249,9 @@ $this->end();
                             <?= h($project->project_detail->end_dt) ?></div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
+
 </div>

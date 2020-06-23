@@ -119,7 +119,7 @@ $this->Paginator->setTemplates([
 
                                                             <div class="card-body py-2 px-2">
                                                                 <div class="row no-gutters align-items-center">
-                                                                    <div class="col mr-2" id="clickable-card" data-attr="<?= $this->Url->build(['action' => 'report', $project->id]) ?>">
+                                                                    <div class="col mr-2" id="clickable-card" data-attr="<?= $this->Url->build(['action' => 'reportImplementation', $project->id]) ?>">
                                                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                                             <?= $project->name ?>
                                                                         </div>
