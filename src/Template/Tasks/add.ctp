@@ -33,7 +33,7 @@ $this->end();
                 <select name="Predecessor" class="form-control" id="predecessor">
                     <option value=""></option>
                     <?php foreach ($oldTasks as $tasklist) : ?>
-                    <option value="<?php echo $tasklist ?>"><?php echo $tasklist ?></option>
+                        <option value="<?php echo $tasklist ?>"><?php echo $tasklist ?></option>
                     <?php endforeach ?>
                 </select>
 
@@ -44,13 +44,14 @@ $this->end();
                 <label class="control-label font-weight-bolder mandatory" for="Start_date">Start
                     Date</label>
                 <?= $this->Form->control('Start_date', [
-                    'empty' => true, 'class' => 'addon-right', 'label' => false, 'id' => 'Start_date', 'type' => 'text','onblur'=>"javascript:checkDate();", 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off','required'
+                    'empty' => true, 'class' => 'addon-right', 'label' => false, 'id' => 'Start_date', 'type' => 'text', 'onblur' => "javascript:checkDate();", 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off', 'required'
                 ]) ?>
 
                 <label class="control-label font-weight-bolder mandatory" for="end_date">End Date</label>
                 <?= $this->Form->control('end_date', [
-                    'empty' => true, 'class' => 'addon-right', 'label' => false, 'id' => 'end_date', 'type' => 'text','onblur'=>"javascript:checkDate();", 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off','required'
+                    'empty' => true, 'class' => 'addon-right', 'label' => false, 'id' => 'end_date', 'type' => 'text', 'onblur' => "javascript:checkDate();", 'append' => '<i class="fa fa-calendar-alt fa-lg btn btn-outline-dark btn-md addon-right border-0"></i>', 'autocomplete' => 'off', 'required'
                 ]) ?>
+                <?php echo $this->Form->control('status_id', ['options' => $status, 'label' => false]); ?>
 
             </div>
         </div>
@@ -60,13 +61,13 @@ $this->end();
 </div>
 
 <script>
-$(function() {
-    $('#end_date, #Start_date').datepicker({
-        inline: true,
-        "format": "dd/mm/yyyy",
-         startDate: "<?php echo $start_date ?>",
-         endDate: "<?php echo $end_date ?>",
-        "keyboardNavigation": false
+    $(function() {
+        $('#end_date, #Start_date').datepicker({
+            inline: true,
+            "format": "dd/mm/yyyy",
+            startDate: "<?php echo $start_date ?>",
+            endDate: "<?php echo $end_date ?>",
+            "keyboardNavigation": false
+        });
     });
-});
 </script>

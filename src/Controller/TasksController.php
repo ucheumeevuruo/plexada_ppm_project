@@ -25,6 +25,7 @@ class TasksController extends AppController
         $this->set(compact('tasks'));
     }
 
+
     /**
      * View method
      *
@@ -48,44 +49,52 @@ class TasksController extends AppController
      */
     public function add($id = null)
     {
-//        $project_info = $this->Projects->get($id);
+        //        $project_info = $this->Projects->get($id);
 
 
         $task = $this->Tasks->newEntity();
         $name = $this->request->getData('Task_name');
-        $prevsrecord = $this->Tasks->find('all')->where(['Task_name'=>$name])->first();
-        if(isset($prevsrecord)){
+        $prevsrecord = $this->Tasks->find('all')->where(['Task_name' => $name])->first();
+        if (isset($prevsrecord)) {
             $this->Flash->error(__('The activity could not be saved. Record already exists, try again.'));
             return $this->redirect($this->referer());
         }
         if ($this->request->is('post')) {
             // $task = $this->Tasks->patchEntity($task, $this->request->getData());
             $task = $this->Tasks->patchEntity($task, $this->Tasks->identify($this->request->getData()));
-//             debug($task);
-//             die();
+            //             debug($task);
+            //             die();
             if ($this->Tasks->save($task)) {
                 $this->Flash->success(__('The task has been saved.'));
 
                 // return $this->redirect(['action' => 'index']);
                 return $this->redirect($this->referer());
-
             }
             $this->Flash->error(__('The task could not be saved. Please, try again.'));
-            
+
 
             return $this->redirect($this->referer());
         }
         $activities = $this->Tasks->Activities->find('list', ['limit' => 200]);
 
-        $oldTasks = $this->Tasks->find('list')->where(['activity_id'=>$id]);
-        $activity = $this->Tasks->Activities->find('all')->where(['activity_id'=>$id])->first();
+        $oldTasks = $this->Tasks->find('list')->where(['activity_id' => $id]);
+        $activity = $this->Tasks->Activities->find('all')->where(['activity_id' => $id])->first();
         $start_date = ($activity->start_date)->format("d-m-Y");
         $end_date = ($activity->end_date)->format("d-m-Y");
+
+        $this->loadModel('Lov');
+        $status = $this->Lov->find(
+            'list',
+            [
+                'conditions' => ['lov_type' => 'project_status'],
+                'limit' => 200
+            ]
+        );
 
         // debug($end_date);
         // die();
 
-        $this->set(compact('task','activities', 'id','oldTasks','start_date','end_date'));
+        $this->set(compact('task', 'activities', 'id', 'oldTasks', 'start_date', 'end_date', 'status'));
     }
 
     /**
@@ -110,11 +119,20 @@ class TasksController extends AppController
             $this->Flash->error(__('The task could not be saved. Please, try again.'));
         }
 
-        $activity = $this->Tasks->Activities->find('all')->where(['activity_id'=>$task['activity_id']])->first();
+        $activity = $this->Tasks->Activities->find('all')->where(['activity_id' => $task['activity_id']])->first();
         $start_date = ($activity->start_date)->format("d-m-Y");
         $end_date = ($activity->end_date)->format("d-m-Y");
 
-        $this->set(compact('task','start_date','end_date'));
+        $this->loadModel('Lov');
+        $status = $this->Lov->find(
+            'list',
+            [
+                'conditions' => ['lov_type' => 'project_status'],
+                'limit' => 200
+            ]
+        );
+
+        $this->set(compact('task', 'start_date', 'end_date', 'status'));
     }
 
     public function pmComment($id = null)
@@ -132,14 +150,12 @@ class TasksController extends AppController
             $this->Flash->error(__('The Commnet could not be saved. Please, try again.'));
         }
 
-        $activity = $this->Tasks->Activities->find('all')->where(['activity_id'=>$task['activity_id']])->first();
+        $activity = $this->Tasks->Activities->find('all')->where(['activity_id' => $task['activity_id']])->first();
         $start_date = ($activity->start_date)->format("d-m-Y");
         $end_date = ($activity->end_date)->format("d-m-Y");
 
-        $this->set(compact('task','start_date','end_date'));
+        $this->set(compact('task', 'start_date', 'end_date'));
     }
-
-
     /**
      * Delete method
      *

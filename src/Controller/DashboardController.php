@@ -254,6 +254,7 @@ class DashboardController extends AppController
         $project_list2 = $this->ProjectDetails->find('all', ['conditions' => ['name <>' => 'Null' ]]);
 
         $project_list = $this->ProjectDetails->find('all', ['conditions' => ['name <>' => 'Null' ]]);
+        // debug($project_list);
         // sql($project_list);
         // die();
 

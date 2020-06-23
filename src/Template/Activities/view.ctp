@@ -42,7 +42,6 @@ $this->end();
                 <tr>
                     <th scope="row"><?= __('Status') ?></th>
                     <td><?= $activity->has('status') ?  h($activity->status->lov_value) : '' ?>
-                        <!-- <td><?= $activity->has('status') ? $this->Html->link($activity->status->lov_value, ['controller' => 'Lov', 'action' => 'view', $activity->status->id]) : '' ?> -->
                 </tr>
                 <tr>
                     <th scope="row"><?= __('Start Date') ?></th>
@@ -66,6 +65,7 @@ $this->end();
                         <th class="align-middle" scope="col"><?= __('Start Date') ?></th>
                         <th class="align-middle" scope="col"><?= __('End Date') ?></th>
                         <th class="align-middle" scope="col"><?= __('Description') ?></th>
+                        <th class="align-middle" scope="col"><?= __('Status') ?></th>
                         <th class="align-middle" scope="col"><?= __('PM Comment') ?></th>
                         <th class="align-middle" scope="col"><?= __('Predecessor') ?></th>
                         <th class="align-middle" scope="col"><?= __('Successor') ?></th>
@@ -79,6 +79,11 @@ $this->end();
                             <td><?= h($task->Start_date) ?></td>
                             <td><?= h($task->end_date) ?></td>
                             <td><?= h($task->Description) ?></td>
+                            <?php if ($task->status_id == 3) { ?>
+                                <td><?= h('Close') ?></td>
+                            <?php } else { ?>
+                                <td><?= h('Open') ?></td>
+                            <?php } ?>
                             <td><?= h($task->pm_comment) ?></td>
                             <td><?= h($task->Predecessor) ?></td>
                             <td><?= h($task->Successor) ?></td>
@@ -106,7 +111,6 @@ $this->end();
         <?= $this->Modal->end() ?>
     </div>
 </div>
-
 
 <script>
     $(document).ready(function() {

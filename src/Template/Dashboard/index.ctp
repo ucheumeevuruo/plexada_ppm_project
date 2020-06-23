@@ -243,7 +243,6 @@ $this->end();
                                 </div> -->
 
                     </div>
-
                 </div>
             </div>
         </div>
@@ -389,7 +388,7 @@ $this->end();
             <div class="card shadow mb-5">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header d-flex flex-row align-items-center justify-content-between bg-primary">
-                    <h4 class="m-0 text-white">Milestones</h4>
+                    <h4 class="m-0 text-white">Indicators</h4>
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
