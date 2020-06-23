@@ -233,8 +233,8 @@ class ProjectDetailsController extends AppController
         $this->loadModel('Tasks');
         $tasks =  $this->Tasks->find('all');
 
+    
 
-      
 
         $this->set(compact('projectDetails', 'sponsors', 'amountDisbursed', 'milestones', 'activities', 'tasks', 'sponsorDetails'));
     }

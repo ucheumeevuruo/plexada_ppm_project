@@ -21,6 +21,7 @@ $this->end();
 
                 <label class="control-label font-weight-bolder mandatory" for="Description">Description</label>
                 <?= $this->Form->control('Description', ['type' => 'textarea', 'label' => false]) ?>
+                <?php echo $this->Form->control('status_id', ['options' => $status, 'label' => false]); ?>
 
             </div>
             <div class="col">

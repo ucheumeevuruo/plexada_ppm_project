@@ -23,7 +23,7 @@
         </P>
         <P class="mb-0 font-weight-bold" style="margin-left: 100px;">DONOR: &nbsp;
             <strong><?= h($sponsorDetails->first_name . ' ' . $sponsorDetails->last_name) ?>
-             </strong>
+            </strong>
         </P>
         <P class="mb-0 font-weight-bold" style="margin-left: 100px;">FUNDING TYPE:
             <strong><?= h($projectDetails->funding_type) ?></strong></P>
@@ -32,10 +32,8 @@
             <strong><?= $this->NumberFormat->format($projectDetails->budget, ['before' => $projectDetails->has('currency') ? $projectDetails->currency->symbol : '']) ?></strong></P>
         <P class="mb-0 font-weight-bold" style="margin-left: 100px;">DISBURSEMENT TO DATE:
             <strong><?= $this->NumberFormat->format($amountDisbursed, ['before' => $projectDetails->has('currency') ? $projectDetails->currency->symbol : '']) ?> </strong>
-
         </P>
-        <!-- <P class="mb-0 font-weight-bold" style="margin-left: 100px;">COUNTERPART FUND REQUIRED: &nbsp;
-            <strong></strong></P> -->
+
         <P class="mb-0 font-weight-bold" style="margin-left: 100px;">BENEFICIARY:
             <strong><?= h($projectDetails->beneficiary) ?> </strong>
         </P>
@@ -155,11 +153,10 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
-
     </div>
-    <div>
+    <!-- <div>
         <h6 style="font-weight:bolder; margin-left: 100px;" class="font-weight-bold">CHALLENGES/ISSUES:</h6>
-    </div>
+    </div> -->
     <div style="width: 900px;">
         <p style="margin-left: 100px" class="font-weight-bold">Next Step/Action Plan: </p>
         <table style="margin-left: 100px; padding-right: 100px;" cellpadding="0" cellspacing="0" class="table table-sm table-bordered br-m">
@@ -189,17 +186,46 @@
                         </td>
                     </tr>
                 <?php endforeach; ?>
-
-
             </tbody>
         </table>
-        <p style="margin-left: 100px" class="font-weight-bold">Prepared by: </p>
-        <br>
-        <p style="margin-left: 100px; margin-bottom: 100px;" class="font-weight-bold"> State Programme Coordinator
-        </p>
     </div>
-</div>
 
+    <div style="width: 900px;">
+        <p style="margin-left: 100px" class="font-weight-bold">PM commnets: </p>
+        <table style="margin-left: 100px; padding-right: 100px;" cellpadding="0" cellspacing="0" class="table table-sm table-bordered br-m">
+            <thead class="bg-default">
+                <tr>
+                    <th style="width:5%; outline: 1px solid black; color: black !important;">S/N</th>
+                    <th style="outline: 1px solid black; color: black !important;">Task Name</th>
+                    <th style="outline: 1px solid black; color: black !important;">PM comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $num3 = 0; ?>
+                <?php foreach ($activities as $activity) : ?>
+                    <?php $num3++; ?>
+                    <tr>
+                        <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($num3) ?>.</td>
+                        <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($activity->name) ?> </td>
+                        <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($activity->next_activity) ?> </td>
+                        <td class="ml-2" style="outline: 1px solid black; color: black !important;">
+                            <?php
+                            $date2 = $activity->start_date;
+                            $date1 = $activity->end_date;
+                            $date3 = $date1->diff($date2)->format("%a");
+                            ?>
+                            <?= h($date3) ?> days
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <p style="margin-left: 100px" class="font-weight-bold">Prepared by: </p>
+    <br>
+    <p style="margin-left: 100px; margin-bottom: 100px;" class="font-weight-bold"> State Programme Coordinator
+    </p>
+</div>
 <script>
     $("#btnSaveAs").click(function() {
         document.getElementById("nav-btn").style.display = "none"
@@ -209,7 +235,6 @@
             document.getElementById("nav-btn").style.display = "block"
         });
     });
-
     $("#btnPrint").click(
         function() {
             document.getElementById("nav-btn").style.display = "none"

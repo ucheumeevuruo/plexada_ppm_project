@@ -35,5 +35,6 @@ class Task extends Entity
         'pm_comment' => true,
         'activity_id' => true,
         'end_date'=>true,
+        'status_id' => true,
     ];
 }

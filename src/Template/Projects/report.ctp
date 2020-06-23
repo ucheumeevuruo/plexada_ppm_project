@@ -20,13 +20,11 @@ $this->end();
 </style>
 
 <div class="container-fluid  mt-4">
-
     <!-- Breadcrumb area -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <?= $this->Html->link(__('Projects'), ['action' => 'preImplementation']) ?>
-            </li>
             <li class="breadcrumb-item active" aria-current="page">Summary</li>
         </ol>
     </nav>
@@ -77,7 +75,6 @@ $this->end();
                         <div class="h6 mb-0 text-gray-800"><?= h($project->name) ?></div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -162,16 +159,7 @@ $this->end();
                     </div>
                 </div>
             </div>
-            <!-- <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-                <div class="row">
-                    <div class="col-auto">
-                        <i class="fas fa-clock fa-1x text-gray-300"></i>
-                    </div>
-                    <div class="col border-left ">
-                        <i class="fas fa-book fa-1x text-gray-300"></i>
-                    </div>
-                </div>
-            </div> -->
+    
         </div>
     </div>
     <div class="col-xl-3 col-md-6 mb-4">
