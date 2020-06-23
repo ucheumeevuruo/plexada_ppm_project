@@ -17,9 +17,9 @@ $this->end();
         <legend class="text-center font-weight-bolder"><?= __('Add Task') ?></legend>
         <div class="row">
             <div class="col">
-                <?php if (is_null($id)) echo $this->Form->control('activity_id', ['options' => $activities]);
+                <?php if (is_null($id)) echo $this->Form->control('activity_id', ['options' => $activities, 'label' => ['class' => 'mandatory font-weight-bolder']]);
                 else ?>
-                <?= $this->Form->hidden('activity_id', ['value' => $id]) ?>
+                <?= $this->Form->control('activity_id', ['value' => $id, 'label' => ['class' => 'mandatory font-weight-bolder']]) ?>
 
                 <label class="control-label font-weight-bolder mandatory" for="Task_name">Task Name</label>
                 <?= $this->Form->control('Task_name', ['label' => false, 'id' => 'Task_name',]) ?>

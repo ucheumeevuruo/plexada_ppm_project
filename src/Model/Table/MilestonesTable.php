@@ -40,7 +40,7 @@ class MilestonesTable extends Table
         parent::initialize($config);
 
         $this->setTable('milestones');
-        $this->setDisplayField('description');
+        $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
@@ -156,7 +156,6 @@ class MilestonesTable extends Table
         $rules->add($rules->existsIn(['project_id'], 'Projects'));
         $rules->add($rules->existsIn(['status_id'], 'Statuses'));
         //        $rules->add($rules->existsIn(['trigger_id'], 'Lov'));
-
         return $rules;
     }
 }

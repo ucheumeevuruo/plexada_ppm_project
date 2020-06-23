@@ -115,14 +115,42 @@
                         <?php endif; ?>
                         <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($activity->end_date) ?> </td>
                     </tr>
-
                 <?php endforeach; ?>
-
-
             </tbody>
         </table>
 
-
+        <div style="width: 900px;">
+            <p style="margin-left: 100px" class="font-weight-bold">Next Step/Action Plan: </p>
+            <table style="margin-left: 100px; padding-right: 100px;" cellpadding="0" cellspacing="0" class="table table-sm table-bordered br-m">
+                <thead class="bg-default">
+                    <tr>
+                        <th style="width:5%; outline: 1px solid black; color: black !important;">S/N</th>
+                        <th style="outline: 1px solid black; color: black !important;">Activity Name</th>
+                        <th style="outline: 1px solid black; color: black !important;">Next Step/ Action Plan</th>
+                        <th style="outline: 1px solid black; color: black !important;">Timeline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $num3 = 0; ?>
+                    <?php foreach ($activities as $activity) : ?>
+                        <?php $num3++; ?>
+                        <tr>
+                            <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($num3) ?>.</td>
+                            <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($activity->name) ?> </td>
+                            <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($activity->next_activity) ?> </td>
+                            <td class="ml-2" style="outline: 1px solid black; color: black !important;">
+                                <?php
+                                $date2 = $activity->start_date;
+                                $date1 = $activity->end_date;
+                                $date3 = $date1->diff($date2)->format("%a");
+                                ?>
+                                <?= h($date3) ?> days
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
         <p style="margin-left: 100px" class="font-weight-bold">Task Report</p>
         <table style="margin-left: 100px;" cellpadding="0" cellspacing="0" class="table table-sm table-bordered br-m">
             <thead class="bg-default">
@@ -131,6 +159,7 @@
                     <th style="outline: 1px solid black; color: black !important; ">Task Name</th>
                     <th style="outline: 1px solid black; color: black !important; ">Activity Name</th>
                     <th style="outline: 1px solid black; color: black !important; ">Description</th>
+                    <!-- <th style="outline: 1px solid black; color: black !important; ">PM comment</th> -->
                     <th style="outline: 1px solid black; color: black !important;">Predecessor</th>
                     <th style="outline: 1px solid black; color: black !important;">Successor</th>
                 </tr>
@@ -145,6 +174,7 @@
                                 <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($task->Task_name) ?> </td>
                                 <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($activity->name) ?> </td>
                                 <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($task->Description) ?> </td>
+                                <!-- <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($task->pm_comment) ?> </td> -->
                                 <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($task->Predecessor) ?> </td>
                                 <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($task->Successor) ?> </td>
                             </tr>
@@ -157,38 +187,6 @@
     <!-- <div>
         <h6 style="font-weight:bolder; margin-left: 100px;" class="font-weight-bold">CHALLENGES/ISSUES:</h6>
     </div> -->
-    <div style="width: 900px;">
-        <p style="margin-left: 100px" class="font-weight-bold">Next Step/Action Plan: </p>
-        <table style="margin-left: 100px; padding-right: 100px;" cellpadding="0" cellspacing="0" class="table table-sm table-bordered br-m">
-            <thead class="bg-default">
-                <tr>
-                    <th style="width:5%; outline: 1px solid black; color: black !important;">S/N</th>
-                    <th style="outline: 1px solid black; color: black !important;">Activity Name</th>
-                    <th style="outline: 1px solid black; color: black !important;">Next Step/ Action Plan</th>
-                    <th style="outline: 1px solid black; color: black !important;">Timeline</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $num3 = 0; ?>
-                <?php foreach ($activities as $activity) : ?>
-                    <?php $num3++; ?>
-                    <tr>
-                        <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($num3) ?>.</td>
-                        <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($activity->name) ?> </td>
-                        <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($activity->next_activity) ?> </td>
-                        <td class="ml-2" style="outline: 1px solid black; color: black !important;">
-                            <?php
-                            $date2 = $activity->start_date;
-                            $date1 = $activity->end_date;
-                            $date3 = $date1->diff($date2)->format("%a");
-                            ?>
-                            <?= h($date3) ?> days
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
 
     <div style="width: 900px;">
         <p style="margin-left: 100px" class="font-weight-bold">PM commnets: </p>
@@ -201,22 +199,18 @@
                 </tr>
             </thead>
             <tbody>
-                <?php $num3 = 0; ?>
-                <?php foreach ($activities as $activity) : ?>
-                    <?php $num3++; ?>
-                    <tr>
-                        <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($num3) ?>.</td>
-                        <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($activity->name) ?> </td>
-                        <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($activity->next_activity) ?> </td>
-                        <td class="ml-2" style="outline: 1px solid black; color: black !important;">
-                            <?php
-                            $date2 = $activity->start_date;
-                            $date1 = $activity->end_date;
-                            $date3 = $date1->diff($date2)->format("%a");
-                            ?>
-                            <?= h($date3) ?> days
-                        </td>
-                    </tr>
+                <?php $num6 = 0; ?>
+                <?php foreach ($tasks as $task) : ?>
+                    <?php foreach ($activities as $activity) : ?>
+                        <?php if ($task->activity_id == $activity->activity_id) : ?>
+                            <?php $num6++; ?>
+                            <tr>
+                                <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($num6) ?>.</td>
+                                <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($task->Task_name) ?> </td>
+                                <td class="ml-2" style="outline: 1px solid black; color: black !important;"><?= h($task->pm_comment) ?> </td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
                 <?php endforeach; ?>
             </tbody>
         </table>

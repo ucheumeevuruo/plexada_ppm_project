@@ -44,7 +44,6 @@ echo $this->Html->css('mandatory');
                 <?= $this->Form->control('cost', ['autocomplete' => 'off', 'label' => ['class' => 'font-weight-bolder'], 'min' => 0, 'max' => $sumDiff]); ?>
             </div>
         </div>
-
     </fieldset>
     <?= $this->Form->button(__('Submit'), ['class' => 'bg-primary']) ?>
     <?= $this->Form->end() ?>
@@ -81,4 +80,5 @@ echo $this->Html->css('mandatory');
             });
         });
     });
+    
 </script>

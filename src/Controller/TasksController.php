@@ -75,7 +75,7 @@ class TasksController extends AppController
 
             return $this->redirect($this->referer());
         }
-        $activities = $this->Tasks->Activities->find('list', ['limit' => 200]);
+        $activities = $this->Tasks->Activities->find('list')->where(['activity_id' => $id]);
 
         $oldTasks = $this->Tasks->find('list')->where(['activity_id' => $id]);
         $activity = $this->Tasks->Activities->find('all')->where(['activity_id' => $id])->first();
@@ -131,6 +131,7 @@ class TasksController extends AppController
                 'limit' => 200
             ]
         );
+
 
         $this->set(compact('task', 'start_date', 'end_date', 'status'));
     }
