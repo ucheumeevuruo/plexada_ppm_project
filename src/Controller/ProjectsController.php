@@ -142,6 +142,57 @@ class ProjectsController extends AppController
         $this->set(compact('project', 'colorCode'));
     }
 
+    public function reportImplementation($id = null)
+    {
+        $project = $this->Projects->get(
+            $id,
+            [
+                'contain' => [
+                    'Pims',
+                    'ProjectFundings',
+                    'ProjectDetails',
+                    'Activities',
+                    'Annotations',
+                    'Milestones',
+                    'Milestones.Statuses',
+                    'Objectives',
+                    'Prices',
+                    'RiskIssues',
+                    'ProjectDonors',
+                    'ProjectDonors.Sponsors',
+                    'ProjectMdas',
+                    'ProjectMdas.Sponsors',
+                    'ProjectSponsors',
+                    'ProjectSponsors.Sponsors',
+                    'Pads',
+                    'ProjectDetails.Currencies'
+                ],
+            ]
+        );
+
+        $this->loadModel('Milestones');
+        $closedCount =  $this->Milestones->find('all', ['conditions' => ['project_id' => $id, 'status_id' => 3]])->count();
+        $allCount =  $this->Milestones->find('all', ['conditions' => ['project_id' => $id]])->count();
+        if ($allCount === 0) {
+            $colorCode = 'primary';
+        } else {
+            $percent = $closedCount / $allCount;
+            if ($percent <= 0.4) {
+                $colorCode = 'danger';
+            } else if ($percent >= 0.4 && $percent < 0.6) {
+                $colorCode = 'warning';
+            } else if ($percent >= 0.6 && $percent < 0.8) {
+                $colorCode = 'warning';
+            } else if ($percent >= 0.8 && $percent < 1) {
+                $colorCode = 'success';
+            } else if ($percent === 1) {
+                $colorCode = 'black';
+            }
+        }
+
+        $this->set(compact('project', 'colorCode'));
+    }
+
     public function milestones($project_id = null)
     {
         $q = $this->request->getQuery('q');
