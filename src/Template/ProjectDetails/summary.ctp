@@ -138,11 +138,11 @@ $this->end();
                         <?php if ($projectDetail->name != null) : ?>
                             <tr>
                                 <td style="width:5%"><?= h($num) ?></td>
-                                <td><?= h($projectDetail->name) ?></td>
+                                <td><?= $this->Html->link(__($projectDetail->name), ['controller' => 'projects', 'action' => 'report', $projectDetail->project_id]) ?></td>
                                 <td><?= $this->Html->link(
                                         __($stat),
-                                        ['controller' => 'ProjectDetails', 'action' => 'summary'],
-                                        ['escape' => false, 'class' => 'nav-link collapsed']
+                                        [],
+                                        ['escape' => false, 'class' => 'nav-link']
                                     ) ?>
                                 </td>
                                 <td><?= h($percen) ?>%</td>
@@ -200,7 +200,7 @@ $this->end();
                             <?php if ($projectDetail->name != null) : ?>
                                 <tr>
                                     <td style="width:5%"><?= h($num) ?></td>
-                                    <td><?= h($projectDetail->name) ?></td>
+                                    <td><?= $this->Html->link(__($projectDetail->name), ['controller' => 'projects', 'action' => 'report', $projectDetail->project_id]) ?></td>
                                     <td><?= $this->Html->link(
                                             __($stat),
                                             ['controller' => 'ProjectDetails', 'action' => 'summary'],
@@ -262,7 +262,7 @@ $this->end();
 
                             <tr>
                                 <td style="width:5%"><?= h($num) ?></td>
-                                <td><?= h($projectDetail->name) ?></td>
+                                <td><?= $this->Html->link(__($projectDetail->name), ['controller' => 'projects', 'action' => 'report', $projectDetail->project_id]) ?></td>
                                 <td><?= $this->Html->link(
                                         __(' <p class="mb-0" style="background-color: #000;"> &nbsp;  </p>'),
                                         [],
@@ -301,21 +301,18 @@ $this->end();
                         } ?>
                         <?php if ($count != 0 && ($close / $count * 100) >= 40 && ($close / $count * 100) != 100) { ?>
                             <?php $num++; ?>
-
                             <tr>
                                 <td style="width:5%"><?= h($num) ?></td>
-                                <td><?= h($projectDetail->name) ?></td>
+                                <td><?= $this->Html->link(__($projectDetail->name), ['controller' => 'projects', 'action' => 'report', $projectDetail->project_id]) ?></td>
                                 <td><?= $this->Html->link(
                                         __(' <p class="mb-0" style="background-color: #FFFF00;"> &nbsp;  </p>'),
                                         [],
                                         ['escape' => false, 'class' => 'nav-link collapsed']
                                     ) ?>
                                 </td>
-
                                 <td><?= h($percen) ?>%</td>
                                 <td><?= h($projectDetail->start_dt) ?></td>
                                 <td><?= h($projectDetail->end_dt) ?></td>
-
                             </tr>
                         <?php } ?>
                     <?php endforeach; ?>
@@ -346,7 +343,7 @@ $this->end();
 
                             <tr>
                                 <td style="width:5%"><?= h($num) ?></td>
-                                <td><?= h($projectDetail->name) ?></td>
+                                <td><?= $this->Html->link(__($projectDetail->name), ['controller' => 'projects', 'action' => 'report', $projectDetail->project_id]) ?></td>
                                 <td><?= $this->Html->link(
                                         __(' <p class="mb-0" style="background-color: #FF0000;"> &nbsp;  </p>'),
                                         [],

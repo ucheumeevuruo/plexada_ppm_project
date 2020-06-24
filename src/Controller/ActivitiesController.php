@@ -61,6 +61,9 @@ class ActivitiesController extends AppController
             'contain' => ['Projects', 'Milestones', 'Staff', 'Statuses', 'Users', 'Priorities', 'Tasks'],
         ]);
 
+        // debug($activity);
+        // die();
+
         $this->set('activity', $activity);
     }
 

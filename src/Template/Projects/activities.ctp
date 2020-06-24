@@ -147,7 +147,6 @@ $this->Paginator->setTemplates([
                                                 </div>
                                                 <div class="dropdown-item text-gray-900">Indicator Name:
                                                     <?= $activity->has('milestone') ? $activity->milestone->name : 'Not Assigned t0 indicator' ?>
-
                                                 </div>
                                                 <div class="dropdown-item text-gray-900">Activity Name:
                                                     <?= h($activity->name) ?>
