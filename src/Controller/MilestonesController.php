@@ -53,7 +53,6 @@ class MilestonesController extends AppController
     {
 
         //        $project_id = $this->request->getData('project_id');
-
         $project = $this->Milestones->Projects->get($project_id, [
             'contain' => ['ProjectDetails', 'Milestones'],
             'limit' => 200
