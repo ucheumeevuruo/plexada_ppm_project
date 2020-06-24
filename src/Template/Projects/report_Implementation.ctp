@@ -35,22 +35,22 @@ $this->end();
     <!-- Navigation area -->
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <?= $this->Html->link('Summary', ['action' => 'report', $project->id], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
+            <?= $this->Html->link('Summary', ['action' => 'implementation', $project->id], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Indicators', ['controller' => 'projects', 'action' => 'milestones', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+            <?= $this->Html->link('Indicators', ['controller' => 'projects', 'action' => 'report_milestones', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Activities', ['controller' => 'projects', 'action' => 'activities', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+            <?= $this->Html->link('Activities', ['controller' => 'projects', 'action' => 'report_activities', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Disbursement', ['controller' => 'projects', 'action' => 'disburse', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+            <?= $this->Html->link('Disbursement', ['controller' => 'projects', 'action' => 'report_disburse', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Gantt Chart', ['controller' => 'projects', 'action' => 'gantt_chart', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+            <?= $this->Html->link('Gantt Chart', ['controller' => 'projects', 'action' => 'report_gantt_chart', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
         <li class="nav-item">
-            <?= $this->Html->link('Documents', ['controller' => 'projects', 'action' => 'documents', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+            <?= $this->Html->link('Documents', ['controller' => 'projects', 'action' => 'report_documents', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
     </ul>
     <!-- ./end Navigation area -->
