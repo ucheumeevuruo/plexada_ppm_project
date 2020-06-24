@@ -1125,6 +1125,7 @@ class ProjectsController extends AppController
                 'ProjectDetails.Currencies',
                 'Activities'
             ],
+            'limit' => 100,
             // 'conditions' => ['ProjectDetails.system_user_id' => $this->Auth->user('system_user_id')],// This is supposed to show only projects you created. Not fully implemented
             //            'maxLimit' => 3
             'finder' => [
