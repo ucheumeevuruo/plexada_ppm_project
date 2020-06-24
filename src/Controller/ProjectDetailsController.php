@@ -116,7 +116,7 @@ class ProjectDetailsController extends AppController
             $fromnumber = strtotime($splitfrom[1] . '/' . $splitfrom[0] . '/' . $splitfrom[2]);
             $tonumber = strtotime($splitto[1] . '/' . $splitto[0] . '/' . $splitto[2]);
 
-            $this->set(compact('fromnumber', 'tonumber'));
+            $this->set(compact('fromnumber', 'tonumber','from','to'));
         }
 
         $projectDetails = $this->ProjectDetails->find('all')->contain(['Currencies']);
@@ -124,7 +124,7 @@ class ProjectDetailsController extends AppController
         $this->loadModel('Sponsors');
         $sponsors = $this->Sponsors->find('all');
 
-
+        
         $staff = $this->ProjectDetails->Staff->find('all');
         $this->loadModel('Milestones');
         $milestone_list =  $this->Milestones->find('all');
@@ -133,6 +133,8 @@ class ProjectDetailsController extends AppController
         $this->loadModel('ProjectFundings');
         $projectfundings =  $this->ProjectFundings->find('all');
 
+        $from = $this->request->getData('from');
+        $to = $this->request->getData('to');
 
         $this->set(compact('projectDetails', 'staff', 'milestone_list', 'activities', 'projectfundings', 'sponsors'));
     }
@@ -234,9 +236,11 @@ class ProjectDetailsController extends AppController
         $tasks =  $this->Tasks->find('all');
 
     
-
-
-        $this->set(compact('projectDetails', 'sponsors', 'amountDisbursed', 'milestones', 'activities', 'tasks', 'sponsorDetails'));
+        $from = $this->request->getData('datefrom');
+        $to = $this->request->getData('dateto');
+        // debug($from);
+        // die();
+        $this->set(compact('from','to','projectDetails', 'sponsors', 'amountDisbursed', 'milestones', 'activities', 'tasks', 'sponsorDetails'));
     }
 
 

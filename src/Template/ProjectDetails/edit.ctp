@@ -63,7 +63,7 @@ $this->end();
 
         <?= $this->Form->control('project.project_sponsor.sponsor_id', ['options' => $sponsors, 'empty' => true, 'label' => ['class' => 'font-weight-bolder', 'text' => 'Sponsor']]); ?>
 
-        <?= $this->Form->control('project.project_donor.sponsor_id', ['options' => $donors, 'empty' => true, 'label' => ['class' => 'font-weight-bolder', 'text' => 'Donor']]); ?>
+        <?= $this->Form->control('project.project_donor.sponsor_id', ['options' => $donors, 'empty' => true, 'label' => ['class' => 'font-weight-bolder', 'text' => 'Funding Agency']]); ?>
 
         <?= $this->Form->control('project.project_mda.sponsor_id', ['options' => $mdas, 'empty' => true, 'label' => ['class' => 'font-weight-bolder', 'text' => 'MDA']]); ?>
         <!-- echo $this->Form->control('DLI'); -->
