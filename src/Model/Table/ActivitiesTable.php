@@ -41,7 +41,8 @@ class ActivitiesTable extends Table
         parent::initialize($config);
 
         $this->setTable('activities');
-        $this->setDisplayField('next_activity');
+        $this->setDisplayField('name');
+        // $this->setDisplayField('next_activity');
         $this->setPrimaryKey('activity_id');
 
         $this->addBehavior('Timestamp');

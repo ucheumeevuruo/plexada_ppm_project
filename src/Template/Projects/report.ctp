@@ -53,7 +53,6 @@ $this->end();
 
 
     <!-- Menu area [Search, pagination] -->
-
     <!-- I was supposed to put this section in the element template but will do that soon. -->
     <nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
         <a class="navbar-brand" href="#">Summary</a>
@@ -150,7 +149,7 @@ $this->end();
                         <div class="h6 mb-1 text-gray-800">Budget :
                             <?= $this->Number->format($project->project_detail->budget, ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']) ?>
                         </div>
-                        <div class="h6 mb-1 text-gray-800">Expenses :
+                        <div class="h6 mb-1 text-gray-800">Annual Disbursement :
                             <?= $this->Number->format($project->project_detail->expenses, ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']) ?>
                         </div>
                     </div>

@@ -77,7 +77,6 @@ class ActivitiesController extends AppController
     }
 
 
-
     /**
      * Add method
      *

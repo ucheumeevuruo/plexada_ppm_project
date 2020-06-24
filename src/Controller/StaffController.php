@@ -188,6 +188,7 @@ class StaffController extends AppController
                         }
                     }
                 }
+
                 // sending email to task that is overdue
                 foreach ($tasks as $task) {
                     $taskDate = Strtotime($task->Start_date);
@@ -209,7 +210,6 @@ class StaffController extends AppController
                             ->send($msg . $msg1);
                     }
                 }
-
                 $staff = $this->Staff->find('all')
                     ->contain(['Roles'])
                     ->where(['system_user_id' => $user['id']])
