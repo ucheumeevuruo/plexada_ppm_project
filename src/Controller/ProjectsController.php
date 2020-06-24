@@ -139,6 +139,8 @@ class ProjectsController extends AppController
             }
         }
 
+        $projectHome = "preImplementation";
+
         $this->set(compact('project', 'colorCode'));
     }
 
