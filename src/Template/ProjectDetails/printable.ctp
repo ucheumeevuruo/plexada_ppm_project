@@ -1,10 +1,21 @@
+<?php
+
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\ProjectDetail $projectDetail
+ */
+?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
 
 <nav id="nav-btn" class="float-right">
+<?= $this->Form->create(); ?>
+    <!-- <input type="text" value="<?= $from; ?>" id="from">
+    <input type="text" value="<?= $to; ?>" id = "to">
     <button class="btn btn-info">
         <?= $this->Html->link(__('<i class="fa fa-backward"> Back</i>'), ['action' => 'evaluation'], ['label' => false, 'escape' => false, 'title' => 'Go back', 'class' => 'text-light font-weight-bold']) ?>
-    </button>
+    </button> -->
+<?= $this->Form->end() ?>
     <button id="btnSaveAs" class="btn btn-info"><i class="fa fa-download"> Download</i> </button>
     <button id="btnPrint" class="btn btn-info"><i class="fa fa-print"> Print</i> </button>
 </nav>

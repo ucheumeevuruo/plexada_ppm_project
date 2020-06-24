@@ -21,6 +21,8 @@ $this->end();
                 <h6 class="font-weight-bold">Summarize Information</h6>
                 <div>
                     <?= $this->Form->create(); ?>
+                    <!-- <input type="text" value="<?= $from; ?>" name="datefrom" id="datefrom">
+                    <input type="text" value="<?= $to; ?>" name = "dateto" id="dateto"> -->
                     <div class="form-group">
                         <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
                             <input type="text" class="form-control" placeholder="Date of Report" name="reportdate" autocomplete="off">
@@ -182,7 +184,7 @@ $this->end();
                             <tr>
                                 <td style="width:5%" class="text-center"><?= h($num++) ?></td>
                                 <td id="print2">
-                                    <?= $this->Html->link($projectDetail->name, ['controller' => 'projectDetails', 'action' => 'printable', $projectDetail->id], []) ?>
+                                    <?= $this->Html->link(_($projectDetail->name), ['controller' => 'projectDetails', 'action' => 'printable', $projectDetail->id], []) ?>
                                 </td>
                                 <th scope="col">
                                     <?php foreach ($sponsors as $sponsor) : ?>
@@ -239,7 +241,7 @@ $this->end();
 <div id="dialogModal" class="bg-primary">
     <!-- the external content is loaded inside this tag -->
     <div id="contentWrap">
-        <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-lg']) ?>
+        <?= $this->Modal->create(['id' => 'MyModal4', 'size' => 'modal-xlg']) ?>
         <?= $this->Modal->body() // No header
         ?>
         <?= $this->Modal->footer() // Footer with close button (default)
