@@ -139,6 +139,8 @@ class ProjectsController extends AppController
             }
         }
 
+        $projectHome = "preImplementation";
+
         $this->set(compact('project', 'colorCode'));
     }
 
@@ -206,6 +208,20 @@ class ProjectsController extends AppController
         $this->set(compact('milestones', 'project_id'));
     }
 
+    public function reportMilestones($project_id = null)
+    {
+        $q = $this->request->getQuery('q');
+
+        $milestones = $this->Projects->Milestones->find()
+            ->contain(['Statuses', 'Projects.ProjectDetails.Currencies'])
+            ->where(['Milestones.project_id' => $project_id]);
+
+        $milestones = $this->paginate($milestones);
+
+        $this->set(compact('milestones', 'project_id'));
+    }
+
+
     public function indicators($project_id = null)
     {
         $q = $this->request->getQuery('q');
@@ -220,6 +236,43 @@ class ProjectsController extends AppController
     }
 
     public function activities($project_id = null)
+    {
+
+        $q = $this->request->getQuery('q');
+
+        $activities = $this->Projects->Activities->find();
+
+        $activities->contain(['Statuses', 'Priorities', 'Currencies', 'Staff', 'Milestones', 'Tasks', 'Projects']);
+
+        $activities->where(['Activities.project_id' => $project_id]);
+
+        if (!is_null($q)) {
+            $activities->andWhere(
+                function ($exp, $query) use ($q) {
+                    return $exp->like('Activities.name', "%$q%");
+                }
+            );
+        }
+
+        $this->paginate = [
+            'maxLimit' => 8
+        ];
+
+        $activities = $this->paginate($activities);
+
+        $project = $this->Projects->get(
+            $project_id,
+            [
+                'contain' => ['ProjectDetails'],
+            ]
+        );
+        $this->loadModel('Milestones');
+        $milestones = $this->Milestones->find('all')->where(['project_id' => $project_id]);
+
+        $this->set(compact('activities', 'project_id', 'project', 'milestones'));
+    }
+
+    public function reportActivities($project_id = null)
     {
 
         $q = $this->request->getQuery('q');
@@ -293,6 +346,17 @@ class ProjectsController extends AppController
         $this->set('project', $project);
     }
 
+    public function reportDocuments($id = null)
+    {
+        $project = $this->Projects->get(
+            $id,
+            [
+                'contain' => ['Pads', 'Pims', 'Documents'],
+            ]
+        );
+
+        $this->set('project', $project);
+    }
 
     public function planning()
     {
@@ -635,6 +699,38 @@ class ProjectsController extends AppController
         $this->set(compact('ganttDetails', 'id', 'project'));
     }
 
+    public function reportGanttChart($id = null)
+    {
+        $array_gantt = array();
+        $array_gantt_child = array();
+        $conn = ConnectionManager::get('default');
+        $qryallprojects = $conn->execute("SELECT * , projects.id as pid  FROM projects inner join project_details on projects.id = project_details.project_id where projects.id= $id");
+        $mlcount = $qryallprojects->fetch('assoc');
+        $num = 1;
+        foreach ($qryallprojects as $projects) {
+            $projectID = $projects['pid'];
+            $object = new \stdClass();
+            $object->id = $num;
+            $object->name = $projects['name'];
+            $object->actualStart = $projects['start_dt'];
+            $object->actualEnd = $projects['end_dt'];
+            $object->children = $this->milestoneRecords($projectID, $num);
+            array_push($array_gantt, $object);
+            $num++;
+        }
+        $ganttDetails = $array_gantt;
+
+
+        $project = $this->Projects->get(
+            $id,
+            [
+                'contain' => ['ProjectDetails'],
+            ]
+        );
+
+        $this->set(compact('ganttDetails', 'id', 'project'));
+    }
+
     public function milestoneRecords($projectID, $num)
     {
         $conn = ConnectionManager::get('default');
@@ -909,6 +1005,60 @@ class ProjectsController extends AppController
         $this->set(compact('id', 'disbursed', 'amount_dis', 'milestone', 'milestones', 'projectDetails', 'array_years', 'disburse_amt'));
     }
 
+
+    public function reportDisburse($id = null)
+    {
+        $this->loadModel('Disbursements');
+        $disbursed =  $this->Disbursements->find('all')->where(['project_id' => $id]);
+
+        $this->loadModel('ProjectDetails');
+        $projectDetails =  $this->ProjectDetails->find('all')->where(['project_id' => $id])->first();
+
+
+        $milestones = $this->Projects->Milestones->find()
+            ->contain(['Projects.ProjectDetails.Currencies'])
+            ->where(['Milestones.project_id' => $id]);
+
+
+        foreach ($milestones as $milestone)
+
+            $amount_dis = 0;
+        foreach ($disbursed as $disburse) {
+            $amount_dis = $amount_dis + $disburse->cost;
+        }
+        $st_date = ($projectDetails->start_dt)->format("Y");
+        $ed_date = ($projectDetails->end_dt)->format("Y");
+        $diff = date_diff($projectDetails->start_dt, $projectDetails->end_dt);
+
+        $array_years = array();
+        $disburse_amt = array();
+        while ($st_date <= $ed_date) {
+            $xx = 1;
+            $y = "$st_date-01-01";
+            $y2 = "$st_date-01-01";
+            $z = "$st_date-12-31";
+            $start_year_obj = new DateTime($y);
+            $start_year = new DateTime($y2);
+            while ($xx < 4) {
+                $ab = "Q$xx";
+                $step_up = (date_add($start_year, date_interval_create_from_date_string('3 months')))->format('Y-m-d');
+                // $end_year_obj = $start_year_obj->modify('+3 month');
+                $a = $start_year_obj->format('Y-m-d');
+                $query = $this->Disbursements->find('all');
+                $query = $query->where(['project_id' => $id, 'start_date >=' => $a, 'start_date <=' => $step_up]);
+                $query = $query->select(['cost' => $query->func()->SUM('cost')])->first();
+                $cummulative = $query['cost'] ? $query['cost'] : 0;
+                array_push($array_years, $st_date . "-" . $ab);
+                array_push($disburse_amt, $cummulative);
+                $start_year_obj->modify('+3 month');
+                $xx++;
+            }
+
+            $st_date++;
+        }
+
+        $this->set(compact('id', 'disbursed', 'amount_dis', 'milestone', 'milestones', 'projectDetails', 'array_years', 'disburse_amt'));
+    }
 
 
 

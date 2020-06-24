@@ -19,12 +19,10 @@ $this->end();
     }
 </style>
 
-<div class="container-fluid  mt-4">
-    <!-- Breadcrumb area -->
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <?= $this->Html->link(__('Projects'), ['action' => 'preImplementation']) ?>
+            <?php 
+                echo $this->element('projectcrumb/default');
+            ?>
+                <!-- <?= $this->Html->link(__('Projects'), ['action' => 'preImplementation']) ?> -->
             <li class="breadcrumb-item active" aria-current="page">Summary</li>
         </ol>
     </nav>
@@ -157,7 +155,6 @@ $this->end();
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     <div class="col-xl-3 col-md-6 mb-4">
