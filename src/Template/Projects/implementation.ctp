@@ -96,7 +96,7 @@ $this->Paginator->setTemplates([
                         <?php if ($count != 0 && (($close / $count * 100) < 100)) { ?>
                             <?php foreach ($approvals as $approval) : ?>
                                 <?php if ($approval->documents_approval == 'Y' && $approval->design_approval == 'Y' && $approval->project_approval == 'Y'  && $approval->project_id == $project->id) : ?>
-
+                                        <!-- <?= debug($approval->documents_approval) ?> -->
                                     <div class="col-xl-3 col-md-6 mb-4">
 
                                         <?php if (date_create($project->project_detail->start_dt) > date_create($todayDate)) : { ?>
@@ -174,29 +174,12 @@ $this->Paginator->setTemplates([
                                                                         <?= $this->Html->link(__('<i class="fas fa-plus-square fa-1x text-primary-300"></i>'), ['controller' => 'milestones', 'action' => 'add', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Indicator']) ?>
                                                                     </div>
 
-                                                                    <!-- <div class="col-auto dropdown no-arrow border-left">
-                                                                        <a class="dropdown-toggle primary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title="Information">
-                                                                            <i class="fas fa-info-circle fa-1x text-primary-300" ></i>
-                                                                        </a>
-                                                                        <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                                                            <?php $indiNum = 1; ?>
-                                                                            <?php foreach ($milestones as $mile) : ?>
-                                                                                <?php if ($mile->project_id == $project->id) : ?>
-                                                                                    <div class="dropdown-item text-gray-900">
-                                                                                        <?= h($indiNum++) ?>. <?= h($mile->name) ?>
-                                                                                    </div>
-                                                                                <?php endif; ?>
-                                                                            <?php endforeach; ?>
-                                                                        </div>
-                                                                    </div> -->
 
                                                                     <div class="col-auto">
                                                                         <!-- <?= $this->Html->link(__('<i class="fas fa-plus-circle fa-1x text-gray-300" style="color: #36B9CC !important"></i>'), ['controller' => 'activities', 'action' => 'add', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Activity']) ?> -->
                                                                     </div>
                                                                     <div class="col-auto dropdown no-arrow border-left">
-                                                                        <!-- <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title="List of Activities"> -->
-                                                                            <!-- <i class="fas fa-info-circle fa-1x text-gray-300" style="color: #36B9CC !important"></i> -->
-                                                                        <!-- </a> -->
+
                                                                         <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                                                             <?php $actNum = 1; ?>
                                                                             <?php foreach ($activities as $act) : ?>
