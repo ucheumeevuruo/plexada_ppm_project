@@ -17,21 +17,28 @@ $this->end();
         <div class="me-dropdowns input-group mb-4" style="display: flex; justify-content:space-between;">
 
             <div class="milestones view large-9 medium-8 columns content">
-                <h3 class="text-center"><?= h($milestone->description) ?></h3>
+                <h3 class="text-center"><?= h($milestone->name) ?></h3>
                 <table class="vertical-table">
+                    <!-- write some line of code here -->
                     <tr>
-                        <th scope="row"><?= __('Record Number') ?></th>
-                        <td><?= h($milestone->record_number) ?></td>
+                        <th scope="row"><?= __('Project Name') ?></th>
+                        <td><?= $milestone->has('project') ? h($milestone->project->name) : '' ?>
+                        </td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Project Detail') ?></th>
-                        <td><?= $milestone->has('project') ? h($milestone->project->name) : '' ?>
-
+                        <th scope="row"><?= __('Indicator Name') ?></th>
+                        <td><?= h($milestone->name) ?>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Payment') ?></th>
-                        <td><?= h($milestone->payment) ?></td>
+                        <td>
+                            <?php if ($milestone->payment == 'Y') : ?>
+                                <?= h('Yes') ?>
+                            <?php else : ?>
+                                <?= h('No') ?>
+                            <?php endif; ?>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Status') ?></th>
@@ -45,36 +52,35 @@ $this->end();
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Achievement') ?></th>
-                        <td><?= h($milestone->achievement) ?></td>
+                        <td><?= $milestone->has('achievement') ? h($milestone->achievement) : 'No Achievement recorded' ?>
+
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <th scope="row"><?= __('Trigger') ?></th>
                         <td><?= $milestone->has('trigger') ? h($milestone->trigger->lov_value) : '' ?>
                         </td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Id') ?></th>
-                        <td><?= $this->Number->format($milestone->id) ?></td>
-                    </tr>
+                    </tr> -->
                     <tr>
                         <th scope="row"><?= __('Amount') ?></th>
-                        <td><?= $this->Number->format($milestone->amount) ?></td>
+                        <td><?= $this->Number->format($milestone->amount, ['before' => $milestone->project->project_detail->has('currency') ? $milestone->project->project_detail->currency->symbol : '']) ?>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Completed Date') ?></th>
-                        <td><?= h($milestone->completed_date) ?></td>
+                        <td><?= $milestone->has('completed_date') ? h($milestone->completed_date) : 'Not yet completed' ?></td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Expected Completion Date') ?></th>
-                        <td><?= h($milestone->expected_completion_date) ?></td>
+                        <td><?= $milestone->has('expected_completion_date') ? h($milestone->expected_completion_date) : 'Not yet completed' ?></td>
+
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Created') ?></th>
-                        <td><?= h($milestone->created) ?></td>
+                        <td><?= h($milestone->created->format('d/m/Y  H:i:s')) ?></td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Modified') ?></th>
-                        <td><?= h($milestone->modified) ?></td>
+                        <td><?= h($milestone->modified->format('d/m/Y  H:i:s')) ?></td>
                     </tr>
                 </table>
             </div>
@@ -96,8 +102,8 @@ $this->end();
             <tbody>
                 <?php $num = 0; ?>
                 <?php foreach ($milestone->activities as $activity) : ?>
-                <?php $num++; ?>
-                <?php if (h($activity->status_id, ['controller' => 'activities'] == 1)) {
+                    <?php $num++; ?>
+                    <?php if (h($activity->status_id, ['controller' => 'activities'] == 1)) {
                         $status = 'Open';
                     } elseif (h($activity->status_id, ['controller' => 'activities'] == 1)) {
                         $status = 'Not yet started';
@@ -105,8 +111,8 @@ $this->end();
                         $status = 'Close';
                     }
                     ?>
-                <p class="card-text">
-                </p>
+                    <p class="card-text">
+                    </p>
                 <?php endforeach; ?>
 
             </tbody>
