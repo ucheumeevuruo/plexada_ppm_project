@@ -74,6 +74,7 @@ $this->Paginator->setTemplates([
                 <span class="progress-bar bg-primary mr-2 rounded" role="progressbar" style="width:5%"></span><strong class="mr-1">Project On hold </strong>
                 <span class="progress-bar bg-success mr-2 rounded" role="progressbar" style="width:5%"></span><strong class="mr-1">Project On track </strong>
                 <strong class="progress-bar bg-dark mr-2 rounded" role="progressbar" style="width:5%">Black</strong><strong class="mr-1">Project Completed </strong>
+            </h6>
         </div>
         <div class="grey-bg">
 
@@ -204,7 +205,7 @@ $this->Paginator->setTemplates([
 
                                                 </div>
                                     </div>
-                    
+
 </section>
 
 

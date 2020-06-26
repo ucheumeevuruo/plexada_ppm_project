@@ -160,6 +160,12 @@ $this->Paginator->setTemplates([
                                                 <div class="dropdown-item text-gray-900">Challenges/Issues:
                                                     <?= $activity->has('issues') ? $activity->issues : 'No Issue found' ?>
                                                 </div>
+                                                <div class="dropdown-item text-gray-900">Start Date:
+                                                    <?= $activity->has('start_date') ? ($activity->start_date)->format('d/m/Y') : 'No Start date found' ?>
+                                                </div>
+                                                <div class="dropdown-item text-gray-900">End Date:
+                                                    <?= $activity->has('end_date') ? ($activity->end_date)->format('d/m/Y') : 'No End date found' ?>
+                                                </div>
                                                 <div class="dropdown-item text-gray-900">Next line of Action:
                                                     <?= h($activity->next_activity) ?>
                                                 </div>

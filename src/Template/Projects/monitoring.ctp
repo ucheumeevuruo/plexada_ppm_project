@@ -79,7 +79,20 @@ $this->Paginator->setTemplates([
         <!-- ./end Breadcrumb -->
 
         <h3 class="text-primary text-left font-weight-bold mt-0">Select Project </h3>
+
+        <div style="background-color: #EAECF4">
+            <h6 class="progress">
+
+                <strong class="progress-bar bg-dark mr-2 rounded" role="progressbar" style="width:5%">white</strong><strong class="mr-1">Project about to kick off </strong>
+                <span class="progress-bar bg-danger mr-2 rounded" role="progressbar" style="width:5%"></span><strong class="mr-1">Active but with major concerns </strong>
+                <span class="progress-bar bg-warning mr-2 rounded" role="progressbar" style="width:5%"></span><strong class="mr-1">Active but with limited concerns </strong>
+                <span class="progress-bar bg-primary mr-2 rounded" role="progressbar" style="width:5%"></span><strong class="mr-1">Project On hold </strong>
+                <span class="progress-bar bg-success mr-2 rounded" role="progressbar" style="width:5%"></span><strong class="mr-1">Project On track </strong>
+                <strong class="progress-bar bg-dark mr-2 rounded" role="progressbar" style="width:5%">Black</strong><strong class="mr-1">Project Completed </strong>
+            </h6>
+        </div>
         <div class="grey-bg vh-5 py-4">
+
 
             <div class="row mx-0">
                 <?php foreach ($projects as $project) : ?>

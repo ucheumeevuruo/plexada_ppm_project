@@ -160,9 +160,8 @@ $this->Paginator->setTemplates([
                                                     <?= h('Close') ?>
                                                 <?php endif; ?>
                                             </div>
-                                            <div class="dropdown-item text-gray-900">Start Date: <?= $milestone->start_date ?>
-                                            </div>
-                                            <div class="dropdown-item text-gray-900">End Date: <?= $milestone->end_date ?></div>
+                                            <div class="dropdown-item text-gray-900">Start Date: <?= ($milestone->start_date)->format('d/m/Y') ?></div>
+                                            <div class="dropdown-item text-gray-900">End Date: <?= ($milestone->end_date)->format('d/m/Y') ?></div>
                                         </div>
                                     </div>
                                 </div>

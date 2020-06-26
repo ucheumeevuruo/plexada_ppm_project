@@ -77,9 +77,8 @@ $this->Paginator->setTemplates([
         </button>
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <!-- <div class="mr-auto mt-2 mt-lg-0">
-                <?= $this->Html->link(__('Create'), ['controller' => 'milestones', 'action' => 'add', $project_id], ['class' => 'btn btn-info rounded-0 overlay', 'title' => 'Add', 'escape' => false]) ?>
-            </div> -->
+            <div class="mr-auto mt-2 mt-lg-0">
+            </div>
             <!-- Search Form -->
             <form class="form-inline my-2 my-lg-0" method="get" id="searchable">
                 <input class="form-control rounded-0" type="search" name="q" placeholder="Search">
@@ -98,12 +97,7 @@ $this->Paginator->setTemplates([
                     <?= $this->Paginator->prev(__('<i class="fas fa-less-than fa-1x"></i>'), ['class' => 'test', 'escape' => false]) ?>
 
                     <?= $this->Paginator->next(__('<i class="fas fa-greater-than fa-1x"></i>'), ['escape' => false]) ?>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-th-large fa-1x"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-list fa-1x text-gray-300"></i></a>
-                    </li> -->
+       
                 </ul>
             </div>
         </div>

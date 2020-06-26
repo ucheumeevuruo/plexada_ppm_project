@@ -84,7 +84,7 @@ class MilestonesTable extends Table
 
         $validator
             ->scalar('name')
-            ->maxLength('name', 30)
+            ->maxLength('name', 100)
             ->requirePresence('name', 'create')
             ->notEmptyString('name');
 
