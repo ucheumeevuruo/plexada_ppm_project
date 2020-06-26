@@ -177,7 +177,6 @@ $this->Paginator->setTemplates([
                                                 </div>
                                                 <div class="dropdown-item text-gray-900">PM Comments:
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>

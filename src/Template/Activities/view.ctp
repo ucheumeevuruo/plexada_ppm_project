@@ -36,6 +36,11 @@ $this->end();
                     <td><?= h($activity->description) ?></td>
                 </tr>
                 <tr>
+                    <th scope="row"><?= __('Cost') ?></th>
+                    <td><?= $this->Number->format($activity->cost, ['before' => $activity->has('currency') ? $activity->currency->symbol : '']) ?>
+                    </td>
+                </tr>
+                <tr>
                     <th scope="row"><?= __('Assigned To') ?></th>
                     <td><?= $activity->has('staff') ? $this->Html->link($activity->staff->full_name, ['controller' => 'Staff', 'action' => 'view', $activity->staff->id]) : '' ?>
                 </tr>
@@ -45,11 +50,11 @@ $this->end();
                 </tr>
                 <tr>
                     <th scope="row"><?= __('Start Date') ?></th>
-                    <td><?= h($activity->start_date) ?></td>
+                    <td><?= h($activity->start_date->format('d/m/Y')) ?></td>
                 </tr>
                 <tr>
                     <th scope="row"><?= __('End Date') ?></th>
-                    <td><?= h($activity->end_date) ?></td>
+                    <td><?= h($activity->end_date->format('d/m/Y')) ?></td>
                 </tr>
             </table>
         </div>

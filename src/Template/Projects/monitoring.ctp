@@ -38,7 +38,6 @@ $this->Paginator->setTemplates([
         </button>
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-
             <div class="col-auto mr-auto">
             </div>
             <!-- Search Form -->
@@ -53,11 +52,9 @@ $this->Paginator->setTemplates([
                 <?= $this->Paginator->counter(['format' => __('{{count}}  of {{pages}}')]) ?>
             </span>
             <!-- ./end pagination -->
-
             <div class="mt-2 mt-lg-0">
                 <ul class="navbar-nav">
                     <?= $this->Paginator->prev(__('<i class="fas fa-less-than fa-1x"></i>'), ['class' => 'test', 'escape' => false]) ?>
-
                     <?= $this->Paginator->next(__('<i class="fas fa-greater-than fa-1x"></i>'), ['escape' => false]) ?>
                 </ul>
             </div>
@@ -92,7 +89,6 @@ $this->Paginator->setTemplates([
             </h6>
         </div>
         <div class="grey-bg vh-5 py-4">
-
 
             <div class="row mx-0">
                 <?php foreach ($projects as $project) : ?>

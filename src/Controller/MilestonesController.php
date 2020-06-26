@@ -38,8 +38,12 @@ class MilestonesController extends AppController
     public function view($id = null)
     {
         $milestone = $this->Milestones->get($id, [
-            'contain' => ['Projects', 'Lov', 'Triggers', 'Activities'],
+            'contain' => ['Projects', 'Lov', 'Triggers', 'Activities', 'Projects.ProjectDetails.Currencies'],
         ]);
+        // debug(
+        //     $milestone->$project->project_detail
+        // );
+        // die();
 
         $this->set('milestone', $milestone);
     }
@@ -103,6 +107,7 @@ class MilestonesController extends AppController
         $milestone = $this->Milestones->get($id, [
             'contain' => [],
         ]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             // $milestone = $this->Milestones->patchEntity($milestone, $this->request->getData());
             $milestone = $this->Milestones->patchEntity($milestone, $this->Milestones->identify($this->request->getData()));
