@@ -166,8 +166,6 @@ class StaffController extends AppController
             $today = strtotime(date('m/d/y'));
             $today1 = date_create(date('m/d/Y'));
 
-
-
             if ($user) {
                 // sending email to project less than 5 days to start
                 foreach ($projectDetails as $project) {
@@ -188,7 +186,6 @@ class StaffController extends AppController
                         }
                     }
                 }
-
                 // sending email to task that is overdue
                 foreach ($tasks as $task) {
                     $taskDate = Strtotime($task->Start_date);

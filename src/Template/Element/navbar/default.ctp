@@ -129,8 +129,11 @@
                             <?php foreach ($this->Message->getTasks() as $task) : ?>
                                 <tr>
                                     <td><?= h($num++) ?></td>
-                                    <td><?= h($task->Task_name) ?></td>
-                                    <td><?= h($task->Start_date) ?></td>
+                                    <td>
+                                        <?= $this->Html->link(__($task->Task_name), ['controller' => 'tasks', 'action' => 'view', $task->id], []) ?>
+                                    </td>
+                                    <td><?= h(($task->Start_date)->format('d/m/Y')) ?></td>
+
                                     <td>Open</td>
                                 </tr>
                             <?php endforeach; ?>
@@ -153,9 +156,7 @@
                 </a>
 
                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="dLabel">
-                    <h6 class="dropdown-header">
-                        List of Activities that are overdue
-                    </h6>
+                    <h6 class="dropdown-header">List of Activities that are overdue </h6>
                     <table class="table">
                         <thead>
                             <tr>
@@ -170,8 +171,11 @@
                             <?php foreach ($this->Message->getActivities() as $activity) : ?>
                                 <tr>
                                     <td><?= h($num++) ?></td>
-                                    <td><?= h($activity->name) ?></td>
-                                    <td><?= h($activity->start_date) ?></td>
+                                    <td>
+                                        <?= $this->Html->link(__($activity->name), ['controller' => 'activities', 'action' => 'view', $activity->activity_id], []) ?>
+                                    </td>
+                                    <td><?= h(($activity->start_date)->format('d/m/Y')) ?></td>
+
                                     <td>Open</td>
                                 </tr>
                             <?php endforeach; ?>
@@ -184,20 +188,15 @@
             </li>
         <?php endif; ?>
 
-
         <?php if ($this->Message->indicatorsCount() != 0) : ?>
-
             <li class="nav-item dropdown no-arrow mx-1">
-                <a class="nav-link dropdown-toggle" href="/messages" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Activities Overdue ">
+                <a class="nav-link dropdown-toggle" href="/messages" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Indicators Overdue ">
                     <i class="fa fa-cog slow-spin fa-spin bg-gradient-warning"></i>
 
                     <span class="badge badge-danger badge-counter"><?= $this->Message->indicatorsCount() ?></span>
                 </a>
-
                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="dLabel">
-                    <h6 class="dropdown-header">
-                        List of Indicators that are overdue
-                    </h6>
+                    <h6 class="dropdown-header">List of Indicators that are overdue</h6>
                     <table class="table">
                         <thead>
                             <tr>
@@ -212,11 +211,14 @@
                             <?php foreach ($this->Message->getIndicators() as $indicator) : ?>
                                 <tr>
                                     <td><?= h($num++) ?></td>
-                                    <td><?= h($indicator->name) ?></td>
-                                    <td><?= h($indicator->start_date) ?></td>
+                                    <td>
+                                        <?= $this->Html->link(__($indicator->name), ['controller' => 'milestones', 'action' => 'view', $indicator->id], []) ?>
+                                    </td>
+                                    <td><?= h(($indicator->start_date)->format('d/m/Y')) ?></td>
                                     <td>Open</td>
                                 </tr>
                             <?php endforeach; ?>
+
                         </tbody>
 
                     </table>

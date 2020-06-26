@@ -157,4 +157,16 @@ class MessagesController extends AppController
      return $noOfMessage;
 
      }
+
+    //  public function getProjects() {
+    //     $this->loadModel('Projects');
+    //     $projects =  $this->Projects->find('all');
+
+    //     $count = 0;
+    //     foreach($projects as $project) {
+    //         $count++;
+    //     }
+    //     return $count;
+    //  }
+
 }

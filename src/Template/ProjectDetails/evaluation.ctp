@@ -179,12 +179,11 @@ $this->end();
                             $stat = ' <p class="mb-0" style="background-color: #FF0000"> &nbsp; </p>';
                         }
                         ?>
-
                         <?php if (($startdatenumber >= $fromnumber) && ($enddatenumber <= $tonumber)) : ?>
                             <tr>
                                 <td style="width:5%" class="text-center"><?= h($num++) ?></td>
                                 <td id="print2">
-                                    <?= $this->Html->link(_($projectDetail->name), ['controller' => 'projectDetails', 'action' => 'printable', $projectDetail->id], []) ?>
+                                    <?= $this->Html->link(__($projectDetail->name), ['controller' => 'projectDetails', 'action' => 'printable', $projectDetail->id], []) ?>
                                 </td>
                                 <th scope="col">
                                     <?php foreach ($sponsors as $sponsor) : ?>
