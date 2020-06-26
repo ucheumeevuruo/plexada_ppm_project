@@ -96,7 +96,7 @@ $this->Paginator->setTemplates([
                         <?php if ($count != 0 && (($close / $count * 100) < 100)) { ?>
                             <?php foreach ($approvals as $approval) : ?>
                                 <?php if ($approval->documents_approval == 'Y' && $approval->design_approval == 'Y' && $approval->project_approval == 'Y'  && $approval->project_id == $project->id) : ?>
-                                        <!-- <?= debug($approval->documents_approval) ?> -->
+                                    <!-- <?= debug($approval->documents_approval) ?> -->
                                     <div class="col-xl-3 col-md-6 mb-4">
 
                                         <?php if (date_create($project->project_detail->start_dt) > date_create($todayDate)) : { ?>
@@ -151,16 +151,16 @@ $this->Paginator->setTemplates([
                                                                         <?php foreach ($activities as $activity) : ?>
                                                                             <?php if ($activity->project_id == $project->id) : ?>
                                                                                 <?php if (in_array(7, $container)) : ?>
-                                                                                    <i class="fas fa-check-circle fa-2x text-gray-300 bg-gradient-danger bg-circle"></i>
+                                                                                    <i class="fas fa-check-circle fa-2x text-gray-300" style="color: red !important"></i>
                                                                                     <?php break; ?>
                                                                                 <?php elseif (in_array(8, $container)) : ?>
-                                                                                    <i class="fas fa-check-circle fa-2x text-gray-300 bg-warning"></i>
+                                                                                    <i class="fas fa-check-circle fa-2x text-gray-300" style="color: yellow !important"></i>
                                                                                     <?php break; ?>
                                                                                 <?php elseif (in_array(9, $container)) : ?>
-                                                                                    <i class="fas fa-check-circle fa-2x text-gray-300 bg-primary"></i>
+                                                                                    <i class="fas fa-check-circle fa-2x text-gray-300" style="color: blue !important"></i>
                                                                                     <?php break; ?>
                                                                                 <?php elseif (in_array(10, $container)) : ?>
-                                                                                    <i class="fas fa-check-circle fa-2x text-gray-300 bg-success"></i>
+                                                                                    <i class="fas fa-check-circle fa-2x text-gray-300" style="color: #36B9CC !important"></i>
                                                                                     <?php break; ?>
                                                                                 <?php endif; ?>
                                                                             <?php endif; ?>
@@ -173,7 +173,6 @@ $this->Paginator->setTemplates([
                                                                     <div class="col-auto">
                                                                         <?= $this->Html->link(__('<i class="fas fa-plus-square fa-1x text-primary-300"></i>'), ['controller' => 'milestones', 'action' => 'add', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Indicator']) ?>
                                                                     </div>
-
 
                                                                     <div class="col-auto">
                                                                         <!-- <?= $this->Html->link(__('<i class="fas fa-plus-circle fa-1x text-gray-300" style="color: #36B9CC !important"></i>'), ['controller' => 'activities', 'action' => 'add', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Activity']) ?> -->
@@ -205,6 +204,7 @@ $this->Paginator->setTemplates([
 
                                                 </div>
                                     </div>
+                    
 </section>
 
 

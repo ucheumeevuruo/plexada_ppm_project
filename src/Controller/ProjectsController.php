@@ -1081,7 +1081,6 @@ class ProjectsController extends AppController
             'id' => $q
         ];
 
-
         $this->paginate = [
             'contain' => [
                 'ProjectDetails',
@@ -1147,6 +1146,7 @@ class ProjectsController extends AppController
         $approvals =  $this->Approvals->find('all');
 
         $todayDate = Date('m/d/Y');
+
 
         $this->set(compact('projects', 'milestones', 'projectDetails', 'activities', 'approvals', 'todayDate'));
     }
