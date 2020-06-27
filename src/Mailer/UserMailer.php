@@ -25,5 +25,6 @@ $this->attachments([
 // the template file you will use in this email
 ->template('registered') // By default template with same name as method name is used.
 // the layout  'default.ctp’ file you will use in this email
-->layout(default); //optional field
+->layout('default'); //optional field
+// ->layout(default); //optional field
 }}

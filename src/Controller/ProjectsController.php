@@ -330,7 +330,6 @@ class ProjectsController extends AppController
             ]
         );
 
-
         $this->set('project', $project);
     }
 
@@ -398,7 +397,7 @@ class ProjectsController extends AppController
         $activities = $this->Plans->find()->where(['activity_id' => $id]);
 
 
-        $activities = $this->paginate($activities);
+        $activities = $this->paginate($activities, ['limit' => 200]);
 
 
         $this->loadModel('Plans');
@@ -1014,7 +1013,6 @@ class ProjectsController extends AppController
         $this->loadModel('ProjectDetails');
         $projectDetails =  $this->ProjectDetails->find('all')->where(['project_id' => $id])->first();
 
-
         $milestones = $this->Projects->Milestones->find()
             ->contain(['Projects.ProjectDetails.Currencies'])
             ->where(['Milestones.project_id' => $id]);
@@ -1168,13 +1166,15 @@ class ProjectsController extends AppController
                 'Approvals',
                 'Agreements'
             ],
+            'limit' => 200,
             // 'conditions' => ['ProjectDetails.system_user_id' => $this->Auth->user('system_user_id')],// This is supposed to show only projects you created. Not fully implemented
             //            'maxLimit' => 3
             'finder' => [
                 'byProjectName' => $customFinderOptions
             ]
         ];
-        $projects = $this->paginate($this->Projects);
+        $projects = $this->paginate($this->Projects, ['limit' => 200]);
+       
 
         $this->loadModel('Milestones');
         $milestones =  $this->Milestones->find('all');
@@ -1200,6 +1200,31 @@ class ProjectsController extends AppController
         $this->set(compact('projects', 'milestones', 'projectDetails', 'activities', 'agreements', 'approvals', 'today'));
     }
 
+    public function disburseSummary($id = null)
+    {
+        $project = $this->Projects->get(
+            $id,
+            [
+                'contain' => [
+                    'Disburses', 
+                    'ProjectDetails.Currencies',
+                    'ProjectDetails.Users',
+                    
+                ],
+            ]
+        );
+
+        $total = 0;
+        foreach($project->disburses as $disburse) {
+            $total = $total + $disburse->amount;
+        }
+
+        $this->loadModel('Sponsors');
+        $sponsors =  $this->Sponsors->find('all');
+        // debug($sponsors);
+        // die();
+
+        $this->set(compact('project', 'total', 'sponsors'));
     public function download($id=null){
         $this->loadModel('Documents');
         $document = $this->Documents->get($id);
