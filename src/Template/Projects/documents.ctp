@@ -82,15 +82,16 @@ $this->end();
             <div class="card  shadow h-100 py-0">
                 <div class="card-body py-2 px-2">
                     <div class="row no-gutters align-items-center">
-                        <div class="col mr-2" id="clickable-card" data-attr="">
+                        <div class="col mr-2">
                             <div class="h6 mb-0 font-weight-bold text-gray-800">
                                 <!-- <p><i style="color: blue;">Title: </i><?= $this->Html->link($trimfile[0], []) ?></p> -->
                                 <p><i class="fa fa-tags"> &nbsp;
-                                    </i><?= $this->Html->link($document->file_uploaded, []) ?>
+                                    </i><?= $this->Html->link($document->file_uploaded, ['controller'=>'projects', 'action'=>'download',$document->id]) ?>
                                 </p>
                                 <p><i class="fa fa-clock"> &nbsp; </i><?= h($document->date_uploaded) ?></p>
                                 <p><i class="fa fa-id-card"> &nbsp; </i><?= h($document->document_no) ?></p>
                                 <p><i class="fa fa-sort"> &nbsp; </i><?= h($document->document_type) ?></p>
+                                <p><?= $this->Html->link(__('<i class="fas fa-file-download"></i> &nbsp; Download'), ['controller' => 'Projects', 'action' => 'download', $document->id], ['class' => 'text-decoration-none', 'escape' => false, 'title' => 'Download File']) ?></p>
                             </div>
                         </div>
                     </div>

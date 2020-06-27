@@ -1199,4 +1199,15 @@ class ProjectsController extends AppController
 
         $this->set(compact('projects', 'milestones', 'projectDetails', 'activities', 'agreements', 'approvals', 'today'));
     }
+
+    public function download($id=null){
+        $this->loadModel('Documents');
+        $document = $this->Documents->get($id);
+        $filePath = WWW_ROOT .'documents'. DS . $document->file_uploaded;
+        // print_r($filePath);
+        // exit();
+        $this->response->file($filePath ,
+            array('download'=> true, 'name'=> $document->file_uploaded));
+            return $this->response;
+    }
 }
