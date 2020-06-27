@@ -1174,7 +1174,7 @@ class ProjectsController extends AppController
             ]
         ];
         $projects = $this->paginate($this->Projects, ['limit' => 200]);
-       
+
 
         $this->loadModel('Milestones');
         $milestones =  $this->Milestones->find('all');
@@ -1206,16 +1206,16 @@ class ProjectsController extends AppController
             $id,
             [
                 'contain' => [
-                    'Disburses', 
+                    'Disburses',
                     'ProjectDetails.Currencies',
                     'ProjectDetails.Users',
-                    
+
                 ],
             ]
         );
 
         $total = 0;
-        foreach($project->disburses as $disburse) {
+        foreach ($project->disburses as $disburse) {
             $total = $total + $disburse->amount;
         }
 
@@ -1225,14 +1225,19 @@ class ProjectsController extends AppController
         // die();
 
         $this->set(compact('project', 'total', 'sponsors'));
-    public function download($id=null){
+    }
+    
+    public function download($id = null)
+    {
         $this->loadModel('Documents');
         $document = $this->Documents->get($id);
-        $filePath = WWW_ROOT .'documents'. DS . $document->file_uploaded;
+        $filePath = WWW_ROOT . 'documents' . DS . $document->file_uploaded;
         // print_r($filePath);
         // exit();
-        $this->response->file($filePath ,
-            array('download'=> true, 'name'=> $document->file_uploaded));
-            return $this->response;
+        $this->response->file(
+            $filePath,
+            array('download' => true, 'name' => $document->file_uploaded)
+        );
+        return $this->response;
     }
 }
