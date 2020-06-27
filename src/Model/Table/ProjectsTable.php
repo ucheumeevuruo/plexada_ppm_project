@@ -112,6 +112,9 @@ class ProjectsTable extends Table
         $this->hasOne('Agreements', [
             'foreignKey' => 'project_id',
         ]);
+        $this->hasMany('Disburses', [
+            'foreignKey' => 'project_id',
+        ]);
     }
 
     /**

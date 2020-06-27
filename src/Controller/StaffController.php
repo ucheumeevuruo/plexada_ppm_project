@@ -196,7 +196,7 @@ class StaffController extends AppController
                         $status = 'Open';
                     }
                     if ($taskDate < $today && $task->status_id == 1) {
-                        $msg = 'Task name: '. $task->Task_name . ', ' .'Task date: '. $task->Start_date . ', '.'Task Status: '. $status. "\xA";
+                        $msg = 'Task name: ' . $task->Task_name . ', ' . 'Task date: ' . $task->Start_date . ', ' . 'Task Status: ' . $status . "\xA";
                         $msg1 = 'Task is due, status is uncompleted';
                         $email = new Email('default');
                         $email->from(['projects@plexada-si-apps.com' => 'Ogun state PPM'])
