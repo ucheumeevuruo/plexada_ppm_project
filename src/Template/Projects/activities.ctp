@@ -60,6 +60,9 @@ $this->Paginator->setTemplates([
             <li class="nav-item">
                 <?= $this->Html->link('Documents', ['action' => 'documents', $project_id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
             </li>
+            <li class="nav-item">
+                <?= $this->Html->link('Health', ['action' => 'startedTask', $project_id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+            </li>
         </ul>
         <!-- ./end Navigation area -->
 
@@ -104,9 +107,21 @@ $this->Paginator->setTemplates([
         <div class="grey-bg py-4">
             <div class="row mx-0">
                 <?php foreach ($activities as $activity) : ?>
+                    <?php $color = ''; ?>
+                    <?php $sign = $activity->percentage_completion; ?>
+                    <?php if ($sign == 7) {
+                        $color = 'danger';
+                    } elseif ($sign == 8) {
+                        $color = 'warning';
+                    } elseif ($sign == 9) {
+                        $color = 'primary';
+                    } elseif ($sign == 10) {
+                        $color = 'success';
+                    }
+                    ?>
                     <div class="col-xl-3 col-md-6 mb-4">
                         <?php if ($activity->status_id == 1) : ?>
-                            <div class="card shadow py-0 border border-left-light rounded-lg">
+                            <div class="card shadow py-0 border border-left-<?= $color ?> rounded-lg">
                             <?php endif; ?>
 
                             <?php if ($activity->status_id == 3) : ?>
@@ -116,6 +131,7 @@ $this->Paginator->setTemplates([
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2" id="clickable-sub-applet" data-attr="<?= $this->Url->build(['controller' => 'activities', 'action' => 'view', $activity->activity_id]) ?>">
                                             <?php foreach ($milestones as $milestone) : ?>
+
                                                 <?php if ($activity->milestone_id == $milestone->id) : ?>
                                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                         <?= $milestone->name ?> / <?= $activity->name ?>
