@@ -139,6 +139,7 @@ class ProjectsController extends AppController
             }
         }
 
+
         $projectHome = "preImplementation";
 
         $this->set(compact('project', 'colorCode'));
@@ -268,6 +269,8 @@ class ProjectsController extends AppController
         );
         $this->loadModel('Milestones');
         $milestones = $this->Milestones->find('all')->where(['project_id' => $project_id]);
+
+        // if($activities)
 
         $this->set(compact('activities', 'project_id', 'project', 'milestones'));
     }
@@ -1226,7 +1229,7 @@ class ProjectsController extends AppController
 
         $this->set(compact('project', 'total', 'sponsors'));
     }
-    
+
     public function download($id = null)
     {
         $this->loadModel('Documents');
@@ -1239,5 +1242,54 @@ class ProjectsController extends AppController
             array('download' => true, 'name' => $document->file_uploaded)
         );
         return $this->response;
+    }
+
+    public function startedTask($id = null)
+    {
+        $project = $this->Projects->get(
+            $id,
+            [
+                'contain' => [
+                    'Activities',
+                    'Activities.Tasks',
+                    'Milestones',
+                ],
+            ]
+        );
+        $today = date_create(date('m/d/Y'));
+
+        $total = 0;
+        $openIndicators = 0;
+        $startedIndicators = 0;
+        $closedIndicators = 0;
+        $attentionIndicators = 0;
+
+        foreach ($project->milestones as $milestone) {
+            $total++;
+            if ($milestone->status_id == 3) {
+                $closedIndicators++;
+            } elseif ($milestone->status_id == 2) {
+                $startedIndicators++;
+            } elseif ($milestone->status_id == 1) {
+                $openIndicators++;
+            }
+            $startDiff = date_diff($today, date_create($milestone->start_date));
+            $endDiff = date_diff($today, date_create($milestone->end_date));
+            $startConverted = $startDiff->format('%R%a');
+            $endConverted = $endDiff->format('%R%a');
+
+            if ((int) $startConverted < 0 && $milestone->status_id == 1) {
+                $attentionIndicators++;
+            }
+            if ((int) $endConverted < 0 && $milestone->status_id == 1) {
+                $attentionIndicators++;
+            }
+            if ((int) $endConverted < 0 && $milestone->status_id == 2) {
+                $attentionIndicators++;
+            }
+        }
+
+
+        $this->set(compact('project', 'total', 'closedIndicators', 'openIndicators', 'startedIndicators', 'attentionIndicators'));
     }
 }
