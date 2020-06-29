@@ -52,6 +52,9 @@ $this->end();
         <li class="nav-item">
             <?= $this->Html->link('Documents', ['controller' => 'projects', 'action' => 'report_documents', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Health', ['action' => 'startedTask', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
     </ul>
     <!-- ./end Navigation area -->
 

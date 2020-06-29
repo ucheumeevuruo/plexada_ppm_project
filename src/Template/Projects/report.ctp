@@ -19,46 +19,49 @@ $this->end();
     }
 </style>
 
-            <?php 
-                echo $this->element('projectcrumb/default');
-            ?>
-                <!-- <?= $this->Html->link(__('Projects'), ['action' => 'preImplementation']) ?> -->
-            <li class="breadcrumb-item active" aria-current="page">Summary</li>
-        </ol>
-    </nav>
-    <!-- ./end Breadcrumb -->
+<?php
+echo $this->element('projectcrumb/default');
+?>
+<!-- <?= $this->Html->link(__('Projects'), ['action' => 'preImplementation']) ?> -->
+<li class="breadcrumb-item active" aria-current="page">Summary</li>
+</ol>
+</nav>
+<!-- ./end Breadcrumb -->
 
-    <!-- Navigation area -->
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <?= $this->Html->link('Summary', ['action' => 'report', $project->id], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
-        </li>
-        <li class="nav-item">
-            <?= $this->Html->link('Indicators', ['controller' => 'projects', 'action' => 'milestones', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
-        </li>
-        <li class="nav-item">
-            <?= $this->Html->link('Activities', ['controller' => 'projects', 'action' => 'activities', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
-        </li>
-        <li class="nav-item">
-            <?= $this->Html->link('Disbursement', ['controller' => 'projects', 'action' => 'disburse', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
-        </li>
-        <li class="nav-item">
-            <?= $this->Html->link('Gantt Chart', ['controller' => 'projects', 'action' => 'gantt_chart', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
-        </li>
-        <li class="nav-item">
-            <?= $this->Html->link('Documents', ['controller' => 'projects', 'action' => 'documents', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
-        </li>
-    </ul>
-    <!-- ./end Navigation area -->
+<!-- Navigation area -->
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <?= $this->Html->link('Summary', ['action' => 'report', $project->id], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
+    </li>
+    <li class="nav-item">
+        <?= $this->Html->link('Indicators', ['controller' => 'projects', 'action' => 'milestones', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+    </li>
+    <li class="nav-item">
+        <?= $this->Html->link('Activities', ['controller' => 'projects', 'action' => 'activities', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+    </li>
+    <li class="nav-item">
+        <?= $this->Html->link('Disbursement', ['controller' => 'projects', 'action' => 'disburse', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+    </li>
+    <li class="nav-item">
+        <?= $this->Html->link('Gantt Chart', ['controller' => 'projects', 'action' => 'gantt_chart', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+    </li>
+    <li class="nav-item">
+        <?= $this->Html->link('Documents', ['controller' => 'projects', 'action' => 'documents', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+    </li>
+    <li class="nav-item">
+        <?= $this->Html->link('Health', ['action' => 'startedTask', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+    </li>
+</ul>
+<!-- ./end Navigation area -->
 
 
-    <!-- Menu area [Search, pagination] -->
-    <!-- I was supposed to put this section in the element template but will do that soon. -->
-    <nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
-        <a class="navbar-brand" href="#">Summary</a>
-    </nav>
-    <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($project->name) ?>
-    </h2>
+<!-- Menu area [Search, pagination] -->
+<!-- I was supposed to put this section in the element template but will do that soon. -->
+<nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
+    <a class="navbar-brand" href="#">Summary</a>
+</nav>
+<h2 class="text-primary text-left font-weight-bold mt-3"><?= h($project->name) ?>
+</h2>
 </div>
 <div class="row m-3">
     <div class="col-xl-3 col-md-6 mb-4">
