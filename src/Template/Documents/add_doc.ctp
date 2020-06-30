@@ -20,7 +20,7 @@ $this->end();
 
     <div class="col-xl-8 col-md-6 mb-4">
         <div class="documents form large-9 medium-8 columns content">
-            <?= $this->Form->create($document) ?>
+            <?= $this->Form->create($document,['type' => 'file']) ?>
             <fieldset>
                 <!-- <legend><?= __('Add Document') ?></legend> -->
 
@@ -52,7 +52,8 @@ $this->end();
                     select a file to upload</label>
                 <?php
                 // echo $this->Form->control('date_uploaded');
-                echo $this->Form->control('file_uploaded', ['type' => 'file', 'label' => false, 'class' => 'mb-4']);
+                echo $this->Form->input('file_uploaded', ['type' => 'file', 'label' => false, 'class' => 'mb-4', 'accept'=>
+                '.xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf']);
                 ?>
                 <div class="lg">
                     <legend class="text-gray-600 font-weight-bolder">Last Document Uploaded</legend>
