@@ -43,6 +43,7 @@
         <!-- Nav Item - Alerts -->
         <!-- <li> -->
         <!-- </li> -->
+
         <li class="nav-item dropdown no-arrow mx-1">
             <!-- <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell fa-fw"></i>

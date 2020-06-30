@@ -1273,8 +1273,12 @@ class ProjectsController extends AppController
             } elseif ($milestone->status_id == 1) {
                 $openIndicators++;
             }
-            $startDiff = date_diff($today, date_create($milestone->start_date));
-            $endDiff = date_diff($today, date_create($milestone->end_date));
+            $indiStart = date_create($milestone->start_date->format('m/d/Y'));
+            // debug($indiStart);
+            // die();
+            $indiEnd = date_create($milestone->end_date);
+            $startDiff = date_diff($today, $indiStart);
+            $endDiff = date_diff($today, $indiEnd);
             $startConverted = $startDiff->format('%R%a');
             $endConverted = $endDiff->format('%R%a');
 
@@ -1307,8 +1311,10 @@ class ProjectsController extends AppController
             } elseif ($activity->status_id == 1) {
                 $openActivities++;
             }
-            $startDiff = date_diff($today, date_create($activity->start_date));
-            $endDiff = date_diff($today, date_create($activity->end_date));
+            $actiStart = date_create($activity->start_date);
+            $actiEnd = date_create($activity->end_date);
+            $startDiff = date_diff($today, $actiStart);
+            $endDiff = date_diff($today, $actiEnd);
             $startConverted = $startDiff->format('%R%a');
             $endConverted = $endDiff->format('%R%a');
 
@@ -1343,8 +1349,10 @@ class ProjectsController extends AppController
                 } elseif ($task->status_id == 1) {
                     $openTasks++;
                 }
-                $startDiff = date_diff($today, date_create($activity->start_date));
-                $endDiff = date_diff($today, date_create($activity->end_date));
+                $taskStart = date_create($activity->start_date);
+                $taskEnd = date_create($activity->end_date);
+                $startDiff = date_diff($today, $taskStart);
+                $endDiff = date_diff($today, $taskEnd);
                 $startConverted = $startDiff->format('%R%a');
                 $endConverted = $endDiff->format('%R%a');
 
@@ -1362,7 +1370,6 @@ class ProjectsController extends AppController
 
         // debug($totalTasks);
         // die();
-
 
         $this->set(compact('project', 'totalTasks', 'closedTasks', 'openTasks', 'startedTasks', 'attentionTasks'));
     }

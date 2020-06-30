@@ -57,7 +57,8 @@ class MessageHelper extends Helper
         $count = 0;
         $convertDate = array();
         foreach ($tasks as $task) {
-            $dateDiff = date_diff($today, date_create($task->Start_date));
+            $taskStart = date_create($task->Start_date->format('m/d/Y'));
+            $dateDiff = date_diff($today, $taskStart);
             $converted = $dateDiff->format('%R%a day(s)');
             if ((int) $converted < 0) {
 
@@ -76,7 +77,8 @@ class MessageHelper extends Helper
 
         $count = 0;
         foreach ($tasks as $task) {
-            $dateDiff = date_diff($today, date_create($task->Start_date));
+            $taskStart = date_create($task->Start_date->format('m/d/Y'));
+            $dateDiff = date_diff($today, $taskStart);
             $converted = $dateDiff->format('%R%a day(s)');
             if ((int) $converted < 0) {
                 $count++;
@@ -94,7 +96,8 @@ class MessageHelper extends Helper
         $count = 0;
         $convertDate = array();
         foreach ($activities as $activity) {
-            $dateDiff = date_diff($today, date_create($activity->start_date));
+            $actiStart = date_create($activity->start_date->format('m/d/Y'));
+            $dateDiff = date_diff($today, $actiStart);
             $converted = $dateDiff->format('%R%a day(s)');
             if ((int) $converted < 0) {
 
@@ -112,7 +115,8 @@ class MessageHelper extends Helper
 
         $count = 0;
         foreach ($activities as $activity) {
-            $dateDiff = date_diff($today, date_create($activity->start_date));
+            $actiStart = date_create($activity->start_date->format('m/d/Y'));
+            $dateDiff = date_diff($today, $actiStart);            
             $converted = $dateDiff->format('%R%a day(s)');
             if ((int) $converted < 0) {
 
@@ -130,7 +134,8 @@ class MessageHelper extends Helper
         $count = 0;
         $convertDate = array();
         foreach ($indicators as $indicator) {
-            $dateDiff = date_diff($today, date_create($indicator->start_date));
+            $indiStart = date_create($indicator->start_date->format('m/d/Y'));
+            $dateDiff = date_diff($today, $indiStart);
             $converted = $dateDiff->format('%R%a day(s)');
             if ((int) $converted < 0) {
 
@@ -147,7 +152,8 @@ class MessageHelper extends Helper
 
         $count = 0;
         foreach ($indicators as $indicator) {
-            $dateDiff = date_diff($today, date_create($indicator->start_date));
+            $indiStart = date_create($indicator->start_date->format('m/d/Y'));
+            $dateDiff = date_diff($today, $indiStart);
             $converted = $dateDiff->format('%R%a day(s)');
             if ((int) $converted < 0) {
 
