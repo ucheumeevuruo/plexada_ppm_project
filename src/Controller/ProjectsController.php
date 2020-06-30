@@ -1289,7 +1289,81 @@ class ProjectsController extends AppController
             }
         }
 
+        $this->set(compact('total', 'closedIndicators', 'openIndicators', 'startedIndicators', 'attentionIndicators'));
 
-        $this->set(compact('project', 'total', 'closedIndicators', 'openIndicators', 'startedIndicators', 'attentionIndicators'));
+
+        $totalActivities = 0;
+        $openActivities = 0;
+        $startedActivities = 0;
+        $closedActivities = 0;
+        $attentionActivities = 0;
+
+        foreach ($project->activities as $activity) {
+            $totalActivities++;
+            if ($activity->status_id == 3) {
+                $closedActivities++;
+            } elseif ($activity->status_id == 2) {
+                $startedActivities++;
+            } elseif ($activity->status_id == 1) {
+                $openActivities++;
+            }
+            $startDiff = date_diff($today, date_create($activity->start_date));
+            $endDiff = date_diff($today, date_create($activity->end_date));
+            $startConverted = $startDiff->format('%R%a');
+            $endConverted = $endDiff->format('%R%a');
+
+            if ((int) $startConverted < 0 && $activity->status_id == 1) {
+                $attentionActivities++;
+            }
+            if ((int) $endConverted < 0 && $activity->status_id == 1) {
+                $attentionActivities++;
+            }
+            if ((int) $endConverted < 0 && $activity->status_id == 2) {
+                $attentionActivities++;
+            }
+        }
+        $this->set(compact('totalActivities', 'openActivities', 'startedActivities', 'closedActivities', 'attentionActivities'));
+
+
+        $totalTasks = 0;
+        $openTasks = 0;
+        $startedTasks = 0;
+        $closedTasks = 0;
+        $attentionTasks = 0;
+
+        foreach ($project->activities as $activity) {
+            foreach ($activity->tasks as $task) {
+
+
+                $totalTasks++;
+                if ($task->status_id == 3) {
+                    $closedTasks++;
+                } elseif ($task->status_id == 2) {
+                    $startedTasks++;
+                } elseif ($task->status_id == 1) {
+                    $openTasks++;
+                }
+                $startDiff = date_diff($today, date_create($activity->start_date));
+                $endDiff = date_diff($today, date_create($activity->end_date));
+                $startConverted = $startDiff->format('%R%a');
+                $endConverted = $endDiff->format('%R%a');
+
+                if ((int) $startConverted < 0 && $task->status_id == 1) {
+                    $attentionTasks++;
+                }
+                if ((int) $endConverted < 0 && $task->status_id == 1) {
+                    $attentionTasks++;
+                }
+                if ((int) $endConverted < 0 && $task->status_id == 2) {
+                    $attentionTasks++;
+                }
+            }
+        }
+
+        // debug($totalTasks);
+        // die();
+
+
+        $this->set(compact('project', 'totalTasks', 'closedTasks', 'openTasks', 'startedTasks', 'attentionTasks'));
     }
 }

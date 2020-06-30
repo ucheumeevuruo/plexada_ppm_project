@@ -49,6 +49,9 @@ $this->end();
         <li class="nav-item">
             <?= $this->Html->link('Documents', ['action' => 'documents', $project->id], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
         </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Health', ['action' => 'startedTask', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
     </ul>
     <!-- ./end Navigation area -->
 
@@ -86,7 +89,7 @@ $this->end();
                             <div class="h6 mb-0 font-weight-bold text-gray-800">
                                 <!-- <p><i style="color: blue;">Title: </i><?= $this->Html->link($trimfile[0], []) ?></p> -->
                                 <p><i class="fa fa-tags"> &nbsp;
-                                    </i><?= $this->Html->link($document->file_uploaded, ['controller'=>'projects', 'action'=>'download',$document->id]) ?>
+                                    </i><?= $this->Html->link($document->file_uploaded, ['controller' => 'projects', 'action' => 'download', $document->id]) ?>
                                 </p>
                                 <p><i class="fa fa-clock"> &nbsp; </i><?= h($document->date_uploaded) ?></p>
                                 <p><i class="fa fa-id-card"> &nbsp; </i><?= h($document->document_no) ?></p>
