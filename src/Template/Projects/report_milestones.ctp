@@ -63,6 +63,9 @@ $this->Paginator->setTemplates([
         <li class="nav-item">
             <?= $this->Html->link('Documents', ['action' => 'report_documents', $project_id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
         </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Health', ['action' => 'startedTask', $project_id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
     </ul>
     <!-- ./end Navigation area -->
 

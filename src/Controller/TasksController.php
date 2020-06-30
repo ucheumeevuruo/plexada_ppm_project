@@ -38,7 +38,7 @@ class TasksController extends AppController
         $task = $this->Tasks->get($id, [
             'contain' => [
                 'Activities',
-                'Lov', 
+                'Lov',
                 'Activities.Projects',
                 'Activities.Milestones'
             ],
@@ -48,6 +48,7 @@ class TasksController extends AppController
 
         $this->set('task', $task);
     }
+
 
     /**
      * Add method

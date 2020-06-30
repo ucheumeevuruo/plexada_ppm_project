@@ -139,6 +139,7 @@ class ProjectsController extends AppController
             }
         }
 
+
         $projectHome = "preImplementation";
 
         $this->set(compact('project', 'colorCode'));
@@ -268,6 +269,8 @@ class ProjectsController extends AppController
         );
         $this->loadModel('Milestones');
         $milestones = $this->Milestones->find('all')->where(['project_id' => $project_id]);
+
+        // if($activities)
 
         $this->set(compact('activities', 'project_id', 'project', 'milestones'));
     }
@@ -1226,18 +1229,148 @@ class ProjectsController extends AppController
 
         $this->set(compact('project', 'total', 'sponsors'));
     }
-    
+
     public function download($id = null)
     {
         $this->loadModel('Documents');
         $document = $this->Documents->get($id);
         $filePath = WWW_ROOT . 'documents' . DS . $document->file_uploaded;
-        // print_r($filePath);
-        // exit();
-        $this->response->file(
-            $filePath,
-            array('download' => true, 'name' => $document->file_uploaded)
-        );
+        if (!file_exists($filePath)){
+            $this->Flash->error(__('This file does not exists.'));
+            return $this->redirect($this->referer());
+        }else
+        $this->response->file($filePath ,
+        array('download'=> true, 'name'=> $document->file_uploaded));
         return $this->response;
+    }
+
+    public function startedTask($id = null)
+    {
+        $project = $this->Projects->get(
+            $id,
+            [
+                'contain' => [
+                    'Activities',
+                    'Activities.Tasks',
+                    'Milestones',
+                ],
+            ]
+        );
+        $today = date_create(date('m/d/Y'));
+
+        $total = 0;
+        $openIndicators = 0;
+        $startedIndicators = 0;
+        $closedIndicators = 0;
+        $attentionIndicators = 0;
+
+        foreach ($project->milestones as $milestone) {
+            $total++;
+            if ($milestone->status_id == 3) {
+                $closedIndicators++;
+            } elseif ($milestone->status_id == 2) {
+                $startedIndicators++;
+            } elseif ($milestone->status_id == 1) {
+                $openIndicators++;
+            }
+            $indiStart = date_create($milestone->start_date->format('m/d/Y'));
+            // debug($indiStart);
+            // die();
+            $indiEnd = date_create($milestone->end_date);
+            $startDiff = date_diff($today, $indiStart);
+            $endDiff = date_diff($today, $indiEnd);
+            $startConverted = $startDiff->format('%R%a');
+            $endConverted = $endDiff->format('%R%a');
+
+            if ((int) $startConverted < 0 && $milestone->status_id == 1) {
+                $attentionIndicators++;
+            }
+            if ((int) $endConverted < 0 && $milestone->status_id == 1) {
+                $attentionIndicators++;
+            }
+            if ((int) $endConverted < 0 && $milestone->status_id == 2) {
+                $attentionIndicators++;
+            }
+        }
+
+        $this->set(compact('total', 'closedIndicators', 'openIndicators', 'startedIndicators', 'attentionIndicators'));
+
+
+        $totalActivities = 0;
+        $openActivities = 0;
+        $startedActivities = 0;
+        $closedActivities = 0;
+        $attentionActivities = 0;
+
+        foreach ($project->activities as $activity) {
+            $totalActivities++;
+            if ($activity->status_id == 3) {
+                $closedActivities++;
+            } elseif ($activity->status_id == 2) {
+                $startedActivities++;
+            } elseif ($activity->status_id == 1) {
+                $openActivities++;
+            }
+            $actiStart = date_create($activity->start_date);
+            $actiEnd = date_create($activity->end_date);
+            $startDiff = date_diff($today, $actiStart);
+            $endDiff = date_diff($today, $actiEnd);
+            $startConverted = $startDiff->format('%R%a');
+            $endConverted = $endDiff->format('%R%a');
+
+            if ((int) $startConverted < 0 && $activity->status_id == 1) {
+                $attentionActivities++;
+            }
+            if ((int) $endConverted < 0 && $activity->status_id == 1) {
+                $attentionActivities++;
+            }
+            if ((int) $endConverted < 0 && $activity->status_id == 2) {
+                $attentionActivities++;
+            }
+        }
+        $this->set(compact('totalActivities', 'openActivities', 'startedActivities', 'closedActivities', 'attentionActivities'));
+
+
+        $totalTasks = 0;
+        $openTasks = 0;
+        $startedTasks = 0;
+        $closedTasks = 0;
+        $attentionTasks = 0;
+
+        foreach ($project->activities as $activity) {
+            foreach ($activity->tasks as $task) {
+
+
+                $totalTasks++;
+                if ($task->status_id == 3) {
+                    $closedTasks++;
+                } elseif ($task->status_id == 2) {
+                    $startedTasks++;
+                } elseif ($task->status_id == 1) {
+                    $openTasks++;
+                }
+                $taskStart = date_create($activity->start_date);
+                $taskEnd = date_create($activity->end_date);
+                $startDiff = date_diff($today, $taskStart);
+                $endDiff = date_diff($today, $taskEnd);
+                $startConverted = $startDiff->format('%R%a');
+                $endConverted = $endDiff->format('%R%a');
+
+                if ((int) $startConverted < 0 && $task->status_id == 1) {
+                    $attentionTasks++;
+                }
+                if ((int) $endConverted < 0 && $task->status_id == 1) {
+                    $attentionTasks++;
+                }
+                if ((int) $endConverted < 0 && $task->status_id == 2) {
+                    $attentionTasks++;
+                }
+            }
+        }
+
+        // debug($totalTasks);
+        // die();
+
+        $this->set(compact('project', 'totalTasks', 'closedTasks', 'openTasks', 'startedTasks', 'attentionTasks'));
     }
 }

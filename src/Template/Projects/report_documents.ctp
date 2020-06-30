@@ -49,6 +49,9 @@ $this->end();
         <li class="nav-item">
             <?= $this->Html->link('Documents', ['action' => 'report_documents', $project->id], ['id' => 'transmit', 'class' => 'nav-link active']) ?>
         </li>
+        <li class="nav-item">
+            <?= $this->Html->link('Health', ['action' => 'startedTask', $project->id], ['id' => 'transmit', 'class' => 'nav-link']) ?>
+        </li>
     </ul>
     <!-- ./end Navigation area -->
 
@@ -56,15 +59,12 @@ $this->end();
     <!-- I was supposed to put this section in the element template but will do that soon. -->
     <nav class="navbar navbar-expand-lg sticky-top mb-4 white-bg navbar-light bg-light shadow">
         <a class="navbar-brand" href="#">Documents</a>
-        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button> -->
+
         <div class="btn-group" role="group" aria-label="Basic example">
             <?= $this->Html->link('<i class="fa fa-upload fa-lg"></i>', ['controller' => 'documents', 'action' => 'add', $project->id], ['id' => 'transmit', 'class' => 'nav-col', 'class' => 'btn btn-light overlay ml-2', 'title' => 'Add', 'escape' => false]) ?>
 
         </div>
     </nav>
-
 
     <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($project->name) ?> </h2>
 </div>

@@ -67,7 +67,6 @@ $this->Paginator->setTemplates([
         <!-- ./end Breadcrumb -->
         <div style="background-color: #EAECF4">
             <h6 class="progress">
-
                 <strong class="progress-bar bg-dark mr-2 rounded" role="progressbar" style="width:5%">white</strong><strong class="mr-1">Project about to kick off </strong>
                 <span class="progress-bar bg-danger mr-2 rounded" role="progressbar" style="width:5%"></span><strong class="mr-1">Active but with major concerns </strong>
                 <span class="progress-bar bg-warning mr-2 rounded" role="progressbar" style="width:5%"></span><strong class="mr-1">Active but with limited concerns </strong>
@@ -97,114 +96,105 @@ $this->Paginator->setTemplates([
                         <?php if ($count != 0 && (($close / $count * 100) < 100)) { ?>
                             <?php foreach ($approvals as $approval) : ?>
                                 <?php if ($approval->documents_approval == 'Y' && $approval->design_approval == 'Y' && $approval->project_approval == 'Y'  && $approval->project_id == $project->id) : ?>
-                                    <!-- <?= debug($approval->documents_approval) ?> -->
                                     <div class="col-xl-3 col-md-6 mb-4">
-
-                                        <?php if (date_create($project->project_detail->start_dt) > date_create($todayDate)) : { ?>
-                                                <div class="card shadow h-100 py-0 border border-left-light rounded-lg">
-
-                                                <?php } elseif (($close / $count * 100) < 40) : { ?>
-                                                    <div class="card shadow h-100 py-0 border border-left-danger rounded-lg">
-
-                                                    <?php } elseif ((($close / $count * 100) >= 40) && (($close / $count * 100) < 60)) : { ?>
-                                                        <div class="card shadow h-100 py-0 border border-left-warning rounded-lg">
-
-                                                        <?php } elseif ((($close / $count * 100) >= 60) && (($close / $count * 100) < 80)) : { ?>
-                                                            <div class="card shadow h-100 py-0 border border-left-warning rounded-lg">
-
-                                                            <?php } elseif ((($close / $count * 100) >= 80) && (($close / $count * 100) < 100)) : { ?>
-                                                                <div class="card shadow h-100 py-0 border border-left-success rounded-lg">
-
-                                                                <?php  } ?>
+                                        <?php $statusColor = ''; ?>
+                                        <?php $closePercent = ($close / $count * 100); ?>
+                                        <?php if (date_create($project->project_detail->start_dt) > date_create($todayDate)) {
+                                            $statusColor = 'light';
+                                        } elseif ($closePercent < 40) {
+                                            $statusColor = 'danger';
+                                        } elseif ($closePercent >= 40 && $closePercent < 80) {
+                                            $statusColor = 'warning';
+                                        } elseif ($closePercent >= 80 && $closePercent < 100) {
+                                            $statusColor = 'success';
+                                        } ?>
+                                        <div class="card shadow h-100 py-0 border border-left-<?= $statusColor ?> rounded-lg">
+                                            <div class="card-body py-2 px-2">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2" id="clickable-card" data-attr="<?= $this->Url->build(['action' => 'reportImplementation', $project->id]) ?>">
+                                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                            <?= $project->name ?>
+                                                        </div>
+                                                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                                                            <?= $project->has('project_detail') ? $this->NumberFormat->format(
+                                                                $project->project_detail->budget,
+                                                                ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']
+                                                            )  : '0.00' ?>
+                                                        </div>
+                                                    </div>
+                                                    <?php if (date_create($project->project_detail->start_dt) > date_create($todayDate)) { ?>
+                                                        <?php $dateDiff =  date_diff(date_create($todayDate), date_create($project->project_detail->start_dt))->format('%R%a day(s)') ?>
+                                                        <div>
+                                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                                <?= h('Start Date') ?>
+                                                            </div>
+                                                            <div class="text-xs font-weight-bold text-default text-uppercase mb-1">
+                                                                <?= h($dateDiff) ?>
+                                                            </div>
+                                                        </div>
+                                                    <?php } ?>
+                                                    <div class="col-auto">
+                                                        <?php $container = array(); ?>
+                                                        <?php foreach ($activities as $activity) : ?>
+                                                            <?php if ($activity->project_id == $project->id) : ?>
+                                                                <?php array_push($container, $activity->percentage_completion); ?>
                                                             <?php endif; ?>
+                                                        <?php endforeach; ?>
+                                                        <?php foreach ($activities as $activity) : ?>
+                                                            <?php if ($activity->project_id == $project->id) : ?>
+                                                                <?php if (in_array(7, $container)) : ?>
+                                                                    <i class="fas fa-check-circle fa-2x text-gray-300" style="color: red !important"></i>
+                                                                    <?php break; ?>
+                                                                <?php elseif (in_array(8, $container)) : ?>
+                                                                    <i class="fas fa-check-circle fa-2x text-gray-300" style="color: yellow !important"></i>
+                                                                    <?php break; ?>
+                                                                <?php elseif (in_array(9, $container)) : ?>
+                                                                    <i class="fas fa-check-circle fa-2x text-gray-300" style="color: blue !important"></i>
+                                                                    <?php break; ?>
+                                                                <?php elseif (in_array(10, $container)) : ?>
+                                                                    <i class="fas fa-check-circle fa-2x text-gray-300" style="color: #36B9CC !important"></i>
+                                                                    <?php break; ?>
+                                                                <?php endif; ?>
+                                                            <?php endif; ?>
+                                                        <?php endforeach; ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
+                                                <div class="row">
+                                                    <div class="col-auto">
+                                                        <?= $this->Html->link(__('<i class="fas fa-plus-square fa-1x text-primary-300"></i>'), ['controller' => 'milestones', 'action' => 'add', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Indicator']) ?>
+                                                    </div>
 
-                                                            <div class="card-body py-2 px-2">
-                                                                <div class="row no-gutters align-items-center">
-                                                                    <div class="col mr-2" id="clickable-card" data-attr="<?= $this->Url->build(['action' => 'reportImplementation', $project->id]) ?>">
-                                                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                                            <?= $project->name ?>
-                                                                        </div>
-                                                                        <div class="h6 mb-0 font-weight-bold text-gray-800">
-                                                                            <?= $project->has('project_detail') ? $this->NumberFormat->format(
-                                                                                $project->project_detail->budget,
-                                                                                ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']
-                                                                            )  : '0.00' ?>
-                                                                        </div>
-                                                                    </div>
-                                                                    <?php if (date_create($project->project_detail->start_dt) > date_create($todayDate)) { ?>
-                                                                        <?php $dateDiff =  date_diff(date_create($todayDate), date_create($project->project_detail->start_dt))->format('%R%a day(s)') ?>
-                                                                        <div>
-                                                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                                                <?= h('Start Date') ?>
-                                                                            </div>
-                                                                            <div class="text-xs font-weight-bold text-default text-uppercase mb-1">
-                                                                                <?= h($dateDiff) ?>
-                                                                            </div>
-                                                                        </div>
-                                                                    <?php } ?>
-                                                                    <div class="col-auto">
-                                                                        <?php $container = array(); ?>
-                                                                        <?php foreach ($activities as $activity) : ?>
-                                                                            <?php if ($activity->project_id == $project->id) : ?>
-                                                                                <?php array_push($container, $activity->percentage_completion); ?>
-                                                                            <?php endif; ?>
-                                                                        <?php endforeach; ?>
-                                                                        <?php foreach ($activities as $activity) : ?>
-                                                                            <?php if ($activity->project_id == $project->id) : ?>
-                                                                                <?php if (in_array(7, $container)) : ?>
-                                                                                    <i class="fas fa-check-circle fa-2x text-gray-300" style="color: red !important"></i>
-                                                                                    <?php break; ?>
-                                                                                <?php elseif (in_array(8, $container)) : ?>
-                                                                                    <i class="fas fa-check-circle fa-2x text-gray-300" style="color: yellow !important"></i>
-                                                                                    <?php break; ?>
-                                                                                <?php elseif (in_array(9, $container)) : ?>
-                                                                                    <i class="fas fa-check-circle fa-2x text-gray-300" style="color: blue !important"></i>
-                                                                                    <?php break; ?>
-                                                                                <?php elseif (in_array(10, $container)) : ?>
-                                                                                    <i class="fas fa-check-circle fa-2x text-gray-300" style="color: #36B9CC !important"></i>
-                                                                                    <?php break; ?>
-                                                                                <?php endif; ?>
-                                                                            <?php endif; ?>
-                                                                        <?php endforeach; ?>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="card-footer no-gutters align-items-center py-0" style="background:#fff">
-                                                                <div class="row">
-                                                                    <div class="col-auto">
-                                                                        <?= $this->Html->link(__('<i class="fas fa-plus-square fa-1x text-primary-300"></i>'), ['controller' => 'milestones', 'action' => 'add', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Indicator']) ?>
-                                                                    </div>
+                                                    <div class="col-auto">
+                                                        <!-- <?= $this->Html->link(__('<i class="fas fa-plus-circle fa-1x text-gray-300" style="color: #36B9CC !important"></i>'), ['controller' => 'activities', 'action' => 'add', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Activity']) ?> -->
+                                                    </div>
+                                                    <div class="col-auto dropdown no-arrow border-left">
 
-                                                                    <div class="col-auto">
-                                                                        <!-- <?= $this->Html->link(__('<i class="fas fa-plus-circle fa-1x text-gray-300" style="color: #36B9CC !important"></i>'), ['controller' => 'activities', 'action' => 'add', $project->id], ['class' => 'overlay', 'escape' => false, 'title' => 'Add Activity']) ?> -->
+                                                        <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                                            <?php $actNum = 1; ?>
+                                                            <?php foreach ($activities as $act) : ?>
+                                                                <?php if ($act->project_id == $project->id) : ?>
+                                                                    <div class="dropdown-item text-gray-900">
+                                                                        <?= h($actNum++) ?>. <?= h($act->name) ?>
                                                                     </div>
-                                                                    <div class="col-auto dropdown no-arrow border-left">
-
-                                                                        <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                                                            <?php $actNum = 1; ?>
-                                                                            <?php foreach ($activities as $act) : ?>
-                                                                                <?php if ($act->project_id == $project->id) : ?>
-                                                                                    <div class="dropdown-item text-gray-900">
-                                                                                        <?= h($actNum++) ?>. <?= h($act->name) ?>
-                                                                                    </div>
-                                                                                <?php endif; ?>
-                                                                            <?php endforeach; ?>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                                </div>
-                                                            </div>
-                                                        <?php endif; ?>
-                                                    <?php endforeach; ?>
-                                                <?php } ?>
-                                            <?php endforeach; ?>
+                                                                <?php endif; ?>
+                                                            <?php endforeach; ?>
                                                         </div>
                                                     </div>
 
                                                 </div>
+                                            </div>
+                                        </div>
                                     </div>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php } ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </section>
 
