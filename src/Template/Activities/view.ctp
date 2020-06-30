@@ -86,6 +86,8 @@ $this->end();
                             <td><?= h($task->Description) ?></td>
                             <?php if ($task->status_id == 3) { ?>
                                 <td><?= h('Close') ?></td>
+                            <?php } elseif ($task->status_id == 2) { ?>
+                                <td><?= h('Started') ?></td>
                             <?php } else { ?>
                                 <td><?= h('Open') ?></td>
                             <?php } ?>
