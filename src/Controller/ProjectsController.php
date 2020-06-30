@@ -1235,12 +1235,12 @@ class ProjectsController extends AppController
         $this->loadModel('Documents');
         $document = $this->Documents->get($id);
         $filePath = WWW_ROOT . 'documents' . DS . $document->file_uploaded;
-        // print_r($filePath);
-        // exit();
-        $this->response->file(
-            $filePath,
-            array('download' => true, 'name' => $document->file_uploaded)
-        );
+        if (!file_exists($filePath)){
+            $this->Flash->error(__('This file does not exists.'));
+            return $this->redirect($this->referer());
+        }else
+        $this->response->file($filePath ,
+        array('download'=> true, 'name'=> $document->file_uploaded));
         return $this->response;
     }
 
