@@ -83,7 +83,7 @@ $this->Paginator->setTemplates([
     <div class="grey-bg vh-4 py-4">
 
         <div class="ml-3">
-            <h5 class="ml-3"><?= h('Indicators Summary')?></h5>
+            <h5 class="ml-3"><?= h('Indicators Summary') ?></h5>
             <table class="table">
                 <thead>
                     <tr>
@@ -101,6 +101,56 @@ $this->Paginator->setTemplates([
                         <td><?= h($startedIndicators) ?></td>
                         <td><?= h($closedIndicators) ?></td>
                         <td><?= h($attentionIndicators) ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="ml-3">
+            <h5 class="ml-3"><?= h('Activities Summary') ?></h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Total Number of Activities</td>
+                        <td>Number of Open</td>
+                        <td>Number of Started</td>
+                        <td>Number of Close</td>
+                        <td>Those that needs attention</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><?= h($totalActivities) ?></td>
+                        <td><?= h($openActivities) ?></td>
+                        <td><?= h($startedActivities) ?></td>
+                        <td><?= h($closedActivities) ?></td>
+                        <td><?= h($attentionActivities) ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="ml-3">
+            <h5 class="ml-3"><?= h('Tasks Summary') ?></h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Total Number of Tasks</td>
+                        <td>Number of Open</td>
+                        <td>Number of Started</td>
+                        <td>Number of Close</td>
+                        <td>Those that needs attention</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><?= h($totalTasks) ?></td>
+                        <td><?= h($openTasks) ?></td>
+                        <td><?= h($startedTasks) ?></td>
+                        <td><?= h($closedTasks) ?></td>
+                        <td><?= h($attentionTasks) ?></td>
                     </tr>
                 </tbody>
             </table>
