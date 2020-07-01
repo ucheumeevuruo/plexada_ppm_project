@@ -69,7 +69,7 @@ $this->Paginator->setTemplates([
         </div>
         <div class="grey-bg">
             <div class="fa-border border-dark">
-                <h6 class="font-weight-bolder ml-3">Completion Stage</h6>
+                <h6 class="font-weight-bolder ml-3">Close Out Stage</h6>
                 <div class="row mx-0">
                     <?php foreach ($projects as $project) : ?>
                         <?php $count = 0; ?>
