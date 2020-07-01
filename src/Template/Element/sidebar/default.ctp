@@ -55,7 +55,7 @@
                         ['escape' => false, 'class' => 'nav-link collapsed']
                     ) ?>
                     <?= $this->Html->link(
-                        __('<i class="fa fa-archive fa-lg"></i> &nbsp;Completion'),
+                        __('<i class="fa fa-archive fa-lg"></i> &nbsp;Close Out'),
                         ['controller' => 'Projects', 'action' => 'completion'],
                         ['escape' => false, 'class' => 'nav-link collapsed']
                     ) ?>

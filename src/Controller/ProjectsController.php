@@ -114,10 +114,12 @@ class ProjectsController extends AppController
                     'ProjectSponsors',
                     'ProjectSponsors.Sponsors',
                     'Pads',
-                    'ProjectDetails.Currencies'
+                    'ProjectDetails.Currencies',
                 ],
             ]
         );
+        $this->loadModel('Staff');
+
 
         $this->loadModel('Milestones');
         $closedCount =  $this->Milestones->find('all', ['conditions' => ['project_id' => $id, 'status_id' => 3]])->count();
@@ -1235,12 +1237,14 @@ class ProjectsController extends AppController
         $this->loadModel('Documents');
         $document = $this->Documents->get($id);
         $filePath = WWW_ROOT . 'documents' . DS . $document->file_uploaded;
-        if (!file_exists($filePath)){
+        if (!file_exists($filePath)) {
             $this->Flash->error(__('This file does not exists.'));
             return $this->redirect($this->referer());
-        }else
-        $this->response->file($filePath ,
-        array('download'=> true, 'name'=> $document->file_uploaded));
+        } else
+            $this->response->file(
+                $filePath,
+                array('download' => true, 'name' => $document->file_uploaded)
+            );
         return $this->response;
     }
 
@@ -1253,9 +1257,29 @@ class ProjectsController extends AppController
                     'Activities',
                     'Activities.Tasks',
                     'Milestones',
+                    'ProjectDetails',
+                    'ProjectDetails.Currencies',
+                    'Disbursements',
+                    'Disbursements.Milestones',
+                    'Disburses'
                 ],
             ]
         );
+
+        $totalDisbursed = 0;
+        foreach ($project->disbursements as $pro) {
+            $totalDisbursed = $totalDisbursed + $pro->cost;
+        }
+        $totalReceived = 0;
+        foreach ($project->disburses as $proDis) {
+            $totalReceived = $totalReceived + $proDis->amount;
+        }
+        // debug($totalReceived);
+        // debug($project);
+        // die();
+        $this->set(compact('totalDisbursed', 'totalReceived'));
+
+
         $today = date_create(date('m/d/Y'));
 
         $total = 0;
@@ -1274,8 +1298,7 @@ class ProjectsController extends AppController
                 $openIndicators++;
             }
             $indiStart = date_create($milestone->start_date->format('m/d/Y'));
-            // debug($indiStart);
-            // die();
+
             $indiEnd = date_create($milestone->end_date);
             $startDiff = date_diff($today, $indiStart);
             $endDiff = date_diff($today, $indiEnd);
