@@ -88,6 +88,9 @@ class ProjectsTable extends Table
         $this->hasMany('Documents', [
             'foreignKey' => 'project_id',
         ]);
+        $this->hasMany('Disbursements', [
+            'foreignKey' => 'project_id',
+        ]);
         $this->hasMany('Tasks', [
             'foreignKey' => 'Task_name',
         ]);
@@ -105,6 +108,11 @@ class ProjectsTable extends Table
             'foreignKey' => 'project_id',
             'conditions' => ['ProjectMdas.sponsor_type_id' => '15'],
         ]);
+        // $this->hasOne('ProjectManagers', [
+        //     'className' => 'ProjectSponsors',
+        //     'foreignKey' => 'project_id',
+        //     'conditions' => ['ProjectMa.sponsor_type_id' => '15'],
+        // ]);
         $this->hasOne('Approvals', [
             'foreignKey' => 'project_id',
             'joinType' => 'RIGHT'

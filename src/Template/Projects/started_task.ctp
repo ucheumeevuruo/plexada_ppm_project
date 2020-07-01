@@ -81,11 +81,66 @@ $this->Paginator->setTemplates([
     <h2 class="text-primary text-left font-weight-bold mt-3"><?= h($project->name) ?>
     </h2>
     <div class="grey-bg vh-4 py-4">
+        <div class="ml-3">
+            <h4 class="text-primary text-left font-weight-bold">Summary</h4>
+
+            <table class="table table-responsive table-condensed text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <td>Budget</td>
+                        <td>Total Disbursed</td>
+                        <td>Total funds received</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> <?= $this->Number->format($project->project_detail->budget, ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']) ?> </td>
+                        <td> <?= $this->Number->format($totalDisbursed, ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']) ?> </td>
+                        <td> <?= $this->Number->format($totalReceived, ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']) ?> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         <div class="ml-3">
-            <h5 class="ml-3"><?= h('Indicators Summary') ?></h5>
-            <table class="table">
-                <thead>
+            <h4 class="text-primary text-left font-weight-bold mt-3">Money Released for Indicators</h4>
+
+            <table class="table table-responsive table-condensed text-center table-md">
+
+                <thead class="table-dark">
+                    <tr>
+                        <td>S/N</td>
+                        <td>Indicator Name</td>
+                        <td>Budget</td>
+                        <td>Amount Disbursed</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $num = 1; ?>
+                    <?php foreach ($project->disbursements as $disburse) : ?>
+                        <tr>
+                            <td><?= h($num++) ?></td>
+
+                            <td><?= h($disburse->milestone->name) ?></td>
+                            <td class="text-right"> <?= $this->Number->format($disburse->milestone->amount, ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']) ?> </td>
+                            <td class="text-right"> <?= $this->Number->format($disburse->cost, ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']) ?> </td>
+
+                        </tr>
+                    <?php endforeach; ?>
+                    <tr>
+                        <td></td>
+                        <td>Total</td>
+                        <td></td>
+                        <td class="text-right"> <?= $this->Number->format($totalDisbursed, ['before' => $project->project_detail->has('currency') ? $project->project_detail->currency->symbol : '']) ?> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="ml-3">
+            <h4 class="text-primary text-left font-weight-bold mt-3">Indicators Summary</h4>
+            <table class="table table-responsive table-condensed text-center">
+                <thead class="table-dark">
                     <tr>
                         <td>Total Number of Indicators</td>
                         <td>Number of Open</td>
@@ -108,9 +163,11 @@ $this->Paginator->setTemplates([
 
 
         <div class="ml-3">
-            <h5 class="ml-3"><?= h('Activities Summary') ?></h5>
-            <table class="table">
-                <thead>
+            <h4 class="text-primary text-left font-weight-bold mt-3">Activities Summary</h4>
+
+            <table class="table table-responsive table-condensed text-center table-md">
+
+                <thead class="table-dark">
                     <tr>
                         <td>Total Number of Activities</td>
                         <td>Number of Open</td>
@@ -133,9 +190,10 @@ $this->Paginator->setTemplates([
 
 
         <div class="ml-3">
-            <h5 class="ml-3"><?= h('Tasks Summary') ?></h5>
-            <table class="table">
-                <thead>
+            <h4 class="text-primary text-left font-weight-bold mt-3">Tasks Summary</h4>
+
+            <table class="table table-responsive table-condensed text-center table-md">
+                <thead class="table-dark">
                     <tr>
                         <td>Total Number of Tasks</td>
                         <td>Number of Open</td>

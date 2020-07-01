@@ -57,20 +57,25 @@ class DocumentsController extends AppController
         if ($this->request->is('post')) {
             $fileName = $this->request->data['file_uploaded']['name'];
             $project_id = $this->request->data['project_id'];
-            $document_no= $this->request->data['document_no'];
-            $document_type= $this->request->data['document_type'];
-            $file_uploaded= $fileName;
-            $url = Router::url('/',true) . 'documents/' . $fileName;
+            $document_no = $this->request->data['document_no'];
+            $document_type = $this->request->data['document_type'];
+            $file_uploaded = $fileName;
+            $url = Router::url('/', true) . 'documents/' . $fileName;
             $uploadPath = 'documents/';
             $uploadFile = $uploadPath . $fileName;
             $document->project_id = $project_id;
             $document->document_no = $document_no;
             $document->document_type = $document_type;
             $document->file_uploaded = $file_uploaded;
-            if (move_uploaded_file($this->request->data['file_uploaded']['tmp_name'], WWW_ROOT . $uploadFile)){
+            // debug($document);
+
+            // die();
+
+
+            if (move_uploaded_file($this->request->data['file_uploaded']['tmp_name'], WWW_ROOT . $uploadFile)) {
                 if ($this->Documents->save($document)) {
                     $this->Flash->success(__('The document has been saved.'));
-    
+
                     return $this->redirect(['controller' => 'Projects', 'action' => 'documents', $id]);
                 }
             }
@@ -78,9 +83,8 @@ class DocumentsController extends AppController
         }
 
         $projects = $this->Documents->Projects->find('list', ['limit' => 200])->where(['id' => $id]);
-        
-        // debug($projects);
-        // die();
+
+
         $this->set(compact('document', 'projects', 'id'));
     }
 
