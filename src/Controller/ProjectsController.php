@@ -376,13 +376,14 @@ class ProjectsController extends AppController
             'contain' => [
                 'ProjectDetails', 'ProjectDetails.Statuses', 'ProjectDetails.Currencies'
             ],
+            'limit' => 200,
             //            'maxLimit' => 3
             'finder' => [
                 'byProjectName' => $customFinderOptions
             ]
         ];
 
-        $projects = $this->paginate($this->Projects);
+        $projects = $this->paginate($this->Projects, ['limit' => 200]);
         // debug($projects);
         // die();
 
@@ -392,7 +393,15 @@ class ProjectsController extends AppController
         $this->loadModel('ProjectDetails');
         $projectDetails =  $this->ProjectDetails->find('all');
 
-        $this->set(compact('projects', 'milestones', 'projectDetails'));
+        $this->loadModel('Approvals');
+        $approvals =  $this->Approvals->find('all');
+
+        // debug($approvals);
+        // die();
+
+        $todayDate = Date('m/d/Y');
+
+        $this->set(compact('projects', 'milestones', 'projectDetails', 'approvals', 'todayDate'));
     }
 
     public function plan($id = null)
@@ -433,13 +442,14 @@ class ProjectsController extends AppController
             'contain' => [
                 'ProjectDetails', 'ProjectDetails.Statuses', 'ProjectDetails.Currencies'
             ],
+            'limit' => 200,
             //            'maxLimit' => 3
             'finder' => [
                 'byProjectName' => $customFinderOptions
             ]
         ];
 
-        $projects = $this->paginate($this->Projects);
+        $projects = $this->paginate($this->Projects, ['limit' => 200]);
 
         $this->loadModel('Milestones');
         $milestones =  $this->Milestones->find('all');
@@ -447,7 +457,13 @@ class ProjectsController extends AppController
         $this->loadModel('ProjectDetails');
         $projectDetails =  $this->ProjectDetails->find('all');
 
-        $this->set(compact('projects', 'milestones', 'projectDetails'));
+        $this->loadModel('Approvals');
+        $approvals =  $this->Approvals->find('all');
+
+
+        $todayDate = Date('m/d/Y');
+
+        $this->set(compact('projects', 'milestones', 'projectDetails', 'approvals', 'todayDate'));
     }
 
     public function disbursement()
@@ -462,13 +478,14 @@ class ProjectsController extends AppController
             'contain' => [
                 'ProjectDetails', 'ProjectDetails.Statuses', 'ProjectDetails.Currencies'
             ],
+            'limit' => 200,
             //            'maxLimit' => 3
             'finder' => [
                 'byProjectName' => $customFinderOptions
             ]
         ];
         $this->loadModel('Projects');
-        $projects = $this->paginate($this->Projects);
+        $projects = $this->paginate($this->Projects, ['limit' => 200]);
 
         $this->loadModel('Milestones');
         $milestones =  $this->Milestones->find('all');
@@ -476,8 +493,14 @@ class ProjectsController extends AppController
         $this->loadModel('ProjectDetails');
         $projectDetails =  $this->ProjectDetails->find('all');
 
+        $this->loadModel('Approvals');
+        $approvals =  $this->Approvals->find('all');
 
-        $this->set(compact('projects', 'milestones', 'projectDetails'));
+
+        $todayDate = Date('m/d/Y');
+
+
+        $this->set(compact('projects', 'milestones','projectDetails', 'approvals', 'todayDate'));
     }
 
 

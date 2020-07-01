@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -16,11 +17,21 @@ class DisbursementsController extends AppController
      *
      * @return \Cake\Http\Response|null
      */
-    public function index($id=null)
+    public function index($id = null)
     {
-        $disbursements = $this->paginate($this->Disbursements->find()->where(['milestone_id'=>$id]) );
+        $disbursements = $this->paginate($this->Disbursements->find()->where(['milestone_id' => $id]));
 
-        $this->set(compact('disbursements'));
+        $total = 0;
+        foreach ($disbursements as $disbursement) {
+            $total = $total + $disbursement->cost;
+        }
+
+        $this->loadModel('ProjectDetails');
+        $projectdetails =  $this->ProjectDetails->find('all');
+
+
+
+        $this->set(compact('disbursements', 'total', 'projectdetails'));
     }
 
     /**
@@ -63,10 +74,10 @@ class DisbursementsController extends AppController
         }
         // $cummulative = $this->Disbursements->
         $query = $this->Disbursements->find('all');
-        $query = $query->where(['milestone_id'=>$id]);
+        $query = $query->where(['milestone_id' => $id]);
         $query = $query->select(['cost' => $query->func()->SUM('cost')])->first();
-        $cummulative = $query['cost'] ? $query['cost']: 0;
-        
+        $cummulative = $query['cost'] ? $query['cost'] : 0;
+
 
         $this->loadModel('Milestones');
         // $milestones = $this->Milestones->find('list', ['limit' => 200, 'conditions' => ['id' => $id]]);
@@ -74,11 +85,11 @@ class DisbursementsController extends AppController
         $projects = $projects_id->project_id;
         $milestones = $id;
         $balance = $projects_id->amount - $cummulative;
-        
+
         // debug($projects);
         // die();
 
-        $this->set(compact('disbursement','milestones','projects','cummulative','projects_id','balance'));
+        $this->set(compact('disbursement', 'milestones', 'projects', 'cummulative', 'projects_id', 'balance'));
     }
 
     /**
@@ -96,7 +107,7 @@ class DisbursementsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             // $disbursement = $this->Disbursements->patchEntity($disbursement, $this->request->getData());
             $disbursement = $this->Disbursements->patchEntity($disbursement, $this->Disbursements->identify($this->request->getData()));
-                       
+
             if ($this->Disbursements->save($disbursement)) {
                 $this->Flash->success(__('The disbursement has been saved.'));
 
@@ -107,7 +118,7 @@ class DisbursementsController extends AppController
         }
         $milestones = $disbursement->milestone_id;
         $projects = $disbursement->project_id;
-        $this->set(compact('disbursement','milestones','projects'));
+        $this->set(compact('disbursement', 'milestones', 'projects'));
     }
 
     /**

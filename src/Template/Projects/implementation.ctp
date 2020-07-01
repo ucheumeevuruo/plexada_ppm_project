@@ -84,7 +84,6 @@ $this->Paginator->setTemplates([
                     <?php foreach ($projects as $project) : ?>
                         <?php $count = 0; ?>
                         <?php $close = 0; ?>
-                        <?php $one = 1; ?>
                         <?php foreach ($milestones as $milestone) : ?>
                             <?php if ($milestone->project_id == $project->id) {
                                 $count++;

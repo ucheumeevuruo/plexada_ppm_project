@@ -17,6 +17,24 @@ $this->end();
         max-height: 100px;
         overflow-y: scroll;
     }
+
+    /* Grow */
+    .hvr-grow {
+        display: inline-block;
+        vertical-align: middle;
+        transform: translateZ(0);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        backface-visibility: hidden;
+        -moz-osx-font-smoothing: grayscale;
+        transition-duration: 0.3s;
+        transition-property: transform;
+    }
+
+    .hvr-grow:hover,
+    .hvr-grow:focus,
+    .hvr-grow:active {
+        transform: scale(1.1);
+    }
 </style>
 
 <?php
@@ -64,7 +82,7 @@ echo $this->element('projectcrumb/default');
 </h2>
 </div>
 <div class="row m-3">
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-6 mb-4 hvr-grow">
         <div class="card  shadow h-100 py-0 border border-left-<?= $colorCode ?> rounded-lg">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
@@ -78,7 +96,7 @@ echo $this->element('projectcrumb/default');
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-6 mb-4 hvr-grow">
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
@@ -92,7 +110,7 @@ echo $this->element('projectcrumb/default');
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-6 mb-4 hvr-grow">
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
@@ -116,7 +134,7 @@ echo $this->element('projectcrumb/default');
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-6 mb-4 hvr-grow">
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
@@ -138,7 +156,7 @@ echo $this->element('projectcrumb/default');
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-6 mb-4 hvr-grow">
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
@@ -160,7 +178,7 @@ echo $this->element('projectcrumb/default');
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-6 mb-4 hvr-grow">
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
@@ -182,7 +200,7 @@ echo $this->element('projectcrumb/default');
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-6 mb-4 hvr-grow">
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
@@ -204,7 +222,7 @@ echo $this->element('projectcrumb/default');
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-6 mb-4 hvr-grow">
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
@@ -219,7 +237,7 @@ echo $this->element('projectcrumb/default');
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-6 mb-4 hvr-grow">
         <div class="card  shadow h-100 py-0">
             <div class="card-body py-2 px-2">
                 <div class="row no-gutters align-items-center">
@@ -231,6 +249,32 @@ echo $this->element('projectcrumb/default');
                             <?= h($project->project_detail->start_dt) ?></div>
                         <div class="h6 mb-1 text-gray-800">End date :
                             <?= h($project->project_detail->end_dt) ?></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4 hvr-grow">
+        <div class="card  shadow h-100 py-0">
+            <div class="card-body py-2 px-2">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class=" font-weight-bold mb-4 mt- 2 text-primary text-uppercase mb-1">
+                            <?= h('Project Manager') ?>
+                        </div>
+                        <div class="h6 mb-0 text-gray-800">
+                            <div class="mb-1">
+
+                                Name: <?= $project->has('project_manager') ? $project->project_manager->manager->full_name : '' ?>
+                            </div>
+                            <div class="mb-1 text-gray-800">
+                                Contact Person: <?= $project->has('project_manager') ? $project->project_manager->sponsor->other_names : '' ?>
+                            </div>
+                            <div class="mb-1 text-gray-800">
+                                Contact Phone: <?= $project->has('project_manager') ? $project->project_manager->sponsor->phone_no : '' ?>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
