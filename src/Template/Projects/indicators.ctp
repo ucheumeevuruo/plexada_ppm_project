@@ -86,13 +86,13 @@ $this->Paginator->setTemplates([
 
             <!-- Pagination -->
             <span class="navbar-text ml-3 pl-4 border-left">
-                <?= $this->Paginator->counter(['format' => __('{{count}}  of {{pages}}')]) ?>
+                <?= $this->Paginator->counter(['format' => __('{{page}}  of {{pages}}')]) ?>
             </span>
             <!-- ./end pagination -->
 
             <div class="mt-2 mt-lg-0">
                 <ul class="navbar-nav">
-                    <?= $this->Paginator->prev(__('<i class="fas fa-less-than fa-1x"></i>'), ['class' => 'test', 'escape' => false]) ?>
+                    <?= $this->Paginator->prev(__('<i class="fas fa-less-than fa-1x ml-2"></i>'), ['class' => 'test', 'escape' => false]) ?>
 
                     <?= $this->Paginator->next(__('<i class="fas fa-greater-than fa-1x"></i>'), ['escape' => false]) ?>
 
